@@ -5,9 +5,6 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 class RegisterWorker extends SwingWorker<Void, Void> {
 
@@ -19,11 +16,19 @@ class RegisterWorker extends SwingWorker<Void, Void> {
 
     @Override
     protected Void doInBackground() {
-        try (Connection conn = DatabaseUtil.getConnection()) {
+        Connection conn = null;
+        boolean hasError = false; // Cờ kiểm tra lỗi
 
-            conn.setAutoCommit(false); // Tắt tự động commit để kiểm soát giao dịch
+        try {
+            conn = DatabaseUtil.getConnection();
+            if (conn == null) {
+                JOptionPane.showMessageDialog(parentFrame, "Không thể kết nối đến database!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
 
-            // Truy cập các trường từ frame cha
+            conn.setAutoCommit(false); // Tắt auto-commit để kiểm soát giao dịch
+
+            // Lấy dữ liệu từ form
             String name = parentFrame.NameField.getText().trim();
             String username = parentFrame.UsernameField.getText().trim();
             String password = parentFrame.PasswordField.getText().trim();
@@ -31,52 +36,57 @@ class RegisterWorker extends SwingWorker<Void, Void> {
             String phone = parentFrame.PhoneField.getText().trim();
             String cccd = parentFrame.CCCDField.getText().trim();
             String address = parentFrame.AddressField.getText().trim();
-            String birth = parentFrame.BirthField.getText().trim(); // Định dạng dd/MM/yyyy
-            String role = (String) parentFrame.RoleBox.getSelectedItem();
+            String birth = parentFrame.BirthField.getText().trim();
             String strgender = (String) parentFrame.GenderBox.getSelectedItem();
-            char gender = strgender.equals("Nam") ? 'M' : 'F';
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+            String hashedpassword = PasswordHashing.hashPassword(password);
+
+            // Kiểm tra rỗng
             if (name.isEmpty() || username.isEmpty() || password.isEmpty() || email.isEmpty()
-                    || phone.isEmpty() || cccd.isEmpty() || address.isEmpty() || birth.isEmpty() || role.isEmpty()) {
-                throw new Exception("Vui lòng điền đầy đủ thông tin!");
-            }
-
-            // Thêm vào bảng USER
-            String sqlUser = "INSERT INTO \"USER\" (FULL_NAME, EMAIL) VALUES (?, ?)";
-
-            try (PreparedStatement pstmtUser = conn.prepareStatement(sqlUser)) {
-
-                pstmtUser.setString(1, name);
-                pstmtUser.setString(2, email);
-                pstmtUser.executeUpdate();
-
-            } catch (SQLException e) {
-
-                if (e.getErrorCode() == 1) { // ORA-00001: unique constraint violated
-                    JOptionPane.showMessageDialog(null, "Email đã tồn tại! Vui lòng sử dụng email khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Lỗi khi thêm người dùng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                }
-                conn.rollback(); // Hủy giao dịch nếu lỗi
+                    || phone.isEmpty() || cccd.isEmpty() || address.isEmpty() || birth.isEmpty() || strgender.isEmpty()) {
+                JOptionPane.showMessageDialog(parentFrame, "Vui lòng điền đầy đủ thông tin!", "Lỗi", JOptionPane.WARNING_MESSAGE);
                 return null;
             }
 
-            System.out.println("here1");
-            int userId = 1;
-            String sqlGetID = "SELECT USER_ID FROM \"USER\" WHERE EMAIL = ? FETCH FIRST 1 ROW ONLY";
+            System.out.println("Bắt đầu thực hiện giao dịch...");
 
+            char gender = strgender.equals("Nam") ? 'M' : 'F';
+
+            // Thêm vào bảng USER
+            String sqlUser = "INSERT INTO \"USER\" (FULL_NAME, EMAIL) VALUES (?, ?)";
+            try (PreparedStatement pstmtUser = conn.prepareStatement(sqlUser)) {
+                pstmtUser.setString(1, name);
+                pstmtUser.setString(2, email);
+                pstmtUser.executeUpdate();
+            } catch (SQLException e) {
+                hasError = true;
+                if (e.getSQLState().equals("23000") || e.getMessage().contains("unique constraint") || e.getErrorCode() == 1) {
+                    JOptionPane.showMessageDialog(parentFrame, "Email đã tồn tại! Vui lòng sử dụng email khác.", "Lỗi", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(parentFrame, "Lỗi khi thêm người dùng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+                return null;
+            }
+
+            // Lấy user ID vừa tạo
+            int userId = -1;
+            String sqlGetID = "SELECT USER_ID FROM \"USER\" WHERE EMAIL = ? FETCH FIRST 1 ROW ONLY";
             try (PreparedStatement pstmtGetID = conn.prepareStatement(sqlGetID)) {
-                pstmtGetID.setString(1, email); // Gán giá trị email vào câu lệnh SQL
+                pstmtGetID.setString(1, email);
                 try (ResultSet rs = pstmtGetID.executeQuery()) {
                     if (rs.next()) {
                         userId = rs.getInt(1);
                         System.out.println("User ID vừa tạo: " + userId);
                     } else {
-                        System.out.println("Không tìm thấy USER_ID cho email: " + email);
+                        hasError = true;
+                        JOptionPane.showMessageDialog(null, "Không tìm thấy USER_ID cho email: " + email, "Lỗi", JOptionPane.ERROR_MESSAGE);
+                        return null;
                     }
                 }
             } catch (SQLException e) {
-
+                hasError = true;
+                JOptionPane.showMessageDialog(null, "Lỗi truy vấn ID người dùng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return null;
             }
 
             // Thêm vào bảng ACCOUNT
@@ -84,32 +94,20 @@ class RegisterWorker extends SwingWorker<Void, Void> {
             try (PreparedStatement pstmtAccount = conn.prepareStatement(sqlAccount)) {
                 pstmtAccount.setInt(1, userId);
                 pstmtAccount.setString(2, username);
-                pstmtAccount.setString(3, password);
+                pstmtAccount.setString(3, hashedpassword);
                 pstmtAccount.executeUpdate();
             } catch (SQLException e) {
-                conn.rollback(); // Hủy toàn bộ giao dịch nếu có lỗi
-                if (e.getErrorCode() == 1) { // ORA-00001: unique constraint violated
-                    JOptionPane.showMessageDialog(null, "Tên đăng nhập đã tồn tại! Vui lòng chọn tên khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                hasError = true;
+                if (e.getSQLState().equals("23000") || e.getMessage().contains("unique constraint") || e.getErrorCode() == 1) {
+                    JOptionPane.showMessageDialog(parentFrame, "Tên đăng nhập đã tồn tại! Vui lòng chọn tên khác.", "Lỗi", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Lỗi khi thêm tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(parentFrame, "Lỗi khi thêm tài khoản: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
-                return null; // Dừng lại khi có lỗi
+                return null;
             }
 
-            // Thêm vào bảng theo vai trò
-            String sqlRole = switch (role) {
-                case "Customer" ->
-                    "INSERT INTO CUSTOMER (ID_CUSTOMER, NAME, ID_CCCD, PHONENUMBER, GENDER, DATE_OF_BIRTH, ADDRESS, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                case "Manager" ->
-                    "INSERT INTO MANAGER (ID_MANAGER, NAME, ID_CCCD, PHONENUMBER, GENDER, DATE_OF_BIRTH, EMAIL, MANAGEMENT_AREA, NUMBERS_DAYOFFS, SALARY) VALUES (?, ?, ?, ?, ?, ?, ?, 'Khu A', 0, 5000000)";
-                case "Employee_WareHouse" ->
-                    "INSERT INTO EMPLOYEE_WAREHOUSE (ID_EMPLOYEE, NAME, ID_CCCD, GENDER, DATE_OF_BIRTH, PHONENUMBER, EMAIL, ID_WAREHOUSE, ID_MANAGER, NUMBERS_DAYOFFS, SALARY) VALUES (?, ?, ?, ?, ?, ?, ?, 'WH01', 1, 0, 3000000)";
-                case "Shipper" ->
-                    "INSERT INTO SHIPPER (ID_SHIPPER, NAME, ID_CCCD, PHONE_NUMBER, GENDER, DATE_OF_BIRTH, EMAIL, ADDRESS_SHIP, RATING, ID_MANAGER, ID_WAREHOUSE, SALARY_FINAL, SALARY_BONUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 5, 1, 'WH01', 4000000, 500000)";
-                default ->
-                    throw new Exception("Vai trò không hợp lệ!");
-            };
-
+            // Thêm vào bảng CUSTOMER
+            String sqlRole = "INSERT INTO CUSTOMER (ID_CUSTOMER, NAME, ID_CCCD, PHONENUMBER, GENDER, DATE_OF_BIRTH, ADDRESS, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             try (PreparedStatement pstmtRole = conn.prepareStatement(sqlRole)) {
                 pstmtRole.setInt(1, userId);
                 pstmtRole.setString(2, name);
@@ -123,33 +121,53 @@ class RegisterWorker extends SwingWorker<Void, Void> {
                     java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                     pstmtRole.setDate(6, sqlDate);
                 } catch (ParseException pe) {
-                    conn.rollback();
-                    JOptionPane.showMessageDialog(null, "Lỗi định dạng ngày sinh! Vui lòng nhập theo định dạng yyyy-MM-dd.");
-                    return null; // Dừng quá trình nếu lỗi định dạng ngày
+                    hasError = true;
+                    JOptionPane.showMessageDialog(null, "Lỗi định dạng ngày sinh! Vui lòng nhập theo yyyy-MM-dd.", "Lỗi", JOptionPane.WARNING_MESSAGE);
+                    return null;
                 }
+
                 pstmtRole.setString(7, email);
-
-                if (role.equals("Customer")) {
-                    pstmtRole.setString(8, address);
-                }
-
+                pstmtRole.setString(8, address);
                 pstmtRole.executeUpdate();
-
             } catch (SQLException e) {
-                conn.rollback(); // Hủy toàn bộ giao dịch nếu có lỗi
-
-                JOptionPane.showMessageDialog(null, "Lỗi khi thêm vai trò: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return null; // Dừng lại khi có lỗi
+                hasError = true;
+               
+                String errorMessage = e.getMessage().toLowerCase();
+                
+                if (e.getSQLState().equals("23000") || errorMessage.contains("unique constraint") || e.getErrorCode() == 1) {
+                    if (errorMessage.contains("cccd")) {
+                        JOptionPane.showMessageDialog(parentFrame, "CCCD đã tồn tại! Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.WARNING_MESSAGE);
+                    } else if (errorMessage.contains("phonenumber")) {
+                        JOptionPane.showMessageDialog(parentFrame, "Số điện thoại đã tồn tại! Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(parentFrame, "Lỗi", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(parentFrame, "Lỗi khi thêm khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+                return null;
             }
 
             JOptionPane.showMessageDialog(null, "Đăng ký thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-            conn.commit(); // Xác nhận transaction
+
         } catch (SQLException e) {
-            conn.rollback();
+            hasError = true;
             JOptionPane.showMessageDialog(null, "Lỗi database: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            conn.rollback();
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (conn != null) {
+                try {
+                    if (hasError) {
+                        conn.rollback();
+                        System.out.println("Rollback giao dịch do lỗi.");
+                    } else {
+                        conn.commit();
+                        System.out.println("Commit giao dịch thành công.");
+                    }
+                    conn.close();
+                } catch (SQLException e) {
+                    System.err.println("Lỗi khi đóng kết nối: " + e.getMessage());
+                }
+            }
         }
 
         return null;
@@ -157,7 +175,6 @@ class RegisterWorker extends SwingWorker<Void, Void> {
 
     @Override
     protected void done() {
-
+        // Thực hiện các hành động sau khi hoàn thành
     }
-
 }

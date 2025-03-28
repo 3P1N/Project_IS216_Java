@@ -25,7 +25,7 @@ public class Login extends LoginFrame {
         String password = new String(PasswordField.getPassword());
 
         // Hash the password (for simplicity, we are not hashing here)
-        String passwordHash = password; // In a real application, hash the password
+        String passwordHash = PasswordHashing.hashPassword(password);; // In a real application, hash the password
 
         try (Connection connection = DatabaseUtil.getConnection()) {
             String sql = "SELECT * FROM Account WHERE USERNAME = ? AND PASSWORD_HASH = ?";
