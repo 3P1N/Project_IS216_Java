@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/LoginFrame.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/RegisterFrame.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/DatabaseUtil.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/AppGiaoVan.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/Asset/RegisterFrame.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/Asset/LoginFrame.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/RegisterWorker.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/MainScreen.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/Login.java</file>
-            <file>file:/D:/code/java/AppGiaoVan/src/appgiaovan/Register.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/MainScreen.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/Asset/LoginFrame.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DatabaseUtil.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/LoginFrame.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/Asset/RegisterFrame.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Login.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
         </group>
     </open-files>
 </project-private>
