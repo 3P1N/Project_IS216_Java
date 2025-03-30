@@ -49,7 +49,7 @@ public class Login extends LoginFrame {
             JOptionPane.showMessageDialog(Login.this, "Database error: " + ex.getMessage());
         }
     }
-
+// OK
     @Override
     protected void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
