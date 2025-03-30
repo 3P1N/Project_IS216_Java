@@ -21,6 +21,7 @@ public class Login extends LoginFrame {
 
     @Override
     protected void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
+        new Thread(()->{
         String username = UsernameField.getText();
         String password = new String(PasswordField.getPassword());
 
@@ -48,6 +49,7 @@ public class Login extends LoginFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(Login.this, "Database error: " + ex.getMessage());
         }
+        }).start();
     }
 // OK
     @Override
