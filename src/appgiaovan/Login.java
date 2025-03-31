@@ -21,7 +21,9 @@ public class Login extends LoginFrame {
 
     @Override
     protected void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {
-        new Thread(()->{
+       
+        new Thread(() -> {
+            
         String username = UsernameField.getText();
         String password = new String(PasswordField.getPassword());
 
@@ -37,7 +39,7 @@ public class Login extends LoginFrame {
 
                 if (resultSet.next()) {
                     // Login successful
-                    JOptionPane.showMessageDialog(Login.this, "Login Successful!");
+                    JOptionPane.showMessageDialog(Login.this, "Đăng nhập thành công!");
                     MainScreen mainscreen = new MainScreen();
                     mainscreen.setVisible(true);
                     dispose(); // Close the login frame
@@ -51,7 +53,7 @@ public class Login extends LoginFrame {
         }
         }).start();
     }
-// OK
+
     @Override
     protected void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
