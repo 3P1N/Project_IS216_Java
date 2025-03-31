@@ -60,5 +60,4 @@ public class Login extends LoginFrame {
         Register register = new Register();
         register.setVisible(true);
     }
-
 }
