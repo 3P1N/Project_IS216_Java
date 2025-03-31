@@ -48,6 +48,18 @@ class RegisterWorker extends SwingWorker<Void, Void> {
                 return null;
             }
 
+            //kiểm tra format
+            if (!CheckFormat.isValidPhone(phone)) {
+                JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ! Vui lòng nhập đủ 10 số và bắt đầu bằng 0.");
+                return null;
+            } else if (!CheckFormat.isValidCCCD(cccd)) {
+                JOptionPane.showMessageDialog(null, "CCCD không hợp lệ! Vui lòng nhập đủ 12 số.");
+                return null;
+            } else if (!CheckFormat.isValidEmail(email)) {
+                JOptionPane.showMessageDialog(null, "Email không hợp lệ! Vui lòng nhập lại theo <text>@gmail.com .");
+                return null;
+            }
+
             System.out.println("Bắt đầu thực hiện giao dịch...");
 
             char gender = strgender.equals("Nam") ? 'M' : 'F';
@@ -116,33 +128,48 @@ class RegisterWorker extends SwingWorker<Void, Void> {
                 pstmtRole.setString(5, String.valueOf(gender));
 
                 try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    Date utilDate = sdf.parse(birth);
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                    sdf.setLenient(false); // Ngăn ngày sai (VD: 30-02-2024)
+
+                    Date utilDate = sdf.parse(birth); // Chuyển chuỗi sang Date
+
+                    // Kiểm tra ngày sinh phải nhỏ hơn ngày hiện tại
+                    Date currentDate = new Date();
+                    if (utilDate.after(currentDate)) {
+                        hasError = true;
+                        JOptionPane.showMessageDialog(null, "Ngày sinh không thể lớn hơn ngày hiện tại!", "Lỗi", JOptionPane.WARNING_MESSAGE);
+                        return null;
+                    }
+
+                    // Chuyển sang java.sql.Date để lưu vào DB
                     java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
                     pstmtRole.setDate(6, sqlDate);
+
                 } catch (ParseException pe) {
                     hasError = true;
-                    JOptionPane.showMessageDialog(null, "Lỗi định dạng ngày sinh! Vui lòng nhập theo yyyy-MM-dd.", "Lỗi", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Lỗi định dạng ngày sinh! Vui lòng nhập theo dd-MM-yyyy.", "Lỗi", JOptionPane.WARNING_MESSAGE);
                     return null;
                 }
 
-                pstmtRole.setString(7, email);
-                pstmtRole.setString(8, address);
+                pstmtRole.setString(7, address);
+                pstmtRole.setString(8, email);
                 pstmtRole.executeUpdate();
             } catch (SQLException e) {
                 hasError = true;
-               
+
                 String errorMessage = e.getMessage().toLowerCase();
-                
+
                 if (e.getSQLState().equals("23000") || errorMessage.contains("unique constraint") || e.getErrorCode() == 1) {
                     if (errorMessage.contains("cccd")) {
                         JOptionPane.showMessageDialog(parentFrame, "CCCD đã tồn tại! Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.WARNING_MESSAGE);
                     } else if (errorMessage.contains("phonenumber")) {
                         JOptionPane.showMessageDialog(parentFrame, "Số điện thoại đã tồn tại! Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.WARNING_MESSAGE);
                     } else {
+                        e.printStackTrace();
                         JOptionPane.showMessageDialog(parentFrame, "Lỗi", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
+                      
                     JOptionPane.showMessageDialog(parentFrame, "Lỗi khi thêm khách hàng: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
                 return null;
