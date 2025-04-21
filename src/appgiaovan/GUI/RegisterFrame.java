@@ -1,5 +1,5 @@
 
-package Asset;
+package appgiaovan.GUI;
 
 import javax.swing.JFrame;
 

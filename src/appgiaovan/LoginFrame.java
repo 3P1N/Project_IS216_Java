@@ -137,7 +137,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     protected void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        Asset.RegisterFrame register = new Asset.RegisterFrame();
+        appgiaovan.GUI.RegisterFrame register = new appgiaovan.GUI.RegisterFrame();
         
         register.setVisible(true);
     }                                           
