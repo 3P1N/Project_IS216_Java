@@ -1,5 +1,5 @@
 
-package appgiaovan;
+package appgiaovan.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
