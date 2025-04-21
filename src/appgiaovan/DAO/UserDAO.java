@@ -13,20 +13,20 @@ public class UserDAO {
         }
         return instance;
     }
-    
+
     public int insert(UserDTO dto) {
-        String sql = "INSERT INTO \"User\" (full_name, email, created_at) VALUES (?, ?, NOW())";
+        String sql = "INSERT INTO \"USER\" (full_name, email, created_at) VALUES (?, ?, SYSDATE)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, new String[]{"USER_ID"})) {
 
-            ps.setString(1, dto.getFullName());
+            ps.setString(1, dto.getName());
             ps.setString(2, dto.getEmail());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                return rs.getInt(1); // Trả về user_id được sinh ra
+                int userId = rs.getInt(1); // Lấy USER_ID được sinh ra
+                return userId;
             }
 
         } catch (Exception e) {
@@ -37,10 +37,9 @@ public class UserDAO {
     }
 
     public boolean isEmailExists(String email) {
-        String sql = "SELECT 1 FROM Users WHERE email = ?";
+        String sql = "SELECT 1 FROM \"USER\" WHERE email = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();

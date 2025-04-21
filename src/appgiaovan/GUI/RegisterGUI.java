@@ -189,7 +189,7 @@ public class RegisterGUI extends javax.swing.JFrame {
         String email = EmailField.getText().trim();
         String phone = PhoneField.getText().trim();
         String cccd = CCCDField.getText().trim();
-        String gender = GenderBox.getSelectedItem().toString().equals("Nam") ? "M" : "F";
+        char gender = GenderBox.getSelectedItem().toString().equals("Nam") ? 'M' : 'F';
         String birthStr = BirthField.getText().trim();
         String address = AddressField.getText().trim();
 

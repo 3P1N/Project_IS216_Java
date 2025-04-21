@@ -19,23 +19,28 @@ public class AccountRoleDAO {
     }
 
     public int insert(AccountRoleDTO dto) {
-        String sql = "INSERT INTO ACCOUNT_ROLE (ACCOUNT_ID, ROLE_NAME, CREATED_AT) VALUES (?, ?, SYSDATE)";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    String sql = "INSERT INTO ACCOUNT_ROLE (ACCOUNT_ID, ROLE_NAME, CREATED_AT) VALUES (?, ?, SYSDATE)";
 
-            ps.setInt(1, dto.getAccountId());
-            ps.setString(2, dto.getRoleName());
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql, new String[]{"ACCOUNT_ROLE_ID"})) { // Giả sử khóa chính là ACCOUNT_ROLE_ID
 
-            ps.executeUpdate();
+        ps.setInt(1, dto.getAccountId());
+        ps.setString(2, dto.getRoleName());
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                return rs.getInt(1); // Trả về ACCOUNT_ROLE_ID
-            }
+        ps.executeUpdate();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            Object generatedKey = rs.getObject(1);
+            System.out.println("Generated key: " + generatedKey + " (" + generatedKey.getClass().getSimpleName() + ")");
+            return Integer.parseInt(generatedKey.toString());
         }
-        return -1;
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+
+    return -1; // Trả về -1 nếu lỗi
+}
+
 }

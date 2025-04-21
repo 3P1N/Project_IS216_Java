@@ -8,14 +8,14 @@ public class CustomerDTO {
     private String name;
     private String cccd;
     private String phoneNumber;
-    private String gender;
+    private char gender;
     private Date dateOfBirth;
     private String address;
     private String email;
 
     public CustomerDTO() {}
 
-    public CustomerDTO(int idCustomer, String name, String cccd, String phoneNumber, String gender,
+    public CustomerDTO(int idCustomer, String name, String cccd, String phoneNumber, char gender,
                        Date dateOfBirth, String address, String email) {
         this.idCustomer = idCustomer;
         this.name = name;
@@ -27,7 +27,7 @@ public class CustomerDTO {
         this.email = email;
     }
 
-    public CustomerDTO(String name, String cccd, String phoneNumber, String gender,
+    public CustomerDTO(String name, String cccd, String phoneNumber, char gender,
                        Date dateOfBirth, String address, String email) {
         this.name = name;
         this.cccd = cccd;
@@ -48,11 +48,11 @@ public class CustomerDTO {
     public String getCccd() { return cccd; }
     public void setCccd(String cccd) { this.cccd = cccd; }
 
-    public String getPhoneNumber() { return phoneNumber; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public String getPhone() { return phoneNumber; }
+    public void setPhone(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
+    public char getGender() { return gender; }
+    public void setGender(char gender) { this.gender = gender; }
 
     public Date getDateOfBirth() { return dateOfBirth; }
     public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
@@ -63,16 +63,7 @@ public class CustomerDTO {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getFullName() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+ 
 
-    public String getPhone() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public java.sql.Date getBirthDate() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
 

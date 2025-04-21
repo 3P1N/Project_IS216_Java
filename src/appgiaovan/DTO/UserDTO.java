@@ -5,22 +5,22 @@ import java.util.Date;
 public class UserDTO {
 
     private int userId;
-    private String fullName;
+    private String Name;
     private String email;
     private Date createdAt;
 
     public UserDTO() {
     }
 
-    public UserDTO(int userId, String fullName, String email, Date createdAt) {
+    public UserDTO(int userId, String Name, String email, Date createdAt) {
         this.userId = userId;
-        this.fullName = fullName;
+        this.Name = Name;
         this.email = email;
         this.createdAt = createdAt;
     }
 
-    public UserDTO(String fullName, String email) {
-        this.fullName = fullName;
+    public UserDTO(String Name, String email) {
+        this.Name = Name;
         this.email = email;
     }
 
@@ -33,12 +33,12 @@ public class UserDTO {
         this.userId = userId;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return Name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
     public String getEmail() {
