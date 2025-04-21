@@ -15,6 +15,7 @@ public class AccountBUS {
     public AccountDTO login(String username, String password) {
        
         String hashedPassword = PasswordHashing.hashPassword(password);
+        
         return accountDAO.getByUsernameAndPassword(username, hashedPassword);
     }
 }

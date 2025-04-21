@@ -48,10 +48,6 @@ public class AccountDAO {
         try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, new String[]{"ACCOUNT_ID"})) { // Giả sử khóa chính là ACCOUNT_ID
 
             ps.setString(1, dto.getUsername());
-
-            //hash password
-            String hashedPass = PasswordHashing.hashPassword(dto.getPasswordHash());
-            dto.setPasswordHash(hashedPass);
             
             ps.setString(2, dto.getPasswordHash()); // Password đã được hash trước khi lưu
 
