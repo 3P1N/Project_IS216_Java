@@ -1,19 +1,17 @@
-
 package appgiaovan.DTO;
 
 import java.util.Date;
 
 public class UserDTO {
+
     private int userId;
     private String fullName;
     private String email;
     private Date createdAt;
 
-    // Constructor không tham số
     public UserDTO() {
     }
 
-    // Constructor đầy đủ tham số
     public UserDTO(int userId, String fullName, String email, Date createdAt) {
         this.userId = userId;
         this.fullName = fullName;
@@ -21,7 +19,12 @@ public class UserDTO {
         this.createdAt = createdAt;
     }
 
-    // Getter và Setter
+    public UserDTO(String fullName, String email) {
+        this.fullName = fullName;
+        this.email = email;
+    }
+
+    // Getter & Setter
     public int getUserId() {
         return userId;
     }
@@ -53,16 +56,4 @@ public class UserDTO {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
-    // ToString để debug nhanh
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "userId=" + userId +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
-    }
 }
-
