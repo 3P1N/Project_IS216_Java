@@ -1,7 +1,7 @@
 package appgiaovan.DAO;
 
 import appgiaovan.DTO.AccountDTO;
-import appgiaovan.PasswordHashing;
+
 import java.sql.*;
 
 public class AccountDAO {
@@ -20,10 +20,8 @@ public class AccountDAO {
         String sql = "SELECT * FROM ACCOUNT WHERE username = ? AND password_hash = ?";
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-
             stmt.setString(1, username);
             stmt.setString(2, passwordHash);
-
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 account = new AccountDTO();
@@ -34,7 +32,6 @@ public class AccountDAO {
                 account.setStatus(rs.getString("status"));
                 account.setCreatedAt(rs.getDate("created_at"));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,46 +39,55 @@ public class AccountDAO {
         return account;
     }
 
-    public int insert(AccountDTO dto, int userId) {
+    // Overload 1: Dùng trong transaction
+    public int insert(AccountDTO dto, int userId, Connection conn) throws SQLException {
         String sql = "INSERT INTO ACCOUNT (username, password_hash, USER_ID, created_at) VALUES (?, ?, ?, SYSDATE)";
 
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql, new String[]{"ACCOUNT_ID"})) { // Giả sử khóa chính là ACCOUNT_ID
-
+        try (PreparedStatement ps = conn.prepareStatement(sql, new String[]{"ACCOUNT_ID"})) {
             ps.setString(1, dto.getUsername());
-            
-            ps.setString(2, dto.getPasswordHash()); // Password đã được hash trước khi lưu
-
+            ps.setString(2, dto.getPasswordHash());
             ps.setInt(3, userId);
 
             ps.executeUpdate();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                Object generatedKey = rs.getObject(1);
-                System.out.println("Generated key: " + generatedKey + " (" + generatedKey.getClass().getSimpleName() + ")");
-                return Integer.parseInt(generatedKey.toString());
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        return -1; // Trả về -1 nếu lỗi
+        return -1;
     }
 
-    public boolean isUsernameExists(String username) {
-        String sql = "SELECT * FROM ACCOUNT WHERE username = ?";
-
-        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, username);
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
-
+    // Overload 2: Dùng khi không cần transaction
+    public int insert(AccountDTO dto, int userId) {
+        try (Connection conn = DBConnection.getConnection()) {
+            return insert(dto, userId, conn);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return -1;
+    }
 
+    // Overload 1: Kiểm tra tồn tại username trong transaction
+    public boolean isUsernameExists(String username, Connection conn) throws SQLException {
+        String sql = "SELECT 1 FROM ACCOUNT WHERE username = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+        }
+    }
+
+    // Overload 2: Dùng bình thường
+    public boolean isUsernameExists(String username) {
+        try (Connection conn = DBConnection.getConnection()) {
+            return isUsernameExists(username, conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

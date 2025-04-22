@@ -213,21 +213,31 @@ public class RegisterGUI extends javax.swing.JFrame {
         String hashedPassword = PasswordHashing.hashPassword(password);
 
         // Tạo các DTO
-        UserDTO userDTO = new UserDTO(0,name, email, null);
-        AccountDTO accountDTO = new AccountDTO(0,0,username, hashedPassword,null, null);
+        UserDTO userDTO = new UserDTO(0, name, email, null);
+        AccountDTO accountDTO = new AccountDTO(0, 0, username, hashedPassword, null, null);
         CustomerDTO customerDTO = new CustomerDTO(0, name, cccd, phone, gender, birthDate, address, email);
         AccountRoleDTO roleDTO = new AccountRoleDTO(0, 0, "CUSTOMER", null);
 
         // Gửi đến BUS xử lý đăng ký
-        boolean success = UserBUS.getInstance().registerCustomer(userDTO, accountDTO, customerDTO, roleDTO);
+        String result = UserBUS.getInstance().registerCustomer(userDTO, accountDTO, customerDTO, roleDTO);
 
-        // Phản hồi cho người dùng
-        if (success) {
-            JOptionPane.showMessageDialog(this, "Đăng ký thành công!");
-            this.dispose(); // Đóng form sau khi đăng ký thành công
-        } else {
-            JOptionPane.showMessageDialog(this, "Tên đăng nhập, CCCD, email hoặc số điện thoại đã tồn tại.");
+        switch (result) {
+            case "SUCCESS" -> {
+                JOptionPane.showMessageDialog(null, "Đăng ký thành công!");
+                dispose(); // Đóng cửa sổ sau khi đăng ký thành công
+            }
+            case "USERNAME_EXISTS" ->
+                JOptionPane.showMessageDialog(null, "Tên đăng nhập đã tồn tại!");
+            case "EMAIL_EXISTS" ->
+                JOptionPane.showMessageDialog(null, "Email đã tồn tại!");
+            case "CCCD_EXISTS" ->
+                JOptionPane.showMessageDialog(null, "CCCD đã tồn tại!");
+            case "PHONE_EXISTS" ->
+                JOptionPane.showMessageDialog(null, "Số điện thoại đã tồn tại!");
+            default ->
+                JOptionPane.showMessageDialog(null, "Đăng ký thất bại. Vui lòng thử lại!");
         }
+
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     public static void main(String args[]) {
@@ -243,23 +253,18 @@ public class RegisterGUI extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(RegisterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
+        //</editor-fold>
+        //</editor-fold>
+
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegisterGUI().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new RegisterGUI().setVisible(true);
         });
     }
 
