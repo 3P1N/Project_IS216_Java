@@ -132,19 +132,19 @@ public class LoginGUI extends javax.swing.JFrame {
 
         AccountBUS accountBUS = new AccountBUS();
         AccountDTO account = accountBUS.login(username, password);
-
-        if (account != null) {
+        
+        if (null != account) {
             String role = accountBUS.getRoleByAccountId(account.getAccountId());
 
             if ("customer".equalsIgnoreCase(role)) {
                 new CustomerMainScreen().setVisible(true);
             } else if ("admin".equalsIgnoreCase(role)) {
                 new MainScreen().setVisible(true);
-            } else {
-                // Thông báo lỗi
-                javax.swing.JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu!", "Đăng nhập thất bại", javax.swing.JOptionPane.ERROR_MESSAGE);
-                return;
             }
+        } else {
+            // Thông báo lỗi
+            javax.swing.JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu!", "Đăng nhập thất bại", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
