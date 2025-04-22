@@ -1,6 +1,7 @@
 package appgiaovan.GUI;
 
 import appgiaovan.BUS.UserBUS;
+import appgiaovan.CheckFormat;
 import appgiaovan.DTO.AccountDTO;
 import appgiaovan.DTO.AccountRoleDTO;
 import appgiaovan.DTO.CustomerDTO;
@@ -194,18 +195,37 @@ public class RegisterGUI extends javax.swing.JFrame {
         String address = AddressField.getText().trim();
 
         // Kiểm tra đầu vào cơ bản
-        if (username.isEmpty() || password.isEmpty() || name.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tên, tài khoản và mật khẩu.");
+        if (username.isEmpty() || password.isEmpty() || name.isEmpty() || email.isEmpty()
+                || phone.isEmpty() || cccd.isEmpty() || birthStr.isEmpty() || address.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ tất cả thông tin.");
             return;
         }
 
         // Kiểm tra định dạng ngày sinh
         java.sql.Date birthDate;
         try {
-            java.util.Date parsed = new SimpleDateFormat("yyyy-MM-dd").parse(birthStr);
+            java.util.Date parsed = new SimpleDateFormat("dd-MM-yyyy").parse(birthStr);
             birthDate = new java.sql.Date(parsed.getTime());
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(this, "Ngày sinh không đúng định dạng yyyy-MM-dd");
+            JOptionPane.showMessageDialog(this, "Ngày sinh không đúng định dạng dd-MM-yyyy");
+            return;
+        }
+
+        // Kiểm tra định dạng số điện thoại
+        if (!CheckFormat.isValidPhone(phone)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng.");
+            return;
+        }
+
+        // Kiểm tra định dạng CCCD
+        if (!CheckFormat.isValidCCCD(cccd)) {
+            JOptionPane.showMessageDialog(this, "CCCD không đúng định dạng.");
+            return;
+        }
+
+        // Kiểm tra định dạng email
+        if (!CheckFormat.isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Email không đúng định dạng.");
             return;
         }
 
