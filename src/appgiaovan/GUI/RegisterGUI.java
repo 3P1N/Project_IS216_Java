@@ -74,6 +74,16 @@ public class RegisterGUI extends javax.swing.JFrame {
         jGender.setText("Giới tính:");
 
         GenderBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
+        GenderBox.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                GenderBoxComponentAdded(evt);
+            }
+        });
+        GenderBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GenderBoxActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Đăng ký tài khoản khách hàng");
@@ -259,6 +269,14 @@ public class RegisterGUI extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void GenderBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenderBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GenderBoxActionPerformed
+
+    private void GenderBoxComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_GenderBoxComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GenderBoxComponentAdded
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
