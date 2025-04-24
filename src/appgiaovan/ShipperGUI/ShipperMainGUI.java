@@ -10,11 +10,13 @@ package appgiaovan.ShipperGUI;
  */
 public class ShipperMainGUI extends javax.swing.JFrame {
 
+    private final int DonHangDaNhan = 5;
     /**
      * Creates new form ShipperMainScreen
      */
     public ShipperMainGUI() {
         initComponents();
+        jDonHangDaNhan.setText("Đơn hàng đã nhận: " + DonHangDaNhan);
     }
 
     /**
@@ -45,7 +47,7 @@ public class ShipperMainGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        jLabel3 = new javax.swing.JLabel();
+        jDonHangDaNhan = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -170,8 +172,8 @@ public class ShipperMainGUI extends javax.swing.JFrame {
 
         jInternalFrame1.setVisible(true);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("Đơn hàng đã nhận: ");
+        jDonHangDaNhan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jDonHangDaNhan.setText("Đơn hàng đã nhận: ");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Đơn hàng đã giao:");
@@ -188,14 +190,14 @@ public class ShipperMainGUI extends javax.swing.JFrame {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3))
+                    .addComponent(jDonHangDaNhan))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel3)
+                .addComponent(jDonHangDaNhan)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
@@ -310,12 +312,12 @@ public class ShipperMainGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jDonHangDaNhan;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
