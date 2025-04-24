@@ -4,7 +4,9 @@ import appgiaovan.BUS.AccountBUS;
 import appgiaovan.CustomerGUI.CustomerMainScreen;
 import appgiaovan.DAO.AccountDAO;
 import appgiaovan.DTO.AccountDTO;
+import appgiaovan.EmployeeGUI.EmployeeMainScreen;
 import appgiaovan.MainScreen;
+import appgiaovan.ShipperGUI.ShipperMainGUI;
 
 public class LoginGUI extends javax.swing.JFrame {
 
@@ -140,6 +142,10 @@ public class LoginGUI extends javax.swing.JFrame {
                 new CustomerMainScreen().setVisible(true);
             } else if ("admin".equalsIgnoreCase(role)) {
                 new MainScreen().setVisible(true);
+            } else if ("employee".equalsIgnoreCase(role)) {
+                new EmployeeMainScreen().setVisible(true);
+            } else if ("shipper".equalsIgnoreCase(role)) {
+                new ShipperMainGUI().setVisible(true);
             }
         } else {
             // Thông báo lỗi
