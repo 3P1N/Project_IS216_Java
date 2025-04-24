@@ -37,6 +37,7 @@ public class ShipperProfile extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jMenu8 = new javax.swing.JMenu();
+        jSpinner1 = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -345,6 +346,7 @@ public class ShipperProfile extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane3;
     // End of variables declaration//GEN-END:variables
 }
