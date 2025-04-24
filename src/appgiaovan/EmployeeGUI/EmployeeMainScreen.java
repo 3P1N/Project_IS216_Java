@@ -1,16 +1,21 @@
-
 package appgiaovan.EmployeeGUI;
 
-import appgiaovan.CustomerGUI.*;
-
+import appgiaovan.DTO.AccountDTO;
 
 public class EmployeeMainScreen extends javax.swing.JFrame {
 
-    public EmployeeMainScreen() {
+    private final AccountDTO accountDTO;
+
+    public EmployeeMainScreen(AccountDTO account) {
         initComponents();
+        this.accountDTO = account;
     }
 
-   
+    public EmployeeMainScreen() {
+        initComponents();
+        this.accountDTO = null;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,10 +30,10 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jBtnAccount = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jBtnOrder = new javax.swing.JButton();
-        jBtnPackage = new javax.swing.JButton();
+        btnManageOrder = new javax.swing.JButton();
+        btnManagePackage = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jBtnWareHouse = new javax.swing.JButton();
+        btnInventoryTracking = new javax.swing.JButton();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -88,23 +93,28 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
-        jBtnOrder.setText("Quản lý hàng hóa");
-        jBtnOrder.addActionListener(new java.awt.event.ActionListener() {
+        btnManageOrder.setText("Quản lý đơn hàng");
+        btnManageOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnOrderActionPerformed(evt);
+                btnManageOrderActionPerformed(evt);
             }
         });
 
-        jBtnPackage.setText("Quản lý gói hàng");
-        jBtnPackage.addActionListener(new java.awt.event.ActionListener() {
+        btnManagePackage.setText("Quản lý gói hàng");
+        btnManagePackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnPackageActionPerformed(evt);
+                btnManagePackageActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Xin chào nhân viên");
 
-        jBtnWareHouse.setText("Theo dõi tồn kho");
+        btnInventoryTracking.setText("Theo dõi tồn kho");
+        btnInventoryTracking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInventoryTrackingActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -114,12 +124,12 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtnPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnManagePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnWareHouse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnOrder, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnInventoryTracking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnManageOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,11 +141,11 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                         .addContainerGap(24, Short.MAX_VALUE)
-                        .addComponent(jBtnPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnManagePackage, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtnOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnManageOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)))
-                .addComponent(jBtnWareHouse, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInventoryTracking, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -179,17 +189,24 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBtnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOrderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnOrderActionPerformed
+    private void btnManageOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrderActionPerformed
+        new ManageOrderGUI(this.accountDTO).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManageOrderActionPerformed
 
-    private void jBtnPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPackageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnPackageActionPerformed
+    private void btnManagePackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePackageActionPerformed
+        new ManagePackageGUI(this.accountDTO).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnManagePackageActionPerformed
 
     private void jBtnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAccountActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jBtnAccountActionPerformed
+
+    private void btnInventoryTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventoryTrackingActionPerformed
+        new InventoryTrackingGUI(this.accountDTO).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnInventoryTrackingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,18 +237,16 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmployeeMainScreen().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new EmployeeMainScreen().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnInventoryTracking;
+    private javax.swing.JButton btnManageOrder;
+    private javax.swing.JButton btnManagePackage;
     private javax.swing.JButton jBtnAccount;
-    private javax.swing.JButton jBtnOrder;
-    private javax.swing.JButton jBtnPackage;
-    private javax.swing.JButton jBtnWareHouse;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
