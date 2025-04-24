@@ -173,13 +173,13 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="206" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jBtnPackage" min="-2" pref="123" max="-2" attributes="0"/>
+                      <Component id="btnManagePackage" min="-2" pref="123" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jBtnWareHouse" alignment="1" min="-2" pref="123" max="-2" attributes="0"/>
-                          <Component id="jBtnOrder" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnInventoryTracking" max="32767" attributes="0"/>
+                          <Component id="btnManageOrder" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -195,33 +195,33 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="24" max="32767" attributes="0"/>
-                              <Component id="jBtnPackage" min="-2" pref="92" max="-2" attributes="0"/>
+                              <Component id="btnManagePackage" min="-2" pref="92" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jBtnOrder" min="-2" pref="92" max="-2" attributes="0"/>
+                              <Component id="btnManageOrder" min="-2" pref="92" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jBtnWareHouse" min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="btnInventoryTracking" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jBtnOrder">
+            <Component class="javax.swing.JButton" name="btnManageOrder">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; h&#xe0;ng h&#xf3;a"/>
+                <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; &#x111;&#x1a1;n h&#xe0;ng"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnOrderActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageOrderActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jBtnPackage">
+            <Component class="javax.swing.JButton" name="btnManagePackage">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; g&#xf3;i h&#xe0;ng"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnPackageActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManagePackageActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
@@ -229,10 +229,13 @@
                 <Property name="text" type="java.lang.String" value="Xin ch&#xe0;o nh&#xe2;n vi&#xea;n"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jBtnWareHouse">
+            <Component class="javax.swing.JButton" name="btnInventoryTracking">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Theo d&#xf5;i t&#x1ed3;n kho"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInventoryTrackingActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -1,16 +1,21 @@
-
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.CustomerGUI.*;
-
+import appgiaovan.DTO.AccountDTO;
 
 public class ManagePackageGUI extends javax.swing.JFrame {
+
+    private AccountDTO accountDTO;
+
+    public ManagePackageGUI(AccountDTO account) {
+        initComponents();
+        this.accountDTO = account;
+    }
 
     public ManagePackageGUI() {
         initComponents();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -27,7 +32,7 @@ public class ManagePackageGUI extends javax.swing.JFrame {
         jBtnPackage = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jBtnWareHouse = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jBtnAccount1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -101,10 +106,10 @@ public class ManagePackageGUI extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Tra cứu:");
 
-        jBtnWareHouse.setText("Quay về");
-        jBtnWareHouse.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setText("Quay về");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnWareHouseActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -122,7 +127,7 @@ public class ManagePackageGUI extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jBtnWareHouse, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,8 +137,9 @@ public class ManagePackageGUI extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jBtnPackage))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
-                .addComponent(jBtnWareHouse, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jBtnAccount1.setText("Tài khoản");
@@ -209,9 +215,10 @@ public class ManagePackageGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jBtnWareHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnWareHouseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBtnWareHouseActionPerformed
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        new EmployeeMainScreen(this.accountDTO).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,10 +259,10 @@ public class ManagePackageGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton jBtnAccount;
     private javax.swing.JButton jBtnAccount1;
     private javax.swing.JButton jBtnPackage;
-    private javax.swing.JButton jBtnWareHouse;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
