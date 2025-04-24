@@ -200,7 +200,8 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManagePackageActionPerformed
 
     private void jBtnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAccountActionPerformed
-        
+        new AccountEmployee().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jBtnAccountActionPerformed
 
     private void btnInventoryTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventoryTrackingActionPerformed
