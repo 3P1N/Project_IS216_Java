@@ -4,9 +4,9 @@ package appgiaovan.EmployeeGUI;
 import appgiaovan.CustomerGUI.*;
 
 
-public class ManageOrderGUI extends javax.swing.JFrame {
+public class InventoryTrackingGUI extends javax.swing.JFrame {
 
-    public ManageOrderGUI() {
+    public InventoryTrackingGUI() {
         initComponents();
     }
 
@@ -85,7 +85,7 @@ public class ManageOrderGUI extends javax.swing.JFrame {
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
-        jBtnPackage.setText("Thêm đơn hàng");
+        jBtnPackage.setText("Thêm gói hàng");
         jBtnPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnPackageActionPerformed(evt);
@@ -144,7 +144,7 @@ public class ManageOrderGUI extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Quản lý đơn hàng");
+        jLabel1.setText("Quản lý gói hàng ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,13 +230,13 @@ public class ManageOrderGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageOrderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventoryTrackingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageOrderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventoryTrackingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageOrderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventoryTrackingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageOrderGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InventoryTrackingGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -250,7 +250,7 @@ public class ManageOrderGUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageOrderGUI().setVisible(true);
+                new InventoryTrackingGUI().setVisible(true);
             }
         });
     }
