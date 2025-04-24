@@ -4,6 +4,8 @@
  */
 package appgiaovan.ShipperGUI;
 
+import appgiaovan.DTO.AccountDTO;
+
 /**
  *
  * @author HP
@@ -13,11 +15,22 @@ public class ShipperMainGUI extends javax.swing.JFrame {
     private final int DonHangDaNhan = 5;
     private final int DonHangDaGiao = 5;
     private final int DonHangGiaoThatBai = 0;
+    private AccountDTO accountDTO;
     /**
      * Creates new form ShipperMainScreen
+     * @param account
      */
+    public ShipperMainGUI(AccountDTO account) {
+        initComponents();
+        this.accountDTO = account;
+        
+        jDonHangDaNhan.setText("Đơn hàng đã nhận: " + DonHangDaNhan);
+        jDonHangDaGiao.setText("Đơn hàng đã giao: " + DonHangDaGiao);
+        jDonHangGiaoThatBai.setText("Đơn hàng giao thất bại: " + DonHangGiaoThatBai);
+    }
     public ShipperMainGUI() {
         initComponents();
+        this.accountDTO = null;
         jDonHangDaNhan.setText("Đơn hàng đã nhận: " + DonHangDaNhan);
         jDonHangDaGiao.setText("Đơn hàng đã giao: " + DonHangDaGiao);
         jDonHangGiaoThatBai.setText("Đơn hàng giao thất bại: " + DonHangGiaoThatBai);

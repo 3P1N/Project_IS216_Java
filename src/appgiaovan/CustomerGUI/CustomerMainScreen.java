@@ -1,11 +1,19 @@
 
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.DTO.AccountDTO;
+
 
 public class CustomerMainScreen extends javax.swing.JFrame {
 
+    private final AccountDTO accountDTO;
+    public CustomerMainScreen(AccountDTO account) {
+        initComponents();
+        this.accountDTO = account;
+    }
     public CustomerMainScreen() {
         initComponents();
+        this.accountDTO = null;
     }
 
    

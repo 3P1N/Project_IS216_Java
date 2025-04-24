@@ -4,17 +4,20 @@
  */
 package appgiaovan.AdminGUI;
 
-/**
- *
- * @author HP
- */
+import appgiaovan.DTO.AccountDTO;
+
+
 public class AdminMainScreen extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AdminMainScreen
-     */
+    private final AccountDTO accountDTO;
+    public AdminMainScreen(AccountDTO account) {
+        initComponents();
+        this.accountDTO = account;
+    }
+    
     public AdminMainScreen() {
         initComponents();
+        this.accountDTO = null;
     }
 
     /**

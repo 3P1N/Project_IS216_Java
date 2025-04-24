@@ -137,15 +137,15 @@ public class LoginGUI extends javax.swing.JFrame {
         
         if (null != account) {
             String role = accountBUS.getRoleByAccountId(account.getAccountId());
-
+            
             if ("customer".equalsIgnoreCase(role)) {
-                new CustomerMainScreen().setVisible(true);
+                new CustomerMainScreen(account).setVisible(true);
             } else if ("admin".equalsIgnoreCase(role)) {
-                new MainScreen().setVisible(true);
+                new AdminMainScreen(account).setVisible(true);
             } else if ("employee".equalsIgnoreCase(role)) {
-                new EmployeeMainScreen().setVisible(true);
+                new EmployeeMainScreen(account).setVisible(true);
             } else if ("shipper".equalsIgnoreCase(role)) {
-                new ShipperMainGUI().setVisible(true);
+                new ShipperMainGUI(account).setVisible(true);
             }
         } else {
             // Thông báo lỗi

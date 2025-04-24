@@ -4,7 +4,8 @@
  */
 package appgiaovan.EmployeeGUI;
 
-import appgiaovan.CustomerGUI.*;
+import appgiaovan.DTO.AccountDTO;
+
 
 /**
  *
@@ -12,11 +13,15 @@ import appgiaovan.CustomerGUI.*;
  */
 public class AccountEmployee extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AccountCustomer
-     */
+    private final AccountDTO accountDTO;
+    public AccountEmployee(AccountDTO account) {
+        initComponents();
+        this.accountDTO = account;
+    }
+    
     public AccountEmployee() {
         initComponents();
+        this.accountDTO = null;
     }
 
     /**
@@ -142,9 +147,7 @@ public class AccountEmployee extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(205, 205, 205))
+                    .addComponent(jAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
