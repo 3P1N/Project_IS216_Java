@@ -8,12 +8,12 @@ package appgiaovan.ManagerGUI;
  *
  * @author pc
  */
-public class ManagerMainScreen extends javax.swing.JFrame {
+public class DailyReport extends javax.swing.JFrame {
 
     /**
      * Creates new form ManagerMainScreen
      */
-    public ManagerMainScreen() {
+    public DailyReport() {
         initComponents();
     }
 
@@ -152,37 +152,39 @@ public class ManagerMainScreen extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"NV01", "NDP", "Shipper", "3000"},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"NV01", "NDP", "Shipper", "3000", "120", "15", "Trung bình"},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Bộ phận", "Lương"
+                "Mã nhân viên", "Tên nhân viên", "Bộ phận", "Lương", "Tổng đơn xử lý", "Đơn/ ngày", "Hiệu suất"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jTabbedPane1.addTab("Danh sách Nhân viên", jScrollPane1);
+        jTabbedPane1.addTab("Hiệu suất Nhân viên", jScrollPane1);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"KH01", "TTP", "0377984157", "TPHCM", "Đang hoạt động"},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {"KH01", "TTP", "0377984157", "TPHCM", "Đang hoạt động", "2", "1500", "Thấp"},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã khách hàng", "Tên Khách hàng", "Số điện thoại", "Địa chỉ", "Trạng thái"
+                "Mã khách hàng", "Tên Khách hàng", "Số điện thoại", "Địa chỉ", "Trạng thái", "Số đơn hàng", "Tổng giá trị", "Mức chi tiêu"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
 
-        jTabbedPane1.addTab("Danh sách Khách hàng", jScrollPane2);
+        jTabbedPane1.addTab("Doanh thu từ Khách hàng", jScrollPane2);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -258,14 +260,18 @@ public class ManagerMainScreen extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DailyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DailyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DailyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManagerMainScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DailyReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -274,7 +280,7 @@ public class ManagerMainScreen extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManagerMainScreen().setVisible(true);
+                new DailyReport().setVisible(true);
             }
         });
     }
