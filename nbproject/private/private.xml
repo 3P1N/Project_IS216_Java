@@ -3,7 +3,35 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
+            <file>file:/D:/github/Project_IS216_Java/src/images/logo.png</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ManagePackageGUI.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/images/Webp.net-resizeimage.png</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/AccountDAO.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/DeleteAccount.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/CustomerDAO.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperHelp.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/LoginGUI.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ManageOrderGUI.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperReport.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/RegisterGUI.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ChangeRole.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/AccountRoleDAO.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/LookupCustomer.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/images/logo2.png</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperProfile.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/LookUpAccount.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/SupportCustomer.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperMainGUI.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/MainScreen.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperProduct.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerMainScreen.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/AccountEmployee.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/BookingCustomer.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/AccountCustomer.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/CreateNewAccount.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ResetPassword.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/CustomerMainScreen.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/DailyReport.java</file>
         </group>
     </open-files>
 </project-private>
