@@ -229,7 +229,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="&#x110;&#x1eb7;t h&#xe0;ng"/>
+            <Property name="text" type="java.lang.String" value="T&#x1ea1;o &#x111;&#x1a1;n"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">

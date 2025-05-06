@@ -111,7 +111,7 @@ public class EmployeeMainScreen extends javax.swing.JFrame {
 
         jLabel1.setText("Xin chào nhân viên");
 
-        btnInventoryTracking.setText("Theo dõi tồn kho");
+        btnInventoryTracking.setText("Quản lý tồn kho");
         btnInventoryTracking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInventoryTrackingActionPerformed(evt);
