@@ -25,10 +25,10 @@ public class EmployeeMainScreen extends JFrame {
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
         statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        statPanel.add(createStatBox("DOANH THU", "0", "↓ 100%", new Color(76, 175, 80)));
-        statPanel.add(createStatBox("BÁN LẺ", "0", "↓ 100% (0 hóa đơn)", new Color(33, 150, 243)));
-        statPanel.add(createStatBox("ĐƠN HÀNG", "0", "↓ 100% (0 đơn)", new Color(255, 152, 0)));
-        statPanel.add(createStatBox("TỒN KHO", "2.9 tỷ", "7.309 sản phẩm", new Color(121, 85, 72)));
+        statPanel.add(RoundedPanel.createStatBox("DOANH THU", "0", "↓ 100%", new Color(76, 175, 80)));
+        statPanel.add(RoundedPanel.createStatBox("BÁN LẺ", "0", "↓ 100% (0 hóa đơn)", new Color(33, 150, 243)));
+        statPanel.add(RoundedPanel.createStatBox("ĐƠN HÀNG", "0", "↓ 100% (0 đơn)", new Color(255, 152, 0)));
+        statPanel.add(RoundedPanel.createStatBox("TỒN KHO", "2.9 tỷ", "7.309 sản phẩm", new Color(121, 85, 72)));
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
@@ -59,31 +59,7 @@ public class EmployeeMainScreen extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
     }
 
-    private JPanel createStatBox(String title, String value, String subtitle, Color bgColor) {
-        JPanel panel = new JPanel();
-        panel.setBackground(bgColor);
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        JLabel lblTitle = new JLabel(title);
-        lblTitle.setForeground(Color.WHITE);
-        lblTitle.setFont(new Font("Arial", Font.BOLD, 14));
-
-        JLabel lblValue = new JLabel(value);
-        lblValue.setForeground(Color.WHITE);
-        lblValue.setFont(new Font("Arial", Font.BOLD, 24));
-
-        JLabel lblSub = new JLabel(subtitle);
-        lblSub.setForeground(Color.WHITE);
-        lblSub.setFont(new Font("Arial", Font.PLAIN, 12));
-
-        panel.add(lblTitle);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-        panel.add(lblValue);
-        panel.add(lblSub);
-
-        return panel;
-    }
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

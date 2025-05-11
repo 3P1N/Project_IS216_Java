@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.URL;
 
 public class MenuBar extends JPanel {
 
@@ -14,18 +15,16 @@ public class MenuBar extends JPanel {
         setPreferredSize(new Dimension(200, getHeight()));
 
         String[] items = {
-            "Báo cáo - Live",
+            "Báo cáo",
             "Quản lý đơn hàng",
-            "Lên đơn Excel",
-            "Quản lý cửa hàng",
+            "Quản lý gói hàng",
             "Đăng xuất"
         };
 
         String[] icons = {
             "report.png",
             "order.png",
-            "excel.png",
-            "store.png",
+            "package.png",
             "logout.png"
         };
 
@@ -38,7 +37,12 @@ public class MenuBar extends JPanel {
     private JLabel createMenuItem(String text, String iconName) {
         JLabel label = new JLabel("  " + text);
         label.setForeground(Color.WHITE);
-        label.setIcon(new ImageIcon("icons/" + iconName)); // đảm bảo đường dẫn đúng
+        URL imageUrl = getClass().getResource("/images/icons/" + iconName);
+        System.out.println("Image URL: " + imageUrl);
+        ImageIcon originalIcon = new ImageIcon(imageUrl);
+        Image scaledImage = originalIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH); // 👈 chỉnh size tại đây
+        label.setIcon(new ImageIcon(scaledImage));
+
         label.setPreferredSize(new Dimension(180, 40));
         label.setMaximumSize(new Dimension(180, 40));
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
