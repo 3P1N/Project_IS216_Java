@@ -16,7 +16,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  */
 public class LOGIN extends JFrame{
     public LOGIN() {
-        setTitle("Đăng nhập - Quản lý Kho");
+        setTitle("Đăng nhập - Đơn vị giao vận 3P1N");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

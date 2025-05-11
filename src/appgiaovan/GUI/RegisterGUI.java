@@ -17,7 +17,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  */
 public class RegisterGUI extends JFrame{
     public RegisterGUI() {
-        setTitle("Đăng ký - Quản lý Kho");
+        setTitle("Đăng ký - Đơn vị giao vận 3P1N");
         setSize(900, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

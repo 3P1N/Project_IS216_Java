@@ -10,7 +10,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class ForgotPass extends JFrame {
     public ForgotPass() {
-        setTitle("Quên mật khẩu");
+        setTitle("Quên mật khẩu - Đơn vị giao vận 3P1N");
         setSize(400, 250);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
