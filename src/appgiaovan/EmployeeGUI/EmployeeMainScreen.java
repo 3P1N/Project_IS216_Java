@@ -18,7 +18,8 @@ public class EmployeeMainScreen extends JFrame {
         setLayout(new BorderLayout());
 
         // Sidebar trái
-        MenuBar menubar = new MenuBar();
+        EmployeeSidebar sidebar = new EmployeeSidebar();
+        
 
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -57,7 +58,7 @@ public class EmployeeMainScreen extends JFrame {
         mainPanel.add(chartPanel, BorderLayout.CENTER);
 
         // Thêm vào JFrame
-        add(menubar, BorderLayout.WEST);
+        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
     }
 

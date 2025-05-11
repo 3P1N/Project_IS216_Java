@@ -108,8 +108,8 @@ public class ThemDonHang extends JFrame {
         mainPanel.add(btnTaoDon);
 
         
-        MenuBar menubar = new MenuBar();
-        add(menubar, BorderLayout.WEST);
+        EmployeeSidebar sidebar = new EmployeeSidebar();
+        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
     }
