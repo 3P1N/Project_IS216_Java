@@ -18,22 +18,21 @@ public class QuanLyDonHang extends JFrame {
         initUI();
     }
 
-    private void initUI() {
-        
+    private void initUI() {    
         //Panel Menu
         MenuBar menubar = new MenuBar();
         add(menubar, BorderLayout.WEST);
         
+        //main
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout()); 
-        // Panel chứa nút "Thêm mới" và "Thao tác"
-        FilterPanel topPanel = new FilterPanel();
-        mainPanel.add(topPanel, BorderLayout.NORTH);
         
-       
+        //thanh filter
+        FilterPanel topPanel = new FilterPanel();
+        mainPanel.add(topPanel, BorderLayout.NORTH); 
       
        // Panel danh sách
-       TableList listOrder = new TableList();
+       TableList listOrder = new TableList("", "ID", "Khách hàng", "Sản phẩm", "ĐVT", "Giá", "SL");
        mainPanel.add(listOrder, BorderLayout.CENTER);
        add(mainPanel, BorderLayout.CENTER);
     }

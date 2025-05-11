@@ -6,10 +6,10 @@ import javax.swing.table.*;
 import java.awt.*;
 
 public class TableList extends JPanel {
-    public TableList() {
+    public TableList(String... columnNames) {
         setLayout(new BorderLayout());
 
-        String[] columnNames = {"", "ID", "Khách hàng", "Sản phẩm", "ĐVT", "Giá", "SL"};
+//        String[] columnNames = {"", "ID", "Khách hàng", "Sản phẩm", "ĐVT", "Giá", "SL"};
 
         Object[][] data = {
             {false, "<html><b style='color:#007bff;'>93900415</b><br><span style='color:gray;font-size:10px;'>10:48 15/04</span><br><span style='color:#007bff;'>Kho 2 - Tháo</span></html>",
@@ -77,7 +77,7 @@ public class TableList extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1000, 350);
             frame.setLocationRelativeTo(null);
-            frame.add(new TableList());
+            frame.add(new TableList("", "ID", "Khách hàng", "Sản phẩm", "ĐVT", "Giá", "SL"));
             frame.setVisible(true);
         });
     }
