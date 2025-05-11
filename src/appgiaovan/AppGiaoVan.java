@@ -2,7 +2,7 @@
 package appgiaovan;
 
 
-import appgiaovan.GUI.LoginGUI;
+//import appgiaovan.GUI.LoginGUI;
 //import javax.mail.MessagingException;
 
 
