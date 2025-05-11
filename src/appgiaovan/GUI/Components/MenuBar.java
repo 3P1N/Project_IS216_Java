@@ -1,5 +1,5 @@
 // MenuBar.java
-package appgiaovan.EmployeeGUI;
+package appgiaovan.GUI.Components;
 
 import javax.swing.*;
 import java.awt.*;

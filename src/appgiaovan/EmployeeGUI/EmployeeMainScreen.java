@@ -1,5 +1,7 @@
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.GUI.Components.RoundedPanel;
+import appgiaovan.GUI.Components.MenuBar;
 import javax.swing.*;
 import java.awt.*;
 import org.jfree.chart.*;
