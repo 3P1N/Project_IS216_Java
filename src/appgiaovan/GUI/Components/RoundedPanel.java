@@ -1,15 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package appgiaovan.GUI.Components;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 
+/**
+ * JPanel với nền bo góc.
+ */
 public class RoundedPanel extends JPanel {
 
-    private int cornerRadius;
+    private final int cornerRadius;
 
     public RoundedPanel(int radius) {
         super();
@@ -27,11 +27,14 @@ public class RoundedPanel extends JPanel {
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
 
         g2.dispose();
-        super.paintComponent(g);
+        super.paintComponent(g); // Gọi sau để không ghi đè lên nền
     }
 
+    /**
+     * Tạo một panel thống kê đẹp với bo góc.
+     */
     public static JPanel createStatBox(String title, String value, String subtitle, Color bgColor) {
-        RoundedPanel panel = new RoundedPanel(20); // Bo góc 20px
+        RoundedPanel panel = new RoundedPanel(20);
         panel.setBackground(bgColor);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -56,4 +59,30 @@ public class RoundedPanel extends JPanel {
         return panel;
     }
 
+    // ===================== CUSTOM ROUNDED LABEL =====================
+    public static class RoundedLabel extends JLabel {
+
+        private final int radius;
+
+        public RoundedLabel(String text, int radius) {
+            super(text);
+            this.radius = radius;
+            setOpaque(false);
+            setForeground(Color.WHITE);
+            setFont(new Font("Arial", Font.PLAIN, 14));
+            setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2.setColor(getBackground());
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
+
+            g2.dispose();
+            super.paintComponent(g);
+        }
+    } 
 }
