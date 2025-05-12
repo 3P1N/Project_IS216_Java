@@ -141,7 +141,7 @@ public class MenuBar extends JPanel {
     
     
 
-    private void setupProfileSection() {
+    private JPanel setupProfileSection() {
         JPanel profilePanel = new JPanel();
         profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
         profilePanel.setBackground(DEFAULT_BG);
@@ -199,7 +199,7 @@ public class MenuBar extends JPanel {
         URL logoUrl = getClass().getResource("/images/Logo3P1N.png");
         if (logoUrl != null) {
             ImageIcon originalIcon = new ImageIcon(logoUrl);
-            Image scaledImage = originalIcon.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH);
+            Image scaledImage = originalIcon.getImage().getScaledInstance(100, 78, Image.SCALE_SMOOTH);
             logoLabel.setIcon(new ImageIcon(scaledImage));
         } else {
             logoLabel.setText("LOGO");
