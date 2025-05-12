@@ -34,7 +34,7 @@ public class ThemGoiHang extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
         //thanh filter
-        TopPanelQLGH topPanel = new TopPanelQLGH();
+        TopPanelTGH topPanel = new TopPanelTGH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Panel danh sách
@@ -53,11 +53,7 @@ public class ThemGoiHang extends JFrame {
     }
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
-        }
+        
         SwingUtilities.invokeLater(() -> new ThemGoiHang().setVisible(true));
     }
 }
