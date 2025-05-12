@@ -25,11 +25,7 @@ public class QuanLyDonHang extends JFrame {
         //Panel Menu
 
         EmployeeSidebar sidebar = new EmployeeSidebar();
-
-        List<String> items = Arrays.asList("Báo cáo", "Quản lý đơn hàng", "Quản lý gói hàng", "Đăng xuất");
-        List<String> icons = Arrays.asList("report.png", "order.png", "package.png", "logout.png");
-        MenuBar menubar = new MenuBar(items, icons);
-        add(menubar, BorderLayout.WEST);
+        add(sidebar, BorderLayout.WEST);
 
         //main
         JPanel mainPanel = new JPanel();

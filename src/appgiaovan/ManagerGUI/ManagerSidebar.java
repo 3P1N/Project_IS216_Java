@@ -16,8 +16,8 @@ import java.awt.BorderLayout;
 public class ManagerSidebar extends JPanel {
     public ManagerSidebar() {
         // Khai báo danh sách tiêu đề và icon
-        List<String> items = Arrays.asList("Báo cáo", "Quản lý nhân viên", "Quản lý khách hàng", "Đăng xuất");
-        List<String> icons = Arrays.asList("report.png", "employee.png", "package.png", "logout.png");
+        List<String> items = Arrays.asList("Báo cáo", "Quản lý nhân viên", "Quản lý khách hàng","Xem báo cáo", "Xem bảng lương", "Đăng xuất");
+        List<String> icons = Arrays.asList("report.png", "employee.png", "package.png","report.png", "salary.png", "logout.png");
 
         // Thiết lập layout cho Sidebar
         setLayout(new BorderLayout());
