@@ -3,6 +3,7 @@ package appgiaovan.ShipperGUI;
 import appgiaovan.EmployeeGUI.EmployeeSidebar;
 import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.MenuBar;
+import appgiaovan.GUI.Components.TimeWeather;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -27,34 +28,7 @@ public class ShipperMainGUI extends JFrame {
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        // Tạo topPanel để chứa ngày giờ và thời tiết
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        topPanel.setBackground(Color.WHITE);
-
-        // Nhãn hiển thị ngày giờ
-        JLabel timeLabel = new JLabel(); // sẽ cập nhật thời gian sau
-        timeLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-
-        // Nhãn hiển thị thời tiết
-        JLabel weatherLabel = new JLabel("Hà Nội: 30°C *"); // gắn API sau
-        weatherLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        weatherLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        // Gắn vào topPanel
-        topPanel.add(timeLabel, BorderLayout.WEST);
-        topPanel.add(weatherLabel, BorderLayout.EAST);
-
-        // Gắn topPanel vào mainPanel
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-
-        // Cập nhật thời gian hiện tại liên tục
-        Timer timer = new Timer(1000, e -> {
-            timeLabel.setText(LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy")));
-        });
-        timer.start();
-
+        mainPanel.add(new TimeWeather("Hồ Chí Minh 30°C"), BorderLayout.NORTH );
         // Các ô thống kê - dùng lưới 2x2
         JPanel statPanel = new JPanel(new GridLayout(2, 2, 40, 40));
         statPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
