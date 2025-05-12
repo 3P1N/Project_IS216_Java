@@ -18,8 +18,10 @@ public class MenuBar extends JPanel {
 
     public MenuBar(List<String> itemNames, List<String> iconNames) {
         setBackground(DEFAULT_BG);
-        setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(200, 700));
+
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setPreferredSize(new Dimension(180, 700));  // Đặt kích thước panel menu theo yêu cầu
+
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -93,21 +95,53 @@ public class MenuBar extends JPanel {
 
         return label;
     }
+    
+    private void animateBackground(JLabel label, Color start, Color end) {
+    final int steps = 15;
+    final int delay = 20; // milliseconds
+    Timer timer = new Timer(delay, null);
+    final int[] count = {0};
 
-    private void setActiveLabel(JLabel label) {
-        if (activeLabel != null) {
-            activeLabel.setFont(activeLabel.getFont().deriveFont(Font.PLAIN));
-            activeLabel.setForeground(Color.WHITE);
-            activeLabel.setBackground(DEFAULT_BG);
+    timer.addActionListener(e -> {
+        float ratio = count[0] / (float) steps;
+
+        int r = (int) (start.getRed() + ratio * (end.getRed() - start.getRed()));
+        int g = (int) (start.getGreen() + ratio * (end.getGreen() - start.getGreen()));
+        int b = (int) (start.getBlue() + ratio * (end.getBlue() - start.getBlue()));
+
+        label.setBackground(new Color(r, g, b));
+        count[0]++;
+
+        if (count[0] > steps) {
+            label.setBackground(end); // Đảm bảo kết quả chính xác ở cuối
+            ((Timer) e.getSource()).stop();
         }
+    });
 
-        activeLabel = label;
-        activeLabel.setFont(label.getFont().deriveFont(Font.BOLD));
-        activeLabel.setForeground(Color.YELLOW);
-        activeLabel.setBackground(HOVER_BG);
+    timer.start();
+}
+
+    
+    private void setActiveLabel(JLabel label) {
+    if (activeLabel != null) {
+        activeLabel.setFont(activeLabel.getFont().deriveFont(Font.PLAIN));
+        activeLabel.setForeground(Color.WHITE);
+        animateBackground(activeLabel, activeLabel.getBackground(), DEFAULT_BG);
     }
 
-    private JPanel setupProfileSection() {
+
+    activeLabel = label;
+    activeLabel.setFont(label.getFont().deriveFont(Font.BOLD));
+    activeLabel.setForeground(Color.WHITE);
+
+    Color targetColor = new Color(255, 140, 0); // Cam đậm
+    animateBackground(activeLabel, activeLabel.getBackground(), targetColor);
+}
+
+    
+    
+
+    private void setupProfileSection() {
         JPanel profilePanel = new JPanel();
         profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
         profilePanel.setBackground(DEFAULT_BG);
