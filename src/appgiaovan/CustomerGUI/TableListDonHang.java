@@ -1,12 +1,16 @@
-package appgiaovan.GUI.Components;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package appgiaovan.CustomerGUI;
 
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 
-public class TableList extends JPanel {
+public class TableListDonHang extends JPanel {
 
-    public TableList(String[] columnNames, Object[][] data) {
+    public TableListDonHang(String[] columnNames, Object[][] data) {
         setLayout(new BorderLayout());
 
         DefaultTableModel model = new DefaultTableModel(data, columnNames) {
@@ -74,12 +78,8 @@ public class TableList extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1000, 350);
             frame.setLocationRelativeTo(null);
-            frame.add(new TableList(columns, data));
+            frame.add(new TableListDonHang(columns, data));
             frame.setVisible(true);
         });
-    }
-
-    public Object getTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

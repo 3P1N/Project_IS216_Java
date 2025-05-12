@@ -25,7 +25,7 @@ import org.jfree.data.category.*;
 
 public class ManagerMainScreen extends JFrame {
     public ManagerMainScreen() {
-        setTitle("Trang tổng quan");
+        setTitle("Quản lý - Home");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 600);
         setLocationRelativeTo(null);

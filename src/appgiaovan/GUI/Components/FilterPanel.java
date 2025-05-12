@@ -25,7 +25,7 @@ public class FilterPanel extends JPanel {
         add(statusComboBox);
 
         // TextField - Khách hàng
-        JTextField customerField = new JTextField("Khách hàng");
+        JTextField customerField = new JTextField("Text");
         customerField.setPreferredSize(new Dimension(100, 30));
         add(customerField);
 
