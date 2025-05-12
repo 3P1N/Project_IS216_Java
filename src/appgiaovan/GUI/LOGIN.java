@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package appgiaovan.GUI;
+
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -10,11 +12,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+
 /**
  *
  * @author ASUS
  */
-public class LOGIN extends JFrame{
+public class LOGIN extends JFrame {
+
     public LOGIN() {
         setTitle("Đăng nhập - Đơn vị giao vận 3P1N");
         setSize(900, 600);
@@ -34,15 +38,15 @@ public class LOGIN extends JFrame{
         System.out.println("Image URL: " + imageUrl);
 
         background.setBounds(0, 0, 900, 600);
-       // mainPanel.add(background);
+        // mainPanel.add(background);
 
         // Panel chính để nhập login
         JPanel loginPanel = new JPanel();
-        loginPanel.setBounds(275, 100,350, 350);
+        loginPanel.setBounds(275, 100, 350, 350);
         loginPanel.setBackground(Color.WHITE);
         loginPanel.setLayout(null);
         loginPanel.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
-       // mainPanel.add(loginPanel);
+        // mainPanel.add(loginPanel);
 
         JLabel logo = new JLabel("3P1N - Đăng nhập");
         logo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -106,13 +110,17 @@ public class LOGIN extends JFrame{
             }
         });
 
-       
-        
-        mainPanel.add(loginPanel);mainPanel.add(background);
+        mainPanel.add(loginPanel);
+        mainPanel.add(background);
 
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Không thể cài đặt FlatLaf");
+        }
         SwingUtilities.invokeLater(() -> {
             LOGIN frame = new LOGIN();
             frame.setVisible(true);

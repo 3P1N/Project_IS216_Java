@@ -6,6 +6,7 @@ import appgiaovan.GUI.Components.RoundedTextField;
 import javax.swing.*;
 import java.awt.*;
 import appgiaovan.GUI.Components.MenuBar;
+import com.formdev.flatlaf.FlatLightLaf;
 
 
 public class ThemDonHang extends JFrame {
@@ -108,13 +109,18 @@ public class ThemDonHang extends JFrame {
         mainPanel.add(btnTaoDon);
 
         
-        MenuBar menubar = new MenuBar();
-        add(menubar, BorderLayout.WEST);
+        EmployeeSidebar sidebar = new EmployeeSidebar();
+        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Không thể cài đặt FlatLaf");
+        }
         SwingUtilities.invokeLater(() -> new ThemDonHang());
     }
 }
