@@ -32,9 +32,9 @@ public class MenuBar extends JPanel {
         }
 
         // Mục mặc định là mục đầu tiên
-        if (!labels.isEmpty()) {
+        /*if (!labels.isEmpty()) {
             setActiveLabel(labels.get(0));
-        }
+        }*/
     }
 
     private JLabel createMenuItem(String text, String iconName) {
@@ -46,9 +46,9 @@ public class MenuBar extends JPanel {
             ImageIcon originalIcon = new ImageIcon(imageUrl);
             Image scaledImage = originalIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
             label.setIcon(new ImageIcon(scaledImage));
-        } else {
+        } /*else {
             System.err.println("Không tìm thấy icon: " + iconName);
-        }
+        }*/
 
         label.setPreferredSize(new Dimension(180, 40));  // Đặt kích thước cho từng mục menu
         label.setMaximumSize(new Dimension(180, 40));
