@@ -160,9 +160,9 @@ public class MenuBar extends JPanel {
             avatarLabel.setForeground(Color.WHITE);
         }
 
-        JLabel nameLabel = new JLabel("John Smith");
+        JLabel nameLabel = new JLabel("Phạm Văn Thanh Phiên");
         nameLabel.setForeground(Color.WHITE);
-        JLabel titleLabel = new JLabel("Software Engineer");
+        JLabel titleLabel = new JLabel("Nhân viên");
         titleLabel.setForeground(Color.LIGHT_GRAY);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 11));
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
