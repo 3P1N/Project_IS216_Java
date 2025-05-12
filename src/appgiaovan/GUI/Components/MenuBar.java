@@ -56,6 +56,8 @@ public class MenuBar extends JPanel {
         label.setOpaque(true);
         label.setBackground(DEFAULT_BG);
         label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        label.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); // top, left, bottom, right
+
 
         label.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
