@@ -95,7 +95,7 @@ public class MenuBar extends JPanel {
 
         return label;
     }
-    
+
     private void animateBackground(JLabel label, Color start, Color end) {
     final int steps = 15;
     final int delay = 20; // milliseconds
