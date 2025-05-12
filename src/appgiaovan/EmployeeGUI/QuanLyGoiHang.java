@@ -53,11 +53,7 @@ public class QuanLyGoiHang extends JFrame {
     }
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
-        }
+        
         SwingUtilities.invokeLater(() -> new QuanLyGoiHang().setVisible(true));
     }
 }
