@@ -13,12 +13,21 @@ import java.awt.BorderLayout;
  *
  * @author pc
  */
-public class ManagerSidebar extends MenuBar {
-    private static final List<String> items = Arrays.asList("Trang chủ", "Báo cáo", "Quản lý đơn hàng", "Quản lý gói hàng", "Đăng xuất");
-    private static final List<String> icons = Arrays.asList("home.png", "report.png", "order.png", "package.png", "logout.png");
-
+public class ManagerSidebar extends JPanel {
     public ManagerSidebar() {
-        super(ManagerSidebar.items, ManagerSidebar.icons);
+        // Khai báo danh sách tiêu đề và icon
+        List<String> items = Arrays.asList("Báo cáo", "Quản lý nhân viên", "Quản lý khách hàng","Xem báo cáo", "Xem bảng lương", "Đăng xuất");
+        List<String> icons = Arrays.asList("report.png", "employee.png", "package.png","report.png", "salary.png", "logout.png");
+
+        // Thiết lập layout cho Sidebar
+        setLayout(new BorderLayout());
+
+        // Tạo MenuBar và add vào chính JPanel này
+        MenuBar menu = new MenuBar(items, icons);
+        add(menu, BorderLayout.CENTER);
+
+        // Optionally set preferred size
+        setPreferredSize(menu.getPreferredSize());
     }
 }
 
