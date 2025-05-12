@@ -4,10 +4,12 @@
  */
 package appgiaovan.ShipperGUI;
 
+import appgiaovan.EmployeeGUI.EmployeeSidebar;
 import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.MenuBar;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
@@ -22,9 +24,19 @@ public class ShipperMainGUI extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Sidebar trái
-        MenuBar menubar = new MenuBar();
+         // Khai báo danh sách tiêu đề và icon
+        java.util.List<String> items = Arrays.asList("Quản lý đơn hàng","Báo cáo","Hỗ trợ", "Đăng xuất");
+        java.util.List<String> icons = Arrays.asList("order.png", "report.png","support.jpg", "logout.png");
 
+        // Thiết lập layout cho Sidebar
+        setLayout(new BorderLayout());
+
+        // Tạo MenuBar và add vào chính JPanel này
+        MenuBar menu = new MenuBar(items, icons);
+        add(menu, BorderLayout.EAST);
+
+        // Optionally set preferred size
+        setPreferredSize(menu.getPreferredSize());
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -40,7 +52,7 @@ public class ShipperMainGUI extends JFrame {
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
         // Thêm vào JFrame
-        add(menubar, BorderLayout.WEST);
+        add(menu, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
     }
 
