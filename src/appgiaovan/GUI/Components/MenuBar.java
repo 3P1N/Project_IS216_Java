@@ -18,24 +18,33 @@ public class MenuBar extends JPanel {
 
     public MenuBar(List<String> itemNames, List<String> iconNames) {
         setBackground(DEFAULT_BG);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(200, 700));  // Đặt kích thước panel menu theo yêu cầu
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(200, 700));
 
-        if (itemNames.size() != iconNames.size()) {
-            throw new IllegalArgumentException("Số lượng tên và icon không khớp.");
-        }
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBackground(DEFAULT_BG);
 
-        setupProfileSection();
-        this.add(createSeparator()); 
+        // Thêm logo vào đầu
+        mainPanel.add(createLogoSection());
+        mainPanel.add(createSeparator());
+        //
+        // Thêm profile
+        mainPanel.add(setupProfileSection());
+        //
+        // Separator giữa profile và menu
+        mainPanel.add(createSeparator());
+
+        // Thêm menu item
         for (int i = 0; i < itemNames.size(); i++) {
             JLabel label = createMenuItem(itemNames.get(i), iconNames.get(i));
             labels.add(label);
-            if(i==itemNames.size()-1){
-                this.add(createSeparator());  
-
-            }
-            this.add(label);
+            mainPanel.add(label);
         }
+
+        // Tùy chọn separator sau cùng nếu cần
+        mainPanel.add(Box.createVerticalGlue()); // Đẩy menu lên trên
+        add(mainPanel, BorderLayout.CENTER);
 
         // Mục mặc định là mục đầu tiên
         if (!labels.isEmpty()) {
@@ -98,14 +107,13 @@ public class MenuBar extends JPanel {
         activeLabel.setBackground(HOVER_BG);
     }
 
-    private void setupProfileSection() {
+    private JPanel setupProfileSection() {
         JPanel profilePanel = new JPanel();
         profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
         profilePanel.setBackground(DEFAULT_BG);
         profilePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        profilePanel.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 0)); // lề trái khớp menu
+        profilePanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0)); // lề
 
-        // Avatar
         JLabel avatarLabel = new JLabel();
         URL imageUrl = getClass().getResource("/images/avatar.png");
         if (imageUrl != null) {
@@ -113,13 +121,11 @@ public class MenuBar extends JPanel {
             Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
             avatarLabel.setIcon(new ImageIcon(scaledImage));
             avatarLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         } else {
             avatarLabel.setText("Ảnh");
             avatarLabel.setForeground(Color.WHITE);
         }
 
-        // Tên và chức danh
         JLabel nameLabel = new JLabel("John Smith");
         nameLabel.setForeground(Color.WHITE);
         JLabel titleLabel = new JLabel("Software Engineer");
@@ -133,9 +139,8 @@ public class MenuBar extends JPanel {
         profilePanel.add(nameLabel);
         profilePanel.add(titleLabel);
         profilePanel.add(Box.createVerticalStrut(10));
-        
 
-        add(profilePanel);
+        return profilePanel;
     }
 
     private Component createSeparator() {
@@ -146,8 +151,38 @@ public class MenuBar extends JPanel {
         return separator;
     }
 
+    private Component createLogoSection() {
+        JPanel logoPanel = new JPanel();
+        logoPanel.setBackground(DEFAULT_BG);
+        logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.Y_AXIS));
+        logoPanel.setMaximumSize(new Dimension(200, 80));
+        logoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel logoLabel = new JLabel();
+        logoLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // căn trái tuyệt đối
+        logoLabel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); // thêm lề trái 15px (tùy chỉnh)
+
+        URL logoUrl = getClass().getResource("/images/Logo3P1N.png");
+        if (logoUrl != null) {
+            ImageIcon originalIcon = new ImageIcon(logoUrl);
+            Image scaledImage = originalIcon.getImage().getScaledInstance(48, 48, Image.SCALE_SMOOTH);
+            logoLabel.setIcon(new ImageIcon(scaledImage));
+        } else {
+            logoLabel.setText("LOGO");
+            logoLabel.setForeground(Color.WHITE);
+            logoLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        }
+
+        logoPanel.add(Box.createVerticalStrut(20));
+        logoPanel.add(logoLabel);
+        logoPanel.add(Box.createVerticalStrut(10));
+
+        return logoPanel;
+    }
+
     // ✅ Hàm main để test trực tiếp MenuBar với kích thước như bạn yêu cầu
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Test MenuBar");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
