@@ -78,4 +78,8 @@ public class TableList extends JPanel {
             frame.setVisible(true);
         });
     }
+
+    public Object getTable() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
