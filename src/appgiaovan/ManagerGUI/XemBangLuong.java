@@ -35,14 +35,14 @@ public class XemBangLuong extends JFrame {
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Panel danh sách
-        String[] columns = {"", "ID", "Tên nhân viên","Vai trò", "Thông tin", "Ngày báo cáo"};
+        String[] columns = {"", "ID", "Tên nhân viên","Vai trò", "Trạng thái","Tiền lương", "Ngày tính lương"};
         Object[][] data = {
             {false, "<html><b style='color:#007bff;'>93200103</b></html>",
                 "<html></span><br><b>Nguyễn Văn B</b><br><span></html>","Nhân viên giao hàng",
-                "<html><b>50 đơn hàng đã giao</b></html>", "10-02-2025"},
+                "<html><b>Chưa thanh toán lương</b></html>","<html><b>15.000.000 vnđ</b></html>", "10-02-2025"},
             {false, "<html><b style='color:#007bff;'>93200103</b></html>",
                 "<html></span><br><b>Nguyễn Văn A</b><br><span></html>","Nhân viên kho",
-                "<html><b>50 đơn hàng đã tạo</b><br><b>10 gói hàng đã tạo</b></html>", "10-02-2025"}
+                "<html><b>Đã thanh toán lương</b></html>","<html><b>12.000.000 vnđ</b></html>", "10-02-2025"}
         };
         TableList listOrder = new TableList(columns, data);
         mainPanel.add(listOrder, BorderLayout.CENTER);
