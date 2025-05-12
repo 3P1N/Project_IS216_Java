@@ -12,10 +12,14 @@ import javax.swing.*;
 import java.awt.*;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
-import org.jfree.data.category.*;
-public class CustomerMainScreen extends JFrame {
+import org.jfree.data.category.*;/**
+ *
+ * @author nhant
+ */
+public class XemLsDonHang extends JFrame {
 
-    public CustomerMainScreen(){
+    public XemLsDonHang(){
+    setTitle("Trang tổng quan");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 600);
         setLocationRelativeTo(null);
@@ -23,15 +27,12 @@ public class CustomerMainScreen extends JFrame {
 
         // Sidebar trái
         CustomerSidebar sidebar = new CustomerSidebar();
-        //Khu vuc trung tâm
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        
         // Thêm vào JFrame
         add(sidebar, BorderLayout.WEST);
-        add(mainPanel, BorderLayout.CENTER);
-
     }
     public static void main(String[] args) {
-        try {
+         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
             System.err.println("Không thể cài đặt FlatLaf");
@@ -40,5 +41,4 @@ public class CustomerMainScreen extends JFrame {
             new XemLsDonHang().setVisible(true);
         });
     }
-    
 }
