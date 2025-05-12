@@ -10,8 +10,8 @@ public class EmployeeSidebar extends JPanel {
 
     public EmployeeSidebar() {
         // Khai báo danh sách tiêu đề và icon
-        List<String> items = Arrays.asList("Báo cáo", "Quản lý đơn hàng", "Quản lý gói hàng", "Đăng xuất");
-        List<String> icons = Arrays.asList("report.png", "order.png", "package.png", "logout.png");
+        List<String> items = Arrays.asList("Trang chủ", "Báo cáo", "Quản lý đơn hàng", "Quản lý gói hàng", "Đăng xuất");
+        List<String> icons = Arrays.asList("home.png","report.png", "order.png", "package.png", "logout.png");
 
         // Thiết lập layout cho Sidebar
         setLayout(new BorderLayout());
