@@ -3,14 +3,15 @@ package appgiaovan.ManagerGUI;
 import appgiaovan.EmployeeGUI.*;
 import appgiaovan.GUI.Components.TableList;
 import appgiaovan.GUI.Components.MenuBar;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.Arrays;
 
-public class XemBaoCao extends JFrame {
+public class XemBangLuong extends JFrame {
 
-    public XemBaoCao() {
+    public XemBangLuong() {
         setTitle("Quản Lý Đơn Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -22,11 +23,8 @@ public class XemBaoCao extends JFrame {
         //Panel Menu
 
         ManagerSidebar sidebar = new ManagerSidebar();
-
-        List<String> items = Arrays.asList("Báo cáo", "Quản lý đơn hàng", "Quản lý gói hàng", "Đăng xuất");
-        List<String> icons = Arrays.asList("report.png", "order.png", "package.png", "logout.png");
-        MenuBar menubar = new MenuBar(items, icons);
-        add(menubar, BorderLayout.WEST);
+        
+        add(sidebar, BorderLayout.WEST);
 
         //main
         JPanel mainPanel = new JPanel();
@@ -53,6 +51,6 @@ public class XemBaoCao extends JFrame {
 
     public static void main(String[] args) {
         
-        SwingUtilities.invokeLater(() -> new XemBaoCao().setVisible(true));
+        SwingUtilities.invokeLater(() -> new XemBangLuong().setVisible(true));
     }
 }
