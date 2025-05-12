@@ -77,19 +77,44 @@ public class MenuBar extends JPanel {
 
         return label;
     }
+    
+    private void animateBackground(JLabel label, Color start, Color end) {
+        final int steps = 10;
+        final int delay = 20; // ms
+        Timer timer = new Timer(delay, null);
+        final int[] count = {0};
+
+        timer.addActionListener(e -> {
+        float ratio = count[0] / (float) steps;
+        int red = (int) (start.getRed() + ratio * (end.getRed() - start.getRed()));
+        int green = (int) (start.getGreen() + ratio * (end.getGreen() - start.getGreen()));
+        int blue = (int) (start.getBlue() + ratio * (end.getBlue() - start.getBlue()));
+
+        label.setBackground(new Color(red, green, blue));
+
+        count[0]++;
+        if (count[0] > steps) {
+            ((Timer) e.getSource()).stop();
+        }
+    });
+    timer.start();
+}
+
 
     private void setActiveLabel(JLabel label) {
-        if (activeLabel != null) {
-            activeLabel.setFont(activeLabel.getFont().deriveFont(Font.PLAIN));
-            activeLabel.setForeground(Color.WHITE);
-            activeLabel.setBackground(DEFAULT_BG);
-        }
-
-        activeLabel = label;
-        activeLabel.setFont(label.getFont().deriveFont(Font.BOLD));
-        activeLabel.setForeground(Color.YELLOW);
-        activeLabel.setBackground(HOVER_BG);
+    if (activeLabel != null) {
+        activeLabel.setFont(activeLabel.getFont().deriveFont(Font.PLAIN));
+        activeLabel.setForeground(Color.WHITE);
+        animateBackground(activeLabel, activeLabel.getBackground(), DEFAULT_BG);
     }
+
+    activeLabel = label;
+    activeLabel.setFont(label.getFont().deriveFont(Font.BOLD));
+    activeLabel.setForeground(Color.WHITE);
+
+    Color targetColor = new Color(255, 140, 0); // Cam đậm
+    animateBackground(activeLabel, activeLabel.getBackground(), targetColor);
+}
 
     // ✅ Hàm main để test trực tiếp MenuBar với kích thước như bạn yêu cầu
     public static void main(String[] args) {
