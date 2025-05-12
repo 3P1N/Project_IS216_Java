@@ -2,17 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package appgiaovan.GUI.Components;
-
+package appgiaovan.EmployeeGUI;
+import appgiaovan.GUI.Components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 
-public class FilterPanel extends JPanel {
-
-    public FilterPanel() {
+public class TopPanelQLGH extends JPanel {
+    public TopPanelQLGH() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
+
+        
 
         // TextField - ID
         JTextField idField = new JTextField("ID");
@@ -28,6 +29,7 @@ public class FilterPanel extends JPanel {
         JTextField customerField = new JTextField("Khách hàng");
         customerField.setPreferredSize(new Dimension(100, 30));
         add(customerField);
+
 
         // Button - Lọc (màu xanh đậm)
         JButton filterButton = new JButton("Lọc");
@@ -45,27 +47,21 @@ public class FilterPanel extends JPanel {
         RoundedButton roundedaddBtn = new RoundedButton(addButton, 20);
         add(roundedaddBtn);
 
-        // JButton - Thao tác (màu xanh dương)
-        JButton actionButton = new JButton("Phân công");
-        actionButton.setPreferredSize(new Dimension(100, 30));
-        actionButton.setBackground(new Color(0, 123, 255));
-        actionButton.setForeground(Color.WHITE);
-        RoundedButton roundedactionBtn = new RoundedButton(actionButton, 20);
-        add(roundedactionBtn);
+        
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Không thể cài đặt FlatLaf");
+        }
         SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new FlatLightLaf());
-            } catch (Exception ex) {
-                System.err.println("Không thể cài đặt FlatLaf");
-            }
             JFrame frame = new JFrame("Lọc đơn hàng");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
-            frame.add(new FilterPanel());
+            frame.add(new TopPanelQLGH());
             frame.setVisible(true);
         });
     }

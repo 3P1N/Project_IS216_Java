@@ -1,12 +1,11 @@
-
 package appgiaovan.GUI.Components;
-
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
 public class RoundedButton extends JButton {
+
     private final int radius;
 
     public RoundedButton(String text) {
@@ -26,6 +25,35 @@ public class RoundedButton extends JButton {
         setForeground(Color.WHITE);
         setBackground(new Color(45, 140, 240)); // FlatLaf primary blue
         setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
+    // Constructor mới: tạo RoundedButton từ một JButton sẵn có
+    public RoundedButton(JButton button, int radius) {
+        super(button.getText());
+        this.radius = radius; // hoặc lấy từ clientProperty nếu muốn linh hoạt
+        copyButtonProperties(button);
+        initDefaultStyle();
+    }
+
+    private void initDefaultStyle() {
+        setFocusPainted(false);
+        setContentAreaFilled(false);
+        setBorderPainted(false);
+        setOpaque(false);
+        setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }
+
+    private void copyButtonProperties(JButton button) {
+        setFont(button.getFont());
+        setForeground(button.getForeground());
+        setBackground(button.getBackground());
+        setPreferredSize(button.getPreferredSize());
+        setMinimumSize(button.getMinimumSize());
+        setMaximumSize(button.getMaximumSize());
+        setEnabled(button.isEnabled());
+        setToolTipText(button.getToolTipText());
+        setActionCommand(button.getActionCommand());
+        setIcon(button.getIcon());
     }
 
     @Override
@@ -58,4 +86,3 @@ public class RoundedButton extends JButton {
         return new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), radius, radius).contains(x, y);
     }
 }
-
