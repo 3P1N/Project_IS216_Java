@@ -13,9 +13,9 @@ import java.awt.*;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
-public class CustomerMainScreen extends JFrame {
+public class TraCuuDonHang extends JFrame {
 
-    public CustomerMainScreen(){
+    public TraCuuDonHang(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 600);
         setLocationRelativeTo(null);
