@@ -49,9 +49,9 @@ public class MenuBar extends JPanel {
         add(mainPanel, BorderLayout.CENTER);
 
         // Mục mặc định là mục đầu tiên
-        if (!labels.isEmpty()) {
+        /*if (!labels.isEmpty()) {
             setActiveLabel(labels.get(0));
-        }
+        }*/
     }
 
     private JLabel createMenuItem(String text, String iconName) {
@@ -63,9 +63,9 @@ public class MenuBar extends JPanel {
             ImageIcon originalIcon = new ImageIcon(imageUrl);
             Image scaledImage = originalIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
             label.setIcon(new ImageIcon(scaledImage));
-        } else {
+        } /*else {
             System.err.println("Không tìm thấy icon: " + iconName);
-        }
+        }*/
 
         label.setPreferredSize(new Dimension(180, 40));  // Đặt kích thước cho từng mục menu
         label.setMaximumSize(new Dimension(180, 40));
@@ -160,9 +160,9 @@ public class MenuBar extends JPanel {
             avatarLabel.setForeground(Color.WHITE);
         }
 
-        JLabel nameLabel = new JLabel("John Smith");
+        JLabel nameLabel = new JLabel("Phạm Văn Thanh Phiên");
         nameLabel.setForeground(Color.WHITE);
-        JLabel titleLabel = new JLabel("Software Engineer");
+        JLabel titleLabel = new JLabel("Nhân viên");
         titleLabel.setForeground(Color.LIGHT_GRAY);
         titleLabel.setFont(new Font("Arial", Font.PLAIN, 11));
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
