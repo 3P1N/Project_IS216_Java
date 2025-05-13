@@ -10,9 +10,9 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ShipperSupportGUI extends JFrame {
+public class NVGHHotro extends JFrame {
 
-    public ShipperSupportGUI() {
+    public NVGHHotro() {
         setTitle("Hỗ Trợ - 3P1N đơn vị giao vận");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200, 700);
@@ -111,7 +111,7 @@ public class ShipperSupportGUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new ShipperSupportGUI().setVisible(true);
+            new NVGHHotro().setVisible(true);
         });
     }
 }

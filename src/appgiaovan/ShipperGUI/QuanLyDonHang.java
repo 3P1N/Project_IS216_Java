@@ -8,16 +8,16 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 
-public class ShipperProduct extends JFrame {
+public class QuanLyDonHang extends JFrame {
 
-    public ShipperProduct() {
+    public QuanLyDonHang() {
         setTitle("Quản Lý Đơn Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         // Panel Menu
-        ShipperMenu menu = new ShipperMenu();
+        NVGHMenu menu = new NVGHMenu();
         add(menu, BorderLayout.WEST);
 
         // MAIN PANEL: dùng BorderLayout
@@ -30,7 +30,7 @@ public class ShipperProduct extends JFrame {
         JPanel centerPanel = new JPanel(new BorderLayout());
 
         // 2.1) Thanh lọc lên trên
-        FilterShipper filter = new FilterShipper();
+        NVGHLoc filter = new NVGHLoc();
         filter.setPreferredSize(new Dimension(0, 60));  // để layout manager tự co giãn chiều ngang
         centerPanel.add(filter, BorderLayout.NORTH);
 
@@ -61,7 +61,7 @@ public class ShipperProduct extends JFrame {
             } catch (Exception ex) {
                 System.err.println("Không thể cài đặt FlatLaf");
             }
-            new ShipperProduct().setVisible(true);
+            new QuanLyDonHang().setVisible(true);
         });
     }
 }

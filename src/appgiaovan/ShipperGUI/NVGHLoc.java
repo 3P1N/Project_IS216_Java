@@ -9,9 +9,9 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 
-public class FilterShipper extends JPanel {
+public class NVGHLoc extends JPanel {
 
-    public FilterShipper() {
+    public NVGHLoc() {
         setLayout(null);
         setBackground(Color.WHITE);
 
@@ -73,7 +73,7 @@ public class FilterShipper extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
-            frame.add(new FilterShipper());
+            frame.add(new NVGHLoc());
             frame.setVisible(true);
         });
     }
