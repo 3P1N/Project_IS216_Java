@@ -22,7 +22,6 @@ public class MenuBar extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(180, 700));  // Đặt kích thước panel menu theo yêu cầu
 
-
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(DEFAULT_BG);
@@ -63,7 +62,8 @@ public class MenuBar extends JPanel {
             ImageIcon originalIcon = new ImageIcon(imageUrl);
             Image scaledImage = originalIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
             label.setIcon(new ImageIcon(scaledImage));
-        } /*else {
+        }
+        /*else {
             System.err.println("Không tìm thấy icon: " + iconName);
         }*/
 
@@ -78,6 +78,9 @@ public class MenuBar extends JPanel {
         label.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 setActiveLabel(label);
+                if (listener != null) {
+                    listener.onMenuClick(text); // Gửi tên mục được chọn
+                }
             }
 
             public void mouseEntered(MouseEvent e) {
@@ -97,49 +100,44 @@ public class MenuBar extends JPanel {
     }
 
     private void animateBackground(JLabel label, Color start, Color end) {
-    final int steps = 15;
-    final int delay = 20; // milliseconds
-    Timer timer = new Timer(delay, null);
-    final int[] count = {0};
+        final int steps = 15;
+        final int delay = 20; // milliseconds
+        Timer timer = new Timer(delay, null);
+        final int[] count = {0};
 
-    timer.addActionListener(e -> {
-        float ratio = count[0] / (float) steps;
+        timer.addActionListener(e -> {
+            float ratio = count[0] / (float) steps;
 
-        int r = (int) (start.getRed() + ratio * (end.getRed() - start.getRed()));
-        int g = (int) (start.getGreen() + ratio * (end.getGreen() - start.getGreen()));
-        int b = (int) (start.getBlue() + ratio * (end.getBlue() - start.getBlue()));
+            int r = (int) (start.getRed() + ratio * (end.getRed() - start.getRed()));
+            int g = (int) (start.getGreen() + ratio * (end.getGreen() - start.getGreen()));
+            int b = (int) (start.getBlue() + ratio * (end.getBlue() - start.getBlue()));
 
-        label.setBackground(new Color(r, g, b));
-        count[0]++;
+            label.setBackground(new Color(r, g, b));
+            count[0]++;
 
-        if (count[0] > steps) {
-            label.setBackground(end); // Đảm bảo kết quả chính xác ở cuối
-            ((Timer) e.getSource()).stop();
-        }
-    });
+            if (count[0] > steps) {
+                label.setBackground(end); // Đảm bảo kết quả chính xác ở cuối
+                ((Timer) e.getSource()).stop();
+            }
+        });
 
-    timer.start();
-}
-
-    
-    private void setActiveLabel(JLabel label) {
-    if (activeLabel != null) {
-        activeLabel.setFont(activeLabel.getFont().deriveFont(Font.PLAIN));
-        activeLabel.setForeground(Color.WHITE);
-        animateBackground(activeLabel, activeLabel.getBackground(), DEFAULT_BG);
+        timer.start();
     }
 
+    private void setActiveLabel(JLabel label) {
+        if (activeLabel != null) {
+            activeLabel.setFont(activeLabel.getFont().deriveFont(Font.PLAIN));
+            activeLabel.setForeground(Color.WHITE);
+            animateBackground(activeLabel, activeLabel.getBackground(), DEFAULT_BG);
+        }
 
-    activeLabel = label;
-    activeLabel.setFont(label.getFont().deriveFont(Font.BOLD));
-    activeLabel.setForeground(Color.WHITE);
+        activeLabel = label;
+        activeLabel.setFont(label.getFont().deriveFont(Font.BOLD));
+        activeLabel.setForeground(Color.WHITE);
 
-    Color targetColor = new Color(255, 140, 0); // Cam đậm
-    animateBackground(activeLabel, activeLabel.getBackground(), targetColor);
-}
-
-    
-    
+        Color targetColor = new Color(255, 140, 0); // Cam đậm
+        animateBackground(activeLabel, activeLabel.getBackground(), targetColor);
+    }
 
     private JPanel setupProfileSection() {
         JPanel profilePanel = new JPanel();
@@ -177,6 +175,16 @@ public class MenuBar extends JPanel {
         return profilePanel;
     }
 
+    public interface MenuClickListener {
+
+        void onMenuClick(String menuName);
+    }
+    private MenuClickListener listener;
+
+    public void addMenuClickListener(MenuClickListener listener) {
+        this.listener = listener;
+    }
+
     private Component createSeparator() {
         JSeparator separator = new JSeparator();
         separator.setMaximumSize(new Dimension(185, 1));  // Đủ rộng để khớp sidebar
@@ -196,7 +204,8 @@ public class MenuBar extends JPanel {
         logoLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // căn trái tuyệt đối
         logoLabel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); // thêm lề trái 15px (tùy chỉnh)
 
-        URL logoUrl = getClass().getResource("/images/Logo3P1N.png");
+        URL logoUrl = getClass().getResource("/images/logo3p1n.png");
+        System.out.println("Logo URL: " + logoUrl);
         if (logoUrl != null) {
             ImageIcon originalIcon = new ImageIcon(logoUrl);
             Image scaledImage = originalIcon.getImage().getScaledInstance(100, 78, Image.SCALE_SMOOTH);
