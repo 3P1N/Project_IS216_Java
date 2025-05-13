@@ -28,29 +28,31 @@ public class TaoDonHang extends JFrame {
         border.setBounds(0, 0, 880, 10);
         border.setBackground(new Color(255, 102, 102));
         mainPanel.add(border);
-
+        
         // Bên gửi
         JLabel lblBenGui = new JLabel("Bên gửi");
         lblBenGui.setFont(new Font("Arial", Font.BOLD, 14));
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
-
+        //MaDon
+        RoundedTextField txtMaDon = new RoundedTextField("DH001");
+        txtMaDon.setFocusable(false);
+        txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
+        txtMaDon.setBounds(20, 50, 200, 50);
+        txtMaDon.setFont(new Font("Arial", Font.BOLD, 16));
+        mainPanel.add(txtMaDon);
+        //SDT
         RoundedTextField txtSDTNguoiGui = new RoundedTextField("Nhập số điện thoại người gửi");
         txtSDTNguoiGui.setBorder(BorderFactory.createTitledBorder("SĐT Người Gửi *"));
-        txtSDTNguoiGui.setBounds(20, 50, 200, 50);
+        txtSDTNguoiGui.setBounds(240, 50, 200, 50);
         mainPanel.add(txtSDTNguoiGui);
-
+        //Ho ten
         RoundedTextField txtTenNguoiGui = new RoundedTextField("Nhập tên người gửi");
         txtTenNguoiGui.setBorder(BorderFactory.createTitledBorder("Tên Người Gửi *"));
-        txtTenNguoiGui.setBounds(240, 50, 200, 50);
+        txtTenNguoiGui.setBounds(460, 50, 200, 50);
         mainPanel.add(txtTenNguoiGui);
 
-//        JComboBox<String> cbCaLayHang = new JComboBox<>(new String[]{
-//            "Test", "Sáng", "Chiều", "Tối"
-//        });
-//        cbCaLayHang.setBounds(460, 90, 200, 30);
-//        mainPanel.add(cbCaLayHang);
-        // Separator
+
         JSeparator separator = new JSeparator();
         separator.setBounds(20, 120, 820, 10);
         mainPanel.add(separator);

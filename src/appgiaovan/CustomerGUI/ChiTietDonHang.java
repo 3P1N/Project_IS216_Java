@@ -15,7 +15,7 @@ public class ChiTietDonHang extends JFrame {
 
     public ChiTietDonHang() {
         setTitle("Chi Tiết Đơn Hàng");
-        setSize(800, 500);
+        setSize(900, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());

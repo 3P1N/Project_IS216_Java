@@ -19,7 +19,7 @@ public class CustomerSidebar extends JPanel {
     public CustomerSidebar() {
         // Khai báo danh sách tiêu đề và icon
         List<String> items = Arrays.asList("Trang chủ", "Tạo đơn hàng", "Tra cứu đơn hàng","Thông tin cá nhân", "Đăng xuất");
-        List<String> icons = Arrays.asList("report.png", "order.png", "package.png","order.png", "logout.png");
+        List<String> icons = Arrays.asList("home.jpg", "order.png", "package.png","customer.png", "logout.png");
 
         // Thiết lập layout cho Sidebar
         setLayout(new BorderLayout());

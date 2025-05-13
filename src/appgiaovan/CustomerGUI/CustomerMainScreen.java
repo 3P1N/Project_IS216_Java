@@ -30,8 +30,35 @@ import appgiaovan.GUI.Components.TimeWeather;
         add(mainPanel, BorderLayout.CENTER);
         //Thanh Weather
         TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
-        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
+        JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
+        statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        statPanel.add(RoundedPanel.createStatBox("Tổng số đơn", "20", "", new Color(76, 175, 80)));
+        statPanel.add(RoundedPanel.createStatBox("Đã giao", "5", "", new Color(33, 150, 243)));
+        statPanel.add(RoundedPanel.createStatBox("Đang vận chuyển", "15", "", new Color(255, 152, 0)));
+
+        mainPanel.add(statPanel, BorderLayout.NORTH);
+
+        // Biểu đồ (sử dụng JFreeChart)
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.addValue(20, "Số lượng", "Tổng đơn");
+        dataset.addValue(5, "Số lượng", "Đang giao");
+        dataset.addValue(15, "Số lượng", "Đã giao");
+
+        JFreeChart barChart = ChartFactory.createBarChart(
+        "Thống kê đơn hàng",
+        "Trạng thái",
+        "Số đơn",
+        dataset,
+        PlotOrientation.VERTICAL,
+        false, true, false
+    );
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setPreferredSize(new Dimension(800, 300));
+        mainPanel.add(chartPanel, BorderLayout.CENTER);
     }
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
