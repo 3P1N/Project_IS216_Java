@@ -1,28 +1,21 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.GUI.Components.RoundedPanel;
-import appgiaovan.GUI.Components.MenuBar;
-import com.formdev.flatlaf.FlatLightLaf;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import javax.swing.*;
 import java.awt.*;
-import org.jfree.chart.*;
-import org.jfree.chart.plot.*;
-import org.jfree.data.category.*;
 
-public class EmployeeMainScreen extends JFrame {
+public class EmployeeMainPanel extends JPanel {
 
-    public EmployeeMainScreen() {
-        setTitle("Trang tổng quan");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 600);
-        setLocationRelativeTo(null);
+    public EmployeeMainPanel() {
         setLayout(new BorderLayout());
 
-        // Sidebar trái
-        EmployeeSidebar sidebar = new EmployeeSidebar();
-        
-
-        // Khu vực trung tâm (dashboard)
+        // Panel chính
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         // Các ô thống kê
@@ -36,7 +29,7 @@ public class EmployeeMainScreen extends JFrame {
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
-        // Biểu đồ (sử dụng JFreeChart)
+        // Biểu đồ doanh thu
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.addValue(0, "Doanh thu", "01");
         dataset.addValue(2, "Doanh thu", "04");
@@ -58,21 +51,28 @@ public class EmployeeMainScreen extends JFrame {
         chartPanel.setPreferredSize(new Dimension(800, 300));
         mainPanel.add(chartPanel, BorderLayout.CENTER);
 
-        // Thêm vào JFrame
-        add(sidebar, BorderLayout.WEST);
+        // Thêm mainPanel vào JPanel gốc
         add(mainPanel, BorderLayout.CENTER);
     }
-
     
-
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
+            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         SwingUtilities.invokeLater(() -> {
-            new EmployeeMainScreen().setVisible(true);
+            JFrame frame = new JFrame("Test Employee Main Panel");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1000, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setLayout(new BorderLayout());
+
+            frame.add(new EmployeeMainPanel(), BorderLayout.CENTER);
+            frame.setVisible(true);
         });
     }
+
+
 }
