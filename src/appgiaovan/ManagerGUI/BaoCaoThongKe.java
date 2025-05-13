@@ -110,7 +110,7 @@ public class BaoCaoThongKe extends JFrame {
                     ds.addValue(v, seriesKey, d.toString());
                     return new Object[]{d.toString(), (long)v};
                 }).toArray(Object[][]::new);
-            tbl.setData(rows);
+            //tbl.setData(rows);
         } catch(Exception ex) { JOptionPane.showMessageDialog(this, "Lỗi định dạng ngày"); }
     }
 
@@ -121,7 +121,7 @@ public class BaoCaoThongKe extends JFrame {
         dsFeedback.setValue("Trung tính", 30);
         dsFeedback.setValue("Tiêu cực", 10);
         Object[][] rows = {{"Tích cực",40},{"Trung tính",30},{"Tiêu cực",10}};
-        tblFeedback.setData(rows);
+        //tblFeedback.setData(rows);
     }
 
     public static void main(String[] args) {

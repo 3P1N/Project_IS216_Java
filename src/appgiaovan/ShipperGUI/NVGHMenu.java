@@ -11,9 +11,9 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ShipperMenu extends JPanel {
+public class NVGHMenu extends JPanel {
 
-    public ShipperMenu() {
+    public NVGHMenu() {
        /* setTitle("Shipper - 3P1N đơn vị giao vận");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200, 700);
@@ -37,7 +37,7 @@ public class ShipperMenu extends JPanel {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new ShipperMenu().setVisible(true);
+            new NVGHMenu().setVisible(true);
         });
     }
 }

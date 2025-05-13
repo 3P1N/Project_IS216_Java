@@ -11,11 +11,11 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import appgiaovan.ShipperGUI.ShipperMenu;
+import appgiaovan.ShipperGUI.NVGHMenu;
 
-public class ShipperMainGUI extends JFrame {
+public class NVGHMainGUI extends JFrame {
 
-    public ShipperMainGUI() {
+    public NVGHMainGUI() {
         setTitle("Shipper - 3P1N đơn vị giao vận");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200, 700);
@@ -23,7 +23,7 @@ public class ShipperMainGUI extends JFrame {
         setLayout(new BorderLayout());
 
            //tao menu
-        ShipperMenu menu = new ShipperMenu();
+        NVGHMenu menu = new NVGHMenu();
 
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -53,7 +53,7 @@ public class ShipperMainGUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new ShipperMainGUI().setVisible(true);
+            new NVGHMainGUI().setVisible(true);
         });
     }
 }

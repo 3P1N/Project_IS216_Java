@@ -39,4 +39,7 @@ public class EmailSender {
             e.printStackTrace();
         }
     }
+    public static void main(String[] args) {
+       sendEmail("tranthephong1908@gmail.com");
+    }
 }

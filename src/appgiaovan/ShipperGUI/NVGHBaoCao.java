@@ -12,7 +12,7 @@ import javax.swing.border.TitledBorder;
  * - Nút Sửa để bật chế độ nhập, Gửi để khóa lại và xử lý gửi
  * - Thêm khung viền bao quanh thông tin và font chữ size 20
  */
-public class ShipperReport extends JFrame {
+public class NVGHBaoCao extends JFrame {
 
     private JTextField reportTimeField;
     private JTextField receivedField;
@@ -20,7 +20,7 @@ public class ShipperReport extends JFrame {
     private JTextField failedField;
     private JTextField revenueField;
 
-    public ShipperReport() {
+    public NVGHBaoCao() {
         setTitle("Báo cáo Shipper - 3P1N");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200, 700);
@@ -28,7 +28,7 @@ public class ShipperReport extends JFrame {
         setLayout(new BorderLayout());
 
         // Sidebar menu
-        ShipperMenu menu = new ShipperMenu();
+        NVGHMenu menu = new NVGHMenu();
         add(menu, BorderLayout.WEST);
 
         // Main panel
@@ -148,7 +148,7 @@ public class ShipperReport extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try { UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf()); } catch (Exception ignored) {}
-            new ShipperReport().setVisible(true);
+            new NVGHBaoCao().setVisible(true);
         });
     }
 }
