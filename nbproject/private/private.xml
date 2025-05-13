@@ -12,12 +12,11 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ChiTietDonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/Webp.net-resizeimage.png</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/AccountDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/XemLsDonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/CustomerDAO.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThongTinCaNhan.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperReport.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/PasswordHashing.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyGoiHang.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/RegisterGUI.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelTGH.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/TaoDonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/AccountRoleDAO.java</file>
@@ -25,7 +24,6 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/FilterPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/logo2.png</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/MenuBar.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperProfile.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/LOGIN.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeSidebar.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/ShipperMainGUI.java</file>
@@ -38,6 +36,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/AdminGUI/AdminMainScreen.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/TableList.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/TimeWeather.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/CustomerMainScreen.java</file>
 
 
