@@ -37,7 +37,7 @@ public class CustomerMainScreen extends JFrame {
             System.err.println("Không thể cài đặt FlatLaf");
         }
         SwingUtilities.invokeLater(() -> {
-            new XemLsDonHang().setVisible(true);
+            new CustomerMainScreen().setVisible(true);
         });
     }
     

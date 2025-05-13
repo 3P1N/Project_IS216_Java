@@ -1,10 +1,15 @@
 package appgiaovan.ShipperGUI;
 
+import appgiaovan.EmployeeGUI.EmployeeSidebar;
+import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.MenuBar;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Arrays;
-import java.util.List;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import java.awt.event.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ShipperMenu extends JPanel {
 
@@ -30,9 +35,9 @@ public class ShipperMenu extends JPanel {
 
     }
 
-    /*public static void main(String[] args) {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new ShipperMenu().setVisible(true);
         });
-    }*/
+    }
 }
