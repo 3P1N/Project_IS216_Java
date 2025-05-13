@@ -4,6 +4,7 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.GUI.Components.TimeWeather;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
@@ -83,7 +84,9 @@ public class ThongTinCaNhan extends JFrame {
 
         // Thêm infoPanel vào khu vực CENTER của mainPanel
         mainPanel.add(infoPanel, BorderLayout.CENTER);
-
+        //Thanh Weather
+        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
+        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
     }
     
     public static void main(String[] args) {

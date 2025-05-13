@@ -14,6 +14,7 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
 import appgiaovan.CustomerGUI.ThanhTimKiemDH;
+import appgiaovan.GUI.Components.TimeWeather;
 public class TraCuuDonHang extends JFrame {
 
     public TraCuuDonHang(){
@@ -45,7 +46,9 @@ public class TraCuuDonHang extends JFrame {
         TableListDonHang listOrder = new TableListDonHang(columns, data);
         mainPanel.add(listOrder, BorderLayout.CENTER);
         add(mainPanel, BorderLayout.CENTER);
-        
+        //Thanh Weather
+        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
+        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
     }
     public static void main(String[] args) {
         try {

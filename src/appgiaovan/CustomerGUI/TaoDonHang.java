@@ -6,6 +6,7 @@ import appgiaovan.GUI.Components.RoundedComboBox;
 import com.formdev.flatlaf.FlatLightLaf;
 import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.RoundedTextField;
+import appgiaovan.GUI.Components.TimeWeather;
 import javax.swing.*;
 import java.awt.*;
 
@@ -118,6 +119,9 @@ public class TaoDonHang extends JFrame {
         add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
+        //Thanh Weather
+        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
+        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
     }
 
     

@@ -13,14 +13,14 @@ import java.awt.*;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
-public class CustomerMainScreen extends JFrame {
+import appgiaovan.GUI.Components.TimeWeather;
+ public class CustomerMainScreen extends JFrame {
 
     public CustomerMainScreen(){
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1000, 600);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-
         // Sidebar trái
         CustomerSidebar sidebar = new CustomerSidebar();
         //Khu vuc trung tâm
@@ -28,7 +28,9 @@ public class CustomerMainScreen extends JFrame {
         // Thêm vào JFrame
         add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
-
+        //Thanh Weather
+        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
+        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
     }
     public static void main(String[] args) {
         try {
