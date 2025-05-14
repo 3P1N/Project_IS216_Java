@@ -10,26 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
 
-/**
- *
- * @author nhant
- */
-public class CustomerSidebar extends JPanel {
+public class CustomerSidebar extends MenuBar {
 
+    private static final List<String> items = Arrays.asList("Trang chủ", "Tạo đơn hàng", "Tra cứu đơn hàng","Thông tin cá nhân", "Đăng xuất");
+    private static final List<String> icons = Arrays.asList("home.jpg", "order.png", "package.png","customer.png", "logout.png");
     public CustomerSidebar() {
-        // Khai báo danh sách tiêu đề và icon
-        List<String> items = Arrays.asList("Trang chủ", "Tạo đơn hàng", "Tra cứu đơn hàng","Thông tin cá nhân", "Đăng xuất");
-        List<String> icons = Arrays.asList("home.jpg", "order.png", "package.png","customer.png", "logout.png");
-
-        // Thiết lập layout cho Sidebar
-        setLayout(new BorderLayout());
-
-        // Tạo MenuBar và add vào chính JPanel này
-        MenuBar menu = new MenuBar(items, icons);
-        add(menu, BorderLayout.CENTER);
-
-        // Optionally set preferred size
-        setPreferredSize(menu.getPreferredSize());
+        super(CustomerSidebar.items, CustomerSidebar.icons);
     }
 }
 

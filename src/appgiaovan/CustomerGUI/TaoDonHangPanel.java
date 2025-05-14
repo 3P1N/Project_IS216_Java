@@ -11,14 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class TaoDonHang extends JFrame {
+public class TaoDonHangPanel extends JPanel {
 
-    public TaoDonHang() {
-        setTitle("Tạo Đơn Hàng");
-        setSize(880, 520);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        
+    public TaoDonHangPanel() {
+        setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
@@ -118,7 +114,6 @@ public class TaoDonHang extends JFrame {
         mainPanel.add(cbHinhThucThanhToan);
         
         CustomerSidebar sidebar = new CustomerSidebar();
-        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
         //Thanh Weather
@@ -129,10 +124,20 @@ public class TaoDonHang extends JFrame {
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
+            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        SwingUtilities.invokeLater(() -> new TaoDonHang().setVisible(true));
-    }
+
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Test Employee Main Panel");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1000, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setLayout(new BorderLayout());
+
+            frame.add(new TaoDonHangPanel(), BorderLayout.CENTER);
+            frame.setVisible(true);
+        });
+}
 }

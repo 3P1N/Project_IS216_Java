@@ -13,22 +13,15 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
 import appgiaovan.GUI.Components.TimeWeather;
- public class CustomerMainScreen extends JFrame {
+ public class KhachHangMainPanel extends JPanel {
 
-    public CustomerMainScreen(){
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 600);
-        setLocationRelativeTo(null);
+    public KhachHangMainPanel(){
         setLayout(new BorderLayout());
-        // Sidebar trái
-        CustomerSidebar sidebar = new CustomerSidebar();
         //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
         // Thêm vào JFrame
-        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
         //Thanh Weather
-        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
         statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -60,12 +53,20 @@ import appgiaovan.GUI.Components.TimeWeather;
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
+            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         SwingUtilities.invokeLater(() -> {
-            new CustomerMainScreen().setVisible(true);
+            JFrame frame = new JFrame("Test Employee Main Panel");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1000, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setLayout(new BorderLayout());
+
+            frame.add(new KhachHangMainPanel(), BorderLayout.CENTER);
+            frame.setVisible(true);
         });
     }
     

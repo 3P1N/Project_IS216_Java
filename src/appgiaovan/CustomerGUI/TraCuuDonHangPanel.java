@@ -14,22 +14,17 @@ import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
 import appgiaovan.CustomerGUI.ThanhTimKiemDH;
 import appgiaovan.GUI.Components.TimeWeather;
-public class TraCuuDonHang extends JFrame {
+public class TraCuuDonHangPanel extends JPanel {
 
-    public TraCuuDonHang(){
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    public TraCuuDonHangPanel(){
         setSize(1000, 600);
-        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         
-        // Sidebar trái
-        CustomerSidebar sidebar = new CustomerSidebar();
         //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
         // Thêm vào JFrame
         ThanhTimKiemDH topPanel = new ThanhTimKiemDH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
-        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
         
         // Panel danh sách
@@ -46,17 +41,23 @@ public class TraCuuDonHang extends JFrame {
         mainPanel.add(listOrder, BorderLayout.CENTER);
         add(mainPanel, BorderLayout.CENTER);
         //Thanh Weather
-        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
-        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
     }
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
+            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         SwingUtilities.invokeLater(() -> {
-            new TraCuuDonHang().setVisible(true);
+            JFrame frame = new JFrame("Test Employee Main Panel");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1000, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setLayout(new BorderLayout());
+
+            frame.add(new TraCuuDonHangPanel(), BorderLayout.CENTER);
+            frame.setVisible(true);
         });
     }
     

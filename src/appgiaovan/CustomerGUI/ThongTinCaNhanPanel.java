@@ -14,19 +14,15 @@ import java.awt.*;
  *
  * @author nhant
  */
-public class ThongTinCaNhan extends JFrame {
+public class ThongTinCaNhanPanel extends JPanel {
 
-    public ThongTinCaNhan(){
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 600);
-        setLocationRelativeTo(null);
+    public ThongTinCaNhanPanel(){
         setLayout(new BorderLayout());
         // Sidebar trái
         CustomerSidebar sidebar = new CustomerSidebar();
         //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
         // Thêm vào JFrame
-        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
         // Panel thông tin cá nhân ở giữa
         JPanel infoPanel = new JPanel();
@@ -85,18 +81,25 @@ public class ThongTinCaNhan extends JFrame {
         // Thêm infoPanel vào khu vực CENTER của mainPanel
         mainPanel.add(infoPanel, BorderLayout.CENTER);
         //Thanh Weather
-        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
-        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
+        
     }
     
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
+            UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         SwingUtilities.invokeLater(() -> {
-            new ThongTinCaNhan().setVisible(true);
+            JFrame frame = new JFrame("Test Employee Main Panel");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1000, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setLayout(new BorderLayout());
+
+            frame.add(new ThongTinCaNhanPanel(), BorderLayout.CENTER);
+            frame.setVisible(true);
         });
     }
 }
