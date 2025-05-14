@@ -4,7 +4,6 @@
  */
 package appgiaovan.CustomerGUI;
 
-import appgiaovan.EmployeeGUI.EmployeeMainScreen;
 import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.MenuBar;
 import com.formdev.flatlaf.FlatLightLaf;
