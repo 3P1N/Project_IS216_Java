@@ -1,4 +1,4 @@
-package appgiaovan.DAO;
+package appgiaovan.Entity;
 
 import appgiaovan.DTO.AccountDTO;
 

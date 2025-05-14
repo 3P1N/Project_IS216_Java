@@ -2,7 +2,7 @@
 package appgiaovan;
 
 
-public class CheckFormat {
+public class KtraDinhDang {
 
     public static boolean isValidPhone(String phone) {
         if (phone == null) return false;
