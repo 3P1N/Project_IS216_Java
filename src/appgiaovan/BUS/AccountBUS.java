@@ -1,7 +1,7 @@
 package appgiaovan.BUS;
 
-import appgiaovan.DAO.AccountDAO;
-import appgiaovan.DAO.AccountRoleDAO;
+import appgiaovan.Entity.AccountDAO;
+import appgiaovan.Entity.AccountRoleDAO;
 import appgiaovan.DTO.AccountDTO;
 import appgiaovan.PasswordHashing;
 

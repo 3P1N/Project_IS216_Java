@@ -1,5 +1,6 @@
-package appgiaovan.DAO;
+package appgiaovan.Entity;
 
+import ConnectDB.ConnectionOracle;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -7,10 +8,10 @@ public class DBConnection {
     private static Connection connection = null;
 
     // Lấy kết nối nếu chưa tồn tại hoặc đã đóng
-    public static Connection getConnection() {
+    public static Connection getConnection() throws ClassNotFoundException {
         try {
             if (connection == null || connection.isClosed()) {
-                connection = DatabaseUtil.getConnection();
+                connection = ConnectionOracle.getConnection();
                 System.out.println("✅ Ket noi co so du lieu thanh cong.");
             }
         } catch (SQLException e) {
