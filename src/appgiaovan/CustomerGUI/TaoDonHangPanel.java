@@ -42,6 +42,12 @@ public class TaoDonHangPanel extends JPanel {
         txtTenNguoiGui.setBounds(460, 50, 200, 50);
         mainPanel.add(txtTenNguoiGui);
 
+        RoundedComboBox cbKhoTiepNhan = new RoundedComboBox(new String[]{
+        "Kho A", "Kho B", "Kho C","Kho D"
+        });
+        cbKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
+        cbKhoTiepNhan.setBounds(680, 50, 200, 50);
+        mainPanel.add(cbKhoTiepNhan);
 
         JSeparator separator = new JSeparator();
         separator.setBounds(20, 120, 820, 10);
