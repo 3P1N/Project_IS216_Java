@@ -1,6 +1,7 @@
 
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.GUI.Components.ThongTinCaNhan;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public class EmployeeGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         // Thêm các trang nội dung
+        contentPanel.add(new ThongTinCaNhan(),"Profile");
         contentPanel.add(new EmployeeMainPanel(),"Trang chủ");
         contentPanel.add(new BaoCao(), "Báo cáo");
         contentPanel.add(new QuanLyDonHangPanel(),"Quản lý đơn hàng");

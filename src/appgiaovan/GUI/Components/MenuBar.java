@@ -139,41 +139,65 @@ public class MenuBar extends JPanel {
         animateBackground(activeLabel, activeLabel.getBackground(), targetColor);
     }
 
-    private JPanel setupProfileSection() {
-        JPanel profilePanel = new JPanel();
-        profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
-        profilePanel.setBackground(DEFAULT_BG);
-        profilePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        profilePanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0)); // lề
+   private JPanel setupProfileSection() {
+    JPanel profilePanel = new JPanel();
+    profilePanel.setLayout(new BoxLayout(profilePanel, BoxLayout.Y_AXIS));
+    profilePanel.setBackground(DEFAULT_BG);
+    profilePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+    profilePanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 0)); // lề
 
-        JLabel avatarLabel = new JLabel();
-        URL imageUrl = getClass().getResource("/images/avatar.png");
-        if (imageUrl != null) {
-            ImageIcon originalIcon = new ImageIcon(imageUrl);
-            Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
-            avatarLabel.setIcon(new ImageIcon(scaledImage));
-            avatarLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        } else {
-            avatarLabel.setText("Ảnh");
-            avatarLabel.setForeground(Color.WHITE);
+    JLabel avatarLabel = new JLabel();
+    URL imageUrl = getClass().getResource("/images/avatar.png");
+    if (imageUrl != null) {
+        ImageIcon originalIcon = new ImageIcon(imageUrl);
+        Image scaledImage = originalIcon.getImage().getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+        avatarLabel.setIcon(new ImageIcon(scaledImage));
+        avatarLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    } else {
+        avatarLabel.setText("Ảnh");
+        avatarLabel.setForeground(Color.WHITE);
+    }
+
+    avatarLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    avatarLabel.setOpaque(true);
+    avatarLabel.setBackground(DEFAULT_BG);
+    avatarLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+    // Sự kiện khi di chuột
+    avatarLabel.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            if (avatarLabel != activeLabel) {
+                avatarLabel.setBackground(HOVER_BG);
+            }
         }
 
-        JLabel nameLabel = new JLabel("Phạm Văn Thanh Phiên");
-        nameLabel.setForeground(Color.WHITE);
-        JLabel titleLabel = new JLabel("Nhân viên");
-        titleLabel.setForeground(Color.LIGHT_GRAY);
-        titleLabel.setFont(new Font("Arial", Font.PLAIN, 11));
-        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        @Override
+        public void mouseExited(MouseEvent e) {
+            if (avatarLabel != activeLabel) {
+                avatarLabel.setBackground(DEFAULT_BG);
+            }
+        }
 
-        profilePanel.add(avatarLabel);
-        profilePanel.add(Box.createVerticalStrut(5));
-        profilePanel.add(nameLabel);
-        profilePanel.add(titleLabel);
-        profilePanel.add(Box.createVerticalStrut(10));
+        
+    });
 
-        return profilePanel;
-    }
+    JLabel nameLabel = new JLabel("Phạm Văn Thanh Phiên");
+    nameLabel.setForeground(Color.WHITE);
+    JLabel titleLabel = new JLabel("Nhân viên");
+    titleLabel.setForeground(Color.LIGHT_GRAY);
+    titleLabel.setFont(new Font("Arial", Font.PLAIN, 11));
+    nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+    profilePanel.add(avatarLabel);
+    profilePanel.add(Box.createVerticalStrut(5));
+    profilePanel.add(nameLabel);
+    profilePanel.add(titleLabel);
+    profilePanel.add(Box.createVerticalStrut(10));
+
+    return profilePanel;
+}
 
     public interface MenuClickListener {
 
@@ -236,7 +260,6 @@ public class MenuBar extends JPanel {
             List<String> icons = Arrays.asList("order.png", "report.png", "support.png", "logout.png");
 
             MenuBar menu = new MenuBar(items, icons);
-
             frame.setLayout(new BorderLayout());
             frame.add(menu, BorderLayout.WEST);  // Menu sẽ được đặt ở bên trái
 
