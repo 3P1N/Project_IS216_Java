@@ -18,12 +18,6 @@ public class TaoDonHangPanel extends JPanel {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
-
-        // Header stripe
-        JPanel border = new JPanel();
-        border.setBounds(0, 0, 880, 10);
-        border.setBackground(new Color(255, 102, 102));
-        mainPanel.add(border);
         
         // Bên gửi
         JLabel lblBenGui = new JLabel("Bên gửi");
@@ -85,7 +79,7 @@ public class TaoDonHangPanel extends JPanel {
             "Phường 1", "Phường 2", "Phường 3"
         });
         cbPhuongXa.setBorder(BorderFactory.createTitledBorder("Phường/Xã"));
-        cbPhuongXa.setBounds(240, 230, 200, 50);
+        cbPhuongXa.setBounds(20, 300, 200, 50);
         mainPanel.add(cbPhuongXa);
 
 //        RoundedTextField txtThoiGianNhan = new RoundedTextField("VD: 12/05/2025 14:30");
@@ -96,13 +90,17 @@ public class TaoDonHangPanel extends JPanel {
             "Chọn loại dịch vụ", "Nhanh", "Tiết kiệm", "Hỏa tốc"
         });
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
-        cbLoaiDichVu.setBounds(460, 230, 150, 50);
+        cbLoaiDichVu.setBounds(240, 230, 150, 50);
         mainPanel.add(cbLoaiDichVu);
 
-        
+        //Loai Hang
+        RoundedTextField txtLoaiHang = new RoundedTextField("Nhập số điện thoại người nhận");
+        txtLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại hàng hóa"));
+        txtLoaiHang.setBounds(240, 300, 300, 50);
+        mainPanel.add(txtLoaiHang);
         // Nút Xác nhận
         RoundedButton btnTaoDon = new RoundedButton("Tạo đơn hàng");
-        btnTaoDon.setBounds((880 - 200 - 150) / 2, 400, 150, 45); // Trừ chiều rộng của menubar
+        btnTaoDon.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar
         btnTaoDon.setBackground(new Color(0x007BFF)); // Flat Blue
         mainPanel.add(btnTaoDon);
         //Thêm hình thức thanh toán
@@ -110,7 +108,7 @@ public class TaoDonHangPanel extends JPanel {
         "Chọn hình thức thanh toán", "Tiền mặt", "Thanh toán online","Thanh toán COD"
         });
         cbHinhThucThanhToan.setBorder(BorderFactory.createTitledBorder("Hình Thức Thanh Toán *"));
-        cbHinhThucThanhToan.setBounds(20, 300, 300, 50);
+        cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
         mainPanel.add(cbHinhThucThanhToan);
         
         CustomerSidebar sidebar = new CustomerSidebar();

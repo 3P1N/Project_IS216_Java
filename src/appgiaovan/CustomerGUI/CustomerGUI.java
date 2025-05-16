@@ -33,7 +33,7 @@ public class CustomerGUI extends JFrame {
     private JPanel contentPanel;
     public CustomerGUI(){
         setTitle("Giao diện chính");
-        setSize(1200, 700);
+        setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
