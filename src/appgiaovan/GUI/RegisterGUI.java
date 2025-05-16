@@ -107,12 +107,12 @@ public class RegisterGUI extends JFrame{
         registerPanel.add(genderComboBox);
 
         
-        JButton loginButton = new JButton("Đăng ký");
-        loginButton.setBounds(30, 485, 290, 25);
-        loginButton.setBackground(new Color(0, 123, 255));
-        loginButton.setForeground(Color.WHITE);
-        loginButton.setFocusPainted(false);
-        registerPanel.add(loginButton);
+        JButton dkyButton = new JButton("Đăng ký");
+        dkyButton.setBounds(30, 485, 290, 25);
+        dkyButton.setBackground(new Color(0, 123, 255));
+        dkyButton.setForeground(Color.WHITE);
+        dkyButton.setFocusPainted(false);
+        registerPanel.add(dkyButton);
         
         
         // Label "Bạn chưa có tài khoản?" 
@@ -120,17 +120,17 @@ public class RegisterGUI extends JFrame{
         infoLabel.setBounds(70, 515, 150, 20);
         registerPanel.add(infoLabel);
 
-        // Label "Đăng ký ngay" - có thể click chuyển giao diện
-        JLabel registerLabel = new JLabel("Đăng nhập ngay");
-        registerLabel.setBounds(190, 515, 100, 20);
-        registerLabel.setForeground(Color.BLUE);
-        registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        registerPanel.add(registerLabel);
+        // Label "Đăng nhap ngay" - có thể click chuyển giao diện
+        JLabel loginLabel = new JLabel("Đăng nhập ngay");
+        loginLabel.setBounds(190, 515, 100, 20);
+        loginLabel.setForeground(Color.BLUE);
+        loginLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        registerPanel.add(loginLabel);
 
-        registerLabel.addMouseListener(new MouseAdapter() {
+        loginLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Hiển thị form Đăng ký
+                // Hiển thị form Đăng NHẬP
                 SwingUtilities.invokeLater(() -> {
                     LOGIN fp = new LOGIN();
                     fp.setVisible(true);
@@ -143,7 +143,7 @@ public class RegisterGUI extends JFrame{
         mainPanel.add(registerPanel);mainPanel.add(background);
 
     }
-
+   
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
