@@ -58,9 +58,7 @@ public class BaoCao extends JPanel {
         wrapper.setBackground(new Color(245, 245, 245));
         wrapper.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100)); // padding ngoài
         wrapper.add(formPanel, BorderLayout.CENTER);
-
-        EmployeeSidebar sidebar = new EmployeeSidebar();
-        add(sidebar, BorderLayout.WEST);
+        
         add(wrapper, BorderLayout.CENTER);
     }
 
