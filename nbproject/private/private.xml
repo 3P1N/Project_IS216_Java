@@ -7,7 +7,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/CustomerSidebar.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/ForgotPass.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/CustomerGUI.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ChiTietDonHang.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/BaoCaoThongKe.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/Webp.net-resizeimage.png</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/warehouse_11zon.jpg</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/icons/statistic.png</file>
@@ -43,6 +43,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemDonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHLoc.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/icons/customer.png</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThongTinDonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerMainScreen.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/AdminGUI/AdminMainScreen.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/TableList.java</file>
