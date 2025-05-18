@@ -1,6 +1,7 @@
 
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
 import javax.swing.*;
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFrame;
@@ -23,6 +25,7 @@ public class EmployeeGUI extends JFrame {
     private JPanel contentPanel;
 
     public EmployeeGUI() {
+        
         setTitle("Giao diện chính");
         setSize(1200, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
