@@ -1,39 +1,23 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.GUI.Components.TableList;
-import appgiaovan.GUI.Components.MenuBar;
-import appgiaovan.GUI.Components.FilterPanel;
-import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
-import java.util.Arrays;
 
-public class QuanLyGoiHang extends JFrame {
+public class QuanLyGoiHang extends JPanel {
 
     public QuanLyGoiHang() {
-        setTitle("Quản Lý Đơn Hàng");
-        setSize(1300, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        this.setLayout(new BorderLayout());
         initUI();
     }
 
     private void initUI() {
-        //Panel Menu
+        // Panel Menu
 
-        EmployeeSidebar sidebar = new EmployeeSidebar();
+        // main
+        JPanel mainPanel = new JPanel(new BorderLayout());
 
-        List<String> items = Arrays.asList("Báo cáo", "Quản lý đơn hàng", "Quản lý gói hàng", "Đăng xuất");
-        List<String> icons = Arrays.asList("report.png", "order.png", "package.png", "logout.png");
-        MenuBar menubar = new MenuBar(items, icons);
-        add(menubar, BorderLayout.WEST);
-
-        //main
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-
-        //thanh filter
+        // thanh filter
         TopPanelQLGH topPanel = new TopPanelQLGH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
@@ -49,11 +33,19 @@ public class QuanLyGoiHang extends JFrame {
         };
         TableList listOrder = new TableList(columns, data);
         mainPanel.add(listOrder, BorderLayout.CENTER);
-        add(mainPanel, BorderLayout.CENTER);
+
+        this.add(mainPanel, BorderLayout.CENTER);
     }
 
+    // Dùng để test panel trong một JFrame
     public static void main(String[] args) {
-        
-        SwingUtilities.invokeLater(() -> new QuanLyGoiHang().setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Quản Lý Gói Hàng");
+            frame.setContentPane(new QuanLyGoiHang());
+            frame.setSize(1300, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+        });
     }
 }

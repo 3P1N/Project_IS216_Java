@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package appgiaovan.CustomerGUI;
+package appgiaovan.EmployeeGUI;
 
+import appgiaovan.CustomerGUI.*;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedTextField;
 import appgiaovan.GUI.Components.RoundedPanel;
