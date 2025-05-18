@@ -112,10 +112,13 @@ public class TaoDonHangPanel extends JPanel {
         mainPanel.add(cbLoaiDichVu);
 
         //Loai Hang
-        RoundedTextField txtLoaiHang = new RoundedTextField("Nhập số điện thoại người nhận");
-        txtLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại hàng hóa"));
-        txtLoaiHang.setBounds(240, 300, 300, 50);
-        mainPanel.add(txtLoaiHang);
+        RoundedComboBox cbLoaiHang = new RoundedComboBox(new String[]{
+            "Hàng bình thường", "Hàng dễ vỡ", "Hàng cồng kềnh"
+        });
+        cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
+        cbLoaiHang.setBounds(240, 300, 300, 50);
+        mainPanel.add(cbLoaiHang);
+        
         // Nút Xác nhận
         RoundedButton btnTaoDon = new RoundedButton("Tạo đơn hàng");
         btnTaoDon.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar

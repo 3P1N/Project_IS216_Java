@@ -52,7 +52,7 @@ public class ThongTinCaNhanPanel extends JPanel {
         JTextField txtSDT = new JTextField("0123456789");
         txtSDT.setBounds(130, 120, 200, 30);
         infoPanel.add(txtSDT);
-
+        
         // Email
         JLabel lblEmail = new JLabel("Email:");
         lblEmail.setBounds(20, 170, 100, 25);
@@ -61,19 +61,33 @@ public class ThongTinCaNhanPanel extends JPanel {
         JTextField txtEmail = new JTextField("email@example.com");
         txtEmail.setBounds(130, 170, 300, 30);
         infoPanel.add(txtEmail);
+        //CCCD  
+        JLabel lblCCCD  = new JLabel("CCCD :");
+        lblCCCD .setBounds(20, 220, 100, 25);
+        infoPanel.add(lblCCCD );
 
-        // Địa chỉ
-        JLabel lblDiaChi = new JLabel("Địa chỉ:");
-        lblDiaChi.setBounds(20, 220, 100, 25);
-        infoPanel.add(lblDiaChi);
+        JTextField txtCCCD  = new JTextField("096205001324");
+        txtCCCD .setBounds(130, 220, 400, 30);
+        infoPanel.add(txtCCCD );
+        // NgaySinh
+        JLabel lblNgaySinh = new JLabel("Ngày sinh:");
+        lblNgaySinh.setBounds(20, 270, 100, 25);
+        infoPanel.add(lblNgaySinh);
 
-        JTextField txtDiaChi = new JTextField("123 Đường ABC, Quận XYZ");
-        txtDiaChi.setBounds(130, 220, 400, 30);
-        infoPanel.add(txtDiaChi);
+        JTextField txtNgaySinh = new JTextField("24/08/2005");
+        txtNgaySinh.setBounds(130, 270, 400, 30);
+        infoPanel.add(txtNgaySinh);
+        //Gioitinh
+        JLabel lblGioiTinh = new JLabel("Địa chỉ:");
+        lblGioiTinh.setBounds(20, 320, 100, 25);
+        infoPanel.add(lblGioiTinh);
 
+        JTextField txtGioiTinh = new JTextField("Giới tính");
+        txtGioiTinh.setBounds(130, 320, 400, 30);
+        infoPanel.add(txtGioiTinh);
         // Nút cập nhật
         JButton btnCapNhat = new JButton("Cập nhật");
-        btnCapNhat.setBounds(130, 280, 120, 35);
+        btnCapNhat.setBounds(130, 370, 120, 35);
         btnCapNhat.setBackground(new Color(0, 123, 255));
         btnCapNhat.setForeground(Color.WHITE);
         infoPanel.add(btnCapNhat);
