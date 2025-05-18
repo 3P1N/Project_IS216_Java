@@ -4,15 +4,20 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.Entity.KhachHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedTextField;
 import appgiaovan.GUI.Components.RoundedPanel;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class ThongTinDonHang extends JFrame {
-
+    
+        private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
+        private JButton btnCapNhat;
     public ThongTinDonHang() {
         setTitle("Chi Tiết Đơn Hàng");
         setSize(900, 500);
@@ -104,7 +109,9 @@ public class ThongTinDonHang extends JFrame {
         });
         mainPanel.add(btnDanhGia);
         mainPanel.add(btnHuy);
+        
     }
+    
 
     public static void main(String[] args) {
         try {

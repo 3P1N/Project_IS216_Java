@@ -15,7 +15,8 @@ import java.awt.*;
  * @author nhant
  */
 public class ThongTinCaNhanPanel extends JPanel {
-
+        private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
+        private JButton btnCapNhat;
     public ThongTinCaNhanPanel(){
         setLayout(new BorderLayout());
         // Sidebar trái
