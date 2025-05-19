@@ -1,6 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
-import appgiaovan.Controller.TaoDonHangController;
+import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
@@ -16,12 +16,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-public class TaoDonHangPanel extends JPanel {
+public class ThemDonHangFrame extends JFrame {
 
-    public TaoDonHangPanel() throws SQLException, ClassNotFoundException {
+    public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException {
+        setTitle("Tạo Đơn Hàng");
+        setSize(920, 600);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null); // Center on screen
+
         QLDonHangController controller = new QLDonHangController();
 
-        setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
@@ -102,10 +106,7 @@ public class TaoDonHangPanel extends JPanel {
         cbPhuongXa.setBounds(20, 300, 200, 50);
         mainPanel.add(cbPhuongXa);
 
-//        RoundedTextField txtThoiGianNhan = new RoundedTextField("VD: 12/05/2025 14:30");
-//        txtThoiGianNhan.setBorder(BorderFactory.createTitledBorder("Thời Gian Nhận *"));
-//        txtThoiGianNhan.setBounds(460, 230, 200, 50);
-//        mainPanel.add(txtThoiGianNhan);
+//        
         RoundedComboBox cbLoaiDichVu = new RoundedComboBox(new String[]{
             "Chọn loại dịch vụ", "Nhanh", "Tiết kiệm", "Hỏa tốc"
         });
@@ -120,7 +121,7 @@ public class TaoDonHangPanel extends JPanel {
         cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
         cbLoaiHang.setBounds(240, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
-        
+
         // Nút Xác nhận
         RoundedButton btnTaoDon = new RoundedButton("Tạo đơn hàng");
         btnTaoDon.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar
@@ -141,11 +142,11 @@ public class TaoDonHangPanel extends JPanel {
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
 
-        
         btnTaoDon.addActionListener(e -> {
+
             try {
+
                 // Lấy dữ liệu từ các trường
-                String maDon = txtMaDon.getText().trim();
                 String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
                 String tenNguoiGui = txtTenNguoiGui.getText().trim();
                 String tenKho = (String) cbKhoTiepNhan.getSelectedItem();
@@ -157,7 +158,7 @@ public class TaoDonHangPanel extends JPanel {
                 String phuongXa = (String) cbPhuongXa.getSelectedItem();
 
                 String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
-                String loaiHang = txtLoaiHang.getText().trim();
+                String loaiHang = (String) cbLoaiHang.getSelectedItem();
                 String hinhThucThanhToan = (String) cbHinhThucThanhToan.getSelectedItem();
 
                 // Gộp địa chỉ chi tiết
@@ -166,21 +167,26 @@ public class TaoDonHangPanel extends JPanel {
                 // Tạo đối tượng DonHang
                 DonHang donHang = new DonHang(1, sdtNguoiGui, tenNguoiGui,
                         sdtNguoiNhan, tenNguoiNhan, diaChiDayDu,
-                        loaiDichVu, loaiHang,  1);
+                        loaiDichVu, loaiHang, 1);
 
-                // Gọi controller để thêm đơn hàng
-                boolean success = controller.ThemDonHang(donHang);
-
-                if (success) {
-                    JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Tạo đơn hàng thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                if (!controller.KiemTraDinhDang(donHang)) {
+                    JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return; // Dừng lại, không thực hiện thêm
                 }
+                // Gọi controller để thêm đơn hàng
+                controller.ThemDonHang(donHang);
+                // Gọi callback
+                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                onSucces.run();
+                
+
+                dispose();
 
             } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
+
         });
 
     }
@@ -193,20 +199,15 @@ public class TaoDonHangPanel extends JPanel {
         }
 
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Test Employee Main Panel");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1000, 600);
-            frame.setLocationRelativeTo(null);
-            frame.setLayout(new BorderLayout());
-
+            ThemDonHangFrame frame = null;
             try {
-                frame.add(new TaoDonHangPanel(), BorderLayout.CENTER);
+                frame = new ThemDonHangFrame(() -> System.out.println("Cập nhật danh sách!"));
             } catch (SQLException ex) {
-                Logger.getLogger(TaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThemDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThemDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            frame.setVisible(true);
+//            frame.setVisible(true);
         });
     }
 }

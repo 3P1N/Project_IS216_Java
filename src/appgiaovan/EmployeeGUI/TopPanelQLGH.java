@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TopPanelQLGH extends JPanel {
+    
+    private JButton addButton = new JButton("Thêm mới");
+    private JButton filterButton = new JButton("Lọc");
     public TopPanelQLGH() {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
@@ -32,22 +35,30 @@ public class TopPanelQLGH extends JPanel {
 
 
         // Button - Lọc (màu xanh đậm)
-        JButton filterButton = new JButton("Lọc");
+        
         filterButton.setPreferredSize(new Dimension(60, 30));
         filterButton.setBackground(new Color(0, 136, 153));
         filterButton.setForeground(Color.WHITE);
-        RoundedButton roundedfilterBtn = new RoundedButton(filterButton, 20);
-        add(roundedfilterBtn);
+        filterButton = new RoundedButton(filterButton, 20);
+        add(filterButton);
 
         // Button - Thêm mới (màu xanh lá)
-        JButton addButton = new JButton("Thêm mới");
+        
         addButton.setPreferredSize(new Dimension(100, 30));
         addButton.setBackground(new Color(0, 153, 76));
         addButton.setForeground(Color.WHITE);
-        RoundedButton roundedaddBtn = new RoundedButton(addButton, 20);
-        add(roundedaddBtn);
+        addButton = new RoundedButton(addButton, 20);
+        add(addButton);
 
         
+    }
+    
+    public JButton getaddButton(){
+        return this.addButton;
+    }
+    
+    public JButton getfilterButton(){
+        return this.filterButton;
     }
 
     public static void main(String[] args) {

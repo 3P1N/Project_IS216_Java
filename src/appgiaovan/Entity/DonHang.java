@@ -70,6 +70,14 @@ public class DonHang {
         this.dichVu = dichVu;
         this.loaiHangHoa = loaiHangHoa;
     }
+    
+    public static String[] getTableHeaders() {
+        return new String[]{" ","ID", "Người gửi", "SĐT Người gửi", "Người nhận", "SĐT Người nhận"};
+    }
+
+    public Object[] toTableRow() {
+        return new Object[]{"", idDonHang, tenNguoiGui,sdtNguoiGui, tenNguoiNhan, sdtNguoiNhan};
+    }
 
     // Constructor rỗng
     public DonHang() {
