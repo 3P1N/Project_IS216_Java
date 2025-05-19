@@ -4,16 +4,21 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.Entity.KhachHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedTextField;
 import appgiaovan.GUI.Components.RoundedPanel;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
-public class ChiTietDonHang extends JFrame {
-
-    public ChiTietDonHang() {
+public class ThongTinDonHang extends JFrame {
+    
+        private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
+        private JButton btnCapNhat;
+    public ThongTinDonHang() {
         setTitle("Chi Tiết Đơn Hàng");
         setSize(900, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,15 +96,22 @@ public class ChiTietDonHang extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
         RoundedButton btnDanhGia = new RoundedButton("Đánh giá đơn hàng");
-        btnDanhGia.setBounds(250, 360, 200, 45);
+        btnDanhGia.setBounds(100, 360, 200, 45);
         btnDanhGia.setBackground(new Color(0x28a745)); // Xanh lá
         btnDanhGia.setForeground(Color.WHITE);
+        RoundedButton btnHuy = new RoundedButton("Hủy");
+        btnHuy.setBounds(420, 360, 200, 45);
+        btnHuy.setBackground(Color.RED); // Đỏ
+        btnHuy.setForeground(Color.WHITE);
 
         btnDanhGia.addActionListener(e -> {
             hienDialogDanhGia();
         });
         mainPanel.add(btnDanhGia);
+        mainPanel.add(btnHuy);
+        
     }
+    
 
     public static void main(String[] args) {
         try {
@@ -109,7 +121,7 @@ public class ChiTietDonHang extends JFrame {
         }
 
         SwingUtilities.invokeLater(() -> {
-            new ChiTietDonHang().setVisible(true);
+            new ThongTinDonHang().setVisible(true);
         });
     }
 

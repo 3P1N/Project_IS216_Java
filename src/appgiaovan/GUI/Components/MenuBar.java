@@ -228,8 +228,10 @@ public class MenuBar extends JPanel {
         logoLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // căn trái tuyệt đối
         logoLabel.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); // thêm lề trái 15px (tùy chỉnh)
 
+
         URL logoUrl = getClass().getResource("/images/logo3p1n.png");
         System.out.println("Logo URL: " + logoUrl);
+
         if (logoUrl != null) {
             ImageIcon originalIcon = new ImageIcon(logoUrl);
             Image scaledImage = originalIcon.getImage().getScaledInstance(100, 78, Image.SCALE_SMOOTH);
