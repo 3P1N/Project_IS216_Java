@@ -3,6 +3,7 @@ package appgiaovan.EmployeeGUI;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -62,6 +63,11 @@ public class EmployeeGUI extends JFrame {
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Không thể cài đặt FlatLaf");
+        }
         SwingUtilities.invokeLater(() -> {
             try {
                 new EmployeeGUI().setVisible(true);

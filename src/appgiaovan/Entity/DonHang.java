@@ -7,7 +7,8 @@ package appgiaovan.Entity;
 import java.util.Date;
 
 public class DonHang {
-    private int idDonHang;
+
+    private Integer idDonHang;
     private Integer idKhachHang;        // dùng Integer để có thể null
     private Integer idNVGiaoHang;
     private String sdtNguoiGui;
@@ -27,9 +28,9 @@ public class DonHang {
 
     // Constructor đầy đủ
     public DonHang(int idDonHang, Integer idKhachHang, Integer idNVGiaoHang, String sdtNguoiGui,
-                   String sdtNguoiNhan, Integer idKhoTiepNhan, String tenNguoiGui, String tenNguoiNhan,
-                   String diaChiNhan, Double tienCOD, Double phi, Date thoiGianNhan, Date thoiGianTao,
-                   Date thoiGianDuKien, String trangThai, String dichVu, String loaiHangHoa) {
+            String sdtNguoiNhan, Integer idKhoTiepNhan, String tenNguoiGui, String tenNguoiNhan,
+            String diaChiNhan, Double tienCOD, Double phi, Date thoiGianNhan, Date thoiGianTao,
+            Date thoiGianDuKien, String trangThai, String dichVu, String loaiHangHoa) {
         this.idDonHang = idDonHang;
         this.idKhachHang = idKhachHang;
         this.idNVGiaoHang = idNVGiaoHang;
@@ -48,10 +49,10 @@ public class DonHang {
         this.dichVu = dichVu;
         this.loaiHangHoa = loaiHangHoa;
     }
-    
+
     public DonHang(Integer idNVGiaoHang, String sdtNguoiGui, String tenNguoiGui,
-                   String sdtNguoiNhan, String tenNguoiNhan, 
-                   String diaChiNhan,String dichVu, String loaiHangHoa, Integer idKhoTiepNhan) {
+            String sdtNguoiNhan, String tenNguoiNhan,
+            String diaChiNhan, String dichVu, String loaiHangHoa, Integer idKhoTiepNhan) {
         this.idDonHang = idDonHang;
         this.idKhachHang = idKhachHang;
         this.idNVGiaoHang = idNVGiaoHang;
@@ -70,13 +71,13 @@ public class DonHang {
         this.dichVu = dichVu;
         this.loaiHangHoa = loaiHangHoa;
     }
-    
+
     public static String[] getTableHeaders() {
-        return new String[]{" ","ID", "Người gửi", "SĐT Người gửi", "Người nhận", "SĐT Người nhận"};
+        return new String[]{" ", "ID", "Người gửi", "SĐT Người gửi", "Người nhận", "SĐT Người nhận", "Trạng thái"};
     }
 
     public Object[] toTableRow() {
-        return new Object[]{"", idDonHang, tenNguoiGui,sdtNguoiGui, tenNguoiNhan, sdtNguoiNhan};
+        return new Object[]{"", idDonHang, tenNguoiGui, sdtNguoiGui, tenNguoiNhan, sdtNguoiNhan, trangThai};
     }
 
     // Constructor rỗng
@@ -84,8 +85,13 @@ public class DonHang {
     }
 
     // Getter & Setter
-    public int getIdDonHang() {
+
+    public Integer getIdDonHang() {
         return idDonHang;
+    }
+
+    public void setIdDonHang(Integer idDonHang) {
+        this.idDonHang = idDonHang;
     }
 
     public void setIdDonHang(int idDonHang) {
@@ -220,4 +226,3 @@ public class DonHang {
         this.loaiHangHoa = loaiHangHoa;
     }
 }
-

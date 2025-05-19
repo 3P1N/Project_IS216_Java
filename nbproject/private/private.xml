@@ -14,11 +14,11 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeMainPanel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/RoundedComboBox.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLDonHangController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/ThongTinCaNhan.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionUtils.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/TaoDonHangController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TaoDonHangPanel.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemDonHangFrame.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemGoiHang.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionOracle.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/DonHangDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyGoiHang.java</file>

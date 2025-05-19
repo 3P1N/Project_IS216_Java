@@ -135,7 +135,7 @@ public class ThemDonHangFrame extends JFrame {
         cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
         mainPanel.add(cbHinhThucThanhToan);
 
-        CustomerSidebar sidebar = new CustomerSidebar();
+        
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
         //Thanh Weather

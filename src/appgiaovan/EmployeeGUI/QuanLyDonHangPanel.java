@@ -3,6 +3,7 @@ package appgiaovan.EmployeeGUI;
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.TableList;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +42,6 @@ public class QuanLyDonHangPanel extends JPanel {
             
             try {
                 ThemDonHang();
-                HienThiDanhSach();
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -52,7 +52,9 @@ public class QuanLyDonHangPanel extends JPanel {
         //Gán sự kiện tìm kiếm đơn hàng
         topPanel.getfilterButton().addActionListener(e ->{
             try {
-                HienThiDanhSach();
+                DonHang dh = topPanel.getDonHang();
+                
+                HienThiDanhSach(dh);
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -91,8 +93,27 @@ public class QuanLyDonHangPanel extends JPanel {
 
         listOrder.setTableData(data);
     }
+    
+        public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
+        List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
+        String[] columns = DonHang.getTableHeaders();
+        Object[][] data = new Object[dsDonHang.size()][columns.length];
+
+        for (int i = 0; i < dsDonHang.size(); i++) {
+            data[i] = dsDonHang.get(i).toTableRow();
+        }
+
+        listOrder.setTableData(data);
+    }
+    
+    
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Không thể cài đặt FlatLaf");
+        }
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Test Quản Lý Đơn Hàng Panel");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
