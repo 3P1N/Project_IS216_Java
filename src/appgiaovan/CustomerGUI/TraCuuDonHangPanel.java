@@ -4,6 +4,7 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.MenuBar;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -13,35 +14,74 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
 import appgiaovan.CustomerGUI.ThanhTimKiemDH;
+import appgiaovan.EmployeeGUI.QuanLyDonHangPanel;
+import appgiaovan.Entity.DonHang;
+import appgiaovan.GUI.Components.TableList;
 import appgiaovan.GUI.Components.TimeWeather;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 public class TraCuuDonHangPanel extends JPanel {
-
-    public TraCuuDonHangPanel(){
-        setSize(1000, 600);
+    private final ThanhTimKiemDH topPanel = new ThanhTimKiemDH();
+    private final QLDonHangController controller = new QLDonHangController();
+    private final TableList listOrder;
+    public TraCuuDonHangPanel() throws SQLException, ClassNotFoundException{
+        
         setLayout(new BorderLayout());
         
         //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
         // Thêm vào JFrame
-        ThanhTimKiemDH topPanel = new ThanhTimKiemDH();
+        
         mainPanel.add(topPanel, BorderLayout.NORTH);
         add(mainPanel, BorderLayout.CENTER);
         
         // Panel danh sách
-        String[] columns = {"", "ID", "Số đơn hàng", "Người tạo", "Trạng thái", "Gửi từ", "Gửi đến"};
-        Object[][] data = {
-            {false, "<html><b style='color:#007bff;'>93900415</b><br><span style='color:gray;font-size:10px;'>10:48 15/04</span><br><span style='color:#007bff;'>Kho 2 - Tháo</span></html>",
-                "<html></span><br><b>10</b><br><span></html>",
-                "Nhân viên B", "Đang vận chuyển", "<html><b>Kho B</b><br></html>", "<html><b>Kho A</b><br></html>"},
-            {false, "<html><b style='color:#007bff;'>93200103</b><br><span style='color:gray;font-size:10px;'>18:48 10/04</span><br><span style='color:#007bff;'>Kho 2 - Tháo</span></html>",
-                "<html></span><br><b>10</b><br><span></html>",
-                "Nhân viên A", "Đang vận chuyển", "<html><b>Kho A</b><br></html>", "<html><b>Kho B</b><br></html>"}
-        };
-        TableListDonHang listOrder = new TableListDonHang(columns, data);
+        String[] columns = DonHang.getTableHeaders();
+        Object[][] data = new Object[0][columns.length];
+        listOrder = new TableList(columns,data);
         mainPanel.add(listOrder, BorderLayout.CENTER);
         add(mainPanel, BorderLayout.CENTER);
-        //Thanh Weather
+        // gán sự kiện tìm kiếm đơn hàng
+        topPanel.getfilterButton().addActionListener(e -> {
+            try {
+                DonHang dh = topPanel.getDonHang();
+
+                HienThiDanhSach(dh);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        // Hiển thị danh sách ngay khi mở panel
+        HienThiDanhSach();
+        
     }
+  public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {
+        java.util.List<DonHang> dsDonHang = controller.LayDSDonHang();
+        String[] columns = DonHang.getTableHeaders();
+        Object[][] data = new Object[dsDonHang.size()][columns.length];
+
+        for (int i = 0; i < dsDonHang.size(); i++) {
+            data[i] = dsDonHang.get(i).toTableRow();
+        }
+
+        listOrder.setTableData(data);
+    }
+
+    public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
+        java.util.List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
+        String[] columns = DonHang.getTableHeaders();
+        Object[][] data = new Object[dsDonHang.size()][columns.length];
+
+        for (int i = 0; i < dsDonHang.size(); i++) {
+            data[i] = dsDonHang.get(i).toTableRow();
+        }
+
+        listOrder.setTableData(data);
+    } 
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
@@ -56,7 +96,13 @@ public class TraCuuDonHangPanel extends JPanel {
             frame.setLocationRelativeTo(null);
             frame.setLayout(new BorderLayout());
 
-            frame.add(new TraCuuDonHangPanel(), BorderLayout.CENTER);
+            try {
+                frame.add(new TraCuuDonHangPanel(), BorderLayout.CENTER);
+            } catch (SQLException ex) {
+                Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         });
     }

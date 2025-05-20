@@ -14,6 +14,7 @@ public class TopPanelQLGH extends JPanel {
 
     private JButton addButton = new JButton("Thêm mới");
     private JButton filterButton = new JButton("Lọc");
+    private JButton updateButton = new JButton("Sửa");
     private final JTextField idField = new JTextField("");
     private final JComboBox<String> statusComboBox = new JComboBox<>(new String[]{"Đang xử lý"});
     private final JTextField customerField = new JTextField("");
@@ -51,10 +52,20 @@ public class TopPanelQLGH extends JPanel {
         addButton = new RoundedButton(addButton, 20);
         add(addButton);
 
+        updateButton.setPreferredSize(new Dimension(100, 30));
+        updateButton.setBackground(new Color(0, 153, 76));
+        updateButton.setForeground(Color.WHITE);
+        updateButton = new RoundedButton(updateButton, 20);
+        add(updateButton);
+
     }
 
     public JButton getaddButton() {
         return this.addButton;
+    }
+    
+    public JButton getupdateButton(){
+        return this.updateButton;
     }
 
     public JButton getfilterButton() {
@@ -84,6 +95,7 @@ public class TopPanelQLGH extends JPanel {
     }
 
     public static void main(String[] args) {
+        
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
