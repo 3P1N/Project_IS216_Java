@@ -102,9 +102,6 @@ public class KhachHangDAO {
         }
     }
 
-    /**
-     * Cập nhật thông tin khách hàng
-     */
     public boolean suaKhachHang(KhachHang kh) throws SQLException {
         String sql = "UPDATE KhachHang SET HoTen=?, SDT=?, Email=?, CCCD=?, NgaySinh=?, GioiTinh=? WHERE ID_KhachHang = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
