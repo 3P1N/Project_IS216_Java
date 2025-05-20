@@ -18,9 +18,12 @@ public class QLDonHangController {
     }
 
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
-        DonHangDAO donHangDAO = new DonHangDAO();
         donHangDAO.ThemDonHang(donHang);
 
+    }
+    
+    public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException{
+        donHangDAO.SuaDonHang(donHang);
     }
 
     public boolean KiemTraDinhDang(DonHang donHang) {
