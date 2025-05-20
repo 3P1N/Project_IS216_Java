@@ -12,9 +12,9 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class QuanLyKhachHang extends JFrame {
+public class GUI_QLKH extends JFrame {
 
-    public QuanLyKhachHang() {
+    public GUI_QLKH() {
         setTitle("Quản Lý Khách Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -51,6 +51,6 @@ public class QuanLyKhachHang extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new QuanLyKhachHang().setVisible(true));
+        SwingUtilities.invokeLater(() -> new GUI_QLKH().setVisible(true));
     }
 }
