@@ -36,10 +36,9 @@ public class QuanLyDonHangPanel extends JPanel {
 
         add(mainPanel, BorderLayout.CENTER);
 
-        
         //Gán sự kiện thêm đơn hàng
         topPanel.getaddButton().addActionListener(e -> {
-            
+
             try {
                 ThemDonHang();
             } catch (SQLException ex) {
@@ -48,12 +47,12 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         //Gán sự kiện tìm kiếm đơn hàng
-        topPanel.getfilterButton().addActionListener(e ->{
+        topPanel.getfilterButton().addActionListener(e -> {
             try {
                 DonHang dh = topPanel.getDonHang();
-                
+
                 HienThiDanhSach(dh);
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,13 +60,12 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
 
         // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach();
     }
-    
-    public void ThemDonHang() throws SQLException, ClassNotFoundException{
+
+    public void ThemDonHang() throws SQLException, ClassNotFoundException {
         ThemDonHangFrame themDH = new ThemDonHangFrame(() -> {
             try {
                 HienThiDanhSach();
@@ -77,10 +75,9 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
 //        themDH.setVisible(true);
     }
-    
 
     public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {
         List<DonHang> dsDonHang = controller.LayDSDonHang();
@@ -93,8 +90,8 @@ public class QuanLyDonHangPanel extends JPanel {
 
         listOrder.setTableData(data);
     }
-    
-        public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
+
+    public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
         List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
@@ -105,8 +102,6 @@ public class QuanLyDonHangPanel extends JPanel {
 
         listOrder.setTableData(data);
     }
-    
-    
 
     public static void main(String[] args) {
         try {
