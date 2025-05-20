@@ -1,24 +1,35 @@
 package appgiaovan.CustomerGUI;
 
-import appgiaovan.EmployeeGUI.EmployeeSidebar;
+import appgiaovan.EmployeeGUI.*;
+import appgiaovan.Controller.TaoDonHangController;
+import appgiaovan.CustomerGUI.CustomerSidebar;
+import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.Entity.KhachHang;
+import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedComboBox;
-import com.formdev.flatlaf.FlatLightLaf;
-import appgiaovan.GUI.Components.RoundedPanel;
+
 import appgiaovan.GUI.Components.RoundedTextField;
 import appgiaovan.GUI.Components.TimeWeather;
-import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
 
 
-public class TaoDonHangPanel extends JPanel {
+public class KHTaoDonHangPanel extends JPanel {
+    
+        
+    public KHTaoDonHangPanel() throws SQLException, ClassNotFoundException {
+        TaoDonHangController controller = new TaoDonHangController();
 
-    public TaoDonHangPanel() {
         setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
-        
+
         // Bên gửi
         JLabel lblBenGui = new JLabel("Bên gửi");
         lblBenGui.setFont(new Font("Arial", Font.BOLD, 14));
@@ -42,9 +53,14 @@ public class TaoDonHangPanel extends JPanel {
         txtTenNguoiGui.setBounds(460, 50, 200, 50);
         mainPanel.add(txtTenNguoiGui);
 
-        RoundedComboBox cbKhoTiepNhan = new RoundedComboBox(new String[]{
-        "Kho A", "Kho B", "Kho C","Kho D"
-        });
+        List<KhoHang> listKho  = controller.LayThongTinKho(); 
+        System.out.println(listKho);
+        String[] arrayTenKho = new String[listKho.size()];
+        for(int i =0;i<listKho.size();i++){
+            arrayTenKho[i] = listKho.get(i).getTenKho();
+        }
+        RoundedComboBox cbKhoTiepNhan = new RoundedComboBox(arrayTenKho);
+        
         cbKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
         cbKhoTiepNhan.setBounds(680, 50, 200, 50);
         mainPanel.add(cbKhoTiepNhan);
@@ -100,10 +116,13 @@ public class TaoDonHangPanel extends JPanel {
         mainPanel.add(cbLoaiDichVu);
 
         //Loai Hang
-        RoundedTextField txtLoaiHang = new RoundedTextField("Nhập số điện thoại người nhận");
-        txtLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại hàng hóa"));
-        txtLoaiHang.setBounds(240, 300, 300, 50);
-        mainPanel.add(txtLoaiHang);
+        RoundedComboBox cbLoaiHang = new RoundedComboBox(new String[]{
+            "Hàng bình thường", "Hàng dễ vỡ", "Hàng cồng kềnh"
+        });
+        cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
+        cbLoaiHang.setBounds(240, 300, 300, 50);
+        mainPanel.add(cbLoaiHang);
+        
         // Nút Xác nhận
         RoundedButton btnTaoDon = new RoundedButton("Tạo đơn hàng");
         btnTaoDon.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar
@@ -111,21 +130,21 @@ public class TaoDonHangPanel extends JPanel {
         mainPanel.add(btnTaoDon);
         //Thêm hình thức thanh toán
         RoundedComboBox cbHinhThucThanhToan = new RoundedComboBox(new String[]{
-        "Chọn hình thức thanh toán", "Tiền mặt", "Thanh toán online","Thanh toán COD"
+            "Chọn hình thức thanh toán", "Tiền mặt", "Thanh toán online", "Thanh toán COD"
         });
         cbHinhThucThanhToan.setBorder(BorderFactory.createTitledBorder("Hình Thức Thanh Toán *"));
         cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
         mainPanel.add(cbHinhThucThanhToan);
-        
+
         CustomerSidebar sidebar = new CustomerSidebar();
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
         //Thanh Weather
-        TimeWeather CustomerTimeWeather= new TimeWeather("Ho Chi Minh 30 độ");
-        mainPanel.add(CustomerTimeWeather,BorderLayout.NORTH);
+        TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
+        mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
     }
-
     
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
@@ -140,8 +159,14 @@ public class TaoDonHangPanel extends JPanel {
             frame.setLocationRelativeTo(null);
             frame.setLayout(new BorderLayout());
 
-            frame.add(new TaoDonHangPanel(), BorderLayout.CENTER);
+            try {
+                frame.add(new KHTaoDonHangPanel(), BorderLayout.CENTER);
+            } catch (SQLException ex) {
+                Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         });
-}
+    }
 }

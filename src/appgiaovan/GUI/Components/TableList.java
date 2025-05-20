@@ -6,20 +6,27 @@ import java.awt.*;
 
 public class TableList extends JPanel {
 
+    private final JTable table;
+    private DefaultTableModel model;
+
     public TableList(String[] columnNames, Object[][] data) {
         setLayout(new BorderLayout());
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames) {
+        model = new DefaultTableModel(data, columnNames) {
+            @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 0; // Chỉ checkbox có thể chỉnh sửa
+                return column == 0; // chỉ cho phép chỉnh sửa cột đầu (checkbox)
             }
 
+            @Override
             public Class<?> getColumnClass(int column) {
+                // Cột 0 là checkbox (Boolean), các cột khác String
                 return column == 0 ? Boolean.class : String.class;
             }
         };
 
-        JTable table = new JTable(model) {
+        table = new JTable(model) {
+            @Override
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component c = super.prepareRenderer(renderer, row, column);
                 if (!isRowSelected(row)) {
@@ -28,8 +35,8 @@ public class TableList extends JPanel {
                     c.setBackground(new Color(200, 230, 255));
                 }
 
-                if (c instanceof JComponent) {
-                    ((JComponent) c).setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+                if (c instanceof JComponent jComponent) {
+                    jComponent.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
                 }
 
                 return c;
@@ -49,37 +56,67 @@ public class TableList extends JPanel {
             table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
 
-        // Gợi ý: Bạn có thể điều chỉnh độ rộng cột tùy nhu cầu
         if (columnNames.length > 0) {
-            table.getColumnModel().getColumn(0).setMaxWidth(30); // Checkbox
+            table.getColumnModel().getColumn(0).setMaxWidth(30); // cột checkbox nhỏ gọn
         }
 
         add(new JScrollPane(table), BorderLayout.CENTER);
     }
 
-    // Test - chỉ là ví dụ sử dụng
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            String[] columns = {"", "ID", "Khách hàng", "Sản phẩm", "ĐVT", "Giá", "SL"};
-            Object[][] data = {
-                {false, "<html><b style='color:#007bff;'>93900415</b><br><span style='color:gray;font-size:10px;'>10:48 15/04</span><br><span style='color:#007bff;'>Kho 2 - Tháo</span></html>",
-                        "<html><span style='color:#007bff;'>0254654141 ▼</span><br><b>Triệu Mạnh Tùng</b><br><span style='color:gray;'>Số 15, ngõ 207</span><br><span style='color:gray;'>Quận Hoàng Mai, Hà Nội</span></html>",
-                        "Váy hoa big size - XL - Đỏ thọ đen", "", "<html><b>400.000</b><br><span style='color:red;'>- 80.000</span></html>", 1},
-                {false, "<html><b style='color:#007bff;'>93200103</b><br><span style='color:gray;font-size:10px;'>18:48 10/04</span><br><span style='color:#007bff;'>Kho 2 - Tháo</span></html>",
-                        "<html><span style='color:#007bff;'>0238024020 ▼</span><br><b>Vũ Tiến Tài</b><br><span style='color:gray;'>Số 34 Ngách 173/68 Hoàng Hoa Thám, Hà Nội</span><br><i style='color:gray;'>(Cập đồng)</i><br><span style='color:gray;'>Quận Hai Bà Trưng, Hà Nội</span></html>",
-                        "Váy hoa big size - Xanh Neon - Đỏ thọ đen", "", "<html><b>400.000</b><br><span style='color:red;'>- 40.000</span></html>", 2}
-            };
+   
+    public void setTableData(Object[][] newData) {
+        model.setRowCount(0); // Xóa dữ liệu cũ
 
-            JFrame frame = new JFrame("Danh sách đơn hàng");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1000, 350);
-            frame.setLocationRelativeTo(null);
-            frame.add(new TableList(columns, data));
-            frame.setVisible(true);
-        });
+        for (Object[] row : newData) {
+            if (row.length > 0) {
+                Object val = row[0];
+                if (!(val instanceof Boolean)) {
+                    if (val instanceof Integer integer) {
+                        row[0] = integer != 0;
+                    } else if (val instanceof String strVal) {
+                        row[0] = strVal.equalsIgnoreCase("true") || strVal.equals("1");
+                    } else {
+                        row[0] = false; // mặc định false nếu không phải kiểu trên
+                    }
+                }
+            }
+            model.addRow(row);
+        }
     }
 
-    public Object getTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public JTable getTable() {
+        return table;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Test TableList");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 400);
+            frame.setLocationRelativeTo(null);
+
+            String[] columns = {"Chọn", "ID", "Tên", "Giá"};
+            Object[][] data = {
+                {false, "001", "Sản phẩm A", "100.000"},
+                {true, "002", "Sản phẩm B", "200.000"},
+                {false, "003", "Sản phẩm C", "150.000"}
+            };
+
+            TableList tableList = new TableList(columns, data);
+
+            frame.add(tableList);
+            frame.setVisible(true);
+
+            // Test cập nhật dữ liệu sau 3 giây
+            new Timer(3000, e -> {
+                Object[][] newData = {
+                    {"true", "004", "Sản phẩm D", "300.000"},
+                    {0, "005", "Sản phẩm E", "250.000"},
+                    {1, "006", "Sản phẩm F", "280.000"},
+                    {false, "007", "Sản phẩm G", "400.000"},
+                };
+                tableList.setTableData(newData);
+            }).start();
+        });
     }
 }

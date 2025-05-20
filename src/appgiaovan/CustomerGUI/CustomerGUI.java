@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package appgiaovan.CustomerGUI;
+import appgiaovan.CustomerGUI.KHTaoDonHangPanel;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,9 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -31,7 +35,7 @@ public class CustomerGUI extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel contentPanel;
-    public CustomerGUI(){
+    public CustomerGUI() throws SQLException, ClassNotFoundException{
         setTitle("Giao diện chính");
         setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,7 +52,7 @@ public class CustomerGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
         // Thêm các trang panel
         contentPanel.add(new KhachHangMainPanel(),"Trang chủ");
-        contentPanel.add(new TaoDonHangPanel(),"Tạo đơn hàng");
+        contentPanel.add(new KHTaoDonHangPanel(),"Tạo đơn hàng");
         contentPanel.add(new TraCuuDonHangPanel(),"Tra cứu đơn hàng");
         contentPanel.add(new ThongTinCaNhanPanel(),"Thông tin cá nhân");
         add(contentPanel,BorderLayout.CENTER);
@@ -65,7 +69,13 @@ public class CustomerGUI extends JFrame {
         }
 
         SwingUtilities.invokeLater(() -> {
-            new CustomerGUI().setVisible(true);
+            try {
+                new CustomerGUI().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
     

@@ -1,9 +1,5 @@
 
-package ConnectDB;
-
-//import java.sql.Connection;
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
+package appgiaovan.ConnectDB;
 import java.sql.*;
 
 public class ConnectionOracle {
@@ -19,10 +15,7 @@ public class ConnectionOracle {
         //Password
         String password = "Admin123";
         
-        // Khai báo class Driver cho DB Oracle
-        // Việc này cần thiết với Java 5
-        // Java6 tự động tìm kiếm Driver thích hợp.
-        // Nếu bạn dùng Java6, thì ko cần dòng này cũng được.
+  
         Class.forName("oracle.jdbc.driver.OracleDriver");
 
         // Cấu trúc URL Connection dành cho Oracle
