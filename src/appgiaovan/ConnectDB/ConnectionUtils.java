@@ -14,12 +14,12 @@ public class ConnectionUtils {
   public static void main(String[] args) throws SQLException,
           ClassNotFoundException {
  
-      System.out.println("Get connection ... ");
+      System.out.println("Đang kết nối ... ");
  
       // Lấy ra đối tượng Connection kết nối vào database.
       Connection conn = ConnectionUtils.getMyConnection();
  
-      System.out.println("Get connection " + conn);
+      System.out.println("Đang kết nối " + conn);
  
       System.out.println("Thành công!");
      
