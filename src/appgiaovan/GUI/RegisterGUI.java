@@ -143,6 +143,7 @@ public class RegisterGUI extends JFrame{
         mainPanel.add(registerPanel);mainPanel.add(background);
 
     }
+    
    
     public static void main(String[] args) {
         try {
