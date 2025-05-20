@@ -2,6 +2,7 @@ package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.CustomerGUI.CustomerSidebar;
+import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.RoundedButton;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 public class ThemDonHangFrame extends JFrame {
+
+    private JTextField txtMaDon = new JTextField("");
 
     public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException {
         setTitle("Tạo Đơn Hàng");
@@ -36,7 +39,6 @@ public class ThemDonHangFrame extends JFrame {
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
         //MaDon
-        RoundedTextField txtMaDon = new RoundedTextField("DH001");
         txtMaDon.setFocusable(false);
         txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
         txtMaDon.setBounds(20, 50, 200, 50);
@@ -138,17 +140,20 @@ public class ThemDonHangFrame extends JFrame {
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
 
+        HienThiMaDonHang();
         btnTaoDon.addActionListener(e -> {
 
             try {
 
                 // Lấy dữ liệu từ các trường
+                System.out.println(txtMaDon.getText().trim());
+                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
                 String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
                 String tenNguoiGui = txtTenNguoiGui.getText().trim();
 
                 KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
                 int idKho = selectedKho.getIdKho();
-//                System.out.println("ID được chọn: " + id);
+
 
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
@@ -164,8 +169,8 @@ public class ThemDonHangFrame extends JFrame {
                 String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
 
                 // Tạo đối tượng DonHang
-
                 DonHang dh = new DonHang();
+                dh.setIdDonHang(idDonHang);
                 dh.setSdtNguoiGui(sdtNguoiGui);
                 dh.setSdtNguoiNhan(sdtNguoiNhan);
                 dh.setTenNguoiGui(tenNguoiGui);
@@ -194,6 +199,16 @@ public class ThemDonHangFrame extends JFrame {
         });
 
     }
+
+    public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
+        DonHangDAO donHangDAO = new DonHangDAO();
+        int maDon = donHangDAO.LayMaDon();
+        this.txtMaDon.setText(String.valueOf(maDon)); // chuyển int sang String
+        System.out.println(maDon);
+    }
+
+    
+    
 
     public static void main(String[] args) {
         try {

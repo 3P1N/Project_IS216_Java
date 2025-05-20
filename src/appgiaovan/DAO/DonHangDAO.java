@@ -15,30 +15,36 @@ import java.util.List;
 public class DonHangDAO {
 
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
-        String sql = "{call ThemDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call ThemDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
         try (
                 Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
-            if (donHang.getIdKhachHang() != null) {
-                cs.setInt(1, donHang.getIdKhachHang());
+            if(donHang.getIdDonHang() != null){
+                 cs.setInt(1, donHang.getIdDonHang());
             } else {
                 cs.setNull(1, java.sql.Types.INTEGER);
             }
-
-            cs.setString(2, donHang.getSdtNguoiGui());
-            cs.setString(3, donHang.getSdtNguoiNhan());
-            cs.setInt(4, donHang.getIdKhoTiepNhan());
-            cs.setString(5, donHang.getTenNguoiGui());
-            cs.setString(6, donHang.getTenNguoiNhan());
-            cs.setString(7, donHang.getDiaChiNhan());
-            if (donHang.getTienCOD() != null) {
-                cs.setDouble(8, donHang.getTienCOD());
+            
+            if (donHang.getIdKhachHang() != null) {
+                cs.setInt(2, donHang.getIdKhachHang());
             } else {
-                cs.setNull(8, java.sql.Types.INTEGER);
+                cs.setNull(2, java.sql.Types.INTEGER);
             }
 
-            cs.setString(9, donHang.getDichVu());
-            cs.setString(10, donHang.getLoaiHangHoa());
+            cs.setString(3, donHang.getSdtNguoiGui());
+            cs.setString(4, donHang.getSdtNguoiNhan());
+            cs.setInt(5, donHang.getIdKhoTiepNhan());
+            cs.setString(6, donHang.getTenNguoiGui());
+            cs.setString(7, donHang.getTenNguoiNhan());
+            cs.setString(8, donHang.getDiaChiNhan());
+            if (donHang.getTienCOD() != null) {
+                cs.setDouble(9, donHang.getTienCOD());
+            } else {
+                cs.setNull(9, java.sql.Types.INTEGER);
+            }
+
+            cs.setString(10, donHang.getDichVu());
+            cs.setString(11, donHang.getLoaiHangHoa());
 
             cs.execute();
 
@@ -158,5 +164,19 @@ public class DonHangDAO {
             e.printStackTrace();
         }
     }
+
+    public int LayMaDon() throws SQLException, ClassNotFoundException {
+    String sql = "SELECT seq_DonHang.NEXTVAL FROM dual";
+    try (Connection conn = ConnectionUtils.getMyConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        if (rs.next()) {
+            return rs.getInt(1); // lấy cột đầu tiên
+        } else {
+            throw new SQLException("Không thể lấy giá trị từ sequence seq_DonHang.");
+        }
+    }
+}
 
 }
