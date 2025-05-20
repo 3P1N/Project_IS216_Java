@@ -20,15 +20,15 @@ import javax.swing.*;
 public class ThemDonHangFrame extends JFrame {
 
     private JTextField txtMaDon = new JTextField("");
+    private DonHangDAO donHangDAO = new DonHangDAO();
+    private QLDonHangController controller = new QLDonHangController();
 
-    public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException {
+    public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException, Exception {
         setTitle("Tạo Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Center on screen
-
-        QLDonHangController controller = new QLDonHangController();
-
+        
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
@@ -106,18 +106,16 @@ public class ThemDonHangFrame extends JFrame {
         mainPanel.add(cbPhuongXa);
 
 //        
-        RoundedComboBox cbLoaiDichVu = new RoundedComboBox(new String[]{
-            "Chọn loại dịch vụ", "Nhanh", "Tiết kiệm", "Hỏa tốc"
-        });
+        String[] dsDichVu = donHangDAO.DSDichVu();
+        RoundedComboBox cbLoaiDichVu = new RoundedComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
         cbLoaiDichVu.setBounds(240, 230, 150, 50);
         mainPanel.add(cbLoaiDichVu);
 
         //Loai Hang
-        RoundedComboBox cbLoaiHang = new RoundedComboBox(new String[]{
-            "Hàng bình thường", "Hàng dễ vỡ", "Hàng cồng kềnh"
-        });
-        cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
+        String[] dsLoaiHang = donHangDAO.DSLoaiHang();
+        RoundedComboBox cbLoaiHang = new RoundedComboBox(dsLoaiHang);
+        cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Hàng *"));
         cbLoaiHang.setBounds(240, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
 
@@ -224,6 +222,8 @@ public class ThemDonHangFrame extends JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ThemDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThemDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(ThemDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
 //            frame.setVisible(true);

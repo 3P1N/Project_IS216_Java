@@ -55,79 +55,122 @@ public class DonHangDAO {
     }
 
     public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
-    String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-    try (Connection conn = ConnectionUtils.getMyConnection();
-         CallableStatement stmt = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement stmt = conn.prepareCall(sql)) {
 
-        // 1. ID đơn hàng (bắt buộc)
-        stmt.setInt(1, donHang.getIdDonHang());
+            // 1. ID đơn hàng (bắt buộc)
+            stmt.setInt(1, donHang.getIdDonHang());
 
-        // 2. ID Khách hàng
-        if (donHang.getIdKhachHang() != null) stmt.setInt(2, donHang.getIdKhachHang());
-        else stmt.setNull(2, Types.INTEGER);
+            // 2. ID Khách hàng
+            if (donHang.getIdKhachHang() != null) {
+                stmt.setInt(2, donHang.getIdKhachHang());
+            } else {
+                stmt.setNull(2, Types.INTEGER);
+            }
 
-        // 3. ID Nhân viên giao hàng
-        if (donHang.getIdNVGiaoHang() != null) stmt.setInt(3, donHang.getIdNVGiaoHang());
-        else stmt.setNull(3, Types.INTEGER);
+            // 3. ID Nhân viên giao hàng
+            if (donHang.getIdNVGiaoHang() != null) {
+                stmt.setInt(3, donHang.getIdNVGiaoHang());
+            } else {
+                stmt.setNull(3, Types.INTEGER);
+            }
 
-        // 4. SĐT người gửi
-        if (donHang.getSdtNguoiGui() != null) stmt.setString(4, donHang.getSdtNguoiGui());
-        else stmt.setNull(4, Types.VARCHAR);
+            // 4. SĐT người gửi
+            if (donHang.getSdtNguoiGui() != null) {
+                stmt.setString(4, donHang.getSdtNguoiGui());
+            } else {
+                stmt.setNull(4, Types.VARCHAR);
+            }
 
-        // 5. SĐT người nhận
-        if (donHang.getSdtNguoiNhan() != null) stmt.setString(5, donHang.getSdtNguoiNhan());
-        else stmt.setNull(5, Types.VARCHAR);
+            // 5. SĐT người nhận
+            if (donHang.getSdtNguoiNhan() != null) {
+                stmt.setString(5, donHang.getSdtNguoiNhan());
+            } else {
+                stmt.setNull(5, Types.VARCHAR);
+            }
 
-        // 6. ID kho tiếp nhận
-        if (donHang.getIdKhoTiepNhan() != null) stmt.setInt(6, donHang.getIdKhoTiepNhan());
-        else stmt.setNull(6, Types.INTEGER);
+            // 6. ID kho tiếp nhận
+            if (donHang.getIdKhoTiepNhan() != null) {
+                stmt.setInt(6, donHang.getIdKhoTiepNhan());
+            } else {
+                stmt.setNull(6, Types.INTEGER);
+            }
 
-        // 7. Tên người gửi
-        if (donHang.getTenNguoiGui() != null) stmt.setString(7, donHang.getTenNguoiGui());
-        else stmt.setNull(7, Types.VARCHAR);
+            // 7. Tên người gửi
+            if (donHang.getTenNguoiGui() != null) {
+                stmt.setString(7, donHang.getTenNguoiGui());
+            } else {
+                stmt.setNull(7, Types.VARCHAR);
+            }
 
-        // 8. Tên người nhận
-        if (donHang.getTenNguoiNhan() != null) stmt.setString(8, donHang.getTenNguoiNhan());
-        else stmt.setNull(8, Types.VARCHAR);
+            // 8. Tên người nhận
+            if (donHang.getTenNguoiNhan() != null) {
+                stmt.setString(8, donHang.getTenNguoiNhan());
+            } else {
+                stmt.setNull(8, Types.VARCHAR);
+            }
 
-        // 9. Địa chỉ nhận
-        if (donHang.getDiaChiNhan() != null) stmt.setString(9, donHang.getDiaChiNhan());
-        else stmt.setNull(9, Types.VARCHAR);
+            // 9. Địa chỉ nhận
+            if (donHang.getDiaChiNhan() != null) {
+                stmt.setString(9, donHang.getDiaChiNhan());
+            } else {
+                stmt.setNull(9, Types.VARCHAR);
+            }
 
-        // 10. Tiền COD
-        if (donHang.getTienCOD() != null) stmt.setDouble(10, donHang.getTienCOD());
-        else stmt.setNull(10, Types.DOUBLE);
+            // 10. Tiền COD
+            if (donHang.getTienCOD() != null) {
+                stmt.setDouble(10, donHang.getTienCOD());
+            } else {
+                stmt.setNull(10, Types.DOUBLE);
+            }
 
-        // 11. Phí
-        if (donHang.getPhi() != null) stmt.setDouble(11, donHang.getPhi());
-        else stmt.setNull(11, Types.DOUBLE);
+            // 11. Phí
+            if (donHang.getPhi() != null) {
+                stmt.setDouble(11, donHang.getPhi());
+            } else {
+                stmt.setNull(11, Types.DOUBLE);
+            }
 
-        // 12. Thời gian nhận
-        if (donHang.getThoiGianNhan() != null) stmt.setTimestamp(12, (Timestamp) donHang.getThoiGianNhan());
-        else stmt.setNull(12, Types.TIMESTAMP);
+            // 12. Thời gian nhận
+            if (donHang.getThoiGianNhan() != null) {
+                stmt.setTimestamp(12, (Timestamp) donHang.getThoiGianNhan());
+            } else {
+                stmt.setNull(12, Types.TIMESTAMP);
+            }
 
-        // 13. Thời gian dự kiến
-        if (donHang.getThoiGianDuKien() != null) stmt.setTimestamp(13, (Timestamp) donHang.getThoiGianDuKien());
-        else stmt.setNull(13, Types.TIMESTAMP);
+            // 13. Thời gian dự kiến
+            if (donHang.getThoiGianDuKien() != null) {
+                stmt.setTimestamp(13, (Timestamp) donHang.getThoiGianDuKien());
+            } else {
+                stmt.setNull(13, Types.TIMESTAMP);
+            }
 
-        // 14. Trạng thái
-        if (donHang.getTrangThai() != null) stmt.setString(14, donHang.getTrangThai());
-        else stmt.setNull(14, Types.VARCHAR);
+            // 14. Trạng thái
+            if (donHang.getTrangThai() != null) {
+                stmt.setString(14, donHang.getTrangThai());
+            } else {
+                stmt.setNull(14, Types.VARCHAR);
+            }
 
-        // 15. Dịch vụ
-        if (donHang.getDichVu() != null) stmt.setString(15, donHang.getDichVu());
-        else stmt.setNull(15, Types.VARCHAR);
+            // 15. Dịch vụ
+            if (donHang.getDichVu() != null) {
+                stmt.setString(15, donHang.getDichVu());
+            } else {
+                stmt.setNull(15, Types.VARCHAR);
+            }
 
-        // 16. Loại hàng hóa
-        if (donHang.getLoaiHangHoa() != null) stmt.setString(16, donHang.getLoaiHangHoa());
-        else stmt.setNull(16, Types.VARCHAR);
+            // 16. Loại hàng hóa
+            if (donHang.getLoaiHangHoa() != null) {
+                stmt.setString(16, donHang.getLoaiHangHoa());
+            } else {
+                stmt.setNull(16, Types.VARCHAR);
+            }
 
-        stmt.execute();
-        System.out.println("Đơn hàng đã được cập nhật.");
+            stmt.execute();
+            System.out.println("Đơn hàng đã được cập nhật.");
+        }
     }
-}
-
 
     public List<DonHang> LayDSDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
@@ -278,6 +321,64 @@ public class DonHangDAO {
                 throw new SQLException("Không thể lấy giá trị từ sequence seq_DonHang.");
             }
         }
+    }
+
+    public String[] DSDichVu() throws Exception {
+        List<String> result = new ArrayList<>();
+        String sql = """
+        SELECT search_condition
+        FROM all_constraints
+        WHERE constraint_name = 'CK_DV_LOAIGIAOHANG'
+          AND table_name = 'DONHANG'
+          AND constraint_type = 'C'
+    """;
+
+        try (
+                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                String condition = rs.getString(1); // ví dụ: "LOAIGIAOHANG" IN ('Nhanh', 'Tiết kiệm', 'Hỏa tốc')
+                int start = condition.indexOf('(');
+                int end = condition.lastIndexOf(')');
+                if (start >= 0 && end > start) {
+                    String inClause = condition.substring(start + 1, end); // 'Nhanh', 'Tiết kiệm', 'Hỏa tốc'
+                    String[] values = inClause.split(",");
+                    for (String val : values) {
+                        result.add(val.trim().replaceAll("'", ""));
+                    }
+                }
+            }
+        }
+
+        return result.toArray(String[]::new);
+    }
+    
+     public String[] DSLoaiHang() throws Exception {
+        List<String> result = new ArrayList<>();
+        String sql = """
+        SELECT search_condition
+        FROM all_constraints
+        WHERE constraint_name = 'CHK_DONHANG_LOAIHANGHOA'
+          AND table_name = 'DONHANG'
+          AND constraint_type = 'C'
+    """;
+
+        try (
+                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                String condition = rs.getString(1); 
+                int start = condition.indexOf('(');
+                int end = condition.lastIndexOf(')');
+                if (start >= 0 && end > start) {
+                    String inClause = condition.substring(start + 1, end);
+                    String[] values = inClause.split(",");
+                    for (String val : values) {
+                        result.add(val.trim().replaceAll("'", ""));
+                    }
+                }
+            }
+        }
+
+        return result.toArray(String[]::new);
     }
 
 }

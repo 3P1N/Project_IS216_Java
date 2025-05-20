@@ -95,6 +95,7 @@ public class TopPanelQLGH extends JPanel {
     }
 
     public static void main(String[] args) {
+        
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
