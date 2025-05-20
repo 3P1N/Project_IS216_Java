@@ -64,8 +64,6 @@ public class QLDonHangController {
                 return false;
             }
         }
-
-        // Có thể thêm nhiều kiểm tra hơn nếu cần
         return true; // Nếu qua tất cả kiểm tra
     }
     public List<DonHang> LayDSDonHang() throws SQLException, ClassNotFoundException{
