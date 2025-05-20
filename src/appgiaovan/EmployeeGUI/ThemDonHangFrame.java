@@ -39,11 +39,11 @@ public class ThemDonHangFrame extends JFrame {
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
         //MaDon
-        txtMaDon.setFocusable(false);
-        txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
-        txtMaDon.setBounds(20, 50, 200, 50);
-        txtMaDon.setFont(new Font("Arial", Font.BOLD, 16));
-        mainPanel.add(txtMaDon);
+//        txtMaDon.setFocusable(false);
+//        txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
+//        txtMaDon.setBounds(20, 50, 200, 50);
+//        txtMaDon.setFont(new Font("Arial", Font.BOLD, 16));
+//        mainPanel.add(txtMaDon);
         //SDT
         RoundedTextField txtSDTNguoiGui = new RoundedTextField("Nhập số điện thoại người gửi");
         txtSDTNguoiGui.setBorder(BorderFactory.createTitledBorder("SĐT Người Gửi *"));
@@ -140,7 +140,7 @@ public class ThemDonHangFrame extends JFrame {
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
 
-        HienThiMaDonHang();
+//        HienThiMaDonHang();
         btnTaoDon.addActionListener(e -> {
 
             try {

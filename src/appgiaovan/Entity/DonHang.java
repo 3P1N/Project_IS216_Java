@@ -72,14 +72,14 @@ public class DonHang {
     }
 
     public static String[] getTableHeaders() {
-        return new String[]{" ", "ID", "Người gửi",  "Người nhận", "Trạng thái", "Loại dịch vụ", "Kho tiếp nhận"};
+        return new String[]{" ", "ID", "Người gửi",  "Người nhận", "Trạng thái", "Loại dịch vụ", "Kho tiếp nhận", "Địa chỉ nhận"};
     }
 
     public Object[] toTableRow() throws SQLException, ClassNotFoundException {
         KhoHangDAO khoHangDAO = new KhoHangDAO();
         String TenKho = khoHangDAO.LayTenKho(idKhoTiepNhan);
         return new Object[]{"",idDonHang,  "<html>" + tenNguoiGui + "<br/>" + sdtNguoiGui + "</html>"
-                ,  "<html>" + tenNguoiNhan + "<br/>" + sdtNguoiNhan + "</html>", trangThai,dichVu, TenKho};
+                ,  "<html>" + tenNguoiNhan + "<br/>" + sdtNguoiNhan + "</html>", trangThai,dichVu, TenKho, diaChiNhan};
     }
 
     // Constructor rỗng
