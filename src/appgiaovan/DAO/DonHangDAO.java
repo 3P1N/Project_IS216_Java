@@ -7,7 +7,7 @@ import appgiaovan.Entity.KhoHang;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +18,17 @@ public class DonHangDAO {
         String sql = "{call ThemDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
         try (
-                Connection conn = ConnectionUtils.getMyConnection(); 
-                CallableStatement cs = conn.prepareCall(sql)) {
-            if(donHang.getIdDonHang() != null){
-                 cs.setInt(1, donHang.getIdDonHang());
+                Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
+            if (donHang.getIdDonHang() != null) {
+                cs.setInt(1, donHang.getIdDonHang());
             } else {
-                cs.setNull(1, java.sql.Types.INTEGER);
+                cs.setNull(1, Types.INTEGER);
             }
-            
+
             if (donHang.getIdKhachHang() != null) {
                 cs.setInt(2, donHang.getIdKhachHang());
             } else {
-                cs.setNull(2, java.sql.Types.INTEGER);
+                cs.setNull(2, Types.INTEGER);
             }
 
             cs.setString(3, donHang.getSdtNguoiGui());
@@ -41,7 +40,7 @@ public class DonHangDAO {
             if (donHang.getTienCOD() != null) {
                 cs.setDouble(9, donHang.getTienCOD());
             } else {
-                cs.setNull(9, java.sql.Types.INTEGER);
+                cs.setNull(9, Types.INTEGER);
             }
 
             cs.setString(10, donHang.getDichVu());
@@ -52,6 +51,124 @@ public class DonHangDAO {
         } catch (SQLException e) {
             System.err.println("Lỗi khi gọi procedure ThemDonHang: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
+        String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement stmt = conn.prepareCall(sql)) {
+
+            // 1. ID đơn hàng (bắt buộc)
+            stmt.setInt(1, donHang.getIdDonHang());
+
+            // 2. ID Khách hàng
+            if (donHang.getIdKhachHang() != null) {
+                stmt.setInt(2, donHang.getIdKhachHang());
+            } else {
+                stmt.setNull(2, Types.INTEGER);
+            }
+
+            // 3. ID Nhân viên giao hàng
+            if (donHang.getIdNVGiaoHang() != null) {
+                stmt.setInt(3, donHang.getIdNVGiaoHang());
+            } else {
+                stmt.setNull(3, Types.INTEGER);
+            }
+
+            // 4. SĐT người gửi
+            if (donHang.getSdtNguoiGui() != null) {
+                stmt.setString(4, donHang.getSdtNguoiGui());
+            } else {
+                stmt.setNull(4, Types.VARCHAR);
+            }
+
+            // 5. SĐT người nhận
+            if (donHang.getSdtNguoiNhan() != null) {
+                stmt.setString(5, donHang.getSdtNguoiNhan());
+            } else {
+                stmt.setNull(5, Types.VARCHAR);
+            }
+
+            // 6. ID kho tiếp nhận
+            if (donHang.getIdKhoTiepNhan() != null) {
+                stmt.setInt(6, donHang.getIdKhoTiepNhan());
+            } else {
+                stmt.setNull(6, Types.INTEGER);
+            }
+
+            // 7. Tên người gửi
+            if (donHang.getTenNguoiGui() != null) {
+                stmt.setString(7, donHang.getTenNguoiGui());
+            } else {
+                stmt.setNull(7, Types.VARCHAR);
+            }
+
+            // 8. Tên người nhận
+            if (donHang.getTenNguoiNhan() != null) {
+                stmt.setString(8, donHang.getTenNguoiNhan());
+            } else {
+                stmt.setNull(8, Types.VARCHAR);
+            }
+
+            // 9. Địa chỉ nhận
+            if (donHang.getDiaChiNhan() != null) {
+                stmt.setString(9, donHang.getDiaChiNhan());
+            } else {
+                stmt.setNull(9, Types.VARCHAR);
+            }
+
+            // 10. Tiền COD
+            if (donHang.getTienCOD() != null) {
+                stmt.setDouble(10, donHang.getTienCOD());
+            } else {
+                stmt.setNull(10, Types.DOUBLE);
+            }
+
+            // 11. Phí
+            if (donHang.getPhi() != null) {
+                stmt.setDouble(11, donHang.getPhi());
+            } else {
+                stmt.setNull(11, Types.DOUBLE);
+            }
+
+            // 12. Thời gian nhận
+            if (donHang.getThoiGianNhan() != null) {
+                stmt.setTimestamp(12, (Timestamp) donHang.getThoiGianNhan());
+            } else {
+                stmt.setNull(12, Types.TIMESTAMP);
+            }
+
+            // 13. Thời gian dự kiến
+            if (donHang.getThoiGianDuKien() != null) {
+                stmt.setTimestamp(13, (Timestamp) donHang.getThoiGianDuKien());
+            } else {
+                stmt.setNull(13, Types.TIMESTAMP);
+            }
+
+            // 14. Trạng thái
+            if (donHang.getTrangThai() != null) {
+                stmt.setString(14, donHang.getTrangThai());
+            } else {
+                stmt.setNull(14, Types.VARCHAR);
+            }
+
+            // 15. Dịch vụ
+            if (donHang.getDichVu() != null) {
+                stmt.setString(15, donHang.getDichVu());
+            } else {
+                stmt.setNull(15, Types.VARCHAR);
+            }
+
+            // 16. Loại hàng hóa
+            if (donHang.getLoaiHangHoa() != null) {
+                stmt.setString(16, donHang.getLoaiHangHoa());
+            } else {
+                stmt.setNull(16, Types.VARCHAR);
+            }
+
+            stmt.execute();
+            System.out.println("Đơn hàng đã được cập nhật.");
         }
     }
 
@@ -148,6 +265,34 @@ public class DonHangDAO {
         return list;
     }
 
+    public DonHang LayThongTinDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
+        String sql = "Select * from DonHang where id_donhang =" + idDonHang;
+        Connection conn = ConnectionUtils.getMyConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+
+        DonHang dh = new DonHang();
+        dh.setIdDonHang(rs.getInt("ID_DonHang"));
+        dh.setIdKhachHang(rs.getInt("ID_KhachHang"));
+        dh.setIdNVGiaoHang(rs.getInt("ID_NVGiaoHang"));
+        dh.setSdtNguoiGui(rs.getString("SDTNguoiGui"));
+        dh.setSdtNguoiNhan(rs.getString("SDTNguoiNhan"));
+        dh.setIdKhoTiepNhan(rs.getInt("ID_KhoTiepNhan"));
+        dh.setTenNguoiGui(rs.getString("TenNguoiGui"));
+        dh.setTenNguoiNhan(rs.getString("TenNguoiNhan"));
+        dh.setDiaChiNhan(rs.getString("DiaChiNhan"));
+        dh.setTienCOD(rs.getDouble("TienCOD"));
+        dh.setPhi(rs.getDouble("Phi"));
+        dh.setThoiGianNhan(rs.getTimestamp("ThoiGianNhan"));
+        dh.setThoiGianTao(rs.getTimestamp("ThoiGianTao"));
+        dh.setThoiGianDuKien(rs.getTimestamp("ThoiGianDuKien"));
+        dh.setTrangThai(rs.getString("TrangThai"));
+        dh.setDichVu(rs.getString("DichVu"));
+        dh.setLoaiHangHoa(rs.getString("LoaiHangHoa"));
+        return dh;
+    }
+
     public static void main(String[] args) {
         DonHangDAO dao = new DonHangDAO();
         try {
@@ -167,17 +312,73 @@ public class DonHangDAO {
     }
 
     public int LayMaDon() throws SQLException, ClassNotFoundException {
-    String sql = "SELECT seq_DonHang.NEXTVAL FROM dual";
-    try (Connection conn = ConnectionUtils.getMyConnection();
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         ResultSet rs = stmt.executeQuery()) {
+        String sql = "SELECT seq_DonHang.NEXTVAL FROM dual";
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
-        if (rs.next()) {
-            return rs.getInt(1); // lấy cột đầu tiên
-        } else {
-            throw new SQLException("Không thể lấy giá trị từ sequence seq_DonHang.");
+            if (rs.next()) {
+                return rs.getInt(1); // lấy cột đầu tiên
+            } else {
+                throw new SQLException("Không thể lấy giá trị từ sequence seq_DonHang.");
+            }
         }
     }
-}
+
+    public String[] DSDichVu() throws Exception {
+        List<String> result = new ArrayList<>();
+        String sql = """
+        SELECT search_condition
+        FROM all_constraints
+        WHERE constraint_name = 'CK_DV_LOAIGIAOHANG'
+          AND table_name = 'DONHANG'
+          AND constraint_type = 'C'
+    """;
+
+        try (
+                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                String condition = rs.getString(1); // ví dụ: "LOAIGIAOHANG" IN ('Nhanh', 'Tiết kiệm', 'Hỏa tốc')
+                int start = condition.indexOf('(');
+                int end = condition.lastIndexOf(')');
+                if (start >= 0 && end > start) {
+                    String inClause = condition.substring(start + 1, end); // 'Nhanh', 'Tiết kiệm', 'Hỏa tốc'
+                    String[] values = inClause.split(",");
+                    for (String val : values) {
+                        result.add(val.trim().replaceAll("'", ""));
+                    }
+                }
+            }
+        }
+
+        return result.toArray(String[]::new);
+    }
+    
+     public String[] DSLoaiHang() throws Exception {
+        List<String> result = new ArrayList<>();
+        String sql = """
+        SELECT search_condition
+        FROM all_constraints
+        WHERE constraint_name = 'CHK_DONHANG_LOAIHANGHOA'
+          AND table_name = 'DONHANG'
+          AND constraint_type = 'C'
+    """;
+
+        try (
+                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                String condition = rs.getString(1); 
+                int start = condition.indexOf('(');
+                int end = condition.lastIndexOf(')');
+                if (start >= 0 && end > start) {
+                    String inClause = condition.substring(start + 1, end);
+                    String[] values = inClause.split(",");
+                    for (String val : values) {
+                        result.add(val.trim().replaceAll("'", ""));
+                    }
+                }
+            }
+        }
+
+        return result.toArray(String[]::new);
+    }
 
 }

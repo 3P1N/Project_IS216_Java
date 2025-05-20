@@ -1,15 +1,19 @@
-package appgiaovan.GUI.Components;
+package appgiaovan.EmployeeGUI;
 
+import appgiaovan.Entity.DonHang;
+import appgiaovan.GUI.Components.*;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.List;
 
-public class TableList extends JPanel {
+public class TableDonHang extends JPanel {
 
     private final JTable table;
     private DefaultTableModel model;
 
-    public TableList(String[] columnNames, Object[][] data) {
+    public TableDonHang(String[] columnNames, Object[][] data) {
         setLayout(new BorderLayout());
 
         model = new DefaultTableModel(data, columnNames) {
@@ -64,6 +68,18 @@ public class TableList extends JPanel {
     }
 
    
+    public void setTableData(List<DonHang> dsDonHang) throws SQLException, ClassNotFoundException {
+        model.setRowCount(0); // Xóa dữ liệu cũ
+        
+        String[] columns = DonHang.getTableHeaders();
+        Object[][] data = new Object[dsDonHang.size()][columns.length];
+
+        for (int i = 0; i < dsDonHang.size(); i++) {
+            data[i] = dsDonHang.get(i).toTableRow();
+        }
+        setTableData(data);
+    }
+    
     public void setTableData(Object[][] newData) {
         model.setRowCount(0); // Xóa dữ liệu cũ
 
@@ -102,7 +118,7 @@ public class TableList extends JPanel {
                 {false, "003", "Sản phẩm C", "150.000"}
             };
 
-            TableList tableList = new TableList(columns, data);
+            TableDonHang tableList = new TableDonHang(columns, data);
 
             frame.add(tableList);
             frame.setVisible(true);
@@ -124,5 +140,7 @@ public class TableList extends JPanel {
         return model.getRowCount();
     }
     
-   
+    public Object getValueAt(int row, int column){
+        return model.getValueAt(row, column);
+    }
 }

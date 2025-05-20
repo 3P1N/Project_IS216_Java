@@ -1,78 +1,167 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package appgiaovan.DAO;
-import appgiaovan.ConnectDB.ConnectionUtils;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import appgiaovan.Entity.KhachHang;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * DAO cho đối tượng KhachHang (extends NguoiDung)
+ */
 public class KhachHangDAO {
+    private final Connection conn;
 
-    // Lấy thông tin cá nhân theo ID
-    public KhachHang layThongTinCaNhan(int idKhachHang) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM KhachHang WHERE ID_KhachHang = ?";
-        try (Connection conn = ConnectionUtils.getMyConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    public KhachHangDAO(Connection conn) {
+        this.conn = conn;
+    }
 
-            stmt.setInt(1, idKhachHang);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new KhachHang(
-                        rs.getInt("ID_KhachHang"),
-                        rs.getInt("ID_TaiKhoan"),
-                        rs.getString("HoTen"),
-                        rs.getString("SDT"),
-                        rs.getString("Email"),
-                        rs.getString("CCCD"),
-                        rs.getDate("NgaySinh"),
-                        rs.getString("GioiTinh"),
-                        rs.getString("DiaChi"),
-                        rs.getDouble("MucLuong")
-                    );
+    /**
+     * Tìm kiếm thông tin khách hàng theo tên hoặc SĐT
+     */
+    public List<KhachHang> timKiemThongTinKhachHang(String keyword) throws SQLException {
+        String sql = "SELECT * FROM KhachHang WHERE HoTen LIKE ? OR SDT LIKE ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            String pattern = "%" + keyword + "%";
+            ps.setString(1, pattern);
+            ps.setString(2, pattern);
+            try (ResultSet rs = ps.executeQuery()) {
+                List<KhachHang> results = new ArrayList<>();
+                while (rs.next()) {
+                    KhachHang kh = new KhachHang();
+                    kh.setID_NguoiDung(rs.getInt("ID_KhachHang"));
+                    kh.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
+                    kh.setHoTen(rs.getString("HoTen"));
+                    kh.setSDT(rs.getString("SDT"));
+                    kh.setEmail(rs.getString("Email"));
+                    kh.setCCCD(rs.getString("CCCD"));
+                    kh.setNgaySinh(rs.getDate("NgaySinh"));
+                    kh.setGioiTinh(rs.getString("GioiTinh").charAt(0));
+                    results.add(kh);
                 }
+                return results;
+            }
+        }
+    }
+
+    /**
+     * Kiểm tra tồn tại thông tin khách hàng theo CCCD hoặc email hoặc SĐT
+     */
+    public boolean kiemTraTonTaiThongTin(KhachHang kh) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM KhachHang WHERE CCCD = ? OR Email = ? OR SDT = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, kh.getCCCD());
+            ps.setString(2, kh.getEmail());
+            ps.setString(3, kh.getSDT());
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1) > 0;
+            }
+        }
+    }
+
+    /**
+     * Tạo mới khách hàng
+     */
+    public boolean taoKhachHang(KhachHang kh) throws SQLException {
+        int newId = layMaKhachHangMoi();
+        kh.setID_NguoiDung(newId);
+        String sql = "INSERT INTO KhachHang(ID_KhachHang, ID_TaiKhoan, HoTen, SDT, Email, CCCD, NgaySinh, GioiTinh) VALUES(?,?,?,?,?,?,?,?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, kh.getID_NguoiDung());
+            ps.setInt(2, kh.getID_TaiKhoan());
+            ps.setString(3, kh.getHoTen());
+            ps.setString(4, kh.getSDT());
+            ps.setString(5, kh.getEmail());
+            ps.setString(6, kh.getCCCD());
+            ps.setDate(7, new java.sql.Date(kh.getNgaySinh().getTime()));
+            ps.setString(8, String.valueOf(kh.getGioiTinh()));
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    /**
+     * Lấy ID khách hàng mới = max(ID_KhachHang) + 1
+     */
+    public int layMaKhachHangMoi() throws SQLException {
+        String sql = "SELECT COALESCE(MAX(ID_KhachHang),0) AS maxId FROM KhachHang";
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            rs.next();
+            return rs.getInt("maxId") + 1;
+        }
+    }
+
+    /**
+     * Xóa khách hàng theo ID
+     */
+    public boolean xoaKhachHang(int idNguoiDung) throws SQLException {
+        String sql = "DELETE FROM KhachHang WHERE ID_KhachHang = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idNguoiDung);
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    public boolean suaKhachHang(KhachHang kh) throws SQLException {
+        String sql = "UPDATE KhachHang SET HoTen=?, SDT=?, Email=?, CCCD=?, NgaySinh=?, GioiTinh=? WHERE ID_KhachHang = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, kh.getHoTen());
+            ps.setString(2, kh.getSDT());
+            ps.setString(3, kh.getEmail());
+            ps.setString(4, kh.getCCCD());
+            ps.setDate(5, new java.sql.Date(kh.getNgaySinh().getTime()));
+            ps.setString(6, String.valueOf(kh.getGioiTinh()));
+            ps.setInt(7, kh.getID_NguoiDung());
+            return ps.executeUpdate() > 0;
+        }
+    }
+
+    /**
+     * Hàm main để test DAO
+     */
+    public static void main(String[] args) {
+        String url = "jdbc:oracle:thin:@localhost:1521:XE";
+        String username = "your_username";
+        String password = "your_password";
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            KhachHangDAO dao = new KhachHangDAO(conn);
+
+            // Tạo đối tượng KhachHang mới
+            KhachHang kh = new KhachHang();
+            kh.setID_TaiKhoan(1);
+            kh.setHoTen("Nguyen Van A");
+            kh.setSDT("0901234567");
+            kh.setEmail("a@example.com");
+            kh.setCCCD("123456789");
+            kh.setNgaySinh(new java.sql.Date(new java.util.Date().getTime()));
+            kh.setGioiTinh('M');
+
+            boolean created = dao.taoKhachHang(kh);
+            System.out.println("Tạo khách hàng: " + (created ? "Thành công" : "Thất bại"));
+
+            // Tìm kiếm
+            List<KhachHang> list = dao.timKiemThongTinKhachHang("Nguyen");
+            for (KhachHang k : list) {
+                System.out.println(k.getID_NguoiDung() + " - " + k.getHoTen());
+            }
+
+            // Cập nhật
+            if (!list.isEmpty()) {
+                KhachHang first = list.get(0);
+                first.setHoTen(first.getHoTen() + " Updated");
+                dao.suaKhachHang(first);
+                System.out.println("Đã cập nhật tên khách hàng ID " + first.getID_NguoiDung());
+            }
+
+            // Xóa mẫu
+            if (!list.isEmpty()) {
+                int delId = list.get(0).getID_NguoiDung();
+                dao.xoaKhachHang(delId);
+                System.out.println("Đã xóa khách hàng ID " + delId);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return null; // không tìm thấy
     }
-
-    // Cập nhật thông tin khách hàng
-    public boolean capNhatThongTin(KhachHang khach) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE KhachHang SET HoTen=?, SDT=?, Email=?, CCCD=?, NgaySinh=?, " +
-                     "GioiTinh=?, DiaChi=?, MucLuong=? WHERE ID_KhachHang=?";
-
-        try (Connection conn = ConnectionUtils.getMyConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, khach.getHoTen());
-            stmt.setString(2, khach.getSdt());
-            stmt.setString(3, khach.getEmail());
-            stmt.setString(4, khach.getCccd());
-            stmt.setDate(5, khach.getNgaySinh());
-            stmt.setString(6, khach.getGioiTinh());
-            stmt.setString(7, khach.getDiaChi());
-            stmt.setDouble(8, khach.getMucLuong());
-            stmt.setInt(9, khach.getIdKhachHang());
-
-            int rowsUpdated = stmt.executeUpdate();
-            return rowsUpdated > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
-    
 }
