@@ -42,5 +42,11 @@ public class KhoHang {
 
     public String getDiaChi() { return diaChi; }
     public void setDiaChi(String diaChi) { this.diaChi = diaChi; }
+    
+    @Override
+    public String toString() {
+        return tenKho; // Hiển thị tên kho trong combo box
+    }
+
 }
 

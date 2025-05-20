@@ -13,7 +13,6 @@ public class TaoDonHangController {
 
     public List<KhoHang> LayThongTinKho() throws SQLException, ClassNotFoundException {
         KhoHangDAO khoHangDAO = new KhoHangDAO();
-
         return khoHangDAO.LayThongTinKho();
 
     }
