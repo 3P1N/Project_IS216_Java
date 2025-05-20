@@ -18,7 +18,8 @@ public class DonHangDAO {
         String sql = "{call ThemDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
         try (
-                Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
+                Connection conn = ConnectionUtils.getMyConnection(); 
+                CallableStatement cs = conn.prepareCall(sql)) {
             if(donHang.getIdDonHang() != null){
                  cs.setInt(1, donHang.getIdDonHang());
             } else {

@@ -22,7 +22,7 @@ public class PasswordHashing {
     }
     
     public static void main(String[] args) {
-        String plainPassword = "mySecretPassword";
+        String plainPassword = "12345";
         String hashedPassword = hashPassword(plainPassword);
 
         if (hashedPassword != null) {
