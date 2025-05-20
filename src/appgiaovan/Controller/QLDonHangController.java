@@ -58,12 +58,7 @@ public class QLDonHangController {
             return false;
         }
 
-        // 6. Thời gian nhận nếu có thì phải sau thời gian tạo
-        if (donHang.getThoiGianNhan() != null && donHang.getThoiGianTao() != null) {
-            if (donHang.getThoiGianNhan().before(donHang.getThoiGianTao())) {
-                return false;
-            }
-        }
+        
 
         // Có thể thêm nhiều kiểm tra hơn nếu cần
         return true; // Nếu qua tất cả kiểm tra

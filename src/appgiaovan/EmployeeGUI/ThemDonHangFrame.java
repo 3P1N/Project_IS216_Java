@@ -54,14 +54,11 @@ public class ThemDonHangFrame extends JFrame {
         mainPanel.add(txtTenNguoiGui);
 
         List<KhoHang> listKho = controller.LayThongTinKho();
-        System.out.println(listKho);
+        JComboBox cbKhoTiepNhan = new RoundedComboBox();
 
-        String[] arrayTenKho = new String[listKho.size()];
-        for (int i = 0; i < listKho.size(); i++) {
-            arrayTenKho[i] = listKho.get(i).getTenKho();
+        for (KhoHang kho : listKho) {
+            cbKhoTiepNhan.addItem(kho);
         }
-
-        RoundedComboBox cbKhoTiepNhan = new RoundedComboBox(arrayTenKho);
 
         cbKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
         cbKhoTiepNhan.setBounds(680, 50, 200, 50);
@@ -135,7 +132,6 @@ public class ThemDonHangFrame extends JFrame {
         cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
         mainPanel.add(cbHinhThucThanhToan);
 
-        
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
         //Thanh Weather
@@ -149,7 +145,10 @@ public class ThemDonHangFrame extends JFrame {
                 // Lấy dữ liệu từ các trường
                 String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
                 String tenNguoiGui = txtTenNguoiGui.getText().trim();
-                String tenKho = (String) cbKhoTiepNhan.getSelectedItem();
+
+                KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
+                int idKho = selectedKho.getIdKho();
+//                System.out.println("ID được chọn: " + id);
 
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
@@ -165,20 +164,25 @@ public class ThemDonHangFrame extends JFrame {
                 String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
 
                 // Tạo đối tượng DonHang
-                DonHang donHang = new DonHang(1, sdtNguoiGui, tenNguoiGui,
-                        sdtNguoiNhan, tenNguoiNhan, diaChiDayDu,
-                        loaiDichVu, loaiHang, 1);
 
-                if (!controller.KiemTraDinhDang(donHang)) {
+                DonHang dh = new DonHang();
+                dh.setSdtNguoiGui(sdtNguoiGui);
+                dh.setSdtNguoiNhan(sdtNguoiNhan);
+                dh.setTenNguoiGui(tenNguoiGui);
+                dh.setTenNguoiNhan(tenNguoiNhan);
+                dh.setDiaChiNhan(diaChiDayDu);
+                dh.setDichVu(loaiDichVu);
+                dh.setLoaiHangHoa(loaiHang);
+                dh.setIdKhoTiepNhan(idKho);
+                if (!controller.KiemTraDinhDang(dh)) {
                     JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
                 }
                 // Gọi controller để thêm đơn hàng
-                controller.ThemDonHang(donHang);
+                controller.ThemDonHang(dh);
                 // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 onSucces.run();
-                
 
                 dispose();
 

@@ -59,10 +59,10 @@ public class DonHangDAO {
             params.add(donHang.getIdDonHang());
         }
 
-//        if (donHang.getDichVu() != null && !donHang.getDichVu().isEmpty()) {
-//            sql.append(" AND DichVu LIKE ?");
-//            params.add("%" + donHang.getDichVu() + "%");
-//        }
+        if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
+            sql.append(" AND DichVu LIKE ?");
+            params.add("%" + donHang.getTrangThai() + "%");
+        }
 
         if (donHang.getTenNguoiGui() != null && !donHang.getTenNguoiGui().isEmpty()) {
             sql.append(" AND TenNguoiGui LIKE ?");
@@ -108,7 +108,7 @@ public class DonHangDAO {
     public List<DonHang> LayDSDonHang() throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM DonHang ORDER BY ID_DONHANG";
+        String sql = "SELECT * FROM DonHang ORDER BY ID_DONHANG desc";
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {

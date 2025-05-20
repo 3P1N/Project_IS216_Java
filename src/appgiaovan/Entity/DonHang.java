@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package appgiaovan.Entity;
 
+import appgiaovan.DAO.KhoHangDAO;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class DonHang {
@@ -73,11 +72,14 @@ public class DonHang {
     }
 
     public static String[] getTableHeaders() {
-        return new String[]{" ", "ID", "Người gửi", "SĐT Người gửi", "Người nhận", "SĐT Người nhận", "Trạng thái"};
+        return new String[]{" ", "ID", "Người gửi",  "Người nhận", "Trạng thái", "Loại dịch vụ", "Kho tiếp nhận"};
     }
 
-    public Object[] toTableRow() {
-        return new Object[]{"", idDonHang, tenNguoiGui, sdtNguoiGui, tenNguoiNhan, sdtNguoiNhan, trangThai};
+    public Object[] toTableRow() throws SQLException, ClassNotFoundException {
+        KhoHangDAO khoHangDAO = new KhoHangDAO();
+        String TenKho = khoHangDAO.LayTenKho(idKhoTiepNhan);
+        return new Object[]{"",idDonHang,  "<html>" + tenNguoiGui + "<br/>" + sdtNguoiGui + "</html>"
+                ,  "<html>" + tenNguoiNhan + "<br/>" + sdtNguoiNhan + "</html>", trangThai,dichVu, TenKho};
     }
 
     // Constructor rỗng
