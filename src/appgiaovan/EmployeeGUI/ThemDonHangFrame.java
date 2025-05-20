@@ -2,6 +2,7 @@ package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.CustomerGUI.CustomerSidebar;
+import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.RoundedButton;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 public class ThemDonHangFrame extends JFrame {
+
+    private JTextField txtMaDon = new JTextField("");
 
     public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException {
         setTitle("Tạo Đơn Hàng");
@@ -36,7 +39,6 @@ public class ThemDonHangFrame extends JFrame {
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
         //MaDon
-        RoundedTextField txtMaDon = new RoundedTextField("DH001");
         txtMaDon.setFocusable(false);
         txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
         txtMaDon.setBounds(20, 50, 200, 50);
@@ -54,14 +56,11 @@ public class ThemDonHangFrame extends JFrame {
         mainPanel.add(txtTenNguoiGui);
 
         List<KhoHang> listKho = controller.LayThongTinKho();
-        System.out.println(listKho);
+        JComboBox cbKhoTiepNhan = new RoundedComboBox();
 
-        String[] arrayTenKho = new String[listKho.size()];
-        for (int i = 0; i < listKho.size(); i++) {
-            arrayTenKho[i] = listKho.get(i).getTenKho();
+        for (KhoHang kho : listKho) {
+            cbKhoTiepNhan.addItem(kho);
         }
-
-        RoundedComboBox cbKhoTiepNhan = new RoundedComboBox(arrayTenKho);
 
         cbKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
         cbKhoTiepNhan.setBounds(680, 50, 200, 50);
@@ -135,21 +134,26 @@ public class ThemDonHangFrame extends JFrame {
         cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
         mainPanel.add(cbHinhThucThanhToan);
 
-        
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
         //Thanh Weather
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
 
+        HienThiMaDonHang();
         btnTaoDon.addActionListener(e -> {
 
             try {
 
                 // Lấy dữ liệu từ các trường
+                System.out.println(txtMaDon.getText().trim());
+                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
                 String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
                 String tenNguoiGui = txtTenNguoiGui.getText().trim();
-                String tenKho = (String) cbKhoTiepNhan.getSelectedItem();
+
+                KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
+                int idKho = selectedKho.getIdKho();
+
 
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
@@ -165,20 +169,25 @@ public class ThemDonHangFrame extends JFrame {
                 String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
 
                 // Tạo đối tượng DonHang
-                DonHang donHang = new DonHang(1, sdtNguoiGui, tenNguoiGui,
-                        sdtNguoiNhan, tenNguoiNhan, diaChiDayDu,
-                        loaiDichVu, loaiHang, 1);
-
-                if (!controller.KiemTraDinhDang(donHang)) {
+                DonHang dh = new DonHang();
+                dh.setIdDonHang(idDonHang);
+                dh.setSdtNguoiGui(sdtNguoiGui);
+                dh.setSdtNguoiNhan(sdtNguoiNhan);
+                dh.setTenNguoiGui(tenNguoiGui);
+                dh.setTenNguoiNhan(tenNguoiNhan);
+                dh.setDiaChiNhan(diaChiDayDu);
+                dh.setDichVu(loaiDichVu);
+                dh.setLoaiHangHoa(loaiHang);
+                dh.setIdKhoTiepNhan(idKho);
+                if (!controller.KiemTraDinhDang(dh)) {
                     JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
                 }
                 // Gọi controller để thêm đơn hàng
-                controller.ThemDonHang(donHang);
+                controller.ThemDonHang(dh);
                 // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 onSucces.run();
-                
 
                 dispose();
 
@@ -190,6 +199,16 @@ public class ThemDonHangFrame extends JFrame {
         });
 
     }
+
+    public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
+        DonHangDAO donHangDAO = new DonHangDAO();
+        int maDon = donHangDAO.LayMaDon();
+        this.txtMaDon.setText(String.valueOf(maDon)); // chuyển int sang String
+        System.out.println(maDon);
+    }
+
+    
+    
 
     public static void main(String[] args) {
         try {
