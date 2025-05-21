@@ -35,7 +35,7 @@ public class SuaDonHangFrame extends JFrame {
 
     private RoundedButton btnSuaDonHang = new RoundedButton("Sửa đơn hàng");
 
-    public SuaDonHangFrame(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException {
+    public SuaDonHangFrame(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException, Exception {
         setTitle("Tạo Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -113,18 +113,16 @@ public class SuaDonHangFrame extends JFrame {
         mainPanel.add(cbPhuongXa);
 
 //        
-        cbLoaiDichVu = new JComboBox(new String[]{
-            "Chọn loại dịch vụ", "Nhanh", "Tiết kiệm", "Hỏa tốc"
-        });
+        String[] dsDichVu = donHangDAO.DSDichVu();
+        cbLoaiDichVu = new JComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
         cbLoaiDichVu.setBounds(240, 230, 150, 50);
         mainPanel.add(cbLoaiDichVu);
 
         //Loai Hang
-        cbLoaiHang = new JComboBox(new String[]{
-            "Hàng bình thường", "Hàng dễ vỡ", "Hàng cồng kềnh"
-        });
-        cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
+        String[] dsLoaiHang = donHangDAO.DSLoaiHang();
+        cbLoaiHang = new JComboBox(dsLoaiHang);
+        cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Hàng Hóa *"));
         cbLoaiHang.setBounds(240, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
 
@@ -239,6 +237,8 @@ public class SuaDonHangFrame extends JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(SuaDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SuaDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(SuaDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
 //            frame.setVisible(true);

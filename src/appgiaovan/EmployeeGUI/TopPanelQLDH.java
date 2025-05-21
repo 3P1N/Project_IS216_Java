@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TopPanelQLGH extends JPanel {
+public class TopPanelQLDH extends JPanel {
 
     private JButton addButton = new JButton("Thêm mới");
     private JButton filterButton = new JButton("Lọc");
@@ -25,7 +25,7 @@ public class TopPanelQLGH extends JPanel {
     private final DonHangDAO donHangDAO  = new DonHangDAO();
 
     
-    public TopPanelQLGH() throws SQLException, ClassNotFoundException  {
+    public TopPanelQLDH() throws SQLException, ClassNotFoundException  {
         
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
@@ -117,11 +117,11 @@ public class TopPanelQLGH extends JPanel {
             frame.setLocationRelativeTo(null);
             
             try {
-                frame.add(new TopPanelQLGH());
+                frame.add(new TopPanelQLDH());
             } catch (SQLException ex) {
-                Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TopPanelQLDH.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TopPanelQLDH.class.getName()).log(Level.SEVERE, null, ex);
             }
            
             

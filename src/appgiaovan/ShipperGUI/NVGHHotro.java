@@ -10,25 +10,25 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class NVGHHotro extends JFrame {
+public class NVGHHotro extends JPanel {
 
     public NVGHHotro() {
-        setTitle("Hỗ Trợ - 3P1N đơn vị giao vận");
+        /*setTitle("Hỗ Trợ - 3P1N đơn vị giao vận");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200, 700);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout());*/
 
         // Khai báo danh sách tiêu đề và icon cho Sidebar
-        java.util.List<String> items = Arrays.asList("Trang chủ", "Quản lý đơn hàng", "Báo cáo", "Hỗ trợ", "Đăng xuất");
-        java.util.List<String> icons = Arrays.asList("home.jpg", "order.png", "report.png", "support.jpg", "logout.png");
+        //java.util.List<String> items = Arrays.asList("Trang chủ", "Quản lý đơn hàng", "Báo cáo", "Hỗ trợ", "Đăng xuất");
+       // java.util.List<String> icons = Arrays.asList("home.jpg", "order.png", "report.png", "support.jpg", "logout.png");
 
         // Thiết lập layout cho Sidebar
         setLayout(new BorderLayout());
 
         // Tạo MenuBar và add vào chính JPanel này
-        MenuBar menu = new MenuBar(items, icons);
-        add(menu, BorderLayout.EAST);
+        /*MenuBar menu = new MenuBar(items, icons);
+        add(menu, BorderLayout.EAST);*/
 
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -105,7 +105,7 @@ public class NVGHHotro extends JFrame {
 
 
         // Thêm vào JFrame
-        add(menu, BorderLayout.WEST);
+        //add(menu, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
     }
 

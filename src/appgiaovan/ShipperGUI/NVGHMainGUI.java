@@ -1,9 +1,15 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package appgiaovan.ShipperGUI;
 
 import appgiaovan.EmployeeGUI.EmployeeSidebar;
 import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.MenuBar;
+import appgiaovan.GUI.Components.ThongTinCaNhan;
 import appgiaovan.GUI.Components.TimeWeather;
+import appgiaovan.GUI.LOGIN;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
@@ -12,48 +18,67 @@ import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import appgiaovan.ShipperGUI.NVGHMenu;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class NVGHMainGUI extends JFrame {
+/**
+ *
+ * @author ASUS
+ */
+public class NVGHMainGUI extends JFrame{
+    private CardLayout cardLayout;
+    private JPanel contentPanel;
 
-    public NVGHMainGUI() {
-        setTitle("Shipper - 3P1N đơn vị giao vận");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1200, 700);
+    public NVGHMainGUI() throws ClassNotFoundException {
+        
+        setTitle("3P1N - Nhân viên giao hàng");
+        setSize(1300, 700);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-           //tao menu
-        NVGHMenu menu = new NVGHMenu();
+        // Danh sách tên và icon menu
+        
+        // Tạo menu
+        NVGHMenu sidebar = new NVGHMenu();
+        add(sidebar, BorderLayout.WEST);
 
-        // Khu vực trung tâm (dashboard)
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        // Panel trung tâm hiển thị nội dung
+        cardLayout = new CardLayout();
+        contentPanel = new JPanel(cardLayout);
 
-        mainPanel.add(new TimeWeather("Hồ Chí Minh 30°C"), BorderLayout.NORTH );
-        // Các ô thống kê - dùng lưới 2x2
-        JPanel statPanel = new JPanel(new GridLayout(2, 2, 40, 40));
-        statPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
-        statPanel.setPreferredSize(new Dimension(500, 500)); // tăng kích thước các ô thống kê
+        // Thêm các trang nội dung
+        //contentPanel.add(new ThongTinCaNhan(),"Profile");
+        contentPanel.add(new NVGHHomeGUI(),"Trang chủ");
+        contentPanel.add(new ThongTinCaNhan(),"Thông tin cá nhân");
+        contentPanel.add(new QuanLyDonHang(),"Quản lý đơn hàng");
+        contentPanel.add(new NVGHBaoCao(), "Báo cáo");
+        contentPanel.add(new NVGHHotro(), "Hỗ trợ");
+        //contentPanel.add(new LOGIN(), "Đăng xuất");
 
-        statPanel.add(RoundedPanel.createStatBox("ĐÃ NHẬN", "0", "↓ 100%", new Color(76, 175, 80)));
-        statPanel.add(RoundedPanel.createStatBox("GIAO THÀNH CÔNG", "0", "↓ 100% (0 hóa đơn)", new Color(33, 150, 243)));
-        statPanel.add(RoundedPanel.createStatBox("GIAO THẤT BẠI", "0", "↓ 100% (0 đơn)", new Color(255, 152, 0)));
-        statPanel.add(RoundedPanel.createStatBox("DOANH THU", "0", "", new Color(121, 85, 72)));
+        add(contentPanel);
 
-        // Wrapper để căn giữa statPanel
-        JPanel centerWrapper = new JPanel(new GridBagLayout());
-        centerWrapper.add(statPanel);
-
-        // Đưa wrapper vào giữa mainPanel
-        mainPanel.add(centerWrapper, BorderLayout.CENTER);
-
-        // Thêm vào JFrame
-        add(menu, BorderLayout.WEST);
-        add(mainPanel, BorderLayout.CENTER);
+        // Khi chọn mục trong MenuBar thì đổi trang
+        sidebar.addMenuClickListener((selectedName) -> {
+            cardLayout.show(contentPanel, selectedName);
+        });
     }
 
     public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception ex) {
+            System.err.println("Không thể cài đặt FlatLaf");
+        }
         SwingUtilities.invokeLater(() -> {
-            new NVGHMainGUI().setVisible(true);
+            try {
+                new NVGHMainGUI().setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
         });
     }
+
 }
