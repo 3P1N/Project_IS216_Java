@@ -4,6 +4,7 @@
  */
 package appgiaovan.ManagerGUI;
 
+import appgiaovan.Controller.QLKHController;
 import appgiaovan.Entity.KhachHang;
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class FormSuaKH extends JDialog {
     private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh;
     private JComboBox<Character> cboGioiTinh;
 
-    public FormSuaKH(Frame owner, KhachHang kh) {
+    public FormSuaKH(Frame owner, KhachHang kh) throws ClassNotFoundException {
         super(owner, "Sửa Khách Hàng", true);
         this.controller = new QLKHController();
         this.kh = kh;

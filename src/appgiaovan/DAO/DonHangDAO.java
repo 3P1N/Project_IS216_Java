@@ -2,7 +2,7 @@ package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DonHang;
-import appgiaovan.Entity.KhoHang;
+
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -13,38 +13,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DonHangDAO {
-
+    
+    
+    
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
-        String sql = "{call ThemDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (
-                Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
-            if (donHang.getIdDonHang() != null) {
-                cs.setInt(1, donHang.getIdDonHang());
+        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
+//            if (donHang.getIdDonHang() != null) {
+//                cs.setInt(1, donHang.getIdDonHang());
+//            } else {
+//                cs.setNull(1, Types.INTEGER);
+//            }
+
+            if (donHang.getIdKhachHang() != null) {
+                cs.setInt(1, donHang.getIdKhachHang());
             } else {
                 cs.setNull(1, Types.INTEGER);
             }
 
-            if (donHang.getIdKhachHang() != null) {
-                cs.setInt(2, donHang.getIdKhachHang());
-            } else {
-                cs.setNull(2, Types.INTEGER);
-            }
-
-            cs.setString(3, donHang.getSdtNguoiGui());
-            cs.setString(4, donHang.getSdtNguoiNhan());
-            cs.setInt(5, donHang.getIdKhoTiepNhan());
-            cs.setString(6, donHang.getTenNguoiGui());
-            cs.setString(7, donHang.getTenNguoiNhan());
-            cs.setString(8, donHang.getDiaChiNhan());
+            cs.setString(2, donHang.getSdtNguoiGui());
+            cs.setString(3, donHang.getSdtNguoiNhan());
+            cs.setInt(4, donHang.getIdKhoTiepNhan());
+            cs.setString(5, donHang.getTenNguoiGui());
+            cs.setString(6, donHang.getTenNguoiNhan());
+            cs.setString(7, donHang.getDiaChiNhan());
             if (donHang.getTienCOD() != null) {
-                cs.setDouble(9, donHang.getTienCOD());
+                cs.setDouble(8, donHang.getTienCOD());
             } else {
-                cs.setNull(9, Types.INTEGER);
+                cs.setNull(8, Types.INTEGER);
             }
 
-            cs.setString(10, donHang.getDichVu());
-            cs.setString(11, donHang.getLoaiHangHoa());
+            cs.setString(9, donHang.getDichVu());
+            cs.setString(10, donHang.getLoaiHangHoa());
 
             cs.execute();
 
@@ -57,7 +58,7 @@ public class DonHangDAO {
     public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement stmt = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement stmt = conn.prepareCall(sql)) {
 
             // 1. ID đơn hàng (bắt buộc)
             stmt.setInt(1, donHang.getIdDonHang());
@@ -184,7 +185,8 @@ public class DonHangDAO {
         }
 
         if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
-            sql.append(" AND DichVu LIKE ?");
+            System.out.println(donHang.getTrangThai());
+            sql.append(" AND TrangThai LIKE ?");
             params.add("%" + donHang.getTrangThai() + "%");
         }
 
@@ -195,8 +197,8 @@ public class DonHangDAO {
 
         sql.append(" ORDER BY ID_DonHang");
 
-        try (
-                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+        try (Connection conn = ConnectionUtils.getMyConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
                 stmt.setObject(i + 1, params.get(i));
             }
@@ -267,7 +269,7 @@ public class DonHangDAO {
 
     public DonHang LayThongTinDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
         String sql = "Select * from DonHang where id_donhang =" + idDonHang;
-        Connection conn = ConnectionUtils.getMyConnection();
+       Connection conn = ConnectionUtils.getMyConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         rs.next();
@@ -293,7 +295,7 @@ public class DonHangDAO {
         return dh;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         DonHangDAO dao = new DonHangDAO();
         try {
             List<DonHang> ds = dao.LayDSDonHang();
@@ -333,8 +335,8 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (
-                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection();
+               PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String condition = rs.getString(1); // ví dụ: "LOAIGIAOHANG" IN ('Nhanh', 'Tiết kiệm', 'Hỏa tốc')
                 int start = condition.indexOf('(');
@@ -362,8 +364,37 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (
-                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                String condition = rs.getString(1); 
+                int start = condition.indexOf('(');
+                int end = condition.lastIndexOf(')');
+                if (start >= 0 && end > start) {
+                    String inClause = condition.substring(start + 1, end);
+                    String[] values = inClause.split(",");
+                    for (String val : values) {
+                        result.add(val.trim().replaceAll("'", ""));
+                    }
+                }
+            }
+        }
+
+        return result.toArray(String[]::new);
+    }
+
+    public String[] DSTrangThai() throws SQLException, ClassNotFoundException {
+            List<String> result = new ArrayList<>();
+        String sql = """
+        SELECT search_condition
+        FROM all_constraints
+        WHERE constraint_name = 'CHK_DONHANG_TRANGTHAI'
+          AND table_name = 'DONHANG'
+          AND constraint_type = 'C'
+    """;
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+               PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String condition = rs.getString(1); 
                 int start = condition.indexOf('(');

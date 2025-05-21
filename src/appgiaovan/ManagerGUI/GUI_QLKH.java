@@ -59,16 +59,19 @@ package appgiaovan.ManagerGUI;
 import appgiaovan.Controller.QLKHController;
 import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.Entity.KhachHang;
+import java.awt.BorderLayout;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class GUI_QLKH extends JFrame {
     private QLKHController controller;
     private JTable tblKhachHang;
     private JTextField txtSearch;
 
-    public GUI_QLKH() {
+    public GUI_QLKH() throws ClassNotFoundException {
         controller = new QLKHController();
         setTitle("Quản Lý Khách Hàng");
         setSize(1300, 600);
@@ -94,12 +97,25 @@ public class GUI_QLKH extends JFrame {
         // sidebar actions
         JButton btnAdd = new JButton("Thêm");
         btnAdd.addActionListener(e -> {
-            FormThemKH form = new FormThemKH(this);
+            FormThemKH form = null;
+            try {
+                form = new FormThemKH(this);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+            }
             form.setVisible(true);
             hienThiDanhSachKhachHang();
         });
+        
+        
         JButton btnEdit = new JButton("Sửa");
-        btnEdit.addActionListener(e -> xuLiLayThongTinKhachHang());
+        btnEdit.addActionListener(e -> {
+            try {
+                xuLiLayThongTinKhachHang();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         JButton btnDelete = new JButton("Xóa");
         btnDelete.addActionListener(e -> xuLiXoaKhachHang());
 
@@ -125,7 +141,7 @@ public class GUI_QLKH extends JFrame {
         tblKhachHang.setModel(new KhachHangTableModel(list));
     }
 
-    public void xuLiLayThongTinKhachHang() {
+    public void xuLiLayThongTinKhachHang() throws ClassNotFoundException {
         int row = tblKhachHang.getSelectedRow();
         if (row < 0) return;
         int id = (int) tblKhachHang.getValueAt(row, 1); // column Mã KH
@@ -150,7 +166,11 @@ public class GUI_QLKH extends JFrame {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception ignored) {}
-            new GUI_QLKH().setVisible(true);
+            try {
+                new GUI_QLKH().setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 }

@@ -4,6 +4,7 @@
  */
 package appgiaovan.ManagerGUI;
 
+import appgiaovan.Controller.QLKHController;
 import appgiaovan.Entity.KhachHang;
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +15,7 @@ public class FormThemKH extends JDialog {
     private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh;
     private JComboBox<Character> cboGioiTinh;
 
-    public FormThemKH(Frame owner) {
+    public FormThemKH(Frame owner) throws ClassNotFoundException {
         super(owner, "Thêm Khách Hàng", true);
         controller = new QLKHController();
         initUI();

@@ -20,10 +20,12 @@ import javax.swing.*;
 public class ThemDonHangFrame extends JFrame {
 
     private JTextField txtMaDon = new JTextField("");
-    private DonHangDAO donHangDAO = new DonHangDAO();
+    private DonHangDAO donHangDAO;
     private QLDonHangController controller = new QLDonHangController();
 
     public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException, Exception {
+        donHangDAO = new DonHangDAO();
+        
         setTitle("Tạo Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -144,8 +146,8 @@ public class ThemDonHangFrame extends JFrame {
             try {
 
                 // Lấy dữ liệu từ các trường
-                System.out.println(txtMaDon.getText().trim());
-                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
+//                System.out.println(txtMaDon.getText().trim());
+//                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
                 String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
                 String tenNguoiGui = txtTenNguoiGui.getText().trim();
 
@@ -168,7 +170,7 @@ public class ThemDonHangFrame extends JFrame {
 
                 // Tạo đối tượng DonHang
                 DonHang dh = new DonHang();
-                dh.setIdDonHang(idDonHang);
+//                dh.setIdDonHang(idDonHang);
                 dh.setSdtNguoiGui(sdtNguoiGui);
                 dh.setSdtNguoiNhan(sdtNguoiNhan);
                 dh.setTenNguoiGui(tenNguoiGui);

@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package appgiaovan.GUI;
+import appgiaovan.Controller.DangKyController;
+import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.Entity.KhachHang;
+import appgiaovan.Entity.TaiKhoan;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +14,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import com.toedter.calendar.JDateChooser;
+import java.util.Date;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 /**
  *
  * @author ASUS
  */
 public class RegisterGUI extends JFrame{
+    
+    private KhachHangDAO khachHangDAO;
+    private DangKyController controller = new DangKyController();
+
     public RegisterGUI() {
         setTitle("Đăng ký - Đơn vị giao vận 3P1N");
         setSize(900, 600);
@@ -52,59 +61,59 @@ public class RegisterGUI extends JFrame{
         registerPanel.add(logo);
         
         //nhập họ tên
-        JTextField hoTenField = new JTextField();
-        hoTenField.setBounds(30, 50, 290, 35);
-        hoTenField.setBorder(BorderFactory.createTitledBorder("Họ Tên"));
-        registerPanel.add(hoTenField);
+        JTextField txthoTen = new JTextField();
+        txthoTen.setBounds(30, 50, 290, 35);
+        txthoTen.setBorder(BorderFactory.createTitledBorder("Họ Tên"));
+        registerPanel.add(txthoTen);
 
         // nhập tên đăng nhập
-        JTextField userField = new JTextField();
-        userField.setBounds(30, 95, 290, 35);
-        userField.setBorder(BorderFactory.createTitledBorder("Tên đăng nhập"));
-        registerPanel.add(userField);
+        JTextField txttenDangNhap = new JTextField();
+        txttenDangNhap.setBounds(30, 95, 290, 35);
+        txttenDangNhap.setBorder(BorderFactory.createTitledBorder("Tên đăng nhập"));
+        registerPanel.add(txttenDangNhap);
         
         //nhập pass
-        JPasswordField passField = new JPasswordField();
-        passField.setBounds(30, 145, 290, 35);
-        passField.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
-        registerPanel.add(passField);
+        JPasswordField txtmatKhau = new JPasswordField();
+        txtmatKhau.setBounds(30, 145, 290, 35);
+        txtmatKhau.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
+        registerPanel.add(txtmatKhau);
 
         // nhập lại pass
-        JPasswordField passRepeat = new JPasswordField();
-        passRepeat.setBounds(30, 195, 290, 35);
-        passRepeat.setBorder(BorderFactory.createTitledBorder("Nhập lại mật khẩu"));
-        registerPanel.add(passRepeat);
+        JPasswordField txtmatKhauNL = new JPasswordField();
+        txtmatKhauNL.setBounds(30, 195, 290, 35);
+        txtmatKhauNL.setBorder(BorderFactory.createTitledBorder("Nhập lại mật khẩu"));
+        registerPanel.add(txtmatKhauNL);
         
         //nhập CCCD
-        JTextField cccdField = new JTextField();
-        cccdField.setBounds(30, 245, 290, 35);
-        cccdField.setBorder(BorderFactory.createTitledBorder("CCCD"));
-        registerPanel.add(cccdField);
+        JTextField txtCCCD = new JTextField();
+        txtCCCD.setBounds(30, 245, 290, 35);
+        txtCCCD.setBorder(BorderFactory.createTitledBorder("CCCD"));
+        registerPanel.add(txtCCCD);
         
         //nhập Email
-        JTextField emailField = new JTextField();
-        emailField.setBounds(30, 295, 290, 35);
-        emailField.setBorder(BorderFactory.createTitledBorder("Email"));
-        registerPanel.add(emailField);
+        JTextField txtemail = new JTextField();
+        txtemail.setBounds(30, 295, 290, 35);
+        txtemail.setBorder(BorderFactory.createTitledBorder("Email"));
+        registerPanel.add(txtemail);
         
         //nhập SĐT
-        JTextField sdtField = new JTextField();
-        sdtField.setBounds(30, 345, 290, 35);
-        sdtField.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
-        registerPanel.add(sdtField);
+        JTextField txtSDT= new JTextField();
+        txtSDT.setBounds(30, 345, 290, 35);
+        txtSDT.setBorder(BorderFactory.createTitledBorder("Số điện thoại"));
+        registerPanel.add(txtSDT);
         
-        JDateChooser dateChooser = new JDateChooser();
-        dateChooser.setDateFormatString("dd/MM/yyyy");
-        dateChooser.setBounds(30, 390, 290, 40); // vị trí và kích thước
-        dateChooser.setBorder(BorderFactory.createTitledBorder("Ngày sinh"));
-        registerPanel.add(dateChooser);
+        JDateChooser csdate = new JDateChooser();
+        csdate.setDateFormatString("dd/MM/yyyy");
+        csdate.setBounds(30, 390, 290, 40); // vị trí và kích thước
+        csdate.setBorder(BorderFactory.createTitledBorder("Ngày sinh"));
+        registerPanel.add(csdate);
         
         //nhập GT
         String[] genders = {"Nam", "Nữ"};
-        JComboBox<String> genderComboBox = new JComboBox<>(genders);
-        genderComboBox.setBounds(30, 435, 290, 40);
-        genderComboBox.setBorder(BorderFactory.createTitledBorder("Giới tính"));
-        registerPanel.add(genderComboBox);
+        JComboBox<String> cbgioiTinh = new JComboBox<>(genders);
+        cbgioiTinh.setBounds(30, 435, 290, 40);
+        cbgioiTinh.setBorder(BorderFactory.createTitledBorder("Giới tính"));
+        registerPanel.add(cbgioiTinh);
 
         
         JButton dkyButton = new JButton("Đăng ký");
@@ -137,23 +146,79 @@ public class RegisterGUI extends JFrame{
                 });
             }
         });
+        dkyButton.addActionListener(e -> {
 
-       
-        
-        mainPanel.add(registerPanel);mainPanel.add(background);
+            try {
 
-    }
+                // Lấy dữ liệu từ các trường
+                String hoTen = txthoTen.getText().trim();
+                String tenDangNhap = txttenDangNhap.getText().trim();
+                char[] matKhauKiHieu = txtmatKhau.getPassword();
+                String matKhau = new String(matKhauKiHieu);
+                char[] matKhauKiHieuNL = txtmatKhauNL.getPassword();
+                String matKhauNL = new String(matKhauKiHieuNL);
+                String CCCD= txtCCCD.getText().trim();
+                String email=txtemail.getText().trim();
+                String SDT=txtSDT.getText().trim();
+                Date ngaySinh = csdate.getDate();
+                // Lấy giới tính được chọn từ ComboBox
+                String selectedGender = (String) cbgioiTinh.getSelectedItem();
+                // Chuyển thành ký tự 'M' hoặc 'F'
+                char gioiTinh;
+                if ("Nam".equals(selectedGender)) {
+                    gioiTinh = 'M';
+                } 
+                else {
+                    gioiTinh = 'F';
+                } 
+    
+
+                // Tạo đối tượng KHACHHANG
+                KhachHang kh = new KhachHang();
+                kh.setHoTen(hoTen);
+                kh.setCCCD(CCCD);
+                kh.setEmail(email);
+                kh.setSDT(SDT);
+                kh.setNgaySinh(ngaySinh);
+                kh.setGioiTinh(gioiTinh);
+                //Tạo đối tượng TAIKHOAN
+                TaiKhoan tk=new TaiKhoan();
+                
+                if (!controller.KiemTraDinhDang(kh,matKhau,matKhauNL,tenDangNhap)) {
+                    JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return; // Dừng lại, không thực hiện thêm
+                }
+                //Gọi controller để thêm tài khoản
+                controller.themTaiKhoan(tk);
+                // Gọi controller để thêm khách hàng
+                controller.themKhachHang(kh);
+                // Gọi callback
+                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+
+        });
+        mainPanel.add(background);
+        mainPanel.add(registerPanel);
+}
+    
     
    
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
-        }
-        SwingUtilities.invokeLater(() -> {
-            RegisterGUI frame = new RegisterGUI();
+        UIManager.setLookAndFeel(new FlatLightLaf());
+    } catch (Exception ex) {
+        System.err.println("Không thể cài đặt FlatLaf");
+    }
+
+    SwingUtilities.invokeLater(() -> {
+        RegisterGUI frame = new RegisterGUI();
             frame.setVisible(true);
-        });
+        
+    });
     }
 }

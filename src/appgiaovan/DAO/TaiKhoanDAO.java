@@ -36,4 +36,7 @@ public class TaiKhoanDAO {
         return vaiTro;
     return null;
     }
+    public boolean themTaiKhoan(TaiKhoan tk){
+        return true;
+    }
 }   

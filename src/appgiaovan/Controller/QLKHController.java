@@ -1,5 +1,6 @@
 package appgiaovan.Controller;
 
+import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.Entity.KhachHang;
 import java.sql.Connection;
@@ -11,13 +12,10 @@ public class QLKHController {
     private KhachHangDAO dao;
     private Connection conn;
 
-    public QLKHController() {
+    public QLKHController() throws ClassNotFoundException {
         try {
-            // TODO: Điền URL, username, password của database
-            String url = "jdbc:oracle:thin:@localhost:1521:XE";
-            String username = "your_username";
-            String password = "your_password";
-            conn = DriverManager.getConnection(url, username, password);
+
+            conn = ConnectionUtils.getMyConnection();
             dao = new KhachHangDAO(conn);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -27,7 +25,7 @@ public class QLKHController {
 
     public List<KhachHang> layTatCaKhachHang() {
         try {
-            return dao.timKiemThongTinKhachHang("");
+            return dao.layTatCaKhachHang();
         } catch (SQLException e) {
             e.printStackTrace();
             return List.of();
@@ -36,12 +34,13 @@ public class QLKHController {
 
     public List<KhachHang> timKiemKhachHang(String kw) {
         try {
-            return dao.timKiemThongTinKhachHang(kw);
+            return dao.timKiemKhachHang(kw);
         } catch (SQLException e) {
             e.printStackTrace();
             return List.of();
         }
     }
+
 
     public int layMaKhachHangMoi() {
         try {
