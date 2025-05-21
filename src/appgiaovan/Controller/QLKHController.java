@@ -15,8 +15,8 @@ public class QLKHController {
         try {
             // TODO: Điền URL, username, password của database
             String url = "jdbc:oracle:thin:@localhost:1521:XE";
-            String username = "your_username";
-            String password = "your_password";
+            String username = "DoAnGiaoVan";
+            String password = "Admin123";
             conn = DriverManager.getConnection(url, username, password);
             dao = new KhachHangDAO(conn);
         } catch (SQLException e) {
@@ -27,7 +27,7 @@ public class QLKHController {
 
     public List<KhachHang> layTatCaKhachHang() {
         try {
-            return dao.timKiemThongTinKhachHang("");
+            return dao.layTatCaKhachHang();
         } catch (SQLException e) {
             e.printStackTrace();
             return List.of();
@@ -36,12 +36,13 @@ public class QLKHController {
 
     public List<KhachHang> timKiemKhachHang(String kw) {
         try {
-            return dao.timKiemThongTinKhachHang(kw);
+            return dao.timKiemKhachHang(kw);
         } catch (SQLException e) {
             e.printStackTrace();
             return List.of();
         }
     }
+
 
     public int layMaKhachHangMoi() {
         try {
