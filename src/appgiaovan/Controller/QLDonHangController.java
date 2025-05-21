@@ -9,7 +9,7 @@ import java.util.List;
 
 public class QLDonHangController {
 
-    private DonHangDAO donHangDAO = new DonHangDAO();
+    private final DonHangDAO donHangDAO = new DonHangDAO();
     
     public List<KhoHang> LayThongTinKho() throws SQLException, ClassNotFoundException {
         KhoHangDAO khoHangDAO = new KhoHangDAO();

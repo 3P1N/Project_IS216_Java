@@ -20,10 +20,12 @@ import javax.swing.*;
 public class ThemDonHangFrame extends JFrame {
 
     private JTextField txtMaDon = new JTextField("");
-    private DonHangDAO donHangDAO = new DonHangDAO();
+    private DonHangDAO donHangDAO;
     private QLDonHangController controller = new QLDonHangController();
 
     public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException, Exception {
+        donHangDAO = new DonHangDAO();
+        
         setTitle("Tạo Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

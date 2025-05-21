@@ -16,7 +16,7 @@ public class QuanLyDonHangPanel extends JPanel {
 
     private final QLDonHangController controller = new QLDonHangController();
     private final TableDonHang listOrder;
-    private final TopPanelQLGH topPanel = new TopPanelQLGH();
+    private TopPanelQLGH topPanel ;
 
     public QuanLyDonHangPanel() throws SQLException, ClassNotFoundException {
         setLayout(new BorderLayout());
@@ -25,6 +25,7 @@ public class QuanLyDonHangPanel extends JPanel {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         // Panel lọc (filter)
+        topPanel = = new TopPanelQLGH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Khởi tạo bảng rỗng ban đầu
@@ -44,6 +45,8 @@ public class QuanLyDonHangPanel extends JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
@@ -102,7 +105,7 @@ public class QuanLyDonHangPanel extends JPanel {
         });
     }
 
-    public void ThemDonHang() throws SQLException, ClassNotFoundException {
+    public void ThemDonHang() throws SQLException, ClassNotFoundException, Exception {
         ThemDonHangFrame themDH = new ThemDonHangFrame(() -> {
             try {
                 HienThiDanhSach();

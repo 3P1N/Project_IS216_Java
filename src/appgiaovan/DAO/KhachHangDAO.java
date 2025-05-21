@@ -15,30 +15,6 @@ public class KhachHangDAO {
     }
 
 
-//    public List<KhachHang> timKiemThongTinKhachHang(String keyword) throws SQLException {
-//        String sql = "SELECT * FROM KhachHang WHERE HoTen LIKE ? OR SDT LIKE ?";
-//        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-//            String pattern = "%" + keyword + "%";
-//            ps.setString(1, pattern);
-//            ps.setString(2, pattern);
-//            try (ResultSet rs = ps.executeQuery()) {
-//                List<KhachHang> results = new ArrayList<>();
-//                while (rs.next()) {
-//                    KhachHang kh = new KhachHang();
-//                    kh.setID_NguoiDung(rs.getInt("ID_KhachHang"));
-//                    kh.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
-//                    kh.setHoTen(rs.getString("HoTen"));
-//                    kh.setSDT(rs.getString("SDT"));
-//                    kh.setEmail(rs.getString("Email"));
-//                    kh.setCCCD(rs.getString("CCCD"));
-//                    kh.setNgaySinh(rs.getDate("NgaySinh"));
-//                    kh.setGioiTinh(rs.getString("GioiTinh").charAt(0));
-//                    results.add(kh);
-//                }
-//                return results;
-//            }
-//        }
-//    }
     public KhachHang layThongTinKhachHang(int id) throws SQLException {
     String sql = "SELECT * FROM KhachHang WHERE ID_KhachHang = ?";
     try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -55,16 +31,15 @@ public class KhachHangDAO {
                 kh.setNgaySinh(rs.getDate("NgaySinh"));
                 kh.setGioiTinh(rs.getString("GioiTinh").charAt(0));
                 return kh;
+
             }
         }
     }
-    return null; // Không tìm thấy khách hàng với ID đã cho
+    return null; 
 }
 
 
-    /**
-     * Kiểm tra tồn tại thông tin khách hàng theo CCCD hoặc email hoặc SĐT
-     */
+
     public boolean kiemTraTonTaiThongTin(KhachHang kh) throws SQLException {
         String sql = "SELECT COUNT(*) FROM KhachHang WHERE CCCD = ? OR Email = ? OR SDT = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
