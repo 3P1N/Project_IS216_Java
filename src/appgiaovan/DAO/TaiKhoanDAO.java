@@ -8,6 +8,7 @@ import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
 import static appgiaovan.PasswordHashing.hashPassword;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
  * @author ASUS
  */
 import java.util.*;
+import javax.lang.model.util.Types;
 
 public class TaiKhoanDAO {
     //xac thuc thong tin
@@ -36,7 +38,7 @@ public class TaiKhoanDAO {
         return vaiTro;
     return null;
     }
-    public boolean themTaiKhoan(TaiKhoan tk){
-        return true;
+    
+        
     }
-}   
+   

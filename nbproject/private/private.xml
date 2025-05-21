@@ -12,6 +12,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/images/Webp.net-resizeimage.png</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/DonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/KhachHangMainPanel.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/KhoHangDAO.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/TraCuuDonHangPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/DangKyController.java</file>
@@ -24,6 +25,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/images/logo2.png</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/MenuBar.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/LOGIN.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/LoginController.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeSidebar.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ChiTietDonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/QLDonHangController.java</file>

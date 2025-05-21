@@ -2,6 +2,7 @@ package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.KhachHang;
+import appgiaovan.Entity.TaiKhoan;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -72,6 +73,24 @@ public class KhachHangDAO {
             return ps.executeUpdate() > 0;
         }
     }
+    public boolean themKhachHang(KhachHang kh,TaiKhoan tk) throws SQLException, ClassNotFoundException{
+        String sql="{ call ThemKhachHang(?, ?, ?, ?, ?, ?, ?, ?) }";
+        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
+        cs.setString(1, tk.getTenTaiKhoan());
+        cs.setString(2, tk.getMatKhauMaHoa());
+        cs.setString(3, kh.getHoTen());
+        cs.setString(4, kh.getSDT());
+        cs.setString(5, kh.getEmail());
+        cs.setString(6, kh.getCCCD());
+        cs.setDate(7, new java.sql.Date(kh.getNgaySinh().getTime()));
+        cs.setString(8, String.valueOf(kh.getGioiTinh()));
+        cs.execute();
+        }catch (SQLException e) {
+            System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
+        }
 
     /**
      * Lấy ID khách hàng mới = max(ID_KhachHang) + 1

@@ -50,20 +50,13 @@ public class DangKyController {
         // Có thể thêm nhiều kiểm tra hơn nếu cần
         return true; // Nếu qua tất cả kiểm tra
     }
-    public boolean themKhachHang(KhachHang kh) {
+    public boolean themKhachHang(KhachHang kh,TaiKhoan tk) {
         try {
-            return khachHangDAO.taoKhachHang(kh);
+            return khachHangDAO.themKhachHang(kh,tk);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-    public boolean themTaiKhoan(TaiKhoan tk) {
-        try {
-            return taiKhoanDAO.themTaiKhoan(tk);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+    
 }
