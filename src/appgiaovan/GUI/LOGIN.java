@@ -5,6 +5,7 @@
 package appgiaovan.GUI;
 
 import appgiaovan.Controller.LoginController;
+import appgiaovan.Controller.TaoTokenController;
 import appgiaovan.CustomerGUI.CustomerGUI;
 import appgiaovan.EmployeeGUI.EmployeeGUI;
 import appgiaovan.Entity.TaiKhoan;
@@ -151,19 +152,23 @@ public class LOGIN extends JFrame {
     String kq = log.yeuCauXacThuc(username, pass);
     if ("KH".equals(kq)) {
         // Chuyển tới giao diện khách hàng
+        new TaoTokenController().TaoToken(username);
         new CustomerGUI().setVisible(true);
         setVisible(false);
     } else if ("QL".equals(kq)) {
         // Chuyển tới giao diện quản lý
+        new TaoTokenController().TaoToken(username);
         new ManagerMainScreen().setVisible(true);
         setVisible(false);
     } else if ("NVK".equals(kq)) {
         // Chuyển tới giao diện nhân viên kho
+        new TaoTokenController().TaoToken(username);
         new EmployeeGUI().setVisible(true);
         setVisible(false);
     }
     else if ("NVGH".equals(kq)) {
         // Chuyển tới giao diện nhân viên giao hang
+        new TaoTokenController().TaoToken(username);
         new NVGHMainGUI().setVisible(true);
         setVisible(false);
     }else {
