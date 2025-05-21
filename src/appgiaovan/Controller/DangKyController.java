@@ -5,6 +5,7 @@
 package appgiaovan.Controller;
 
 import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.DAO.TaiKhoanDAO;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
 import javax.swing.JPasswordField;
@@ -15,22 +16,23 @@ import javax.swing.JPasswordField;
  */
 public class DangKyController {
         private KhachHangDAO khachHangDAO=new KhachHangDAO();
-        public boolean KiemTraDinhDang(KhachHang khachHang, TaiKhoan taiKhoan,JPasswordField passField,JPasswordField passRepeat ) {
+        private TaiKhoanDAO taiKhoanDAO=new TaiKhoanDAO();
+        public boolean KiemTraDinhDang(KhachHang khachHang, String matKhau,String matKhauNL,String tenDangNhap ) {
             
         //1. họ tên không được để trống
         if (khachHang.getHoTen() == null || khachHang.getHoTen().trim().isEmpty()) {
             return false;
         }
         //2. tên đăng nhập không được để trống
-        if (taiKhoan.getTenTaiKhoan() == null || taiKhoan.getTenTaiKhoan().trim().isEmpty()) {
+        if (tenDangNhap == null) {
             return false;
         }
         //3. Mật khẩu không được để trống
-        if (taiKhoan.getMatKhauMaHoa() == null || taiKhoan.getMatKhauMaHoa().trim().isEmpty()) {
+        if (matKhau == null || matKhauNL == null) {
             return false;
         }
         //4. Nhập lại mật khẩu phải trùng với mật khẩu
-        if(passField!=passRepeat){
+        if(matKhau!=matKhauNL){
             return false;
         }
         //5. CCCD không được để trống
@@ -47,5 +49,21 @@ public class DangKyController {
         }
         // Có thể thêm nhiều kiểm tra hơn nếu cần
         return true; // Nếu qua tất cả kiểm tra
+    }
+    public boolean themKhachHang(KhachHang kh) {
+        try {
+            return khachHangDAO.taoKhachHang(kh);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean themTaiKhoan(TaiKhoan tk) {
+        try {
+            return taiKhoanDAO.themTaiKhoan(tk);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
