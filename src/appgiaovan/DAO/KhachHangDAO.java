@@ -72,6 +72,7 @@ public class KhachHangDAO {
         }
     }
 
+
     public boolean themKhachHang(KhachHang kh, TaiKhoan tk) throws SQLException, ClassNotFoundException {
         String sql = "{ call ThemKhachHang(?, ?, ?, ?, ?,  ?, ?, ?) }";
         System.out.println(tk.getTenTaiKhoan());
@@ -86,6 +87,7 @@ public class KhachHangDAO {
             cs.setString(8, "Nam");
             cs.execute();
         } catch (SQLException e) {
+
             System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
             e.printStackTrace();
             return false;
