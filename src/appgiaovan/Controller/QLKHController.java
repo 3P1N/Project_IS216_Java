@@ -16,14 +16,14 @@ public class QLKHController {
         try {
 
             conn = ConnectionUtils.getMyConnection();
-            dao = new KhachHangDAO(conn);
+            dao = new KhachHangDAO();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException("Lỗi kết nối DB", e);
         }
     }
 
-    public List<KhachHang> layTatCaKhachHang() {
+    public List<KhachHang> layTatCaKhachHang() throws ClassNotFoundException {
         try {
             return dao.layTatCaKhachHang();
         } catch (SQLException e) {
@@ -32,7 +32,7 @@ public class QLKHController {
         }
     }
 
-    public List<KhachHang> timKiemKhachHang(String kw) {
+    public List<KhachHang> timKiemKhachHang(String kw) throws ClassNotFoundException {
         try {
             return dao.timKiemKhachHang(kw);
         } catch (SQLException e) {
@@ -42,7 +42,7 @@ public class QLKHController {
     }
 
 
-    public int layMaKhachHangMoi() {
+    public int layMaKhachHangMoi() throws ClassNotFoundException {
         try {
             return dao.layMaKhachHangMoi();
         } catch (SQLException e) {
