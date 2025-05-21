@@ -1,6 +1,7 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Entity.DonHang;
+import appgiaovan.Entity.GoiHang;
 import appgiaovan.GUI.Components.*;
 import javax.swing.*;
 import javax.swing.table.*;
@@ -68,7 +69,7 @@ public class TableDonHang extends JPanel {
     }
 
    
-    public void setTableData(List<DonHang> dsDonHang) throws SQLException, ClassNotFoundException {
+    public void setTableDataDonHang(List<DonHang> dsDonHang) throws SQLException, ClassNotFoundException {
         model.setRowCount(0); // Xóa dữ liệu cũ
         
         String[] columns = DonHang.getTableHeaders();
@@ -78,6 +79,18 @@ public class TableDonHang extends JPanel {
             data[i] = dsDonHang.get(i).toTableRow();
         }
         setTableData(data);
+    }
+    
+    public void setTableDataGoiHang(List<GoiHang> dsGoiHang) throws SQLException, ClassNotFoundException{
+        model.setRowCount(0);
+        String[] columns = GoiHang.getTableHeaders();
+        Object[][] data = new Object[dsGoiHang.size()][columns.length];
+
+        for (int i = 0; i < dsGoiHang.size(); i++) {
+            data[i] = dsGoiHang.get(i).toTableRow();
+        }
+        setTableData(data);
+        
     }
     
     public void setTableData(Object[][] newData) {

@@ -15,7 +15,7 @@ public class QuanLyDonHangPanel extends JPanel {
 
     private final QLDonHangController controller = new QLDonHangController();
     private TableDonHang listOrder;
-    private TopPanelQLGH topPanel;
+    private TopPanelQLDH topPanel;
 
     public QuanLyDonHangPanel() throws SQLException, ClassNotFoundException {
         setLayout(new BorderLayout());
@@ -24,7 +24,7 @@ public class QuanLyDonHangPanel extends JPanel {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         // Panel lọc (filter)
-        topPanel = new TopPanelQLGH();
+        topPanel = new TopPanelQLDH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Khởi tạo bảng rỗng ban đầu
@@ -68,6 +68,8 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -75,7 +77,7 @@ public class QuanLyDonHangPanel extends JPanel {
         HienThiDanhSach();
     }
 
-    public void XuLySuaDonHang() throws SQLException, ClassNotFoundException  {
+    public void XuLySuaDonHang() throws SQLException, ClassNotFoundException, Exception  {
         for (int i = 0; i < listOrder.getRowCount(); i++) {
             Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
             if (Boolean.TRUE.equals(isChecked)) {
@@ -90,7 +92,7 @@ public class QuanLyDonHangPanel extends JPanel {
         }
     }
 
-    public void SuaDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
+    public void SuaDonHang(int idDonHang) throws SQLException, ClassNotFoundException, Exception {
         SuaDonHangFrame suaDonHangFrame = new SuaDonHangFrame(idDonHang, () -> {
             try {
                 HienThiDanhSach();
@@ -133,7 +135,7 @@ public class QuanLyDonHangPanel extends JPanel {
             data[i] = dsDonHang.get(i).toTableRow();
         }
 
-        listOrder.setTableData(dsDonHang);
+        listOrder.setTableDataDonHang(dsDonHang);
     }
 
     public static void main(String[] args) {
