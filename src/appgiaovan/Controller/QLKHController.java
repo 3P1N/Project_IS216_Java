@@ -12,14 +12,9 @@ public class QLKHController {
     private KhachHangDAO dao;
     private Connection conn;
 
-    public QLKHController() {
+    public QLKHController() throws ClassNotFoundException {
         try {
-            // TODO: Điền URL, username, password của database
-//            String url = "jdbc:oracle:thin:@localhost:1521:XE";
-//            String username = "DoAnGiaoVan";
-//            String password = "Admin123";
-//            conn = DriverManager.getConnection(url, username, password);
-            
+
             conn = ConnectionUtils.getMyConnection();
             dao = new KhachHangDAO(conn);
         } catch (SQLException e) {
