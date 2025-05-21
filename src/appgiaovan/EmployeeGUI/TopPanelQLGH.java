@@ -115,6 +115,7 @@ public class TopPanelQLGH extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
+            
             try {
                 frame.add(new TopPanelQLGH());
             } catch (SQLException ex) {
@@ -122,6 +123,8 @@ public class TopPanelQLGH extends JPanel {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
             }
+           
+            
             frame.setVisible(true);
         });
     }

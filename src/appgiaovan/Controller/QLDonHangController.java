@@ -55,16 +55,11 @@ public class QLDonHangController {
         if (!(dichVu.equals("Tiết kiệm") || dichVu.equals("Nhanh") || dichVu.equals("Hỏa tốc"))) {
             return false;
         }
-
         // 5. Loại hàng hóa không được null hoặc rỗng
-        if (donHang.getLoaiHangHoa() == null || donHang.getLoaiHangHoa().trim().isEmpty()) {
-            return false;
-        }
-
-        
-
         // Có thể thêm nhiều kiểm tra hơn nếu cần
-        return true; // Nếu qua tất cả kiểm tra
+        // Nếu qua tất cả kiểm tra
+
+        return !(donHang.getLoaiHangHoa() == null || donHang.getLoaiHangHoa().trim().isEmpty()); 
     }
     public List<DonHang> LayDSDonHang() throws SQLException, ClassNotFoundException{
         return donHangDAO.LayDSDonHang();

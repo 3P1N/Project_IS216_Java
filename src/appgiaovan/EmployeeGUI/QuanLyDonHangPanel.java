@@ -2,7 +2,6 @@ package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Entity.DonHang;
-import appgiaovan.GUI.Components.TableList;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -15,8 +14,8 @@ import java.util.logging.Logger;
 public class QuanLyDonHangPanel extends JPanel {
 
     private final QLDonHangController controller = new QLDonHangController();
-    private final TableDonHang listOrder;
-    private TopPanelQLGH topPanel ;
+    private TableDonHang listOrder;
+    private TopPanelQLGH topPanel;
 
     public QuanLyDonHangPanel() throws SQLException, ClassNotFoundException {
         setLayout(new BorderLayout());
@@ -25,7 +24,7 @@ public class QuanLyDonHangPanel extends JPanel {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         // Panel lọc (filter)
-        topPanel = = new TopPanelQLGH();
+        topPanel = new TopPanelQLGH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Khởi tạo bảng rỗng ban đầu
@@ -57,9 +56,7 @@ public class QuanLyDonHangPanel extends JPanel {
                 DonHang dh = topPanel.getDonHang();
 
                 HienThiDanhSach(dh);
-            } catch (SQLException ex) {
-                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
@@ -78,7 +75,7 @@ public class QuanLyDonHangPanel extends JPanel {
         HienThiDanhSach();
     }
 
-    public void XuLySuaDonHang() throws SQLException, ClassNotFoundException {
+    public void XuLySuaDonHang() throws SQLException, ClassNotFoundException  {
         for (int i = 0; i < listOrder.getRowCount(); i++) {
             Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
             if (Boolean.TRUE.equals(isChecked)) {
@@ -88,18 +85,16 @@ public class QuanLyDonHangPanel extends JPanel {
 
                 // Gọi hàm xử lý
                 SuaDonHang(maDonHang);
-                
+
             }
         }
     }
-    
-    public void SuaDonHang(int idDonHang) throws SQLException, ClassNotFoundException{
-        SuaDonHangFrame suaDonHangFrame = new SuaDonHangFrame(idDonHang,()-> {
+
+    public void SuaDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
+        SuaDonHangFrame suaDonHangFrame = new SuaDonHangFrame(idDonHang, () -> {
             try {
                 HienThiDanhSach();
-            } catch (SQLException ex) {
-                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
@@ -109,9 +104,7 @@ public class QuanLyDonHangPanel extends JPanel {
         ThemDonHangFrame themDH = new ThemDonHangFrame(() -> {
             try {
                 HienThiDanhSach();
-            } catch (SQLException ex) {
-                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
@@ -146,7 +139,7 @@ public class QuanLyDonHangPanel extends JPanel {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
+        } catch (UnsupportedLookAndFeelException ex) {
             System.err.println("Không thể cài đặt FlatLaf");
         }
         SwingUtilities.invokeLater(() -> {
@@ -159,7 +152,7 @@ public class QuanLyDonHangPanel extends JPanel {
             try {
                 frame.add(new QuanLyDonHangPanel(), BorderLayout.CENTER);
             } catch (SQLException ex) {
-                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Không thể kết nối cơ sở dữ liệu!");
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
