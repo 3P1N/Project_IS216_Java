@@ -4,11 +4,15 @@
  */
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TopPanelQLGH extends JPanel {
 
@@ -16,10 +20,13 @@ public class TopPanelQLGH extends JPanel {
     private JButton filterButton = new JButton("Lọc");
     private JButton updateButton = new JButton("Sửa");
     private final JTextField idField = new JTextField("");
-    private final JComboBox<String> statusComboBox = new JComboBox<>(new String[]{"Đang xử lý"});
+    private final JComboBox<String> statusComboBox ;
     private final JTextField customerField = new JTextField("");
+    private final DonHangDAO donHangDAO  = new DonHangDAO();
 
-    public TopPanelQLGH() {
+    
+    public TopPanelQLGH() throws SQLException, ClassNotFoundException  {
+        
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
 
@@ -29,7 +36,9 @@ public class TopPanelQLGH extends JPanel {
         add(idField);
 
         // ComboBox - Trạng thái
-        statusComboBox.setPreferredSize(new Dimension(120, 40));
+        String[] dsTrangThai = donHangDAO.DSTrangThai();
+        statusComboBox =  new JComboBox<>(dsTrangThai);
+        statusComboBox.setPreferredSize(new Dimension(130, 40));
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
 
@@ -95,6 +104,7 @@ public class TopPanelQLGH extends JPanel {
     }
 
     public static void main(String[] args) {
+        
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
@@ -105,7 +115,16 @@ public class TopPanelQLGH extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
-            frame.add(new TopPanelQLGH());
+            
+            try {
+                frame.add(new TopPanelQLGH());
+            } catch (SQLException ex) {
+                Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+            
             frame.setVisible(true);
         });
     }

@@ -3,15 +3,18 @@ package appgiaovan.EmployeeGUI;
 import appgiaovan.GUI.Components.TableList;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QuanLyGoiHang extends JPanel {
 
-    public QuanLyGoiHang() {
+    public QuanLyGoiHang() throws SQLException, ClassNotFoundException {
         this.setLayout(new BorderLayout());
         initUI();
     }
 
-    private void initUI() {
+    private void initUI() throws SQLException, ClassNotFoundException {
         // Panel Menu
 
         // main
@@ -41,7 +44,13 @@ public class QuanLyGoiHang extends JPanel {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Quản Lý Gói Hàng");
-            frame.setContentPane(new QuanLyGoiHang());
+            try {
+                frame.setContentPane(new QuanLyGoiHang());
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setSize(1300, 600);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
