@@ -16,7 +16,7 @@ public class QuanLyDonHangPanel extends JPanel {
 
     private final QLDonHangController controller = new QLDonHangController();
     private final TableDonHang listOrder;
-    private final TopPanelQLGH topPanel = new TopPanelQLGH();
+    private TopPanelQLGH topPanel ;
 
     public QuanLyDonHangPanel() throws SQLException, ClassNotFoundException {
         setLayout(new BorderLayout());
@@ -25,6 +25,7 @@ public class QuanLyDonHangPanel extends JPanel {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         // Panel lọc (filter)
+        topPanel = = new TopPanelQLGH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Khởi tạo bảng rỗng ban đầu

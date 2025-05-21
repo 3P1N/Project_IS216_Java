@@ -22,10 +22,10 @@ public class TopPanelQLGH extends JPanel {
     private final JTextField idField = new JTextField("");
     private final JComboBox<String> statusComboBox ;
     private final JTextField customerField = new JTextField("");
-    private final DonHangDAO donHangDAO ;
+    private final DonHangDAO donHangDAO  = new DonHangDAO();
+
     
-    public TopPanelQLGH() throws SQLException, ClassNotFoundException {
-        donHangDAO = new DonHangDAO();
+    public TopPanelQLGH() throws SQLException, ClassNotFoundException  {
         
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);

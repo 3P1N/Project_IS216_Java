@@ -13,16 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DonHangDAO {
-    private final Connection conn;
     
-    public DonHangDAO() throws SQLException, ClassNotFoundException{
-        conn = ConnectionUtils.getMyConnection();
-    }
+    
+    
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call ThemDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (
-                CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
             if (donHang.getIdDonHang() != null) {
                 cs.setInt(1, donHang.getIdDonHang());
             } else {
@@ -61,7 +58,7 @@ public class DonHangDAO {
     public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try ( CallableStatement stmt = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement stmt = conn.prepareCall(sql)) {
 
             // 1. ID đơn hàng (bắt buộc)
             stmt.setInt(1, donHang.getIdDonHang());
@@ -199,7 +196,7 @@ public class DonHangDAO {
 
         sql.append(" ORDER BY ID_DonHang");
 
-        try (
+        try (Connection conn = ConnectionUtils.getMyConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
                 stmt.setObject(i + 1, params.get(i));
@@ -237,7 +234,7 @@ public class DonHangDAO {
         List<DonHang> list = new ArrayList<>();
 
         String sql = "SELECT * FROM DonHang ORDER BY ID_DONHANG desc";
-        try ( PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 DonHang dh = new DonHang();
@@ -271,7 +268,7 @@ public class DonHangDAO {
 
     public DonHang LayThongTinDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
         String sql = "Select * from DonHang where id_donhang =" + idDonHang;
-       
+       Connection conn = ConnectionUtils.getMyConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         rs.next();
@@ -317,7 +314,7 @@ public class DonHangDAO {
 
     public int LayMaDon() throws SQLException, ClassNotFoundException {
         String sql = "SELECT seq_DonHang.NEXTVAL FROM dual";
-        try ( PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             if (rs.next()) {
                 return rs.getInt(1); // lấy cột đầu tiên
@@ -337,7 +334,7 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (
+        try (Connection conn = ConnectionUtils.getMyConnection();
                PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String condition = rs.getString(1); // ví dụ: "LOAIGIAOHANG" IN ('Nhanh', 'Tiết kiệm', 'Hỏa tốc')
@@ -366,7 +363,7 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (
+        try (Connection conn = ConnectionUtils.getMyConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String condition = rs.getString(1); 
@@ -385,7 +382,7 @@ public class DonHangDAO {
         return result.toArray(String[]::new);
     }
 
-    public String[] DSTrangThai() throws SQLException {
+    public String[] DSTrangThai() throws SQLException, ClassNotFoundException {
             List<String> result = new ArrayList<>();
         String sql = """
         SELECT search_condition
@@ -395,7 +392,7 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (
+        try (Connection conn = ConnectionUtils.getMyConnection();
                PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String condition = rs.getString(1); 
