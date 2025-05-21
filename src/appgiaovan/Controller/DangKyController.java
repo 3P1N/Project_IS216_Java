@@ -32,7 +32,7 @@ public class DangKyController {
             return false;
         }
         //4. Nhập lại mật khẩu phải trùng với mật khẩu
-        if(matKhau!=matKhauNL){
+        if(!matKhau.equals(matKhauNL)){
             return false;
         }
         //5. CCCD không được để trống
@@ -44,7 +44,7 @@ public class DangKyController {
             return false;
         }
         //7. Số điện thoại khách hàng phải bắt đầu bằng '0' và đủ 10 chữ số
-        if (khachHang.getSDT() == null || !khachHang.getSDT().matches("0\\d{9}")) {
+        if (khachHang.getSDT() == null ) {
             return false;
         }
         // Có thể thêm nhiều kiểm tra hơn nếu cần

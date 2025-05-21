@@ -202,8 +202,8 @@ public class RegisterGUI extends JFrame{
             }
 
         });
-        mainPanel.add(background);
-        mainPanel.add(registerPanel);
+        mainPanel.add(registerPanel);        mainPanel.add(background);
+
 }
     
     
