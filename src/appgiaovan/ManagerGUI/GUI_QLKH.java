@@ -59,6 +59,7 @@ package appgiaovan.ManagerGUI;
 import appgiaovan.Controller.QLKHController;
 import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.Entity.KhachHang;
+import java.awt.BorderLayout;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.List;

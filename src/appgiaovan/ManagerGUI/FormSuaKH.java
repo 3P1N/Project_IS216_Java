@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package appgiaovan.ManagerGUI;
-
+import appgiaovan.Controller.QLKHController;
 import appgiaovan.Entity.KhachHang;
 import javax.swing.*;
 import java.awt.*;
