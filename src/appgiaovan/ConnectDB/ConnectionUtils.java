@@ -21,8 +21,6 @@ public class ConnectionUtils {
  
       System.out.println("Đang kết nối " + conn);
  
-      System.out.println("Thành công!");
-     
   }
 }
 

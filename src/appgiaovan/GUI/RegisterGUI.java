@@ -84,7 +84,7 @@ public class RegisterGUI extends JFrame{
         //nhập Email
         JTextField emailField = new JTextField();
         emailField.setBounds(30, 295, 290, 35);
-        emailField.setBorder(BorderFactory.createTitledBorder("Gmail"));
+        emailField.setBorder(BorderFactory.createTitledBorder("Email"));
         registerPanel.add(emailField);
         
         //nhập SĐT

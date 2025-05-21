@@ -4,13 +4,23 @@
  */
 package appgiaovan.GUI;
 
+import appgiaovan.Controller.LoginController;
+import appgiaovan.CustomerGUI.CustomerGUI;
+import appgiaovan.EmployeeGUI.EmployeeGUI;
+import appgiaovan.Entity.TaiKhoan;
+import appgiaovan.ManagerGUI.ManagerMainScreen;
+import appgiaovan.ShipperGUI.NVGHMainGUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 /**
@@ -19,6 +29,9 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  */
 public class LOGIN extends JFrame {
 
+    private LoginController log = new LoginController();
+    private JTextField userField = new JTextField();
+    private JPasswordField passField = new JPasswordField();
     public LOGIN() {
         setTitle("Đăng nhập - Đơn vị giao vận 3P1N");
         setSize(900, 600);
@@ -54,12 +67,12 @@ public class LOGIN extends JFrame {
         logo.setBounds(90, 45, 200, 20);
         loginPanel.add(logo);
 
-        JTextField userField = new JTextField();
+        
         userField.setBounds(30, 130, 290, 35);
         userField.setBorder(BorderFactory.createTitledBorder("Tên đăng nhập"));
         loginPanel.add(userField);
 
-        JPasswordField passField = new JPasswordField();
+        
         passField.setBounds(30, 180, 290, 35);
         passField.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
         loginPanel.add(passField);
@@ -86,6 +99,20 @@ public class LOGIN extends JFrame {
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
         loginPanel.add(loginButton);
+        
+        // Đặt loginButton là nút mặc định
+        getRootPane().setDefaultButton(loginButton);
+
+        // Gắn ActionListener như bạn đã làm
+        loginButton.addActionListener(e -> {
+            try {
+                yeuCauXacThuc();
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(LOGIN.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+
 
         // Label "Bạn chưa có tài khoản?" 
         JLabel infoLabel = new JLabel("Bạn chưa có tài khoản?");
@@ -114,6 +141,36 @@ public class LOGIN extends JFrame {
         mainPanel.add(background);
 
     }
+
+    public void yeuCauXacThuc() throws SQLException, ClassNotFoundException {
+    String username = userField.getText().trim();
+    String pass = new String(passField.getPassword());
+
+
+    //String vaiTro = log.yeuCauXacThuc(username, pass);
+    String kq = log.yeuCauXacThuc(username, pass);
+    if ("KH".equals(kq)) {
+        // Chuyển tới giao diện khách hàng
+        new CustomerGUI().setVisible(true);
+        setVisible(false);
+    } else if ("QL".equals(kq)) {
+        // Chuyển tới giao diện quản lý
+        new ManagerMainScreen().setVisible(true);
+        setVisible(false);
+    } else if ("NVK".equals(kq)) {
+        // Chuyển tới giao diện nhân viên kho
+        new EmployeeGUI().setVisible(true);
+        setVisible(false);
+    }
+    else if ("NVGH".equals(kq)) {
+        // Chuyển tới giao diện nhân viên giao hang
+        new NVGHMainGUI().setVisible(true);
+        setVisible(false);
+    }else {
+        JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+
+}
 
     public static void main(String[] args) {
         try {
