@@ -83,8 +83,17 @@ public class KhachHangDAO {
             cs.setString(4, kh.getSDT());
             cs.setString(5, kh.getEmail());
             cs.setString(6, kh.getCCCD());
-            cs.setDate(7, Date.valueOf(LocalDate.of(1995, 5, 21)));
+            java.util.Date utilDate = kh.getNgaySinh();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String dateStr = sdf.format(utilDate);
+            System.out.println(dateStr);
+            cs.setDate(7, Date.valueOf(dateStr));
+            if(kh.getGioiTinh()=='M'){
             cs.setString(8, "Nam");
+            }
+            if(kh.getGioiTinh()=='F'){
+                cs.setString(8, "Nữ");
+            }
             cs.execute();
         } catch (SQLException e) {
 
