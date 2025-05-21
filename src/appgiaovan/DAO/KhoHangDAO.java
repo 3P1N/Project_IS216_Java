@@ -12,7 +12,9 @@ public class KhoHangDAO {
         List<KhoHang> khoList = new ArrayList<>();
 
         String sql = "SELECT * FROM KhoHang";
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+                PreparedStatement stmt = conn.prepareStatement(sql); 
+                ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 KhoHang kho = new KhoHang(
