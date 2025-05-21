@@ -36,7 +36,7 @@ public class FormThemKH extends JDialog {
         pack(); setLocationRelativeTo(getOwner());
     }
 
-    public void hienThiMaKhachHangMoi() {
+    public void hienThiMaKhachHangMoi() throws ClassNotFoundException {
         txtID.setText(String.valueOf(controller.layMaKhachHangMoi()));
     }
 
