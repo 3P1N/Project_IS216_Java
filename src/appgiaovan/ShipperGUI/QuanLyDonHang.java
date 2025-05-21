@@ -8,17 +8,18 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 
-public class QuanLyDonHang extends JFrame {
+public class QuanLyDonHang extends JPanel {
 
     public QuanLyDonHang() {
-        setTitle("Quản Lý Đơn Hàng");
+        /*setTitle("Quản Lý Đơn Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null);*/
 
         // Panel Menu
-        NVGHMenu menu = new NVGHMenu();
-        add(menu, BorderLayout.WEST);
+        //NVGHMenu menu = new NVGHMenu();
+        //add(menu, BorderLayout.WEST);
+        setLayout(new BorderLayout());
 
         // MAIN PANEL: dùng BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());

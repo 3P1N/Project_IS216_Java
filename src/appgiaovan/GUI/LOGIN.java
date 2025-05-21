@@ -10,7 +10,7 @@ import appgiaovan.CustomerGUI.CustomerGUI;
 import appgiaovan.EmployeeGUI.EmployeeGUI;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.ManagerGUI.ManagerMainScreen;
-import appgiaovan.ShipperGUI.NVGHMainGUI;
+import appgiaovan.ShipperGUI.NVGHHomeGUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -169,7 +169,7 @@ public class LOGIN extends JFrame {
     else if ("NVGH".equals(kq)) {
         // Chuyển tới giao diện nhân viên giao hang
         new TaoTokenController().TaoToken(username);
-        new NVGHMainGUI().setVisible(true);
+        new NVGHHomeGUI().setVisible(true);
         setVisible(false);
     }else {
         JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);

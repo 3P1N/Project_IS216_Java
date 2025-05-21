@@ -12,7 +12,7 @@ import javax.swing.border.TitledBorder;
  * - Nút Sửa để bật chế độ nhập, Gửi để khóa lại và xử lý gửi
  * - Thêm khung viền bao quanh thông tin và font chữ size 20
  */
-public class NVGHBaoCao extends JFrame {
+public class NVGHBaoCao extends JPanel {
 
     private JTextField reportTimeField;
     private JTextField receivedField;
@@ -21,16 +21,16 @@ public class NVGHBaoCao extends JFrame {
     private JTextField revenueField;
 
     public NVGHBaoCao() {
-        setTitle("Báo cáo Shipper - 3P1N");
+       /* setTitle("Báo cáo Shipper - 3P1N");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200, 700);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout());*/
 
         // Sidebar menu
-        NVGHMenu menu = new NVGHMenu();
-        add(menu, BorderLayout.WEST);
-
+        /*NVGHMenu menu = new NVGHMenu();
+        add(menu, BorderLayout.WEST);*/
+        setLayout(new BorderLayout());
         // Main panel
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE);

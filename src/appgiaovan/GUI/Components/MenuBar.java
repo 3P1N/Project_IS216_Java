@@ -249,7 +249,7 @@ public class MenuBar extends JPanel {
         return logoPanel;
     }
 
-    // ✅ Hàm main để test trực tiếp MenuBar với kích thước như bạn yêu cầu
+    //  Hàm main để test trực tiếp MenuBar với kích thước như bạn yêu cầu
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {

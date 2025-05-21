@@ -235,7 +235,9 @@ public class DonHangDAO {
         List<DonHang> list = new ArrayList<>();
 
         String sql = "SELECT * FROM DonHang ORDER BY ID_DONHANG desc";
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+                PreparedStatement stmt = conn.prepareStatement(sql); 
+                ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 DonHang dh = new DonHang();
