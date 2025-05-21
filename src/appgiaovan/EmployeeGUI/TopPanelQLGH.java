@@ -94,12 +94,12 @@ public class TopPanelQLGH extends JPanel {
 
         // Xử lý combobox: nếu không chọn gì thì là null
         Object selected = statusComboBox.getSelectedItem();
-        dh.setDichVu(selected != null ? selected.toString() : null);
+        dh.setTrangThai(selected != null ? selected.toString() : null);
 
         // Xử lý tên người gửi: nếu để trống thì là chuỗi rỗng hoặc null tùy bạn
         String name = customerField.getText().trim();
         dh.setTenNguoiGui(name.isEmpty() ? null : name);
-
+       System.out.println(dh.getTrangThai());
         return dh;
     }
 

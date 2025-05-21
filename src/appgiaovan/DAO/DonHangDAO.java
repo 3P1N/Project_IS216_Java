@@ -17,35 +17,35 @@ public class DonHangDAO {
     
     
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
-        String sql = "{call ThemDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
         try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
-            if (donHang.getIdDonHang() != null) {
-                cs.setInt(1, donHang.getIdDonHang());
+//            if (donHang.getIdDonHang() != null) {
+//                cs.setInt(1, donHang.getIdDonHang());
+//            } else {
+//                cs.setNull(1, Types.INTEGER);
+//            }
+
+            if (donHang.getIdKhachHang() != null) {
+                cs.setInt(1, donHang.getIdKhachHang());
             } else {
                 cs.setNull(1, Types.INTEGER);
             }
 
-            if (donHang.getIdKhachHang() != null) {
-                cs.setInt(2, donHang.getIdKhachHang());
-            } else {
-                cs.setNull(2, Types.INTEGER);
-            }
-
-            cs.setString(3, donHang.getSdtNguoiGui());
-            cs.setString(4, donHang.getSdtNguoiNhan());
-            cs.setInt(5, donHang.getIdKhoTiepNhan());
-            cs.setString(6, donHang.getTenNguoiGui());
-            cs.setString(7, donHang.getTenNguoiNhan());
-            cs.setString(8, donHang.getDiaChiNhan());
+            cs.setString(2, donHang.getSdtNguoiGui());
+            cs.setString(3, donHang.getSdtNguoiNhan());
+            cs.setInt(4, donHang.getIdKhoTiepNhan());
+            cs.setString(5, donHang.getTenNguoiGui());
+            cs.setString(6, donHang.getTenNguoiNhan());
+            cs.setString(7, donHang.getDiaChiNhan());
             if (donHang.getTienCOD() != null) {
-                cs.setDouble(9, donHang.getTienCOD());
+                cs.setDouble(8, donHang.getTienCOD());
             } else {
-                cs.setNull(9, Types.INTEGER);
+                cs.setNull(8, Types.INTEGER);
             }
 
-            cs.setString(10, donHang.getDichVu());
-            cs.setString(11, donHang.getLoaiHangHoa());
+            cs.setString(9, donHang.getDichVu());
+            cs.setString(10, donHang.getLoaiHangHoa());
 
             cs.execute();
 
@@ -185,7 +185,8 @@ public class DonHangDAO {
         }
 
         if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
-            sql.append(" AND DichVu LIKE ?");
+            System.out.println(donHang.getTrangThai());
+            sql.append(" AND TrangThai LIKE ?");
             params.add("%" + donHang.getTrangThai() + "%");
         }
 
