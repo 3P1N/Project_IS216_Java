@@ -10,6 +10,8 @@ import java.util.List;
 public class KhachHangDAO {
     private final Connection conn;
 
+    public KhachHangDAO(){
+    }
     public KhachHangDAO(Connection conn) {
         this.conn = conn;
     }
