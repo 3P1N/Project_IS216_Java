@@ -45,6 +45,8 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -102,7 +104,7 @@ public class QuanLyDonHangPanel extends JPanel {
         });
     }
 
-    public void ThemDonHang() throws SQLException, ClassNotFoundException {
+    public void ThemDonHang() throws SQLException, ClassNotFoundException, Exception {
         ThemDonHangFrame themDH = new ThemDonHangFrame(() -> {
             try {
                 HienThiDanhSach();

@@ -16,9 +16,7 @@ public class KhachHangDAO {
         this.conn = conn;
     }
 
-    /**
-     * Tìm kiếm thông tin khách hàng theo tên hoặc SĐT
-     */
+    
     public List<KhachHang> timKiemThongTinKhachHang(String keyword) throws SQLException {
         String sql = "SELECT * FROM KhachHang WHERE HoTen LIKE ? OR SDT LIKE ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
