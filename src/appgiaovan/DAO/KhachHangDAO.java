@@ -85,6 +85,7 @@ public class KhachHangDAO {
         cs.setDate(7, new java.sql.Date(kh.getNgaySinh().getTime()));
         cs.setString(8, String.valueOf(kh.getGioiTinh()));
         cs.execute();
+        return true;
         }catch (SQLException e) {
             System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
             e.printStackTrace();
