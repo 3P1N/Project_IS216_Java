@@ -19,6 +19,7 @@ public class TopPanelQLDH extends JPanel {
     private JButton addButton = new JButton("Thêm mới");
     private JButton filterButton = new JButton("Lọc");
     private JButton updateButton = new JButton("Sửa");
+    private JButton phanCongButton = new JButton("Phân công giao hàng");
     private final JTextField idField = new JTextField("");
     private final JComboBox<String> statusComboBox ;
     private final JTextField customerField = new JTextField("");
@@ -66,6 +67,12 @@ public class TopPanelQLDH extends JPanel {
         updateButton.setForeground(Color.WHITE);
         updateButton = new RoundedButton(updateButton, 20);
         add(updateButton);
+        
+        phanCongButton.setPreferredSize(new Dimension(150, 30));
+        phanCongButton.setBackground(new Color(0, 153, 76));
+        phanCongButton.setForeground(Color.WHITE);
+        phanCongButton = new RoundedButton(phanCongButton, 20);
+        add(phanCongButton);
 
     }
 
@@ -79,6 +86,10 @@ public class TopPanelQLDH extends JPanel {
 
     public JButton getfilterButton() {
         return this.filterButton;
+    }
+    
+    public JButton getPhanCongButton(){
+        return this.phanCongButton;
     }
 
     public DonHang getDonHang() {

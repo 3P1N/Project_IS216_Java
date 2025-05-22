@@ -72,9 +72,15 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
+        topPanel.getPhanCongButton().addActionListener(e-> PhanCongGiaoHang());
 
         // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach();
+    }
+    
+    public void PhanCongGiaoHang(){
+        
     }
 
     public void XuLySuaDonHang() throws SQLException, ClassNotFoundException, Exception  {

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 public class GoiHang {
-    private int idGoiHang;
+    private Integer idGoiHang;
     private int idKhoHangGui;
     private int idKhoHangDen;
     private Date ngayGui;
@@ -45,11 +45,11 @@ public class GoiHang {
     }
 
     // Getters and Setters
-    public int getIdGoiHang() {
+    public Integer getIdGoiHang() {
         return idGoiHang;
     }
 
-    public void setIdGoiHang(int idGoiHang) {
+    public void setIdGoiHang(Integer idGoiHang) {
         this.idGoiHang = idGoiHang;
     }
 

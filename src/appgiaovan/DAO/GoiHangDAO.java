@@ -47,6 +47,48 @@ public class GoiHangDAO {
         return list;
     }
 
+    public List<GoiHang> LayDSGoiHang(GoiHang goiHang) throws SQLException, ClassNotFoundException {
+        List<GoiHang> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM GoiHang WHERE 1=1");
+        List<Object> params = new ArrayList<>();
+
+        if (null == goiHang.getIdGoiHang()) {
+        } else {
+            sql.append(" AND ID_GoiHang = ?");
+            params.add(goiHang.getIdGoiHang());
+        }
+
+        if (goiHang.getTrangThai() != null && !goiHang.getTrangThai().isEmpty()) {
+            System.out.println(goiHang.getTrangThai());
+            sql.append(" AND TrangThai LIKE ?");
+            params.add("%" + goiHang.getTrangThai() + "%");
+        }
+
+        sql.append(" ORDER BY ID_GoiHang");
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                GoiHang gh = new GoiHang();
+                gh.setIdGoiHang(rs.getInt("ID_GoiHang"));
+                gh.setIdKhoHangDen(rs.getInt("ID_KhoHangDen"));
+                gh.setIdKhoHangGui(rs.getInt("ID_KhoHangGui"));
+                gh.setIdNhanVien(rs.getInt("ID_NhanVien"));
+                gh.setSoLuong(rs.getInt("SoLuong"));
+                gh.setTrangThai(rs.getString("TrangThai"));
+
+                list.add(gh);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public void ThemGoiHang(GoiHang goiHang, List<Integer> listDonHang) throws SQLException, ClassNotFoundException {
         String sql = "{call ThemGoiHang(?, ?, ?, ?)}";
         Integer[] donHangArray = listDonHang.toArray(Integer[]::new);
@@ -64,6 +106,7 @@ public class GoiHangDAO {
             e.printStackTrace();
         }
     }
+
     public String[] DSTrangThai() throws Exception {
         List<String> result = new ArrayList<>();
         String sql = """
@@ -74,8 +117,7 @@ public class GoiHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-               PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String condition = rs.getString(1); // ví dụ: "LOAIGIAOHANG" IN ('Nhanh', 'Tiết kiệm', 'Hỏa tốc')
                 int start = condition.indexOf('(');
@@ -92,8 +134,8 @@ public class GoiHangDAO {
 
         return result.toArray(String[]::new);
     }
-    
-    public static void main(String[] agrs){
-        
+
+    public static void main(String[] agrs) {
+
     }
 }
