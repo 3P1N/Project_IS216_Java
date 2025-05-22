@@ -145,6 +145,7 @@ public class ThemDonHangFrame extends JFrame {
 
             try {
 
+
                 // Lấy dữ liệu từ các trường
 //                System.out.println(txtMaDon.getText().trim());
 //                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
@@ -200,6 +201,10 @@ public class ThemDonHangFrame extends JFrame {
 
     }
 
+    public void ThemDonHang(){
+        
+    }
+    
     public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
         DonHangDAO donHangDAO = new DonHangDAO();
         int maDon = donHangDAO.LayMaDon();

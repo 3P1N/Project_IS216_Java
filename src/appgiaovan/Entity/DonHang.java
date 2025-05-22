@@ -70,8 +70,7 @@ public class DonHang {
         this.dichVu = dichVu;
         this.loaiHangHoa = loaiHangHoa;
     }
-
-    public static String[] getTableHeaders() {
+public static String[] getTableHeaders() {
         return new String[]{" ", "ID", "Người gửi",  "Người nhận", "Trạng thái", "Loại dịch vụ", "Kho tiếp nhận", "Địa chỉ nhận"};
     }
 
@@ -81,6 +80,7 @@ public class DonHang {
         return new Object[]{"",idDonHang,  "<html>" + tenNguoiGui + "<br/>" + sdtNguoiGui + "</html>"
                 ,  "<html>" + tenNguoiNhan + "<br/>" + sdtNguoiNhan + "</html>", trangThai,dichVu, TenKho, diaChiNhan};
     }
+    
 
     // Constructor rỗng
     public DonHang() {

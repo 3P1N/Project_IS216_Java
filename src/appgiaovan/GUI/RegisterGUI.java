@@ -16,15 +16,14 @@ import java.net.URL;
 import com.toedter.calendar.JDateChooser;
 import java.util.Date;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import static appgiaovan.PasswordHashing.hashPassword;
 /**
  *
  * @author ASUS
  */
 public class RegisterGUI extends JFrame{
     
-    private KhachHangDAO khachHangDAO;
     private DangKyController controller = new DangKyController();
-
     public RegisterGUI() {
         setTitle("Đăng ký - Đơn vị giao vận 3P1N");
         setSize(900, 600);
@@ -183,15 +182,16 @@ public class RegisterGUI extends JFrame{
                 kh.setGioiTinh(gioiTinh);
                 //Tạo đối tượng TAIKHOAN
                 TaiKhoan tk=new TaiKhoan();
+                tk.setTenTaiKhoan(tenDangNhap);
+                tk.setMatKhauMaHoa(hashPassword(matKhau));
                 
+
                 if (!controller.KiemTraDinhDang(kh,matKhau,matKhauNL,tenDangNhap)) {
                     JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
                 }
-                //Gọi controller để thêm tài khoản
-                controller.themTaiKhoan(tk);
-                // Gọi controller để thêm khách hàng
-                controller.themKhachHang(kh);
+                // Gọi controller để thêm khách hàng,tài khoản
+                controller.themKhachHang(kh,tk);
                 // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 
