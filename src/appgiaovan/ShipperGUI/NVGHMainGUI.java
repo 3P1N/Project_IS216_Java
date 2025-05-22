@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import appgiaovan.ShipperGUI.NVGHMenu;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,7 +31,7 @@ public class NVGHMainGUI extends JFrame{
     private CardLayout cardLayout;
     private JPanel contentPanel;
 
-    public NVGHMainGUI() throws ClassNotFoundException {
+    public NVGHMainGUI() throws ClassNotFoundException, SQLException {
         
         setTitle("3P1N - Nhân viên giao hàng");
         setSize(1300, 700);
@@ -73,7 +74,11 @@ public class NVGHMainGUI extends JFrame{
         }
         SwingUtilities.invokeLater(() -> {
             try {
-                new NVGHMainGUI().setVisible(true);
+                try {
+                    new NVGHMainGUI().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
             }

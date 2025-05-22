@@ -11,6 +11,8 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
+import oracle.jdbc.OracleTypes;
 
 public class DonHangDAO {
     
@@ -268,6 +270,41 @@ public class DonHangDAO {
 
         return list;
     }
+    public List<DonHang> layDSDonHangCuaNVGH(int idTaiKhoan) throws SQLException, ClassNotFoundException {
+        List<DonHang> danhSachDonHang = new ArrayList<>();
+
+        try (Connection conn = ConnectionUtils.getMyConnection()) {
+            CallableStatement cs = conn.prepareCall("{call LayDSDHCuaNVGH(?, ?)}");
+            cs.setInt(1, idTaiKhoan);
+            try {
+                cs.registerOutParameter(2, Types.REF_CURSOR);
+            } catch (Exception e) {
+            }
+            cs.execute();
+
+            ResultSet rs = (ResultSet) cs.getObject(2);
+            while (rs.next()) {
+                DonHang dh = new DonHang();
+                dh.setIdDonHang(rs.getInt("ID_DONHANG"));
+                dh.setTenNguoiNhan(rs.getString("TENNGUOINHAN"));
+                dh.setDiaChiNhan(rs.getString("DIACHINHAN"));
+                dh.setSdtNguoiNhan(rs.getString("SDTNGUOINHAN"));
+                dh.setTrangThai(rs.getString("TRANGTHAI"));
+                dh.setTienCOD(rs.getDouble("TIENCOD"));
+                dh.setThoiGianTao(rs.getTimestamp("THOIGIANTAO"));
+                dh.setSdtNguoiGui(rs.getString("SDTNGUOIGUI"));
+                dh.setTenNguoiGui(rs.getString("TENNGUOIGUI"));
+                dh.setIdKhoTiepNhan(rs.getInt("ID_KHOTIEPNHAN"));
+                danhSachDonHang.add(dh);
+            }
+            rs.close();
+            cs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return danhSachDonHang;
+    }
+
 
     public DonHang LayThongTinDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
         String sql = "Select * from DonHang where id_donhang =" + idDonHang;
