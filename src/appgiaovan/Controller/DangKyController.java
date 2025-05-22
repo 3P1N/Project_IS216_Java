@@ -52,7 +52,8 @@ public class DangKyController {
     }
     public boolean themKhachHang(KhachHang kh,TaiKhoan tk) {
         try {
-            return khachHangDAO.themKhachHang(kh,tk);
+            khachHangDAO.themKhachHang(kh,tk);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

@@ -23,9 +23,7 @@ import static appgiaovan.PasswordHashing.hashPassword;
  */
 public class RegisterGUI extends JFrame{
     
-    private KhachHangDAO khachHangDAO;
     private DangKyController controller = new DangKyController();
-
     public RegisterGUI() {
         setTitle("Đăng ký - Đơn vị giao vận 3P1N");
         setSize(900, 600);
@@ -186,6 +184,8 @@ public class RegisterGUI extends JFrame{
                 TaiKhoan tk=new TaiKhoan();
                 tk.setTenTaiKhoan(tenDangNhap);
                 tk.setMatKhauMaHoa(hashPassword(matKhau));
+                
+
                 if (!controller.KiemTraDinhDang(kh,matKhau,matKhauNL,tenDangNhap)) {
                     JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
