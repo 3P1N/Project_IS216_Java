@@ -74,7 +74,10 @@ public class ThemGoiHangFrame extends JFrame {
 
         GoiHang goiHang = new GoiHang();
         KhoHang khoHang = topPanel.getKhoHangDen();
-        goiHang.setIdKhoHangDen();
+        goiHang.setIdKhoHangDen(khoHang.getIdKho());
+        goiHang.setIdKhoHangGui(1);
+        goiHang.setIdNhanVien(1);
+        controller.ThemGoiHang(goiHang,listDonHang);
     }
 
     public void HienThiDSDonHangDangXuLy() throws SQLException, ClassNotFoundException {
