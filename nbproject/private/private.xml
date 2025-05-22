@@ -10,6 +10,7 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/KhachHang.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelTGH.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/RegisterGUI.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/TableList.java</file>
@@ -19,6 +20,7 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLDonHangController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/GoiHang.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/GoiHangDAO.java</file>
+
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/TaiKhoan_Token.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionUtils.java</file>
@@ -26,11 +28,13 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/NguoiDung.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/TaoDonHangController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/LoginController.java</file>
+
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/BaoCaoGiaoHang.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemDonHangFrame.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/TaiKhoan.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionOracle.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/DonHangDAO.java</file>
+
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyGoiHang.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/KhoHangDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TableDonHang.java</file>

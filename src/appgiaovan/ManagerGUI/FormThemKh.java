@@ -6,13 +6,15 @@ package appgiaovan.ManagerGUI;
 
 import appgiaovan.Controller.QLKHController;
 import appgiaovan.Entity.KhachHang;
+import appgiaovan.Entity.TaiKhoan;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import static appgiaovan.PasswordHashing.hashPassword;
 
 public class FormThemKH extends JDialog {
     private QLKHController controller;
-    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh;
+    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtTenDangNhap, txtMatKhau;
     private JComboBox<Character> cboGioiTinh;
 
     public FormThemKH(Frame owner) throws ClassNotFoundException {
@@ -31,6 +33,8 @@ public class FormThemKH extends JDialog {
         add(new JLabel("CCCD:")); txtCCCD = new JTextField(); add(txtCCCD);
         add(new JLabel("Ngày sinh (yyyy-MM-dd):")); txtNgaySinh = new JTextField(); add(txtNgaySinh);
         add(new JLabel("Giới tính:")); cboGioiTinh = new JComboBox<>(new Character[]{'M','F'}); add(cboGioiTinh);
+        add(new JLabel("Tên đăng nhập:")); txtTenDangNhap = new JTextField(); add(txtTenDangNhap);
+        add(new JLabel("Mật khẩu:")); txtMatKhau = new JTextField(); add(txtMatKhau);
         JButton btnSave = new JButton("Lưu"); btnSave.addActionListener(e->onSave()); add(btnSave);
         JButton btnCancel = new JButton("Hủy"); btnCancel.addActionListener(e->dispose()); add(btnCancel);
         pack(); setLocationRelativeTo(getOwner());
@@ -55,6 +59,7 @@ public class FormThemKH extends JDialog {
             hienThiThongBao("Thông tin không hợp lệ"); return;
         }
         KhachHang kh = new KhachHang();
+        TaiKhoan tk = new TaiKhoan();
         kh.setID_NguoiDung(Integer.parseInt(txtID.getText()));
         kh.setHoTen(txtHoTen.getText());
         kh.setSDT(txtSDT.getText());
@@ -62,8 +67,11 @@ public class FormThemKH extends JDialog {
         kh.setCCCD(txtCCCD.getText());
         kh.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
         kh.setGioiTinh((Character)cboGioiTinh.getSelectedItem());
-        boolean ok = controller.taoKhachHang(kh);
+        tk.setTenTaiKhoan(txtTenDangNhap.getText());
+        tk.setMatKhauMaHoa(hashPassword(txtMatKhau.getText()));
+        boolean ok = controller.taoKhachHang(kh,tk);
         hienThiThongBao(ok?"Thêm thành công":"Thêm thất bại");
         if (ok) dispose();
     }
 }
+

@@ -11,6 +11,7 @@ import appgiaovan.EmployeeGUI.EmployeeGUI;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.ManagerGUI.ManagerMainScreen;
 import appgiaovan.ShipperGUI.NVGHHomeGUI;
+import appgiaovan.ShipperGUI.NVGHMainGUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -144,38 +145,41 @@ public class LOGIN extends JFrame {
     }
 
     public void yeuCauXacThuc() throws SQLException, ClassNotFoundException {
-    String username = userField.getText().trim();
-    String pass = new String(passField.getPassword());
+        String username = userField.getText().trim();
+        String pass = new String(passField.getPassword());
 
 
-    //String vaiTro = log.yeuCauXacThuc(username, pass);
-    String kq = log.yeuCauXacThuc(username, pass);
-    if ("KH".equals(kq)) {
-        // Chuyển tới giao diện khách hàng
-        new TaoTokenController().TaoToken(username);
-        new CustomerGUI().setVisible(true);
-        setVisible(false);
-    } else if ("QL".equals(kq)) {
-        // Chuyển tới giao diện quản lý
-        new TaoTokenController().TaoToken(username);
-        new ManagerMainScreen().setVisible(true);
-        setVisible(false);
-    } else if ("NVK".equals(kq)) {
-        // Chuyển tới giao diện nhân viên kho
-        new TaoTokenController().TaoToken(username);
-        new EmployeeGUI().setVisible(true);
-        setVisible(false);
+        //String vaiTro = log.yeuCauXacThuc(username, pass);
+        String kq = log.yeuCauXacThuc(username, pass);
+        if ("KH".equals(kq)) {
+            // Chuyển tới giao diện khách hàng
+            new TaoTokenController().TaoToken(username);
+            new CustomerGUI().setVisible(true);
+            setVisible(false);
+        } else if ("QL".equals(kq)) {
+            // Chuyển tới giao diện quản lý
+            new TaoTokenController().TaoToken(username);
+            new ManagerMainScreen().setVisible(true);
+            setVisible(false);
+        } else if ("NVK".equals(kq)) {
+            // Chuyển tới giao diện nhân viên kho
+            new TaoTokenController().TaoToken(username);
+            new EmployeeGUI().setVisible(true);
+            setVisible(false);
+        }
+        else if ("NVGH".equals(kq)) {
+            // Chuyển tới giao diện nhân viên giao hang
+            new TaoTokenController().TaoToken(username);
+            new NVGHMainGUI().setVisible(true);
+            setVisible(false);
+        }else {
+            JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
-    else if ("NVGH".equals(kq)) {
-        // Chuyển tới giao diện nhân viên giao hang
-        new TaoTokenController().TaoToken(username);
-        new NVGHHomeGUI().setVisible(true);
-        setVisible(false);
-    }else {
-        JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+    public String getuser(){
+        return userField.getText().trim();
     }
-
-}
 
     public static void main(String[] args) {
         try {
