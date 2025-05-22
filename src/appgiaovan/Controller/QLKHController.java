@@ -3,6 +3,7 @@ package appgiaovan.Controller;
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.Entity.KhachHang;
+import appgiaovan.Entity.TaiKhoan;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -60,9 +61,9 @@ public class QLKHController {
         }
     }
 
-    public boolean taoKhachHang(KhachHang kh) {
+    public boolean taoKhachHang(KhachHang kh, TaiKhoan tk) {
         try {
-            return dao.taoKhachHang(kh);
+            return dao.themKhachHang(kh, tk);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

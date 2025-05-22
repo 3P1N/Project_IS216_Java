@@ -1,16 +1,27 @@
 package appgiaovan.ShipperGUI;
 
+import appgiaovan.Controller.QLDonHangController;
+import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.TableList;
 import appgiaovan.GUI.Components.MenuBar;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.TimeWeather;
 import com.formdev.flatlaf.FlatLightLaf;
+import static com.sun.tools.attach.VirtualMachine.list;
 import javax.swing.*;
 import java.awt.*;
+import static java.nio.file.Files.list;
+import java.sql.SQLException;
+import static java.util.Collections.list;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QuanLyDonHang extends JPanel {
 
-    public QuanLyDonHang() {
+    public QuanLyDonHang() throws SQLException, ClassNotFoundException {
         /*setTitle("Quản Lý Đơn Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,15 +47,30 @@ public class QuanLyDonHang extends JPanel {
         centerPanel.add(filter, BorderLayout.NORTH);
 
         // 2.2) Bảng danh sách xuống dưới
-        String[] columns = {"", "ID", "Họ tên", "Số điện thoại", "Địa chỉ", "Trạng thái", "Ghi chú"};
-        Object[][] data = {
-            {false, "<html><b style='color:#007bff;'>93900415</b><br><span style='color:gray;font-size:10px;'>10:48 15/04</span><br><span style='color:#007bff;'>Kho 2 - Tháo</span></html>",
-                "<html><span style='color:#007bff;'>0254654141 ▼</span><br><b>Triệu Mạnh Tùng</b><br><span style='color:gray;'>Số 15, ngõ 207</span><br><span style='color:gray;'>Quận Hoàng Mai, Hà Nội</span></html>",
-                "Váy hoa big size - XL - Đỏ thọ đen", "", "<html><b>400.000</b><br><span style='color:red;'>- 80.000</span></html>", 1},
-            {false, "<html><b style='color:#007bff;'>93200103</b><br><span style='color:gray;font-size:10px;'>18:48 10/04</span><br><span style='color:#007bff;'>Kho 2 - Tháo</span></html>",
-                "<html><span style='color:#007bff;'>0238024020 ▼</span><br><b>Vũ Tiến Tài</b><br><span style='color:gray;'>Số 34 Ngách 173/68 Hoàng Hoa Thám, Hà Nội</span><br><i style='color:gray;'>(Cập đồng)</i><br><span style='color:gray;'>Quận Hai Bà Trưng, Hà Nội</span></html>",
-                "Váy hoa big size - Xanh Neon - Đỏ thọ đen", "", "<html><b>400.000</b><br><span style='color:red;'>- 40.000</span></html>", 2}
+        // Chuẩn bị header
+        String[] columns = {
+            "", "Mã đơn hàng", "Tên người nhận", "Địa chỉ", "SĐT nhận",
+            "Trạng thái", "Tiền COD", "Thời gian tạo", "SĐT gửi", "Tên người gửi", "Kho tiếp nhận"
         };
+
+        // Chuyển List<DonHang> thành Object[][]
+        QLDonHangController dsdh = new QLDonHangController();
+        List<DonHang> ds = dsdh.HienThiDSDHChoNVGH();
+        Object[][] data = new Object[ds.size()][columns.length];
+        for (int i = 0; i < ds.size(); i++) {
+            DonHang dh = ds.get(i);
+            data[i][0] = false;                                    // checkbox
+            data[i][1] = dh.getIdDonHang();
+            data[i][2] = dh.getTenNguoiNhan();
+            data[i][3] = dh.getDiaChiNhan();
+            data[i][4] = dh.getSdtNguoiNhan();
+            data[i][5] = dh.getTrangThai();
+            data[i][6] = dh.getTienCOD();
+            data[i][7] = dh.getThoiGianTao();
+            data[i][8] = dh.getSdtNguoiGui();
+            data[i][9] = dh.getTenNguoiGui();
+            data[i][10] = dh.getIdKhoTiepNhan();
+        }
         TableList listOrder = new TableList(columns, data);
         centerPanel.add(listOrder, BorderLayout.CENTER);
 
@@ -62,7 +88,13 @@ public class QuanLyDonHang extends JPanel {
             } catch (Exception ex) {
                 System.err.println("Không thể cài đặt FlatLaf");
             }
-            new QuanLyDonHang().setVisible(true);
+            try {
+                new QuanLyDonHang().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 }

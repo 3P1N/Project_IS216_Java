@@ -59,6 +59,7 @@ public class CustomerGUI extends JFrame {
         sidebar.addMenuClickListener((selectedName) -> {
             cardLayout.show(contentPanel, selectedName);
         });
+        
     }
     
     public static void main(String[] args) {

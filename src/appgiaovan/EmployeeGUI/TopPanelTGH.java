@@ -20,7 +20,7 @@ public class TopPanelTGH extends JPanel {
 
     private final KhoHangDAO khoHangDAO = new KhoHangDAO();
     private final JComboBox khoDenComboBox;
-    private final JButton addButton = new JButton("Đóng gói");
+    private JButton addButton = new JButton("Đóng gói");
 
     public TopPanelTGH() throws SQLException, ClassNotFoundException {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
@@ -44,8 +44,8 @@ public class TopPanelTGH extends JPanel {
         addButton.setPreferredSize(new Dimension(100, 30));
         addButton.setBackground(new Color(0, 153, 76));
         addButton.setForeground(Color.WHITE);
-        RoundedButton roundedaddBtn = new RoundedButton(addButton, 20);
-        add(roundedaddBtn);
+        addButton = new RoundedButton(addButton, 20);
+        add(addButton);
 
     }
 
@@ -56,6 +56,7 @@ public class TopPanelTGH extends JPanel {
     }
 
     public JButton getAddButton() {
+        System.out.println("hello world");
         return this.addButton;
     }
 

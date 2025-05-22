@@ -76,7 +76,9 @@ public class KhachHangDAO {
     public boolean themKhachHang(KhachHang kh, TaiKhoan tk) throws SQLException, ClassNotFoundException {
         String sql = "{ call ThemKhachHang(?, ?, ?, ?, ?,  ?, ?, ?) }";
         System.out.println(tk.getTenTaiKhoan());
-        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+            CallableStatement cs = conn.prepareCall(sql)) 
+        {
             cs.setString(1, tk.getTenTaiKhoan());
             cs.setString(2, tk.getMatKhauMaHoa());
             cs.setString(3, kh.getHoTen());
@@ -216,22 +218,8 @@ public class KhachHangDAO {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
-        KhachHangDAO khDAO = new KhachHangDAO();
-        KhachHang kh = new KhachHang();
-        kh.setHoTen("Nguyen Van A");
-        kh.setSDT("0901204467");
-        kh.setEmail("ab@example.com");
-        kh.setCCCD("126856789");
-
-//        kh.setNgaySinh();  // Nếu kh.getNgaySinh() trả về java.sql.Date thì dòng dưới không lỗi
-
-        // Nếu phương thức set chấp nhận java.util.Date hoặc java.sql.Date
-        kh.setGioiTinh('M');
-        TaiKhoan tk = new TaiKhoan();
-        tk.setTenTaiKhoan("o12ok");
-        tk.setMatKhauMaHoa("ok123");
-        boolean a = khDAO.themKhachHang(kh, tk);
-//        khDAO.ThemTaiKhoan(tk);
+        KhachHangDAO kh = new KhachHangDAO();
+        System.out.println(kh.layMaKhachHangMoi());
 //
     }
 

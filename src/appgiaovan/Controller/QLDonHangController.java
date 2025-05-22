@@ -3,9 +3,14 @@ package appgiaovan.Controller;
 import appgiaovan.DAO.DanhGiaDAO;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.DAO.KhoHangDAO;
+
 import appgiaovan.Entity.DanhGia;
+
+import appgiaovan.DAO.TaiKhoanDAO;
+
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
+import appgiaovan.GUI.LOGIN;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -71,7 +76,19 @@ public class QLDonHangController {
     public List<DonHang> LayDSDonHang(DonHang dh) throws SQLException, ClassNotFoundException{
         return donHangDAO.LayDSDonHang(dh);
     }
+
     public void ThemDanhGia(DanhGia danhGia) throws SQLException, ClassNotFoundException {
         danhGiaDAO.ThemDanhGia(danhGia);
+
+   // String ab = new LOGIN().getuser();
+    //int idTaiKhoan;
+    public List<DonHang> HienThiDSDHChoNVGH() throws SQLException, ClassNotFoundException{
+        //int idTaiKhoan = new LoginController().layIDTaiKhoan() ;
+        //String us = new LOGIN().getuser();
+        return new DonHangDAO().layDSDonHangCuaNVGH(new TaiKhoanDAO().layIDTaiKhoan());
+    }
+    public void main(String[] args ){
+        //System.out.print(new TaiKhoanDAO().layIDTaiKhoan());
+
     }
 }
