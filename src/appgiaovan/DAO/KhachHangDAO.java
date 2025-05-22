@@ -76,7 +76,9 @@ public class KhachHangDAO {
     public boolean themKhachHang(KhachHang kh, TaiKhoan tk) throws SQLException, ClassNotFoundException {
         String sql = "{ call ThemKhachHang(?, ?, ?, ?, ?,  ?, ?, ?) }";
         System.out.println(tk.getTenTaiKhoan());
-        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+            CallableStatement cs = conn.prepareCall(sql)) 
+        {
             cs.setString(1, tk.getTenTaiKhoan());
             cs.setString(2, tk.getMatKhauMaHoa());
             cs.setString(3, kh.getHoTen());
