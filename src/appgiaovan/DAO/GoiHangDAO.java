@@ -34,7 +34,8 @@ public class GoiHangDAO {
                 gh.setIdKhoHangDen(rs.getInt("ID_KhoHangDen"));
                 gh.setIdKhoHangGui(rs.getInt("ID_KhoHangGui"));
                 gh.setIdNhanVien(rs.getInt("ID_NhanVien"));
-//                gh.setNgayGui(rs.getDate(sql));
+                gh.setSoLuong(rs.getInt("SoLuong"));
+                gh.setTrangThai(rs.getString("TrangThai"));
 
                 list.add(gh);
             }
@@ -55,7 +56,7 @@ public class GoiHangDAO {
 
             stmt.setInt(1, 1); // ID_KhoHangGui
             stmt.setInt(2, 2); // ID_KhoHangDen
-            stmt.setInt(3, 10); // ID_NhanVien
+            stmt.setInt(3, 1); // ID_NhanVien
             stmt.setArray(4, oracleArray);
             stmt.execute();
 

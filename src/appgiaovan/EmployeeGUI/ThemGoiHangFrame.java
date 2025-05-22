@@ -18,15 +18,15 @@ public class ThemGoiHangFrame extends JFrame {
     private TableDonHang listOrder;
     private TopPanelTGH topPanel;
 
-    public ThemGoiHangFrame() throws SQLException, ClassNotFoundException {
+    public ThemGoiHangFrame(Runnable onSuccess) throws SQLException, ClassNotFoundException {
         setTitle("Quản Lý Đơn Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        initUI();
+        initUI(onSuccess);
     }
 
-    private void initUI() throws SQLException, ClassNotFoundException {
+    private void initUI(Runnable onSuccess) throws SQLException, ClassNotFoundException {
 
         //main
         JPanel mainPanel = new JPanel();
@@ -46,7 +46,7 @@ public class ThemGoiHangFrame extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
         topPanel.getAddButton().addActionListener(e -> {
             try {
-                ThemGoiHang();
+                ThemGoiHang(onSuccess);
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -58,9 +58,9 @@ public class ThemGoiHangFrame extends JFrame {
         HienThiDSDonHangDangXuLy();
     }
 
-    public void ThemGoiHang() {
+    public void ThemGoiHang(Runnable onSuccess) throws SQLException, ClassNotFoundException {
         List<Integer> listDonHang = new ArrayList<>();
-
+        System.out.println("hello");
         for (int i = 0; i < listOrder.getRowCount(); i++) {
             Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
             if (Boolean.TRUE.equals(isChecked)) {
@@ -78,6 +78,9 @@ public class ThemGoiHangFrame extends JFrame {
         goiHang.setIdKhoHangGui(1);
         goiHang.setIdNhanVien(1);
         controller.ThemGoiHang(goiHang,listDonHang);
+        JOptionPane.showMessageDialog(this, "Sửa đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+        onSuccess.run();
+        this.dispose();
     }
 
     public void HienThiDSDonHangDangXuLy() throws SQLException, ClassNotFoundException {
@@ -102,7 +105,7 @@ public class ThemGoiHangFrame extends JFrame {
         }
         SwingUtilities.invokeLater(() -> {
             try {
-                new ThemGoiHangFrame().setVisible(true);
+                new ThemGoiHangFrame(() -> System.out.println("Thêm gói hàng!")).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ThemGoiHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

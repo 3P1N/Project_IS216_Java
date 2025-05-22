@@ -23,7 +23,7 @@ public class QLGHController {
         return donHangDAO.LayDSDonHang(dh);
     }
     
-    public void ThemGoiHang(GoiHang goiHang, List<Integer> listDonHang){
+    public void ThemGoiHang(GoiHang goiHang, List<Integer> listDonHang) throws SQLException, ClassNotFoundException{
         goiHangDAO.ThemGoiHang(goiHang, listDonHang);
     }
 }

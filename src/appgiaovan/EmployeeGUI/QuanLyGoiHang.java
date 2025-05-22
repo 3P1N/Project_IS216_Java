@@ -64,7 +64,15 @@ public class QuanLyGoiHang extends JPanel {
     }
     
     public void ThemGoiHang() throws SQLException, ClassNotFoundException{
-        ThemGoiHangFrame themGoiHang = new ThemGoiHangFrame();
+        ThemGoiHangFrame themGoiHang = new ThemGoiHangFrame(() -> {
+            try {
+                HienThiDSGoiHang();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         themGoiHang.setVisible(true);
     }
     // Dùng để test panel trong một JFrame
