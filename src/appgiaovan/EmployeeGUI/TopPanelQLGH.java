@@ -36,7 +36,7 @@ public class TopPanelQLGH extends JPanel {
         add(idField);
 
         // ComboBox - Trạng thái
-        String[] dsTrangThai = donHangDAO.DSTrangThai();
+        String[] dsTrangThai = goiHangDAO.DSTrangThai();
         statusComboBox =  new JComboBox<>(dsTrangThai);
         statusComboBox.setPreferredSize(new Dimension(130, 40));
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));

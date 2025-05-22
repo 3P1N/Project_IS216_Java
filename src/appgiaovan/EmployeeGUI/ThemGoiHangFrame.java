@@ -78,7 +78,7 @@ public class ThemGoiHangFrame extends JFrame {
         goiHang.setIdKhoHangGui(1);
         goiHang.setIdNhanVien(1);
         controller.ThemGoiHang(goiHang,listDonHang);
-        JOptionPane.showMessageDialog(this, "Sửa đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Thêm gói hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
         onSuccess.run();
         this.dispose();
     }
