@@ -79,7 +79,7 @@ public class QLDonHangController {
 
     public void ThemDanhGia(DanhGia danhGia) throws SQLException, ClassNotFoundException {
         danhGiaDAO.ThemDanhGia(danhGia);
-
+    }
    // String ab = new LOGIN().getuser();
     //int idTaiKhoan;
     public List<DonHang> HienThiDSDHChoNVGH() throws SQLException, ClassNotFoundException{

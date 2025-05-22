@@ -21,8 +21,8 @@ import java.util.List;
 public class DanhGiaDAO {
 
     public void ThemDanhGia(DanhGia dg) throws SQLException, ClassNotFoundException {
-        String sql = "{INSERT INTO DanhGia (ID_DanhGia, ID_DonHang, ID_KhachHang, NoiDungDanhGia, DiemDanhGia, NgayTao)\n" +
-"VALUES (SEQ_DANHGIA_ID.NEXTVAL, ?, ?, ?, ?, ?)}";
+        String sql = "{INSERT INTO DanhGia (ID_DanhGia, ID_DonHang, ID_KhachHang, NoiDungDanhGia, DiemDanhGia)\n" +
+"VALUES (SEQ_DANHGIA_ID.NEXTVAL, ?, ?, ?, ?)}";
 
         try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
 //            if (donHang.getIdDonHang() != null) {
@@ -31,27 +31,13 @@ public class DanhGiaDAO {
 //                cs.setNull(1, Types.INTEGER);
 //            }
 
-            if (donHang.getIdKhachHang() != null) {
-                cs.setInt(1, donHang.getIdKhachHang());
-            } else {
-                cs.setNull(1, Types.INTEGER);
-            }
-
-            cs.setString(2, donHang.getSdtNguoiGui());
-            cs.setString(3, donHang.getSdtNguoiNhan());
-            cs.setInt(4, donHang.getIdKhoTiepNhan());
-            cs.setString(5, donHang.getTenNguoiGui());
-            cs.setString(6, donHang.getTenNguoiNhan());
-            cs.setString(7, donHang.getDiaChiNhan());
-            if (donHang.getTienCOD() != null) {
-                cs.setDouble(8, donHang.getTienCOD());
-            } else {
-                cs.setNull(8, Types.INTEGER);
-            }
-
-            cs.setString(9, donHang.getDichVu());
-            cs.setString(10, donHang.getLoaiHangHoa());
-
+            
+            cs.setInt(1, dg.getIdDonHang());
+            cs.setInt(2, dg.getIdKhachHang());
+            cs.setString(3, dg.getNoiDungDanhGia());
+            cs.setInt(4,dg.getDiemDanhGia());
+           
+            
             cs.execute();
 
         } catch (SQLException e) {
