@@ -5,6 +5,7 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.DAO.DonHangDAO;
+import appgiaovan.DAO.GoiHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -23,9 +24,9 @@ public class TopPanelQLGH extends JPanel {
     private final JComboBox<String> statusComboBox ;
     private final JTextField customerField = new JTextField("");
     private final DonHangDAO donHangDAO  = new DonHangDAO();
-
+    private GoiHangDAO goiHangDAO = new GoiHangDAO();
     
-    public TopPanelQLGH() throws SQLException, ClassNotFoundException  {
+    public TopPanelQLGH() throws SQLException, ClassNotFoundException, Exception  {
         
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
@@ -121,6 +122,8 @@ public class TopPanelQLGH extends JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(TopPanelQLGH.class.getName()).log(Level.SEVERE, null, ex);
             }
            

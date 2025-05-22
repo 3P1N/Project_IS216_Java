@@ -64,6 +64,34 @@ public class GoiHangDAO {
             e.printStackTrace();
         }
     }
+    public String[] DSTrangThai() throws Exception {
+        List<String> result = new ArrayList<>();
+        String sql = """
+        SELECT search_condition
+        FROM all_constraints
+        WHERE constraint_name = 'CHK_GOIHANG_TRANGTHAI'
+          AND table_name = 'GOIHANG'
+          AND constraint_type = 'C'
+    """;
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+               PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                String condition = rs.getString(1); // ví dụ: "LOAIGIAOHANG" IN ('Nhanh', 'Tiết kiệm', 'Hỏa tốc')
+                int start = condition.indexOf('(');
+                int end = condition.lastIndexOf(')');
+                if (start >= 0 && end > start) {
+                    String inClause = condition.substring(start + 1, end); // 'Nhanh', 'Tiết kiệm', 'Hỏa tốc'
+                    String[] values = inClause.split(",");
+                    for (String val : values) {
+                        result.add(val.trim().replaceAll("'", ""));
+                    }
+                }
+            }
+        }
+
+        return result.toArray(String[]::new);
+    }
     
     public static void main(String[] agrs){
         
