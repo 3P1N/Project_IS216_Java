@@ -151,6 +151,7 @@ public class LOGIN extends JFrame {
 
         //String vaiTro = log.yeuCauXacThuc(username, pass);
         String kq = log.yeuCauXacThuc(username, pass);
+        
         if ("KH".equals(kq)) {
             // Chuyển tới giao diện khách hàng
             new TaoTokenController().TaoToken(username);

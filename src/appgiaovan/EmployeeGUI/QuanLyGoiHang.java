@@ -12,17 +12,17 @@ import java.util.logging.Logger;
 
 public class QuanLyGoiHang extends JPanel {
 
-    private TopPanelQLGH topPanel = new TopPanelQLGH();
+    private TopPanelQLGH topPanel ;
     private TableDonHang listOrder;
     private QLGHController controller = new QLGHController();
-    public QuanLyGoiHang() throws SQLException, ClassNotFoundException {
+    public QuanLyGoiHang() throws SQLException, ClassNotFoundException, Exception {
         this.setLayout(new BorderLayout());
         initUI();
     }
 
-    private void initUI() throws SQLException, ClassNotFoundException {
+    private void initUI() throws SQLException, ClassNotFoundException, Exception {
         // Panel Menu
-
+        topPanel = new TopPanelQLGH();
         // main
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -48,11 +48,36 @@ public class QuanLyGoiHang extends JPanel {
             }
         });
         
+         topPanel.getfilterButton().addActionListener(e -> {
+            try {
+                GoiHang goiHang = topPanel.getGoiHang();
+                HienThiDSGoiHang(goiHang);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         HienThiDSGoiHang();
     }
 
     void HienThiDSGoiHang() throws SQLException, ClassNotFoundException{
         java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHang();
+        String[] columns = GoiHang.getTableHeaders();
+        Object[][] data = new Object[dsGoiHang.size()][columns.length];
+
+        for (int i = 0; i < dsGoiHang.size(); i++) {
+            data[i] = dsGoiHang.get(i).toTableRow();
+        }
+
+        listOrder.setTableData(data);
+    }
+    
+    void HienThiDSGoiHang(GoiHang goiHang) throws SQLException, ClassNotFoundException{
+        java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHang(goiHang);
         String[] columns = GoiHang.getTableHeaders();
         Object[][] data = new Object[dsGoiHang.size()][columns.length];
 
@@ -89,6 +114,8 @@ public class QuanLyGoiHang extends JPanel {
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
             }
             frame.setSize(1300, 600);

@@ -28,7 +28,7 @@ public class EmployeeGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel contentPanel;
 
-    public EmployeeGUI() throws SQLException, ClassNotFoundException {
+    public EmployeeGUI() throws SQLException, ClassNotFoundException, Exception {
         
         setTitle("Giao diện chính");
         setSize(1200, 700);
@@ -74,6 +74,8 @@ public class EmployeeGUI extends JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
