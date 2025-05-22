@@ -35,6 +35,19 @@ public class QuanLyGoiHang extends JPanel {
         mainPanel.add(listOrder, BorderLayout.CENTER);
 
         this.add(mainPanel, BorderLayout.CENTER);
+        
+         topPanel.getaddButton().addActionListener(e -> {
+            try {
+                ThemGoiHang();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
         HienThiDSGoiHang();
     }
 
@@ -48,6 +61,11 @@ public class QuanLyGoiHang extends JPanel {
         }
 
         listOrder.setTableData(data);
+    }
+    
+    public void ThemGoiHang() throws SQLException, ClassNotFoundException{
+        ThemGoiHangFrame themGoiHang = new ThemGoiHangFrame();
+        themGoiHang.setVisible(true);
     }
     // Dùng để test panel trong một JFrame
     public static void main(String[] args) {

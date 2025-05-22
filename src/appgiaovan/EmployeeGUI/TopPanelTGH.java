@@ -3,51 +3,60 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package appgiaovan.EmployeeGUI;
+
+import appgiaovan.DAO.KhoHangDAO;
+import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.RoundedButton;
+import appgiaovan.GUI.Components.RoundedComboBox;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TopPanelTGH extends JPanel {
-    public TopPanelTGH() {
+
+    private final KhoHangDAO khoHangDAO = new KhoHangDAO();
+    private final JComboBox khoDenComboBox;
+    private final JButton addButton = new JButton("Đóng gói");
+
+    public TopPanelTGH() throws SQLException, ClassNotFoundException {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
 
-        
-
         // TextField - ID
-        JTextField idField = new JTextField("ID");
-        idField.setPreferredSize(new Dimension(80, 30));
-        add(idField);
+        List<KhoHang> listKho = khoHangDAO.LayThongTinKho();
+        khoDenComboBox = new JComboBox();
 
-        // ComboBox - Trạng thái
-        JComboBox<String> statusComboBox = new JComboBox<>(new String[]{"Kho A", "Kho B"});
-        statusComboBox.setPreferredSize(new Dimension(120, 30));
-        add(statusComboBox);
+        for (KhoHang kho : listKho) {
+            khoDenComboBox.addItem(kho);
+        }
+        khoDenComboBox.setPreferredSize(new Dimension(170, 50));
+
+        khoDenComboBox.setBorder(BorderFactory.createTitledBorder("Chọn kho đến"));
+        add(khoDenComboBox);
 
         // TextField - Khách hàng
-        JTextField customerField = new JTextField("Sản phẩm A");
-        customerField.setPreferredSize(new Dimension(100, 30));
-        add(customerField);
-
-
         // Button - Lọc (màu xanh đậm)
-        JButton filterButton = new JButton("Lọc");
-        filterButton.setPreferredSize(new Dimension(60, 30));
-        filterButton.setBackground(new Color(0, 136, 153));
-        filterButton.setForeground(Color.WHITE);
-        RoundedButton roundedfilterBtn = new RoundedButton(filterButton, 20);
-        add(roundedfilterBtn);
-
         // Button - Thêm mới (màu xanh lá)
-        JButton addButton = new JButton("Đóng gói");
         addButton.setPreferredSize(new Dimension(100, 30));
         addButton.setBackground(new Color(0, 153, 76));
         addButton.setForeground(Color.WHITE);
         RoundedButton roundedaddBtn = new RoundedButton(addButton, 20);
         add(roundedaddBtn);
 
-        
+    }
+
+    public KhoHang getKhoHangDen() {
+
+        KhoHang selectedKho = (KhoHang) khoDenComboBox.getSelectedItem();
+        return selectedKho;
+    }
+
+    public JButton getAddButton() {
+        return this.addButton;
     }
 
     public static void main(String[] args) {
@@ -61,7 +70,13 @@ public class TopPanelTGH extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
-            frame.add(new TopPanelTGH());
+            try {
+                frame.add(new TopPanelTGH());
+            } catch (SQLException ex) {
+                Logger.getLogger(TopPanelTGH.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TopPanelTGH.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         });
     }
