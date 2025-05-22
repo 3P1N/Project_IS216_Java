@@ -13,11 +13,14 @@ import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import appgiaovan.CustomerGUI.DanhGiaForm;
+import appgiaovan.Entity.DonHang;
 
 public class ThongTinDonHang extends JFrame {
     
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
+        private DonHang donHang;
     public ThongTinDonHang() {
         setTitle("Chi Tiết Đơn Hàng");
         setSize(900, 500);
@@ -105,11 +108,11 @@ public class ThongTinDonHang extends JFrame {
         btnHuy.setForeground(Color.WHITE);
 
         btnDanhGia.addActionListener(e -> {
-            hienDialogDanhGia();
+        DanhGiaForm form = new DanhGiaForm(donHang.getIdDonHang(),donHang.getIdKhachHang());
+        form.setVisible(true);
         });
         mainPanel.add(btnDanhGia);
         mainPanel.add(btnHuy);
-        
     }
     
 
