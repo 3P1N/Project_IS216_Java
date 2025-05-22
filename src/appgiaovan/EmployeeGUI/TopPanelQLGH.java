@@ -44,9 +44,9 @@ public class TopPanelQLGH extends JPanel {
         add(statusComboBox);
 
         // TextField - Khách hàng
-        customerField.setPreferredSize(new Dimension(120, 40));
-        customerField.setBorder(BorderFactory.createTitledBorder("Tên khách hàng"));
-        add(customerField);
+//        customerField.setPreferredSize(new Dimension(120, 40));
+//        customerField.setBorder(BorderFactory.createTitledBorder("Tên khách hàng"));
+//        add(customerField);
 
         // Button - Lọc (màu xanh đậm)
         filterButton.setPreferredSize(new Dimension(60, 30));
