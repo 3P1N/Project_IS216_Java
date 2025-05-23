@@ -23,17 +23,13 @@ import org.jfree.data.category.*;
 
 
 
-public class ManagerMainScreen extends JFrame {
+public class ManagerMainScreen extends JPanel {
     public ManagerMainScreen() {
-        setTitle("Quản lý - Home");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 600);
-        setLocationRelativeTo(null);
+        
         setLayout(new BorderLayout());
 
         // Sidebar trái
-        ManagerSidebar sidebar = new ManagerSidebar();
-        
+      
 
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -100,7 +96,7 @@ public class ManagerMainScreen extends JFrame {
 
 
         // Thêm vào JFrame
-        add(sidebar, BorderLayout.WEST);
+       
         add(mainPanel, BorderLayout.CENTER);
     }
     

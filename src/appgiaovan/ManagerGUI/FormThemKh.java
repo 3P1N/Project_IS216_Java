@@ -17,8 +17,8 @@ public class FormThemKH extends JDialog {
     private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtTenDangNhap, txtMatKhau;
     private JComboBox<Character> cboGioiTinh;
 
-    public FormThemKH(Frame owner) throws ClassNotFoundException {
-        super(owner, "Thêm Khách Hàng", true);
+    public FormThemKH(JPanel owner) throws ClassNotFoundException {
+        super(this, "Thêm Khách Hàng", true);
         controller = new QLKHController();
         initUI();
         hienThiMaKhachHangMoi();

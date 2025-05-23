@@ -9,17 +9,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GUI_QLKH extends JFrame {
+public class GUI_QLKH extends JPanel {
     private QLKHController controller;
     private JTable tblKhachHang;
     private JTextField txtSearch;
 
     public GUI_QLKH() throws ClassNotFoundException {
         controller = new QLKHController();
-        setTitle("Quản Lý Khách Hàng");
-        setSize(1300, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+//        setTitle("Quản Lý Khách Hàng");
+//        setSize(1300, 600);
+//        setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        setLocationRelativeTo(null);
+
+        setLayout(new BorderLayout());
         initUI();
     }
 
@@ -85,7 +87,7 @@ public class GUI_QLKH extends JFrame {
         add(pnlButtons, BorderLayout.SOUTH);
 
         // initial load
-        hienThiDanhSachKhachHang();
+//        hienThiDanhSachKhachHang();
     }
 
     public void hienThiDanhSachKhachHang() throws ClassNotFoundException {
@@ -104,8 +106,8 @@ public class GUI_QLKH extends JFrame {
         int row = tblKhachHang.getSelectedRow();
         if (row < 0) return;
         int id = (int) tblKhachHang.getValueAt(row, 1); // column Mã KH
-        FormSuaKH form = new FormSuaKH(this, controller.layThongTinKhachHang(id));
-        form.setVisible(true);
+//        FormSuaKH form = new FormSuaKH(, controller.layThongTinKhachHang(id));
+//        form.setVisible(true);
         hienThiDanhSachKhachHang();
     }
 

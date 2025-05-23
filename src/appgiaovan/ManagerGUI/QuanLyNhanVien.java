@@ -12,20 +12,21 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 
-public class QuanLyNhanVien extends JFrame {
+public class QuanLyNhanVien extends JPanel {
 
     public QuanLyNhanVien() {
-        setTitle("Quản Lý Nhân Viên");
-        setSize(1300, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+//        setTitle("Quản Lý Nhân Viên");
+//        setSize(1300, 600);
+//        setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
         initUI();
     }
 
     private void initUI() {
         // Panel Menu
-        ManagerSidebar sidebar = new ManagerSidebar();
-        add(sidebar, BorderLayout.WEST);
+       
 
         // Main Panel
         JPanel mainPanel = new JPanel();
