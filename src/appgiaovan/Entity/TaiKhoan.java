@@ -19,6 +19,15 @@ public class TaiKhoan {
     private String vaiTro;
     private Integer trangThaiXoa;
 
+    public TaiKhoan(Integer idTaiKhoan, String vaiTro) {
+        this.idTaiKhoan = idTaiKhoan;
+        this.vaiTro = vaiTro;
+    }
+
+    public TaiKhoan() {
+    }
+
+    
     public Integer getIdTaiKhoan() {
         return idTaiKhoan;
     }

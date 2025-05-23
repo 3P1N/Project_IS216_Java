@@ -5,6 +5,7 @@
 package appgiaovan.Controller;
 
 import appgiaovan.DAO.TaiKhoanDAO;
+import appgiaovan.Entity.TaiKhoan;
 import static appgiaovan.PasswordHashing.hashPassword;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -16,21 +17,22 @@ import java.util.logging.Logger;
  */
 public class LoginController {
     private TaiKhoanDAO u = new TaiKhoanDAO();
-    public String yeuCauXacThuc(String a, String b) throws SQLException, ClassNotFoundException{
+    //private TaiKhoan tk = new TaiKhoa
+    public TaiKhoan yeuCauXacThuc(String a, String b) throws SQLException, ClassNotFoundException{
         //b = hashPassword(b);
         
         return u.xacThucThongTin(a,b);
     }
-    public int layIDTaiKhoan() throws SQLException, ClassNotFoundException{
-        return u.layIDTaiKhoan();
-    }
-    public void main(String[] args){
-        try {
-            System.out.print(layIDTaiKhoan());
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    public int layIDTaiKhoan() throws SQLException, ClassNotFoundException{
+//        return u.layIDTaiKhoan();
+//    }
+//    public void main(String[] args){
+//        try {
+//            System.out.print(layIDTaiKhoan());
+//        } catch (SQLException ex) {
+//            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 }

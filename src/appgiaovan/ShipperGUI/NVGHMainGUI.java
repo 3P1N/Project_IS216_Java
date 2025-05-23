@@ -31,7 +31,7 @@ public class NVGHMainGUI extends JFrame{
     private CardLayout cardLayout;
     private JPanel contentPanel;
 
-    public NVGHMainGUI() throws ClassNotFoundException, SQLException {
+    public NVGHMainGUI(int idtk) throws ClassNotFoundException, SQLException {
         
         setTitle("3P1N - Nhân viên giao hàng");
         setSize(1300, 700);
@@ -53,7 +53,7 @@ public class NVGHMainGUI extends JFrame{
         //contentPanel.add(new ThongTinCaNhan(),"Profile");
         contentPanel.add(new NVGHHomeGUI(),"Trang chủ");
         contentPanel.add(new ThongTinCaNhan(),"Thông tin cá nhân");
-        contentPanel.add(new QuanLyDonHang(),"Quản lý đơn hàng");
+        contentPanel.add(new QuanLyDonHang(idtk),"Quản lý đơn hàng");
         contentPanel.add(new NVGHBaoCao(), "Báo cáo");
         contentPanel.add(new NVGHHotro(), "Hỗ trợ");
         //contentPanel.add(new LOGIN(), "Đăng xuất");
@@ -75,7 +75,7 @@ public class NVGHMainGUI extends JFrame{
         SwingUtilities.invokeLater(() -> {
             try {
                 try {
-                    new NVGHMainGUI().setVisible(true);
+                    new NVGHMainGUI(1).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }

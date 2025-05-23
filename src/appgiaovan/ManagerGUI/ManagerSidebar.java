@@ -1,67 +1,29 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package appgiaovan.ManagerGUI;
-
 import appgiaovan.GUI.Components.MenuBar;
-import appgiaovan.GUI.Components.MenuBar.MenuClickListener;
-import javax.swing.*;
-import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import appgiaovan.ManagerGUI.GUI_QLKH;
-//import appgiaovan.ManagerGUI.GUI_QLNVKho;
-//import appgiaovan.ManagerGUI.GUI_QLNVGiaoHang;
-//import appgiaovan.ManagerGUI.GUI_BaoCao;
-//import appgiaovan.ManagerGUI.GUI_ThongKe;
-//import appgiaovan.ManagerGUI.GUI_BangLuong;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
-public class ManagerSidebar extends JPanel {
-    private final MenuBar menu;
+/**
+ *
+ * @author pc
+ */
+public class ManagerSidebar extends MenuBar {
+    private static final List<String>  items = Arrays.asList("Trang chủ","Quản lý nhân viên", "Quản lý khách hàng","Xem báo cáo", "Báo cáo thống kê", "Xem bảng lương", "Đăng xuất");
+      
+    private static final List<String>  icons = Arrays.asList("home.png", "employee.png", "customer.png","report.png", "statistic.png", "salary.png", "logout.png");
 
-    public ManagerSidebar(JFrame parent) {
-        setLayout(new BorderLayout());
-        List<String> items = Arrays.asList(
-            "Quản lý nhân viên", "Quản lý khách hàng", "Xem báo cáo",
-            "Báo cáo thống kê", "Xem bảng lương", "Đăng xuất"
-        );
-        List<String> icons = Arrays.asList(
-            "employee.png", "customer.png", "report.png",
-            "statistic.png", "salary.png", "logout.png"
-        );
-        menu = new MenuBar(items, icons);
-        add(menu, BorderLayout.CENTER);
-        setPreferredSize(menu.getPreferredSize());
-
-        // Đăng ký xử lý menu click ngay trong đây
-        menu.addMenuClickListener(menuName -> {
-            // Đóng frame hiện tại
-            parent.dispose();
-            try {
-                switch (menuName) {
-//                    case "Quản lý nhân viên":
-//                        new GUI_QLNVKho().setVisible(true);
-//                        break;
-                    case "Quản lý khách hàng":
-                        new GUI_QLKH().setVisible(true);
-                        break;
-//                    case "Xem báo cáo":
-//                        new GUI_BaoCao().setVisible(true);
-//                        break;
-//                    case "Báo cáo thống kê":
-//                        new GUI_ThongKe().setVisible(true);
-//                        break;
-//                    case "Xem bảng lương":
-//                        new GUI_BangLuong().setVisible(true);
-//                        break;
-//                    case "Đăng xuất":
-//                        System.exit(0);
-//                        break;
-                    default:
-                        break;
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ManagerSidebar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+    public ManagerSidebar() {
+         super(ManagerSidebar.items, ManagerSidebar.icons);
     }
+   
+    
 }
+
+
+
