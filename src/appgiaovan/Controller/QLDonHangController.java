@@ -82,10 +82,14 @@ public class QLDonHangController {
     }
    // String ab = new LOGIN().getuser();
     //int idTaiKhoan;
-    public List<DonHang> HienThiDSDHChoNVGH() throws SQLException, ClassNotFoundException{
+    public List<DonHang> HienThiDSDHChoNVGH(int idtk) throws SQLException, ClassNotFoundException{
         //int idTaiKhoan = new LoginController().layIDTaiKhoan() ;
         //String us = new LOGIN().getuser();
-        return new DonHangDAO().layDSDonHangCuaNVGH(new TaiKhoanDAO().layIDTaiKhoan());
+        return new DonHangDAO().layDSDonHangCuaNVGH(idtk);
+    }
+    public DonHang layThongTinDH(int ID_DonHang) throws SQLException, ClassNotFoundException{
+        
+        return donHangDAO.LayThongTinDonHang(ID_DonHang);
     }
     public void main(String[] args ){
         //System.out.print(new TaiKhoanDAO().layIDTaiKhoan());

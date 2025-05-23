@@ -33,8 +33,8 @@ public class NVGHHomeGUI extends JPanel {
         JPanel statPanel = new JPanel(new GridLayout(2, 2, 40, 40));
         statPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
         statPanel.setPreferredSize(new Dimension(500, 500)); // tăng kích thước các ô thống kê
-
-        statPanel.add(RoundedPanel.createStatBox("ĐÃ NHẬN", "0", "↓ 100%", new Color(76, 175, 80)));
+        
+        statPanel.add(RoundedPanel.createStatBox("ĐANG GIAO", "0", "↓ 100%", new Color(76, 175, 80)));
         statPanel.add(RoundedPanel.createStatBox("GIAO THÀNH CÔNG", "0", "↓ 100% (0 hóa đơn)", new Color(33, 150, 243)));
         statPanel.add(RoundedPanel.createStatBox("GIAO THẤT BẠI", "0", "↓ 100% (0 đơn)", new Color(255, 152, 0)));
         statPanel.add(RoundedPanel.createStatBox("DOANH THU", "0", "", new Color(121, 85, 72)));

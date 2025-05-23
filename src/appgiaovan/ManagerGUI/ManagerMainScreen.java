@@ -29,22 +29,15 @@ import org.jfree.chart.plot.*;
 import org.jfree.chart.renderer.category.*;
 import org.jfree.data.category.*;
 
-public class ManagerMainScreen extends JFrame {
+public class ManagerMainScreen extends JPanel {
 
     private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
     public ManagerMainScreen() throws SQLException, ClassNotFoundException {
-        setTitle("Quản lý - Home");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1000, 600);
-        setLocationRelativeTo(null);
+
         setLayout(new BorderLayout());
 
         // Sidebar trái
-
-        ManagerSidebar sidebar = new ManagerSidebar(this);
-        
-
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -111,7 +104,6 @@ public class ManagerMainScreen extends JFrame {
         mainPanel.add(chartPanel, BorderLayout.CENTER);
 
         // Thêm vào JFrame
-        add(sidebar, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
 
         int delay = 600; // 60000 ms = 1 phút
@@ -137,17 +129,25 @@ public class ManagerMainScreen extends JFrame {
     }
 
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
-        }
         SwingUtilities.invokeLater(() -> {
             try {
-                new ManagerMainScreen().setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(ManagerMainScreen.class.getName()).log(Level.SEVERE, null, ex);
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception ignored) {
+            }
+
+            try {
+                JFrame frame = new JFrame("Quản Lý Khách Hàng");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1300, 600);
+                frame.setLocationRelativeTo(null); // Center the frame
+
+                ManagerMainScreen panel = new ManagerMainScreen();
+                frame.setContentPane(panel);
+
+                frame.setVisible(true);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(ManagerMainScreen.class.getName()).log(Level.SEVERE, null, ex);
             }
         });

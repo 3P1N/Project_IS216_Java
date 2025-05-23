@@ -21,8 +21,7 @@ import java.util.List;
 public class DanhGiaDAO {
 
     public void ThemDanhGia(DanhGia dg) throws SQLException, ClassNotFoundException {
-        String sql = "{INSERT INTO DanhGia (ID_DanhGia, ID_DonHang, ID_KhachHang, NoiDungDanhGia, DiemDanhGia)\n" +
-"VALUES (SEQ_DANHGIA_ID.NEXTVAL, ?, ?, ?, ?)}";
+        String sql = "{call SP_ThemDanhGia(?, ?, ?)}";
 
         try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
 //            if (donHang.getIdDonHang() != null) {
@@ -31,11 +30,10 @@ public class DanhGiaDAO {
 //                cs.setNull(1, Types.INTEGER);
 //            }
 
-            
+            //doneroi
             cs.setInt(1, dg.getIdDonHang());
-            cs.setInt(2, dg.getIdKhachHang());
-            cs.setString(3, dg.getNoiDungDanhGia());
-            cs.setInt(4,dg.getDiemDanhGia());
+            cs.setString(2, dg.getNoiDungDanhGia());
+            cs.setInt(3,dg.getDiemDanhGia());
            
             
             cs.execute();
