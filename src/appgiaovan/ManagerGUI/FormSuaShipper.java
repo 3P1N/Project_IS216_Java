@@ -8,6 +8,6 @@ package appgiaovan.ManagerGUI;
  *
  * @author pc
  */
-public class ThemNhanVien {
+public class FormSuaShipper {
     
 }

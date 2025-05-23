@@ -10,6 +10,6 @@ import javax.swing.JPanel;
  *
  * @author pc
  */
-public class GUI_QLNVGiaoHang extends JPanel {
+public class GUI_QLShipper extends JPanel {
     
 }
