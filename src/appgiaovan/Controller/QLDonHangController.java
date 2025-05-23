@@ -104,5 +104,9 @@ public class QLDonHangController {
         //System.out.print(new TaiKhoanDAO().layIDTaiKhoan());
 
     }
+
+    public void HuyDonHang(int ID_DonHang) {
+    donHangDAO.HuyDonHang(ID_DonHang);
+    }
     
 }

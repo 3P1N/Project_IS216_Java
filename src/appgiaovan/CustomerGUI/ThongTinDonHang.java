@@ -106,15 +106,21 @@ public class ThongTinDonHang extends JFrame {
         btnHuy.setBounds(420, 360, 200, 45);
         btnHuy.setBackground(Color.RED); // Đỏ
         btnHuy.setForeground(Color.WHITE);
-
+        //Xử lý sự kiện ấn nút đánh giá
         btnDanhGia.addActionListener(e -> {
         DanhGiaForm form = new DanhGiaForm(ID_DonHang);
         form.setVisible(true);
         });
+        //Xử lý sự kiện ấn nút hủy
+        btnHuy.addActionListener(e -> {
+        HuyDonHang(ID_DonHang);
+        });
         mainPanel.add(btnDanhGia);
         mainPanel.add(btnHuy);
     }
-    
+    void HuyDonHang(int ID_DonHang){
+        controller.HuyDonHang(ID_DonHang);
+    }
 
     public static void main(String[] args) {
         try {

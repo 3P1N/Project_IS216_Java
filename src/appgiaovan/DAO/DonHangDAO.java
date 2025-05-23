@@ -477,4 +477,21 @@ public class DonHangDAO {
 
     }
 
+    public void HuyDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
+    String sql = "UPDATE DONHANG SET TRANGTHAI = 'Hủy' WHERE id_donhang = ?";
+
+    try (Connection conn = ConnectionUtils.getMyConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, ID_DonHang);
+        int rowsUpdated = stmt.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            System.out.println("Đơn hàng đã được hủy thành công.");
+        } else {
+            System.out.println("Không tìm thấy đơn hàng với ID: " + ID_DonHang);
+        }
+    }
+}
+
 }
