@@ -4,12 +4,17 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.Controller.QLDonHangController;
+import appgiaovan.Controller.QLKHController;
+import appgiaovan.Entity.KhachHang;
 import appgiaovan.GUI.Components.TimeWeather;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author nhant
@@ -17,7 +22,10 @@ import java.awt.*;
 public class ThongTinCaNhanPanel extends JPanel {
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
-    public ThongTinCaNhanPanel(int ID_KhachHang){
+        private KhachHang kh=new KhachHang();
+    public ThongTinCaNhanPanel(int ID_KhachHang) throws ClassNotFoundException{
+        QLKHController controller=new QLKHController();
+        kh=controller.layThongTinKhachHang(ID_KhachHang);
         setLayout(new BorderLayout());
         // Sidebar trái
         CustomerSidebar sidebar = new CustomerSidebar();
@@ -41,12 +49,12 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblHoTen.setBounds(20, 70, 100, 25);
         infoPanel.add(lblHoTen);
 
-        JTextField txtHoTen = new JTextField("Nguyễn Văn A");
+        JTextField txtHoTen = new JTextField(kh.getHoTen());
         txtHoTen.setBounds(130, 70, 200, 30);
         infoPanel.add(txtHoTen);
 
         // Số điện thoại
-        JLabel lblSDT = new JLabel("Số điện thoại:");
+        JLabel lblSDT = new JLabel(kh.getSDT());
         lblSDT.setBounds(20, 120, 100, 25);
         infoPanel.add(lblSDT);
 
@@ -59,7 +67,7 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblEmail.setBounds(20, 170, 100, 25);
         infoPanel.add(lblEmail);
 
-        JTextField txtEmail = new JTextField("email@example.com");
+        JTextField txtEmail = new JTextField(kh.getEmail());
         txtEmail.setBounds(130, 170, 300, 30);
         infoPanel.add(txtEmail);
         //CCCD  
@@ -67,7 +75,7 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblCCCD .setBounds(20, 220, 100, 25);
         infoPanel.add(lblCCCD );
 
-        JTextField txtCCCD  = new JTextField("096205001324");
+        JTextField txtCCCD  = new JTextField(kh.getCCCD());
         txtCCCD .setBounds(130, 220, 400, 30);
         infoPanel.add(txtCCCD );
         // NgaySinh
@@ -75,15 +83,22 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblNgaySinh.setBounds(20, 270, 100, 25);
         infoPanel.add(lblNgaySinh);
 
-        JTextField txtNgaySinh = new JTextField("24/08/2005");
+        JTextField txtNgaySinh = new JTextField(String.valueOf(kh.getNgaySinh()));
         txtNgaySinh.setBounds(130, 270, 400, 30);
         infoPanel.add(txtNgaySinh);
         //Gioitinh
-        JLabel lblGioiTinh = new JLabel("Địa chỉ:");
+        JLabel lblGioiTinh = new JLabel("Giới tính:");
         lblGioiTinh.setBounds(20, 320, 100, 25);
         infoPanel.add(lblGioiTinh);
-
-        JTextField txtGioiTinh = new JTextField("Giới tính");
+        
+        String gioiTinh=new String();
+        if(kh.getGioiTinh()=='N'){
+            gioiTinh="Nam";
+        }
+        else {
+            gioiTinh="Nữ";
+        }
+        JTextField txtGioiTinh = new JTextField(gioiTinh);
         txtGioiTinh.setBounds(130, 320, 400, 30);
         infoPanel.add(txtGioiTinh);
         // Nút cập nhật
@@ -113,7 +128,11 @@ public class ThongTinCaNhanPanel extends JPanel {
             frame.setLocationRelativeTo(null);
             frame.setLayout(new BorderLayout());
 
-            frame.add(new ThongTinCaNhanPanel(1), BorderLayout.CENTER);
+            try {
+                frame.add(new ThongTinCaNhanPanel(46), BorderLayout.CENTER);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         });
     }
