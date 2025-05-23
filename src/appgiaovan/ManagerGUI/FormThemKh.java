@@ -12,13 +12,13 @@ import java.awt.*;
 import java.awt.event.*;
 import static appgiaovan.PasswordHashing.hashPassword;
 
-public class FormThemKH extends JDialog {
+public class FormThemKh extends JDialog {
 
     private QLKHController controller;
     private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtTenDangNhap, txtMatKhau;
     private JComboBox<Character> cboGioiTinh;
 
-    public FormThemKH() throws ClassNotFoundException {
+    public FormThemKh() throws ClassNotFoundException {
         JFrame frame = new JFrame("Quản Lý Khách Hàng");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1300, 600);

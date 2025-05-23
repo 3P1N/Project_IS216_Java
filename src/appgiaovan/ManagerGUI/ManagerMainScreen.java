@@ -8,15 +8,21 @@ package appgiaovan.ManagerGUI;
  *
  * @author pc
  */
+import appgiaovan.DAO.DoanhThuLoiNhuanDAO;
+import appgiaovan.Entity.DoanhThuLoiNhuan;
 import appgiaovan.ManagerGUI.ManagerSidebar;
 
 import appgiaovan.GUI.Components.RoundedPanel;
-import appgiaovan.GUI.Components.MenuBar;
+
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.*;
@@ -25,7 +31,9 @@ import org.jfree.data.category.*;
 
 public class ManagerMainScreen extends JPanel {
 
-    public ManagerMainScreen() {
+    private DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+    public ManagerMainScreen() throws SQLException, ClassNotFoundException {
 
         setLayout(new BorderLayout());
 
@@ -44,21 +52,23 @@ public class ManagerMainScreen extends JPanel {
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
-        // Biểu đồ nâng cấp sử dụng JFreeChart với custom renderer
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        // Dữ liệu mẫu
-        dataset.addValue(0, "Doanh thu", "01/05");
-        dataset.addValue(2, "Doanh thu", "04/05");
-        dataset.addValue(8, "Doanh thu", "07/05");
-        dataset.addValue(3, "Doanh thu", "10/05");
-        dataset.addValue(6, "Doanh thu", "12/05");
-        dataset.addValue(7, "Doanh thu", "15/05");
+        List<DoanhThuLoiNhuan> list = new DoanhThuLoiNhuanDAO().getListDoanhThuLoiNhuan();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+
+        for (DoanhThuLoiNhuan dtln : list) {
+            String ngay = sdf.format(dtln.getNgay());
+            dataset.addValue(dtln.getDoanhThu(), "Doanh thu", ngay);
+            dataset.addValue(dtln.getLoiNhuan(), "Lợi nhuận", ngay);
+        }
 
         JFreeChart lineChart = ChartFactory.createLineChart(
-                "Biểu đồ doanh thu (triệu VND)",
-                "Ngày", "Doanh thu", dataset,
+                "Biểu đồ Doanh thu và Lợi nhuận (triệu VND)",
+                "Ngày", "Giá trị", dataset,
                 PlotOrientation.VERTICAL,
-                false, true, false);
+                true, // Hiển thị chú thích (legend) để phân biệt 2 dòng
+                true, // Tooltips
+                false // URLs
+        );
 
         // Tùy chỉnh plot
         CategoryPlot plot = lineChart.getCategoryPlot();
@@ -95,6 +105,27 @@ public class ManagerMainScreen extends JPanel {
 
         // Thêm vào JFrame
         add(mainPanel, BorderLayout.CENTER);
+
+        int delay = 600; // 60000 ms = 1 phút
+        new javax.swing.Timer(delay, e -> loadChartData()).start();
+
+    }
+
+    public void loadChartData() {
+        try {
+            List<DoanhThuLoiNhuan> list = new DoanhThuLoiNhuanDAO().getListDoanhThuLoiNhuan();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+            dataset.clear();  // Xóa dữ liệu cũ trước khi thêm mới
+
+            for (DoanhThuLoiNhuan dtln : list) {
+                String ngay = sdf.format(dtln.getNgay());
+                dataset.addValue(dtln.getDoanhThu(), "Doanh thu", ngay);
+                dataset.addValue(dtln.getLoiNhuan(), "Lợi nhuận", ngay);
+            }
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Lỗi tải dữ liệu: " + ex.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -104,13 +135,21 @@ public class ManagerMainScreen extends JPanel {
             } catch (Exception ignored) {
             }
 
-            JFrame frame = new JFrame("Quản Lý Khách Hàng");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(1300, 600);
-            frame.setLocationRelativeTo(null); // Center the frame
-            ManagerMainScreen panel = new ManagerMainScreen();
-            frame.setContentPane(panel);
-            frame.setVisible(true);
+            try {
+                JFrame frame = new JFrame("Quản Lý Khách Hàng");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1300, 600);
+                frame.setLocationRelativeTo(null); // Center the frame
+
+                ManagerMainScreen panel = new ManagerMainScreen();
+                frame.setContentPane(panel);
+
+                frame.setVisible(true);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ManagerMainScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 }
