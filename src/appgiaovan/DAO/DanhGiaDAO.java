@@ -43,4 +43,7 @@ public class DanhGiaDAO {
             e.printStackTrace();
         }
     }
+    static void main(String[] args){
+        
+    }
 }

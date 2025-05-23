@@ -1,7 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.Controller.QLGHController;
 import appgiaovan.Entity.*;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
@@ -45,22 +44,22 @@ public class PhanCongGiaoHangFrame extends JFrame {
         mainPanel.add(listOrder, BorderLayout.CENTER);
 
         add(mainPanel, BorderLayout.CENTER);
-        topPanel.getBtnXacNhan().addActionListener(e -> SelectShipper(onSuccess));
-//        topPanel.getBtnSelectShipper().addActionListener(e -> {
-//            try {
-//                SelectShipper(onSuccess);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (Exception ex) {
-//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
+        
+        topPanel.getBtnXacNhan().addActionListener(e -> {
+            try {
+                SelectShipper(onSuccess);
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         HienThiDSDonHangDangXuLy();
     }
 
-    public void SelectShipper(Runnable onSuccess) {
+    public void SelectShipper(Runnable onSuccess) throws SQLException, ClassNotFoundException {
         NhanVienGiaoHang nv = topPanel.getNVGiaoHang();
         List<Integer> listIdDonHang = new ArrayList<>();
        
