@@ -30,7 +30,7 @@ public class KhachHangDAO {
                     kh.setEmail(rs.getString("Email"));
                     kh.setCCCD(rs.getString("CCCD"));
                     kh.setNgaySinh(rs.getDate("NgaySinh"));
-                    kh.setGioiTinh(rs.getString("GioiTinh").charAt(0));
+                    kh.setGioiTinh(rs.getString("GioiTinh"));
                     return kh;
 
                 }
@@ -67,7 +67,7 @@ public class KhachHangDAO {
             ps.setString(5, kh.getEmail());
             ps.setString(6, kh.getCCCD());
             ps.setDate(7, new java.sql.Date(kh.getNgaySinh().getTime()));
-            ps.setString(8, String.valueOf(kh.getGioiTinh()));
+            ps.setString(8, kh.getGioiTinh());
             return ps.executeUpdate() > 0;
         }
     }
@@ -90,12 +90,7 @@ public class KhachHangDAO {
             String dateStr = sdf.format(utilDate);
             System.out.println(dateStr);
             cs.setDate(7, Date.valueOf(dateStr));
-            if(kh.getGioiTinh()=='M'){
-            cs.setString(8, "Nam");
-            }
-            if(kh.getGioiTinh()=='F'){
-                cs.setString(8, "Nữ");
-            }
+            cs.setString(8, kh.getGioiTinh());
             cs.execute();
         } catch (SQLException e) {
 
@@ -136,7 +131,7 @@ public class KhachHangDAO {
             ps.setString(3, kh.getEmail());
             ps.setString(4, kh.getCCCD());
             ps.setDate(5, new java.sql.Date(kh.getNgaySinh().getTime()));
-            ps.setString(6, String.valueOf(kh.getGioiTinh()));
+            ps.setString(6, kh.getGioiTinh());
             ps.setInt(7, kh.getID_NguoiDung());
             return ps.executeUpdate() > 0;
         }
@@ -155,7 +150,7 @@ public class KhachHangDAO {
                 kh.setEmail(rs.getString("Email"));
                 kh.setCCCD(rs.getString("CCCD"));
                 kh.setNgaySinh(rs.getDate("NgaySinh"));
-                kh.setGioiTinh(rs.getString("GioiTinh").charAt(0));
+                kh.setGioiTinh(rs.getString("GioiTinh"));
                 results.add(kh);
             }
             return results;
@@ -179,7 +174,7 @@ public class KhachHangDAO {
                     kh.setEmail(rs.getString("Email"));
                     kh.setCCCD(rs.getString("CCCD"));
                     kh.setNgaySinh(rs.getDate("NgaySinh"));
-                    kh.setGioiTinh(rs.getString("GioiTinh").charAt(0));
+                    kh.setGioiTinh(rs.getString("GioiTinh"));
                     results.add(kh);
                 }
                 return results;

@@ -14,10 +14,14 @@ public class FormSuaKH extends JDialog {
     private QLKHController controller;
     private KhachHang kh;
     private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh;
-    private JComboBox<Character> cboGioiTinh;
+    private JComboBox<String> cboGioiTinh;
 
-    public FormSuaKH(Frame owner, KhachHang kh) throws ClassNotFoundException {
-        super(owner, "Sửa Khách Hàng", true);
+    public FormSuaKH( KhachHang kh) throws ClassNotFoundException {
+        JFrame frame = new JFrame("Quản Lý Khách Hàng");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1300, 600);
+        frame.setLocationRelativeTo(null); // Center the frame
+        super(frame, "Sửa Khách Hàng", true);
         this.controller = new QLKHController();
         this.kh = kh;
         initUI();
@@ -40,7 +44,7 @@ public class FormSuaKH extends JDialog {
             txtID = new JTextField(), txtHoTen = new JTextField(),
             txtSDT = new JTextField(), txtEmail = new JTextField(),
             txtCCCD = new JTextField(), txtNgaySinh = new JTextField(),
-            cboGioiTinh = new JComboBox<>(new Character[]{'M','F'})
+            cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"})
         };
         txtID.setEnabled(false);
 
@@ -93,9 +97,10 @@ public class FormSuaKH extends JDialog {
         kh.setEmail(txtEmail.getText());
         kh.setCCCD(txtCCCD.getText());
         kh.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
-        kh.setGioiTinh((Character)cboGioiTinh.getSelectedItem());
+        kh.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
         boolean ok = controller.suaKhachHang(kh);
         hienThiThongBao(ok?"Sửa thành công":"Sửa thất bại");
         if (ok) dispose();
     }
+    
 }
