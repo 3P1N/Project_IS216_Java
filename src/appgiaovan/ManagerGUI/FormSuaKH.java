@@ -25,17 +25,45 @@ public class FormSuaKH extends JDialog {
     }
 
     private void initUI() {
-        setLayout(new GridLayout(8,2));
-        add(new JLabel("Mã KH:")); txtID = new JTextField(); txtID.setEnabled(false); add(txtID);
-        add(new JLabel("Họ Tên:")); txtHoTen = new JTextField(); add(txtHoTen);
-        add(new JLabel("SĐT:")); txtSDT = new JTextField(); add(txtSDT);
-        add(new JLabel("Email:")); txtEmail = new JTextField(); add(txtEmail);
-        add(new JLabel("CCCD:")); txtCCCD = new JTextField(); add(txtCCCD);
-        add(new JLabel("Ngày sinh (yyyy-MM-dd):")); txtNgaySinh = new JTextField(); add(txtNgaySinh);
-        add(new JLabel("Giới tính:")); cboGioiTinh = new JComboBox<>(new Character[]{'M','F'}); add(cboGioiTinh);
-        JButton btnSave = new JButton("Lưu"); btnSave.addActionListener(e->onSave()); add(btnSave);
-        JButton btnCancel = new JButton("Hủy"); btnCancel.addActionListener(e->dispose()); add(btnCancel);
-        pack(); setLocationRelativeTo(getOwner());
+        JPanel pnl = new JPanel(new GridBagLayout());
+        pnl.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        pnl.setPreferredSize(new Dimension(450, 350));  // cùng kích thước với form Thêm
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(5, 5, 5, 5);
+        c.fill = GridBagConstraints.HORIZONTAL;
+
+        String[] labels = {
+            "Mã KH:", "Họ Tên:", "SĐT:", "Email:",
+            "CCCD:", "Ngày sinh:", "Giới tính:"
+        };
+        Component[] fields = {
+            txtID = new JTextField(), txtHoTen = new JTextField(),
+            txtSDT = new JTextField(), txtEmail = new JTextField(),
+            txtCCCD = new JTextField(), txtNgaySinh = new JTextField(),
+            cboGioiTinh = new JComboBox<>(new Character[]{'M','F'})
+        };
+        txtID.setEnabled(false);
+
+        for (int i = 0; i < labels.length; i++) {
+            c.gridx = 0; c.gridy = i; c.weightx = 0.2;
+            pnl.add(new JLabel(labels[i]), c);
+            c.gridx = 1; c.weightx = 0.8;
+            pnl.add(fields[i], c);
+        }
+
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        JButton btnSave = new JButton("Lưu");    btnSave.addActionListener(e->onSave());
+        JButton btnCancel = new JButton("Hủy");  btnCancel.addActionListener(e->dispose());
+        btnPanel.add(btnSave); btnPanel.add(btnCancel);
+
+        c.gridx = 0; c.gridy = labels.length;
+        c.gridwidth = 2; c.anchor = GridBagConstraints.EAST;
+        pnl.add(btnPanel, c);
+
+        setContentPane(pnl);
+        pack();
+        setLocationRelativeTo(getOwner());
+        setResizable(false);
     }
 
     public void hienThiThongTinKhachHang() {

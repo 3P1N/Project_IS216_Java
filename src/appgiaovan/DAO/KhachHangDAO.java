@@ -220,55 +220,6 @@ public class KhachHangDAO {
     public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
         KhachHangDAO kh = new KhachHangDAO();
         System.out.println(kh.layMaKhachHangMoi());
-//
     }
 
-    /**
-     * Hàm main để test DAO
-     */
-//    public static void main(String[] args) {
-//        String url = "jdbc:oracle:thin:@localhost:1521:XE";
-//        String username = "your_username";
-//        String password = "your_password";
-//        try (Connection conn = DriverManager.getConnection(url, username, password)) {
-//            KhachHangDAO dao = new KhachHangDAO(conn);
-//
-//            // Tạo đối tượng KhachHang mới
-//            KhachHang kh = new KhachHang();
-//            kh.setID_TaiKhoan(1);
-//            kh.setHoTen("Nguyen Van A");
-//            kh.setSDT("0901234567");
-//            kh.setEmail("a@example.com");
-//            kh.setCCCD("123456789");
-//            kh.setNgaySinh(new java.sql.Date(new java.util.Date().getTime()));
-//            kh.setGioiTinh('M');
-//
-//            boolean created = dao.taoKhachHang(kh);
-//            System.out.println("Tạo khách hàng: " + (created ? "Thành công" : "Thất bại"));
-//
-//            // Tìm kiếm
-//            List<KhachHang> list = dao.timKiemThongTinKhachHang("Nguyen");
-//            for (KhachHang k : list) {
-//                System.out.println(k.getID_NguoiDung() + " - " + k.getHoTen());
-//            }
-//
-//            // Cập nhật
-//            if (!list.isEmpty()) {
-//                KhachHang first = list.get(0);
-//                first.setHoTen(first.getHoTen() + " Updated");
-//                dao.suaKhachHang(first);
-//                System.out.println("Đã cập nhật tên khách hàng ID " + first.getID_NguoiDung());
-//            }
-//
-//            // Xóa mẫu
-//            if (!list.isEmpty()) {
-//                int delId = list.get(0).getID_NguoiDung();
-//                dao.xoaKhachHang(delId);
-//                System.out.println("Đã xóa khách hàng ID " + delId);
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
