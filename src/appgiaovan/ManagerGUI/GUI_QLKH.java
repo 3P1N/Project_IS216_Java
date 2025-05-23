@@ -108,9 +108,9 @@ public class GUI_QLKH extends JPanel {
         if (row < 0) {
             return;
         }
-        int id = (int) tblKhachHang.getValueAt(row, 1); // column Mã KH
-//        FormSuaKH form = new FormSuaKH(, controller.layThongTinKhachHang(id));
-//        form.setVisible(true);
+        int id = (int) tblKhachHang.getValueAt(row, 0); // column Mã KH
+        FormSuaKH form = new FormSuaKH(controller.layThongTinKhachHang(id));
+        form.setVisible(true);
         hienThiDanhSachKhachHang();
     }
 
@@ -119,7 +119,7 @@ public class GUI_QLKH extends JPanel {
         if (row < 0) {
             return;
         }
-        int id = (int) tblKhachHang.getValueAt(row, 1);
+        int id = (int) tblKhachHang.getValueAt(row, 0);
         int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             controller.xoaKhachHang(id);

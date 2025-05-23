@@ -16,7 +16,7 @@ public class FormThemKh extends JDialog {
 
     private QLKHController controller;
     private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtTenDangNhap, txtMatKhau;
-    private JComboBox<Character> cboGioiTinh;
+    private JComboBox<String> cboGioiTinh;
 
     public FormThemKh() throws ClassNotFoundException {
         JFrame frame = new JFrame("Quản Lý Khách Hàng");
@@ -47,7 +47,7 @@ public class FormThemKh extends JDialog {
             txtSDT = new JTextField(), txtEmail = new JTextField(),
             txtCCCD = new JTextField(),
             txtNgaySinh = new JTextField(),
-            cboGioiTinh = new JComboBox<>(new Character[]{'M', 'F'}),
+            cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"}),
             txtTenDangNhap = new JTextField(),
             txtMatKhau = new JPasswordField()
         };
@@ -114,7 +114,7 @@ public class FormThemKh extends JDialog {
         kh.setEmail(txtEmail.getText());
         kh.setCCCD(txtCCCD.getText());
         kh.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
-        kh.setGioiTinh((Character) cboGioiTinh.getSelectedItem());
+        kh.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
         tk.setTenTaiKhoan(txtTenDangNhap.getText());
         tk.setMatKhauMaHoa(hashPassword(txtMatKhau.getText()));
         boolean ok = controller.taoKhachHang(kh, tk);

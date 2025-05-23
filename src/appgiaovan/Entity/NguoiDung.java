@@ -19,7 +19,7 @@ public class NguoiDung {
     protected String Email;
     protected String CCCD;
     protected Date NgaySinh;
-    protected char GioiTinh;
+    protected String GioiTinh;
 
     public NguoiDung() {}
 
@@ -79,11 +79,11 @@ public class NguoiDung {
         this.NgaySinh = NgaySinh;
     }
 
-    public char getGioiTinh() {
+    public String getGioiTinh() {
         return GioiTinh;
     }
 
-    public void setGioiTinh(char GioiTinh) {
+    public void setGioiTinh(String GioiTinh) {
         this.GioiTinh = GioiTinh;
     }
 }
