@@ -17,11 +17,11 @@ import java.util.logging.Logger;
 
 public class NVGHLoc extends JPanel {
 
-    private JTextField idField = new JTextField("ID");
-    private JTextField customerField = new JTextField("Họ tên");
+    private JTextField idField = new JTextField();
+    private JTextField customerField = new JTextField();
     private JButton filterButton = new JButton("Lọc");
-    private JButton addButton = new JButton("Đã giao");
-    private JButton actionButton = new JButton("Giao thất bại");
+    private JButton dgButton = new JButton("Đã giao");
+    private JButton tbButton = new JButton("Giao thất bại");
     //private final JTextField idField = new JTextField("");
     private final JTextField nullField = new JTextField("");
     private final DonHangDAO donHangDAO  = new DonHangDAO();
@@ -32,21 +32,24 @@ public class NVGHLoc extends JPanel {
 
         // TextField - ID
         
-        idField.setPreferredSize(new Dimension(80, 30));
-        idField.setBounds(10, 10, 100, 30);
+        idField.setPreferredSize(new Dimension(80, 50));
+        idField.setBounds(10, 10, 100, 40);
+        idField.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
         add(idField);
 
         // ComboBox - Trạng thái
         String[] trangThai = { "Đang giao", "Đã giao", "Giao thất bại" };
         statusComboBox = new JComboBox<>(trangThai);
-        statusComboBox.setPreferredSize(new Dimension(120, 30));
-        statusComboBox.setBounds(130, 10, 120, 30);
+        statusComboBox.setPreferredSize(new Dimension(120, 50));
+        statusComboBox.setBounds(130, 10, 120, 40);
+        statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
 
         // TextField - Khách hàng
         
-        customerField.setPreferredSize(new Dimension(100, 30));
-        customerField.setBounds(270, 10, 130, 30);
+        customerField.setPreferredSize(new Dimension(100, 50));
+        customerField.setBounds(270, 10, 130, 40);
+        customerField.setBorder(BorderFactory.createTitledBorder("Họ tên"));
         add(customerField);
 
         // Button - Lọc (màu xanh đậm)
@@ -54,27 +57,27 @@ public class NVGHLoc extends JPanel {
         filterButton.setPreferredSize(new Dimension(60, 30));
         filterButton.setBackground(new Color(0, 136, 153));
         filterButton.setForeground(Color.WHITE);
-        RoundedButton roundedfilterBtn = new RoundedButton(filterButton, 20);
-        roundedfilterBtn.setBounds(420, 10, 70, 30);
-        add(roundedfilterBtn);
+        filterButton = new RoundedButton(filterButton, 20);
+        filterButton.setBounds(420, 10, 70, 30);
+        add(filterButton);
 
         // Button - Trạng thái đã giao (màu xanh lá)
         
-        addButton.setPreferredSize(new Dimension(200, 30));
-        addButton.setBackground(new Color(0, 123, 255));
-        addButton.setForeground(Color.WHITE);
-        RoundedButton roundedaddBtn = new RoundedButton(addButton, 20);
-        roundedaddBtn.setBounds(800, 10, 90, 30);
-        add(roundedaddBtn);
+        dgButton.setPreferredSize(new Dimension(200, 30));
+        dgButton.setBackground(new Color(0, 123, 255));
+        dgButton.setForeground(Color.WHITE);
+        dgButton = new RoundedButton(dgButton, 20);
+        dgButton.setBounds(800, 10, 90, 30);
+        add(dgButton);
 
         // JButton - Trạng thái giao thất bại (màu xanh dương)
         
-        actionButton.setPreferredSize(new Dimension(240, 30));
-        actionButton.setBackground(new Color(204, 0, 0));
-        actionButton.setForeground(Color.WHITE);
-        RoundedButton roundedactionBtn = new RoundedButton(actionButton, 20);
-        roundedactionBtn.setBounds(900, 10, 110, 30);
-        add(roundedactionBtn);
+        tbButton.setPreferredSize(new Dimension(240, 30));
+        tbButton.setBackground(new Color(204, 0, 0));
+        tbButton.setForeground(Color.WHITE);
+        tbButton = new RoundedButton(tbButton, 20);
+        tbButton.setBounds(900, 10, 110, 30);
+        add(tbButton);
     }
 
     public static void main(String[] args) {
@@ -94,6 +97,12 @@ public class NVGHLoc extends JPanel {
     }
     public JButton getfilterButton() {
         return this.filterButton;
+    }
+    public JButton getDGButton(){
+        return this.dgButton;
+    }
+    public JButton getTBButton(){
+        return this.tbButton;
     }
     public DonHang getDonHang() {
         DonHang dh = new DonHang();

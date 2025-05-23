@@ -54,7 +54,7 @@ public class NVGHMainGUI extends JFrame{
         contentPanel.add(new NVGHHomeGUI(),"Trang chủ");
         contentPanel.add(new ThongTinCaNhan(),"Thông tin cá nhân");
         contentPanel.add(new QuanLyDonHang(idtk),"Quản lý đơn hàng");
-        contentPanel.add(new NVGHBaoCao(), "Báo cáo");
+        contentPanel.add(new NVGHBaoCao(idtk), "Báo cáo");
         contentPanel.add(new NVGHHotro(), "Hỗ trợ");
         //contentPanel.add(new LOGIN(), "Đăng xuất");
 

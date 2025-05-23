@@ -21,7 +21,8 @@ public class DonHangDAO {
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection();
+                CallableStatement cs = conn.prepareCall(sql)) {
 //            if (donHang.getIdDonHang() != null) {
 //                cs.setInt(1, donHang.getIdDonHang());
 //            } else {
@@ -361,6 +362,19 @@ public class DonHangDAO {
             } else {
                 throw new SQLException("Không thể lấy giá trị từ sequence seq_DonHang.");
             }
+        }
+    }
+    
+    public void CapNhatDH(int iddh, String trangthai) throws SQLException, ClassNotFoundException{
+        String sql = "call CapNhatTrangThaiDonHang(?,?)";
+        try (Connection conn = ConnectionUtils.getMyConnection()) {
+            CallableStatement cs = conn.prepareCall(sql);
+            cs.setInt(1, iddh);
+            cs.setString(2, trangthai);
+            cs.execute();
+//            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

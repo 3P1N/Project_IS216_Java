@@ -71,12 +71,12 @@ public class LOGIN extends JFrame {
         loginPanel.add(logo);
 
         
-        userField.setBounds(30, 130, 290, 35);
+        userField.setBounds(30, 135, 290, 35);
         userField.setBorder(BorderFactory.createTitledBorder("Tên đăng nhập"));
         loginPanel.add(userField);
 
         
-        passField.setBounds(30, 180, 290, 35);
+        passField.setBounds(30, 185, 290, 35);
         passField.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
         loginPanel.add(passField);
 
