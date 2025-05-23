@@ -48,5 +48,9 @@ public class NhanVienGiaoHang extends NguoiDung {
     public void setDanhGia(int DanhGia) {
         this.DanhGia = DanhGia;
     }
+     @Override
+    public String toString() {
+        return HoTen; // Hiển thị tên kho trong combo box
+    }
 }
 

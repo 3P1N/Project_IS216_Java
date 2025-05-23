@@ -1,5 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Controller.QLGHController;
 import appgiaovan.Entity.*;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -14,9 +15,9 @@ import java.util.logging.Logger;
 
 public class PhanCongGiaoHangFrame extends JFrame {
 
-    private QLGHController controller = new QLGHController();
+    private QLDonHangController controller = new QLDonHangController();
     private TableDonHang listOrder;
-    private TopPanelTGH topPanel;
+    private TopPanelPCGH topPanel;
 
     public PhanCongGiaoHangFrame(Runnable onSuccess) throws SQLException, ClassNotFoundException {
         setTitle("Phân Công Giao Hàng");
@@ -33,7 +34,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
         mainPanel.setLayout(new BorderLayout());
 
         //thanh filter
-        topPanel = new TopPanelTGH();
+        topPanel = new TopPanelPCGH();
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Panel danh sách
@@ -44,43 +45,35 @@ public class PhanCongGiaoHangFrame extends JFrame {
         mainPanel.add(listOrder, BorderLayout.CENTER);
 
         add(mainPanel, BorderLayout.CENTER);
-        topPanel.getAddButton().addActionListener(e -> {
-            try {
-                ThemGoiHang(onSuccess);
-            } catch (SQLException ex) {
-                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+        topPanel.getBtnXacNhan().addActionListener(e -> SelectShipper(onSuccess));
+//        topPanel.getBtnSelectShipper().addActionListener(e -> {
+//            try {
+//                SelectShipper(onSuccess);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (Exception ex) {
+//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
         HienThiDSDonHangDangXuLy();
     }
 
-    public void ThemGoiHang(Runnable onSuccess) throws SQLException, ClassNotFoundException {
-        List<Integer> listDonHang = new ArrayList<>();
-        System.out.println("hello");
+    public void SelectShipper(Runnable onSuccess) {
+        NhanVienGiaoHang nv = topPanel.getNVGiaoHang();
+        List<Integer> listIdDonHang = new ArrayList<>();
+       
         for (int i = 0; i < listOrder.getRowCount(); i++) {
             Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
             if (Boolean.TRUE.equals(isChecked)) {
                 // Lấy thông tin dòng được chọn
                 Integer maDonHang = (Integer) listOrder.getValueAt(i, 1); // cột 1: mã ĐH
-                System.out.println(maDonHang);
-                listDonHang.add(maDonHang);
+                listIdDonHang.add(maDonHang);
 
             }
         }
-
-        GoiHang goiHang = new GoiHang();
-        KhoHang khoHang = topPanel.getKhoHangDen();
-        goiHang.setIdKhoHangDen(khoHang.getIdKho());
-        goiHang.setIdKhoHangGui(1);
-        goiHang.setIdNhanVien(1);
-        controller.ThemGoiHang(goiHang,listDonHang);
-        JOptionPane.showMessageDialog(this, "Thêm gói hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-        onSuccess.run();
-        this.dispose();
+        controller.PhanCongGiaoHang(nv,listIdDonHang);
     }
 
     public void HienThiDSDonHangDangXuLy() throws SQLException, ClassNotFoundException {
