@@ -5,8 +5,11 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.DAO.KhoHangDAO;
+import appgiaovan.DAO.NhanVienGiaoHangDAO;
 import appgiaovan.Entity.KhoHang;
+import appgiaovan.Entity.NhanVienGiaoHang;
 import appgiaovan.GUI.Components.RoundedButton;
+import appgiaovan.GUI.Components.RoundedComboBox;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
@@ -18,8 +21,9 @@ import java.util.logging.Logger;
 
 public class TopPanelPCGH extends JPanel {
 
-    private JButton btnSelectShipper = new JButton("Chọn nhân viên giao hàng");
-
+    private JButton btnXacNhan = new JButton("Xác nhận");
+    private JComboBox cbSelectShipper;
+    private NhanVienGiaoHangDAO nhanVienGiaoHangDAO = new NhanVienGiaoHangDAO();
     public TopPanelPCGH() throws SQLException, ClassNotFoundException {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
@@ -27,24 +31,31 @@ public class TopPanelPCGH extends JPanel {
         // TextField - ID
         
 
-        // TextField - Khách hàng
-        // Button - Lọc (màu xanh đậm)
-        // Button - Thêm mới (màu xanh lá)
-        btnSelectShipper.setPreferredSize(new Dimension(200, 30));
-        btnSelectShipper.setBackground(new Color(0, 153, 76));
-        btnSelectShipper.setForeground(Color.WHITE);
-        btnSelectShipper = new RoundedButton(btnSelectShipper, 20);
-        add(btnSelectShipper);
+        
+        List<NhanVienGiaoHang> dsShipper = nhanVienGiaoHangDAO.LayDSNhanVienGiaoHang();
+        cbSelectShipper = new RoundedComboBox();
+        for(NhanVienGiaoHang nv : dsShipper){
+            cbSelectShipper.addItem(nv);
+        }
+        cbSelectShipper.setPreferredSize(new Dimension(160, 40));
+        cbSelectShipper.setBorder(BorderFactory.createTitledBorder("Chọn nhân viên giao hàng"));
+        add(cbSelectShipper);
+        btnXacNhan.setPreferredSize(new Dimension(80, 30));
+        btnXacNhan.setBackground(new Color(0, 153, 76));
+        btnXacNhan.setForeground(Color.WHITE);
+        btnXacNhan = new RoundedButton(btnXacNhan, 20);
+        add(btnXacNhan);
 
     }
 
  
 
-    public JButton getBtnSelectShipper() {
-        System.out.println("hello world");
-        return this.btnSelectShipper;
+    public JButton getBtnXacNhan() {
+        return this.btnXacNhan;
     }
-
+    public NhanVienGiaoHang getNVGiaoHang(){
+        return (NhanVienGiaoHang) cbSelectShipper.getSelectedItem();
+    }
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
