@@ -161,17 +161,8 @@ public class RegisterGUI extends JFrame{
                 String SDT=txtSDT.getText().trim();
                 Date ngaySinh = csdate.getDate();
                 // Lấy giới tính được chọn từ ComboBox
-                String selectedGender = (String) cbgioiTinh.getSelectedItem();
-                // Chuyển thành ký tự 'M' hoặc 'F'
-                char gioiTinh;
-                if ("Nam".equals(selectedGender)) {
-                    gioiTinh = 'M';
-                } 
-                else {
-                    gioiTinh = 'F';
-                } 
+                String gioiTinh = (String) cbgioiTinh.getSelectedItem();
     
-
                 // Tạo đối tượng KHACHHANG
                 KhachHang kh = new KhachHang();
                 kh.setHoTen(hoTen);

@@ -91,14 +91,8 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblGioiTinh.setBounds(20, 320, 100, 25);
         infoPanel.add(lblGioiTinh);
         
-        String gioiTinh=new String();
-        if(kh.getGioiTinh()=='N'){
-            gioiTinh="Nam";
-        }
-        else {
-            gioiTinh="Nữ";
-        }
-        JTextField txtGioiTinh = new JTextField(gioiTinh);
+        
+        JTextField txtGioiTinh = new JTextField(kh.getGioiTinh());
         txtGioiTinh.setBounds(130, 320, 400, 30);
         infoPanel.add(txtGioiTinh);
         // Nút cập nhật

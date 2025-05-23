@@ -4,7 +4,6 @@ import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
 
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,13 +15,11 @@ import java.util.*;
 import oracle.jdbc.OracleTypes;
 
 public class DonHangDAO {
-    
-    
-    
+
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
 //            if (donHang.getIdDonHang() != null) {
 //                cs.setInt(1, donHang.getIdDonHang());
 //            } else {
@@ -61,7 +58,7 @@ public class DonHangDAO {
     public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement stmt = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement stmt = conn.prepareCall(sql)) {
 
             // 1. ID đơn hàng (bắt buộc)
             stmt.setInt(1, donHang.getIdDonHang());
@@ -200,8 +197,7 @@ public class DonHangDAO {
 
         sql.append(" ORDER BY ID_DonHang");
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
                 stmt.setObject(i + 1, params.get(i));
             }
@@ -238,9 +234,7 @@ public class DonHangDAO {
         List<DonHang> list = new ArrayList<>();
 
         String sql = "SELECT * FROM DonHang ORDER BY ID_DONHANG desc";
-        try (Connection conn = ConnectionUtils.getMyConnection(); 
-                PreparedStatement stmt = conn.prepareStatement(sql); 
-                ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 DonHang dh = new DonHang();
@@ -271,6 +265,7 @@ public class DonHangDAO {
 
         return list;
     }
+
     public List<DonHang> layDSDonHangCuaNVGH(int idTaiKhoan) throws SQLException, ClassNotFoundException {
         List<DonHang> danhSachDonHang = new ArrayList<>();
 
@@ -306,10 +301,9 @@ public class DonHangDAO {
         return danhSachDonHang;
     }
 
-
     public DonHang LayThongTinDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
         String sql = "Select * from DonHang where id_donhang =" + idDonHang;
-       Connection conn = ConnectionUtils.getMyConnection();
+        Connection conn = ConnectionUtils.getMyConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery();
         rs.next();
@@ -375,8 +369,7 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-               PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 String condition = rs.getString(1); // ví dụ: "LOAIGIAOHANG" IN ('Nhanh', 'Tiết kiệm', 'Hỏa tốc')
                 int start = condition.indexOf('(');
@@ -393,8 +386,8 @@ public class DonHangDAO {
 
         return result.toArray(String[]::new);
     }
-    
-     public String[] DSLoaiHang() throws Exception {
+
+    public String[] DSLoaiHang() throws Exception {
         List<String> result = new ArrayList<>();
         String sql = """
         SELECT search_condition
@@ -404,10 +397,9 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
-                String condition = rs.getString(1); 
+                String condition = rs.getString(1);
                 int start = condition.indexOf('(');
                 int end = condition.lastIndexOf(')');
                 if (start >= 0 && end > start) {
@@ -424,7 +416,7 @@ public class DonHangDAO {
     }
 
     public String[] DSTrangThai() throws SQLException, ClassNotFoundException {
-            List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         String sql = """
         SELECT search_condition
         FROM all_constraints
@@ -433,10 +425,9 @@ public class DonHangDAO {
           AND constraint_type = 'C'
     """;
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-               PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
-                String condition = rs.getString(1); 
+                String condition = rs.getString(1);
                 int start = condition.indexOf('(');
                 int end = condition.lastIndexOf(')');
                 if (start >= 0 && end > start) {
@@ -451,14 +442,56 @@ public class DonHangDAO {
 
         return result.toArray(String[]::new);
     }
-<<<<<<< HEAD
-    
-    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang){
-        
+
+
+    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang) throws SQLException, ClassNotFoundException {
+        if (listIdDonHang == null || listIdDonHang.isEmpty()) {
+            return;
+        }
+
+        StringBuilder sql = new StringBuilder("UPDATE DonHang SET ID_NVGiaoHang = ? WHERE ID_DonHang IN (");
+        for (int i = 0; i < listIdDonHang.size(); i++) {
+            sql.append("?");
+            if (i < listIdDonHang.size() - 1) {
+                sql.append(",");
+            }
+        }
+        sql.append(")");
+
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+
+            // Set ID của nhân viên giao hàng
+            stmt.setInt(1, nv.getID_NguoiDung());
+
+            // Set các ID đơn hàng
+            for (int i = 0; i < listIdDonHang.size(); i++) {
+                stmt.setInt(i + 2, listIdDonHang.get(i)); // +2 vì vị trí đầu tiên là ID_NVGiaoHang
+            }
+
+            int affectedRows = stmt.executeUpdate();
+            System.out.println("Đã phân công " + affectedRows + " đơn hàng cho shipper ID: " + nv.getID_NguoiDung());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
-=======
 
-    
+    public void HuyDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
+    String sql = "UPDATE DONHANG SET TRANGTHAI = 'Hủy' WHERE id_donhang = ?";
 
->>>>>>> ff04fbfb18a8af6c2b18cf3f86d56fdfc0dd9f2a
+    try (Connection conn = ConnectionUtils.getMyConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, ID_DonHang);
+        int rowsUpdated = stmt.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            System.out.println("Đơn hàng đã được hủy thành công.");
+        } else {
+            System.out.println("Không tìm thấy đơn hàng với ID: " + ID_DonHang);
+        }
+    }
+}
+
 }

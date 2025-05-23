@@ -39,13 +39,8 @@ public class NhanVienGiaoHangDAO {
                 nv.setEmail(rs.getString("Email"));
                 nv.setCCCD(rs.getString("CCCD"));
                 nv.setNgaySinh(rs.getDate("NgaySinh"));
+                nv.setGioiTinh(rs.getString("GioiTinh"));
                 
-                if("Nam".equals(rs.getString("GioiTinh"))){
-                nv.setGioiTinh('M');
-            }
-                else{
-                    nv.setGioiTinh('F');
-                }
                 nv.setDiaChi(rs.getString("DiaChi"));
                 nv.setID_Kho(rs.getInt("ID_Kho"));
                 nv.setID_QuanLy(rs.getInt("ID_QuanLy"));

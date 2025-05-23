@@ -217,4 +217,17 @@ public class KhachHangDAO {
         System.out.println(kh.layMaKhachHangMoi());
     }
 
+    public int layID_KhachHang(int ID_TaiKhoan) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_KhachHang FROM KhachHang WHERE ID_TaiKhoan=?";
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, ID_TaiKhoan);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int ID_KhachHang=rs.getInt("ID_KhachHang");
+                    return ID_KhachHang;
+                }
+            }
+        }
+        return -1;
+    }
 }
