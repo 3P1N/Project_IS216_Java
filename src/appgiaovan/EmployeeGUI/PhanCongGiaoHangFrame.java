@@ -44,7 +44,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
         mainPanel.add(listOrder, BorderLayout.CENTER);
 
         add(mainPanel, BorderLayout.CENTER);
-        
+
         topPanel.getBtnXacNhan().addActionListener(e -> {
             try {
                 SelectShipper(onSuccess);
@@ -62,7 +62,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
     public void SelectShipper(Runnable onSuccess) throws SQLException, ClassNotFoundException {
         NhanVienGiaoHang nv = topPanel.getNVGiaoHang();
         List<Integer> listIdDonHang = new ArrayList<>();
-       
+
         for (int i = 0; i < listOrder.getRowCount(); i++) {
             Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
             if (Boolean.TRUE.equals(isChecked)) {
@@ -72,7 +72,10 @@ public class PhanCongGiaoHangFrame extends JFrame {
 
             }
         }
-        controller.PhanCongGiaoHang(nv,listIdDonHang);
+        controller.PhanCongGiaoHang(nv, listIdDonHang);
+        JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+
+        HienThiDSDonHangDangXuLy();
     }
 
     public void HienThiDSDonHangDangXuLy() throws SQLException, ClassNotFoundException {
