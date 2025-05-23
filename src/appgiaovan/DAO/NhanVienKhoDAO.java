@@ -24,7 +24,7 @@ public class NhanVienKhoDAO {
         
     }
     
-    public NhanVienKho layThongTinNVKho(int id) throws SQLException, ClassNotFoundException{
+    public NhanVienKho layThongTinNhanVienKho(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM NhanVienKho WHERE ID_NhanVien = ?";
         try (Connection conn = ConnectionUtils.getMyConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)){
@@ -65,7 +65,7 @@ public class NhanVienKhoDAO {
         }
     }
     
-    public boolean themNVKho(NhanVienKho nv, TaiKhoan tk) throws SQLException, ClassNotFoundException {
+    public boolean themNhanVienKho(NhanVienKho nv, TaiKhoan tk) throws SQLException, ClassNotFoundException {
         String sql = "{ call ThemNhanVienKho(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
         System.out.println(tk.getTenTaiKhoan());
         try (Connection conn = ConnectionUtils.getMyConnection(); 
@@ -96,4 +96,16 @@ public class NhanVienKhoDAO {
         }
         return true;
     }
+    
+    public int layMaNhanVienKhoMoi() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT COALESCE(MAX(ID_NhanVien),0) AS maxId FROM NhanVienKho";
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+                Statement stmt = conn.createStatement(); 
+                ResultSet rs = stmt.executeQuery(sql)) {
+            rs.next();
+            return rs.getInt("maxId") + 1;
+        }
+    }
 }
+
+
