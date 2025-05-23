@@ -2,6 +2,7 @@ package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DonHang;
+import appgiaovan.Entity.NhanVienGiaoHang;
 
 
 import java.sql.CallableStatement;
@@ -450,5 +451,8 @@ public class DonHangDAO {
 
         return result.toArray(String[]::new);
     }
-
+    
+    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang){
+        
+    }
 }

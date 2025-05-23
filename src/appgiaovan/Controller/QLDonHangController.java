@@ -10,6 +10,7 @@ import appgiaovan.DAO.TaiKhoanDAO;
 
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
+import appgiaovan.Entity.NhanVienGiaoHang;
 import appgiaovan.GUI.LOGIN;
 import java.sql.SQLException;
 import java.util.List;
@@ -87,8 +88,14 @@ public class QLDonHangController {
         //String us = new LOGIN().getuser();
         return new DonHangDAO().layDSDonHangCuaNVGH(idtk);
     }
+    
+    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang){
+        donHangDAO.PhanCongGiaoHang(nv,listIdDonHang);
+    }
+    
     public void main(String[] args ){
         //System.out.print(new TaiKhoanDAO().layIDTaiKhoan());
 
     }
+    
 }
