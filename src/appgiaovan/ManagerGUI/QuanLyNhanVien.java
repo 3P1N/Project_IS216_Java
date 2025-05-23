@@ -24,7 +24,7 @@ public class QuanLyNhanVien extends JFrame {
 
     private void initUI() {
         // Panel Menu
-        ManagerSidebar sidebar = new ManagerSidebar();
+        ManagerSidebar sidebar = new ManagerSidebar(this);
         add(sidebar, BorderLayout.WEST);
 
         // Main Panel

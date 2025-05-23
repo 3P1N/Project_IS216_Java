@@ -1,10 +1,9 @@
 package appgiaovan.ManagerGUI;
+
 import appgiaovan.Controller.QLKHController;
-import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.Entity.KhachHang;
-import java.awt.BorderLayout;
+import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,7 +23,15 @@ public class GUI_QLKH extends JFrame {
     }
 
     private void initUI() throws ClassNotFoundException {
-        // filter panel
+        // Tạo sidebar và truyền this để xử lý bên trong
+        ManagerSidebar sidebar = new ManagerSidebar(this);
+        add(sidebar, BorderLayout.WEST);
+
+        // Panel chứa nội dung khách hàng
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        add(contentPanel, BorderLayout.CENTER);
+
+        // Top filter panel
         JPanel pnlTop = new JPanel();
         txtSearch = new JTextField(20);
         JButton btnSearch = new JButton("Tìm kiếm");
@@ -37,60 +44,70 @@ public class GUI_QLKH extends JFrame {
         });
         pnlTop.add(txtSearch);
         pnlTop.add(btnSearch);
-        add(pnlTop, BorderLayout.NORTH);
+        contentPanel.add(pnlTop, BorderLayout.NORTH);
 
-        // table panel
+        // Table panel
         tblKhachHang = new JTable();
-        add(new JScrollPane(tblKhachHang), BorderLayout.CENTER);
+        contentPanel.add(new JScrollPane(tblKhachHang), BorderLayout.CENTER);
 
-        // sidebar actions
-        JButton btnAdd = new JButton("Thêm");
-        btnAdd.addActionListener(e -> {
-            FormThemKH form = null;
-            try {
-                form = new FormThemKH(this);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            form.setVisible(true);
-            try {
-                hienThiDanhSachKhachHang();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        
-        
-        JButton btnEdit = new JButton("Sửa");
-        btnEdit.addActionListener(e -> {
-            try {
-                xuLiLayThongTinKhachHang();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        JButton btnDelete = new JButton("Xóa");
-        btnDelete.addActionListener(e -> {
-            try {
-                xuLiXoaKhachHang();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-
+        // Bottom buttons
         JPanel pnlButtons = new JPanel();
+        JButton btnAdd = new JButton("Thêm");
+        btnAdd.addActionListener(e -> onAdd());
+        JButton btnEdit = new JButton("Sửa");
+        btnEdit.addActionListener(e -> onEdit());
+        JButton btnDelete = new JButton("Xóa");
+        btnDelete.addActionListener(e -> onDelete());
         pnlButtons.add(btnAdd);
         pnlButtons.add(btnEdit);
         pnlButtons.add(btnDelete);
-        add(pnlButtons, BorderLayout.SOUTH);
+        contentPanel.add(pnlButtons, BorderLayout.SOUTH);
 
-        // initial load
+        // Load dữ liệu lần đầu
         hienThiDanhSachKhachHang();
+    }
+
+    private void onAdd() {
+        try {
+            FormThemKH form = new FormThemKH(this);
+            form.setVisible(true);
+            hienThiDanhSachKhachHang();
+        } catch (Exception ex) {
+            Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void onEdit() {
+        try {
+            int row = tblKhachHang.getSelectedRow();
+            if (row < 0) return;
+            int id = (int) tblKhachHang.getValueAt(row, 0);
+            FormSuaKH form = new FormSuaKH(this, controller.layThongTinKhachHang(id));
+            form.setVisible(true);
+            hienThiDanhSachKhachHang();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void onDelete() {
+        try {
+            int row = tblKhachHang.getSelectedRow();
+            if (row < 0) return;
+            int id = (int) tblKhachHang.getValueAt(row, 0);
+            int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                controller.xoaKhachHang(id);
+                hienThiDanhSachKhachHang();
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void hienThiDanhSachKhachHang() throws ClassNotFoundException {
         List<KhachHang> list = controller.layTatCaKhachHang();
-        // convert to table model and set
         tblKhachHang.setModel(new KhachHangTableModel(list));
     }
 
@@ -100,27 +117,7 @@ public class GUI_QLKH extends JFrame {
         tblKhachHang.setModel(new KhachHangTableModel(list));
     }
 
-    public void xuLiLayThongTinKhachHang() throws ClassNotFoundException {
-        int row = tblKhachHang.getSelectedRow();
-        if (row < 0) return;
-        int id = (int) tblKhachHang.getValueAt(row, 0); // column Mã KH
-        FormSuaKH form = new FormSuaKH(this, controller.layThongTinKhachHang(id));
-        form.setVisible(true);
-        hienThiDanhSachKhachHang();
-    }
-
-    public void xuLiXoaKhachHang() throws ClassNotFoundException {
-        int row = tblKhachHang.getSelectedRow();
-        if (row < 0) return;
-        int id = (int) tblKhachHang.getValueAt(row, 0);
-        int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
-        if (choice == JOptionPane.YES_OPTION) {
-            controller.xoaKhachHang(id);
-            hienThiDanhSachKhachHang();
-            JOptionPane.showMessageDialog(this, "Xóa thành công");
-        }
-    }
-        public static void main(String[] args) {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

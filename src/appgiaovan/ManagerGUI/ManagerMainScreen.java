@@ -40,7 +40,9 @@ public class ManagerMainScreen extends JFrame {
         setLayout(new BorderLayout());
 
         // Sidebar trái
-        ManagerSidebar sidebar = new ManagerSidebar();
+
+        ManagerSidebar sidebar = new ManagerSidebar(this);
+        
 
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
