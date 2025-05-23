@@ -54,7 +54,7 @@ public class CustomerGUI extends JFrame {
         contentPanel.add(new KhachHangMainPanel(),"Trang chủ");
         contentPanel.add(new KHTaoDonHangPanel(),"Tạo đơn hàng");
         contentPanel.add(new TraCuuDonHangPanel(),"Tra cứu đơn hàng");
-        contentPanel.add(new ThongTinCaNhanPanel(),"Thông tin cá nhân");
+        contentPanel.add(new ThongTinCaNhanPanel(1),"Thông tin cá nhân");
         add(contentPanel,BorderLayout.CENTER);
         sidebar.addMenuClickListener((selectedName) -> {
             cardLayout.show(contentPanel, selectedName);

@@ -72,8 +72,14 @@ public class TraCuuDonHangPanel extends JPanel {
                 System.out.println(rowData);
                 
 
-                // Mở JFrame chi tiết
-                new ThongTinDonHang(rowData).setVisible(true);
+                try {
+                    // Mở JFrame chi tiết
+                    new ThongTinDonHang(rowData).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     });
