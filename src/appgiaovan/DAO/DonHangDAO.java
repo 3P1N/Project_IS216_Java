@@ -451,8 +451,14 @@ public class DonHangDAO {
 
         return result.toArray(String[]::new);
     }
+<<<<<<< HEAD
     
     public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang){
         
     }
+=======
+
+    
+
+>>>>>>> ff04fbfb18a8af6c2b18cf3f86d56fdfc0dd9f2a
 }

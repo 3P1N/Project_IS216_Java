@@ -17,7 +17,7 @@ import java.awt.*;
 public class ThongTinCaNhanPanel extends JPanel {
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
-    public ThongTinCaNhanPanel(){
+    public ThongTinCaNhanPanel(int ID_KhachHang){
         setLayout(new BorderLayout());
         // Sidebar trái
         CustomerSidebar sidebar = new CustomerSidebar();
@@ -113,7 +113,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             frame.setLocationRelativeTo(null);
             frame.setLayout(new BorderLayout());
 
-            frame.add(new ThongTinCaNhanPanel(), BorderLayout.CENTER);
+            frame.add(new ThongTinCaNhanPanel(1), BorderLayout.CENTER);
             frame.setVisible(true);
         });
     }
