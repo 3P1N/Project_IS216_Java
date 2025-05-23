@@ -65,5 +65,35 @@ public class NhanVienKhoDAO {
         }
     }
     
-    
+    public boolean themNVKho(NhanVienKho nv, TaiKhoan tk) throws SQLException, ClassNotFoundException {
+        String sql = "{ call ThemNhanVienKho(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+        System.out.println(tk.getTenTaiKhoan());
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+            CallableStatement cs = conn.prepareCall(sql)) 
+        {
+            cs.setString(1, tk.getTenTaiKhoan());
+            cs.setString(2, tk.getMatKhauMaHoa());
+            cs.setString(3, nv.getHoTen());
+            cs.setString(4, nv.getSDT());
+            cs.setString(5, nv.getEmail());
+            cs.setString(6, nv.getCCCD());
+            java.util.Date utilDate = nv.getNgaySinh();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String dateStr = sdf.format(utilDate);
+            System.out.println(dateStr);
+            cs.setDate(7, Date.valueOf(dateStr));
+            cs.setString(8, nv.getGioiTinh());
+            cs.setString(9, nv.getDiaChi());
+            cs.setInt(10, nv.getID_Kho());
+            cs.setInt(11, nv.getID_QuanLy());
+            cs.setDouble(12, nv.getMucLuong());
+            cs.execute();
+        } catch (SQLException e) {
+
+            System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }
