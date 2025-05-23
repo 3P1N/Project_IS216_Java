@@ -155,7 +155,7 @@ public class LOGIN extends JFrame {
         if ("KH".equals(tk.getVaiTro())) {
             // Chuyển tới giao diện khách hàng
             new TaoTokenController().TaoToken(username);
-            new CustomerGUI().setVisible(true);
+            new CustomerGUI(tk.getIdTaiKhoan()).setVisible(true);
             setVisible(false);
         } else if ("QL".equals(tk.getVaiTro())) {
             // Chuyển tới giao diện quản lý

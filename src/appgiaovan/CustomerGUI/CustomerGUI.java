@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package appgiaovan.CustomerGUI;
+import appgiaovan.Controller.DangKyController;
 import appgiaovan.CustomerGUI.KHTaoDonHangPanel;
 import appgiaovan.Entity.TaiKhoan;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -33,10 +34,11 @@ import javax.swing.JPanel;
  * @author nhant
  */
 public class CustomerGUI extends JFrame {
-
+    private DangKyController controller=new DangKyController();
     private CardLayout cardLayout;
     private JPanel contentPanel;
-    public CustomerGUI(int ID_KhachHang) throws SQLException, ClassNotFoundException{
+    public CustomerGUI(int ID_TaiKhoan) throws SQLException, ClassNotFoundException{
+        int ID_KhachHang=controller.layID_KhachHang(ID_TaiKhoan);
         setTitle("Giao diện chính");
         setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +64,14 @@ public class CustomerGUI extends JFrame {
         });
         
     }
-    
+    public int layID_KhachHang(int ID_TaiKhoan) throws SQLException{
+        try {
+            return controller.layID_KhachHang(ID_TaiKhoan);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
@@ -72,7 +81,7 @@ public class CustomerGUI extends JFrame {
 
         SwingUtilities.invokeLater(() -> {
             try {
-                new CustomerGUI(8).setVisible(true);
+                new CustomerGUI(11).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

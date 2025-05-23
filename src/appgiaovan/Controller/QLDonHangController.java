@@ -88,18 +88,17 @@ public class QLDonHangController {
         //String us = new LOGIN().getuser();
         return new DonHangDAO().layDSDonHangCuaNVGH(idtk);
     }
-<<<<<<< HEAD
+
     
     public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang){
         donHangDAO.PhanCongGiaoHang(nv,listIdDonHang);
     }
-    
-=======
+
     public DonHang layThongTinDH(int ID_DonHang) throws SQLException, ClassNotFoundException{
         
         return donHangDAO.LayThongTinDonHang(ID_DonHang);
     }
->>>>>>> ff04fbfb18a8af6c2b18cf3f86d56fdfc0dd9f2a
+
     public void main(String[] args ){
         //System.out.print(new TaiKhoanDAO().layIDTaiKhoan());
 

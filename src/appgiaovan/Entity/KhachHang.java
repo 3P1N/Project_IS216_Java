@@ -11,4 +11,7 @@ package appgiaovan.Entity;
  */
 public class KhachHang extends NguoiDung {
     public KhachHang() {}
+    static public void main(String[] args){
+        
+    }
 }
