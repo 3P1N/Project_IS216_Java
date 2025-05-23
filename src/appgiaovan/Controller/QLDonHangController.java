@@ -90,9 +90,10 @@ public class QLDonHangController {
     }
 
     
-    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang){
+    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang) throws SQLException, ClassNotFoundException{
         donHangDAO.PhanCongGiaoHang(nv,listIdDonHang);
     }
+
 
     public DonHang layThongTinDH(int ID_DonHang) throws SQLException, ClassNotFoundException{
         
