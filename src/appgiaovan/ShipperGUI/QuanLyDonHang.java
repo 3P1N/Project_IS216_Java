@@ -1,6 +1,8 @@
 package appgiaovan.ShipperGUI;
 
 import appgiaovan.Controller.QLDonHangController;
+import appgiaovan.EmployeeGUI.QuanLyDonHangPanel;
+import appgiaovan.EmployeeGUI.TableDonHang;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.TableList;
 import appgiaovan.GUI.Components.MenuBar;
@@ -21,7 +23,10 @@ import java.util.logging.Logger;
 
 public class QuanLyDonHang extends JPanel {
 
-    public QuanLyDonHang() throws SQLException, ClassNotFoundException {
+    private NVGHLoc locds = new NVGHLoc();
+    private TableDonHang listOrder ;
+    private final QLDonHangController controller = new QLDonHangController();
+    public QuanLyDonHang(int idtk) throws SQLException, ClassNotFoundException {
         /*setTitle("Quản Lý Đơn Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -55,7 +60,7 @@ public class QuanLyDonHang extends JPanel {
 
         // Chuyển List<DonHang> thành Object[][]
         QLDonHangController dsdh = new QLDonHangController();
-        List<DonHang> ds = dsdh.HienThiDSDHChoNVGH();
+        List<DonHang> ds = dsdh.HienThiDSDHChoNVGH(idtk);
         Object[][] data = new Object[ds.size()][columns.length];
         for (int i = 0; i < ds.size(); i++) {
             DonHang dh = ds.get(i);
@@ -71,30 +76,79 @@ public class QuanLyDonHang extends JPanel {
             data[i][9] = dh.getTenNguoiGui();
             data[i][10] = dh.getIdKhoTiepNhan();
         }
-        TableList listOrder = new TableList(columns, data);
+        listOrder = new TableDonHang(columns, data);
         centerPanel.add(listOrder, BorderLayout.CENTER);
-
+        
         // 3) Gắn centerPanel vào mainPanel
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         // Thêm mainPanel vào JFrame
         add(mainPanel, BorderLayout.CENTER);
-    }
+        
+        //Gán sự kiện tìm kiếm đơn hàng
+        locds.getfilterButton().addActionListener(e -> {
+            try {
+                DonHang dh = locds.getDonHang();
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                UIManager.setLookAndFeel(new FlatLightLaf());
-            } catch (Exception ex) {
-                System.err.println("Không thể cài đặt FlatLaf");
-            }
-            try {
-                new QuanLyDonHang().setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
+                HienThiDanhSach(dh);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+
+//        topPanel.getupdateButton().addActionListener(e -> {
+//            try {
+//                XuLySuaDonHang();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (Exception ex) {
+//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+
+        // Hiển thị danh sách ngay khi mở panel
+        HienThiDanhSach();
     }
+    public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {
+        List<DonHang> dsDonHang = controller.LayDSDonHang();
+        String[] columns = DonHang.getTableHeaders();
+        Object[][] data = new Object[dsDonHang.size()][columns.length];
+
+        for (int i = 0; i < dsDonHang.size(); i++) {
+            data[i] = dsDonHang.get(i).toTableRow();
+        }
+
+        listOrder.setTableData(data);
+    }
+
+    public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
+        List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
+        String[] columns = DonHang.getTableHeaders();
+        Object[][] data = new Object[dsDonHang.size()][columns.length];
+
+        for (int i = 0; i < dsDonHang.size(); i++) {
+            data[i] = dsDonHang.get(i).toTableRow();
+        }
+
+        listOrder.setTableDataDonHang(dsDonHang);
+    }
+
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> {
+//            try {
+//                UIManager.setLookAndFeel(new FlatLightLaf());
+//            } catch (Exception ex) {
+//                System.err.println("Không thể cài đặt FlatLaf");
+//            }
+//            try {
+//                new QuanLyDonHang().setVisible(true);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+//    }
 }
