@@ -1,4 +1,5 @@
 package appgiaovan.ManagerGUI;
+
 import appgiaovan.Controller.QLKHController;
 import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.Entity.KhachHang;
@@ -10,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GUI_QLKH extends JPanel {
+
     private QLKHController controller;
     private JTable tblKhachHang;
     private JTextField txtSearch;
@@ -50,7 +52,7 @@ public class GUI_QLKH extends JPanel {
         btnAdd.addActionListener(e -> {
             FormThemKH form = null;
             try {
-                form = new FormThemKH(this);
+                form = new FormThemKH();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -61,8 +63,7 @@ public class GUI_QLKH extends JPanel {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
-        
+
         JButton btnEdit = new JButton("Sửa");
         btnEdit.addActionListener(e -> {
             try {
@@ -87,7 +88,7 @@ public class GUI_QLKH extends JPanel {
         add(pnlButtons, BorderLayout.SOUTH);
 
         // initial load
-//        hienThiDanhSachKhachHang();
+        hienThiDanhSachKhachHang();
     }
 
     public void hienThiDanhSachKhachHang() throws ClassNotFoundException {
@@ -104,7 +105,9 @@ public class GUI_QLKH extends JPanel {
 
     public void xuLiLayThongTinKhachHang() throws ClassNotFoundException {
         int row = tblKhachHang.getSelectedRow();
-        if (row < 0) return;
+        if (row < 0) {
+            return;
+        }
         int id = (int) tblKhachHang.getValueAt(row, 1); // column Mã KH
 //        FormSuaKH form = new FormSuaKH(, controller.layThongTinKhachHang(id));
 //        form.setVisible(true);
@@ -113,7 +116,9 @@ public class GUI_QLKH extends JPanel {
 
     public void xuLiXoaKhachHang() throws ClassNotFoundException {
         int row = tblKhachHang.getSelectedRow();
-        if (row < 0) return;
+        if (row < 0) {
+            return;
+        }
         int id = (int) tblKhachHang.getValueAt(row, 1);
         int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
@@ -122,16 +127,28 @@ public class GUI_QLKH extends JPanel {
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         }
     }
-        public static void main(String[] args) {
+
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
+
             try {
-                new GUI_QLKH().setVisible(true);
+                JFrame frame = new JFrame("Quản Lý Khách Hàng");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1300, 600);
+                frame.setLocationRelativeTo(null); // Center the frame
+
+                GUI_QLKH panel = new GUI_QLKH();
+                frame.setContentPane(panel);
+                
+                frame.setVisible(true);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
+
 }

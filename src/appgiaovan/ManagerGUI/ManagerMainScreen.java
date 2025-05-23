@@ -15,22 +15,21 @@ import appgiaovan.GUI.Components.MenuBar;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.*;
 import org.jfree.chart.renderer.category.*;
 import org.jfree.data.category.*;
 
-
-
 public class ManagerMainScreen extends JPanel {
+
     public ManagerMainScreen() {
-        
+
         setLayout(new BorderLayout());
 
         // Sidebar trái
-      
-
         // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -45,7 +44,7 @@ public class ManagerMainScreen extends JPanel {
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
- // Biểu đồ nâng cấp sử dụng JFreeChart với custom renderer
+        // Biểu đồ nâng cấp sử dụng JFreeChart với custom renderer
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         // Dữ liệu mẫu
         dataset.addValue(0, "Doanh thu", "01/05");
@@ -94,20 +93,24 @@ public class ManagerMainScreen extends JPanel {
         chartPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.add(chartPanel, BorderLayout.CENTER);
 
-
         // Thêm vào JFrame
-       
         add(mainPanel, BorderLayout.CENTER);
     }
-    
+
     public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
-        }
         SwingUtilities.invokeLater(() -> {
-            new ManagerMainScreen().setVisible(true);
+            try {
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception ignored) {
+            }
+
+            JFrame frame = new JFrame("Quản Lý Khách Hàng");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1300, 600);
+            frame.setLocationRelativeTo(null); // Center the frame
+            ManagerMainScreen panel = new ManagerMainScreen();
+            frame.setContentPane(panel);
+            frame.setVisible(true);
         });
     }
 }
