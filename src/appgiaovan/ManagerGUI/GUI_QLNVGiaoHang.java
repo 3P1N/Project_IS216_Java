@@ -4,10 +4,12 @@
  */
 package appgiaovan.ManagerGUI;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author pc
  */
-public class GUI_QLNVGiaoHang {
+public class GUI_QLNVGiaoHang extends JPanel {
     
 }
