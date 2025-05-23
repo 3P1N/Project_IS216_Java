@@ -25,7 +25,7 @@ public class XemBaoCao extends JFrame {
         try {
             //Panel Menu
             
-            ManagerSidebar sidebar = new ManagerSidebar(this);
+            ManagerSidebar sidebar = new ManagerSidebar();
             
             List<String> items = Arrays.asList("Báo cáo", "Quản lý đơn hàng", "Quản lý gói hàng", "Đăng xuất");
             List<String> icons = Arrays.asList("report.png", "order.png", "package.png", "logout.png");
