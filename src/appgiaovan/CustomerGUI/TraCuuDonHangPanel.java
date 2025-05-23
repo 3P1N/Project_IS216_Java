@@ -18,6 +18,8 @@ import appgiaovan.EmployeeGUI.QuanLyDonHangPanel;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.TableList;
 import appgiaovan.GUI.Components.TimeWeather;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,6 +59,25 @@ public class TraCuuDonHangPanel extends JPanel {
 
         // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach();
+        listOrder.getTable().addMouseListener(new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2 && listOrder.getTable().getSelectedRow() != -1) {
+                int selectedRow = listOrder.getTable().getSelectedRow();
+
+                // Lấy dữ liệu từ dòng được chọn
+                int rowData = 0;
+                
+                rowData = (int) listOrder.getTable().getValueAt(selectedRow, 1);
+                // Chuyển dữ liệu sang đối tượng DonHang (giả sử bạn có hàm khởi tạo phù hợp)
+                System.out.println(rowData);
+                
+
+                // Mở JFrame chi tiết
+                new ThongTinDonHang(rowData).setVisible(true);
+            }
+        }
+    });
+
         
     }
   public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {

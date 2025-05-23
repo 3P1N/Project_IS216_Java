@@ -87,6 +87,10 @@ public class QLDonHangController {
         //String us = new LOGIN().getuser();
         return new DonHangDAO().layDSDonHangCuaNVGH(new TaiKhoanDAO().layIDTaiKhoan());
     }
+    public DonHang layThongTinDH(int ID_DonHang) throws SQLException, ClassNotFoundException{
+        
+        return donHangDAO.LayThongTinDonHang(ID_DonHang);
+    }
     public void main(String[] args ){
         //System.out.print(new TaiKhoanDAO().layIDTaiKhoan());
 

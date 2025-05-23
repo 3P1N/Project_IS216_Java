@@ -8,17 +8,23 @@ package appgiaovan.CustomerGUI;
  *
  * @author nhant
  */
+import appgiaovan.Controller.QLDonHangController;
+import appgiaovan.DAO.DanhGiaDAO;
 import appgiaovan.Entity.DanhGia;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DanhGiaForm extends JFrame {
     private JTextArea txtNoiDung;
     private JRadioButton[] stars;
     private ButtonGroup starGroup;
     private JButton btnGuiDanhGia;
-
-    public DanhGiaForm(int ID_DonHang,int ID_KhachHang) {
+    private DanhGiaDAO DAO;
+    private QLDonHangController controller=new QLDonHangController();;
+    public DanhGiaForm(int ID_DonHang) {
         setTitle("Đánh Giá Đơn Hàng");
         setSize(400, 350);
         setLocationRelativeTo(null); // Hiển thị ở giữa màn hình
@@ -64,12 +70,19 @@ public class DanhGiaForm extends JFrame {
                 JOptionPane.showMessageDialog(this, "Đánh giá đã được gửi:\nSao: " + soSao + "\nNội dung: " + noiDung);
                 dispose(); // Đóng form sau khi gửi
             }
+            
             //Tao doi tuong DanhGia
             DanhGia danhGia=new DanhGia();
             danhGia.setNoiDungDanhGia(noiDung);
             danhGia.setDiemDanhGia(soSao);
             danhGia.setIdDonHang(ID_DonHang);
-            danhGia.setIdKhachHang(ID_KhachHang);
+            try { 
+                controller.ThemDanhGia(danhGia);
+            } catch (SQLException ex) {
+                Logger.getLogger(DanhGiaForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DanhGiaForm.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         });
 

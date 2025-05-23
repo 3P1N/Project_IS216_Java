@@ -4,6 +4,7 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.GUI.Components.RoundedButton;
@@ -15,13 +16,17 @@ import java.awt.*;
 import java.sql.SQLException;
 import appgiaovan.CustomerGUI.DanhGiaForm;
 import appgiaovan.Entity.DonHang;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ThongTinDonHang extends JFrame {
     
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
         private DonHang donHang;
-    public ThongTinDonHang() {
+        private QLDonHangController controller=new QLDonHangController();
+    public ThongTinDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
+        donHang=hienThiDonHang(ID_DonHang);
         setTitle("Chi Tiết Đơn Hàng");
         setSize(900, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,60 +46,55 @@ public class ThongTinDonHang extends JFrame {
         mainPanel.add(lblTitle);
 
         // Mã đơn
-        RoundedTextField txtMaDon = new RoundedTextField("DH123456");
+        RoundedTextField txtMaDon = new RoundedTextField(String.valueOf(ID_DonHang));
         txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
-        txtMaDon.setEditable(false);
+        txtMaDon.setFocusable(false);
         txtMaDon.setBounds(30, 70, 200, 50);
         mainPanel.add(txtMaDon);
 
         // Người gửi
-        RoundedTextField txtNguoiGui = new RoundedTextField("Nguyễn Văn A");
+        RoundedTextField txtNguoiGui = new RoundedTextField(donHang.getTenNguoiGui());
         txtNguoiGui.setBorder(BorderFactory.createTitledBorder("Người gửi"));
-        txtNguoiGui.setEditable(false);
+        txtNguoiGui.setFocusable(false);
         txtNguoiGui.setBounds(250, 70, 200, 50);
         mainPanel.add(txtNguoiGui);
 
         // Người nhận
-        RoundedTextField txtNguoiNhan = new RoundedTextField("Trần Thị B");
+        RoundedTextField txtNguoiNhan = new RoundedTextField(donHang.getSdtNguoiNhan());
         txtNguoiNhan.setBorder(BorderFactory.createTitledBorder("Người nhận"));
-        txtNguoiNhan.setEditable(false);
+        txtNguoiNhan.setFocusable(false);
         txtNguoiNhan.setBounds(470, 70, 200, 50);
         mainPanel.add(txtNguoiNhan);
 
         // Địa chỉ nhận
-        RoundedTextField txtDiaChiNhan = new RoundedTextField("123 Đường ABC, Q.1");
+        RoundedTextField txtDiaChiNhan = new RoundedTextField(donHang.getDiaChiNhan());
         txtDiaChiNhan.setBorder(BorderFactory.createTitledBorder("Địa chỉ nhận"));
-        txtDiaChiNhan.setEditable(false);
+        txtDiaChiNhan.setFocusable(false);
         txtDiaChiNhan.setBounds(30, 140, 640, 50);
         mainPanel.add(txtDiaChiNhan);
 
         // Trạng thái
-        RoundedTextField txtTrangThai = new RoundedTextField("Đang giao");
+        RoundedTextField txtTrangThai = new RoundedTextField(donHang.getTrangThai());
         txtTrangThai.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
-        txtTrangThai.setEditable(false);
+        txtTrangThai.setFocusable(false);
         txtTrangThai.setBounds(30, 210, 200, 50);
         mainPanel.add(txtTrangThai);
 
         // Loại dịch vụ
-        RoundedTextField txtLoaiDV = new RoundedTextField("Hỏa tốc");
+        RoundedTextField txtLoaiDV = new RoundedTextField(donHang.getDichVu());
         txtLoaiDV.setBorder(BorderFactory.createTitledBorder("Loại dịch vụ"));
-        txtLoaiDV.setEditable(false);
+        txtLoaiDV.setFocusable(false);
         txtLoaiDV.setBounds(250, 210, 200, 50);
         mainPanel.add(txtLoaiDV);
 
         // Phí vận chuyển
-        RoundedTextField txtPhi = new RoundedTextField("25.000 VNĐ");
+        RoundedTextField txtPhi = new RoundedTextField(String.valueOf(donHang.getPhi()));
         txtPhi.setBorder(BorderFactory.createTitledBorder("Phí vận chuyển"));
-        txtPhi.setEditable(false);
+        txtPhi.setFocusable(false);
         txtPhi.setBounds(470, 210, 200, 50);
         mainPanel.add(txtPhi);
 
-        // Hình thức thanh toán
-        RoundedTextField txtThanhToan = new RoundedTextField("Thanh toán khi nhận");
-        txtThanhToan.setBorder(BorderFactory.createTitledBorder("Hình thức thanh toán"));
-        txtThanhToan.setEditable(false);
-        txtThanhToan.setBounds(30, 280, 300, 50);
-        mainPanel.add(txtThanhToan);
+        
 
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
@@ -108,7 +108,7 @@ public class ThongTinDonHang extends JFrame {
         btnHuy.setForeground(Color.WHITE);
 
         btnDanhGia.addActionListener(e -> {
-        DanhGiaForm form = new DanhGiaForm(donHang.getIdDonHang(),donHang.getIdKhachHang());
+        DanhGiaForm form = new DanhGiaForm(ID_DonHang);
         form.setVisible(true);
         });
         mainPanel.add(btnDanhGia);
@@ -124,12 +124,20 @@ public class ThongTinDonHang extends JFrame {
         }
 
         SwingUtilities.invokeLater(() -> {
-            new ThongTinDonHang().setVisible(true);
+            try {
+                new ThongTinDonHang(1).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
     }
 
-    private void hienDialogDanhGia() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private DonHang hienThiDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
+        DonHang donHang=new DonHang();
+        donHang=controller.layThongTinDH(ID_DonHang);
+        return donHang;
     }
 }
 
