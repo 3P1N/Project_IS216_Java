@@ -114,7 +114,7 @@ public class TopPanelQLDH extends JPanel {
         return dh;
     }
 
-    public static void main(String[] args) {
+    static public void main(String[] args) {
         
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());

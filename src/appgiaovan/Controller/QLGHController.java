@@ -30,4 +30,7 @@ public class QLGHController {
     public void ThemGoiHang(GoiHang goiHang, List<Integer> listDonHang) throws SQLException, ClassNotFoundException{
         goiHangDAO.ThemGoiHang(goiHang, listDonHang);
     }
+    static public void main(String[] args){
+        
+    }
 }
