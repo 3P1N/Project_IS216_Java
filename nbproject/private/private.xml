@@ -2,7 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-
         <group>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThongTinCaNhanPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/BaoCao.java</file>
@@ -17,6 +16,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/DanhGiaForm.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/FilterPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/logo2.png</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormSuaKH.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/LOGIN.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/LoginController.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ChiTietDonHang.java</file>
@@ -27,6 +27,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemDonHangFrame.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/KHTaoDonHangPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/TaiKhoanDAO.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmailSender.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerMainScreen.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/TableList.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemGoiHangFrame.java</file>
@@ -58,6 +59,5 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/TaiKhoan.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeMainPanel.java</file>
         </group>
-
     </open-files>
 </project-private>
