@@ -1,9 +1,12 @@
 package appgiaovan.ShipperGUI;
 
+import appgiaovan.Controller.LapBaoCaoController;
 import appgiaovan.GUI.Components.TimeWeather;
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.TitledBorder;
+import appgiaovan.Controller.LapBaoCaoController;
 
 /**
  * Giao diện báo cáo cho Shipper:
@@ -15,12 +18,13 @@ import javax.swing.border.TitledBorder;
 public class NVGHBaoCao extends JPanel {
 
     private JTextField reportTimeField;
-    private JTextField receivedField;
+    //private JTextField receivedField;
     private JTextField deliveredField;
     private JTextField failedField;
     private JTextField revenueField;
+    int id;
 
-    public NVGHBaoCao() {
+    public NVGHBaoCao(int idtk) {
        /* setTitle("Báo cáo Shipper - 3P1N");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200, 700);
@@ -30,6 +34,7 @@ public class NVGHBaoCao extends JPanel {
         // Sidebar menu
         /*NVGHMenu menu = new NVGHMenu();
         add(menu, BorderLayout.WEST);*/
+        id = idtk;
         setLayout(new BorderLayout());
         // Main panel
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -65,18 +70,18 @@ public class NVGHBaoCao extends JPanel {
         formPanel.add(reportTimeField, gbc);
 
         // Row 2: Đã nhận
-        gbc.gridy++; gbc.gridx = 0;
-        formPanel.add(createLabel("Đã nhận:"), gbc);
-        receivedField = createTextField(20);
-        receivedField.setEditable(false);
-        gbc.gridx = 1;
-        formPanel.add(receivedField, gbc);
+//        gbc.gridy++; gbc.gridx = 0;
+//        formPanel.add(createLabel("Đã nhận:"), gbc);
+//        receivedField = createTextField(20);
+//        receivedField.setEditable(false);
+//        gbc.gridx = 1;
+//        formPanel.add(receivedField, gbc);
 
         // Row 3: Đã giao
         gbc.gridy++; gbc.gridx = 0;
         formPanel.add(createLabel("Đã giao:"), gbc);
         deliveredField = createTextField(20);
-        deliveredField.setEditable(false);
+        deliveredField.setEditable(true);
         gbc.gridx = 1;
         formPanel.add(deliveredField, gbc);
 
@@ -84,7 +89,7 @@ public class NVGHBaoCao extends JPanel {
         gbc.gridy++; gbc.gridx = 0;
         formPanel.add(createLabel("Giao thất bại:"), gbc);
         failedField = createTextField(20);
-        failedField.setEditable(false);
+        failedField.setEditable(true);
         gbc.gridx = 1;
         formPanel.add(failedField, gbc);
 
@@ -92,7 +97,7 @@ public class NVGHBaoCao extends JPanel {
         gbc.gridy++; gbc.gridx = 0;
         formPanel.add(createLabel("Tiền đã nhận:"), gbc);
         revenueField = createTextField(20);
-        revenueField.setEditable(false);
+        revenueField.setEditable(true);
         gbc.gridx = 1;
         formPanel.add(revenueField, gbc);
 
@@ -107,23 +112,35 @@ public class NVGHBaoCao extends JPanel {
         // Button panel outside form, aligned right
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         buttonPanel.setBackground(Color.WHITE);
-        JButton editBtn = new JButton("Sửa");
+        //JButton editBtn = new JButton("Sửa");
         JButton sendBtn = new JButton("Gửi");
-        editBtn.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        //editBtn.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         sendBtn.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-        buttonPanel.add(editBtn);
+       // buttonPanel.add(editBtn);
         buttonPanel.add(sendBtn);
         contentPanel.add(buttonPanel, BorderLayout.SOUTH);
 
        add(mainPanel, BorderLayout.CENTER);
 
         // Action listeners
-        editBtn.addActionListener(e -> setFieldsEditable(true));
+//        editBtn.addActionListener(e ->{
+//            
+//        }); //setFieldsEditable(true)
         sendBtn.addActionListener(e -> {
-            setFieldsEditable(false);
+        try {
+            int dagiao = Integer.parseInt(deliveredField.getText().trim());
+            int thatbai = Integer.parseInt(failedField.getText().trim());
+            int cod = Integer.parseInt(revenueField.getText().trim());
+
+            new LapBaoCaoController().ThemBaoCao(id, dagiao, thatbai, cod);
             JOptionPane.showMessageDialog(this, "Đã gửi báo cáo!", "Thông báo",
-                JOptionPane.INFORMATION_MESSAGE);
-        });
+                    JOptionPane.INFORMATION_MESSAGE);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số ở các trường!", "Lỗi nhập liệu",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    });
+
     }
 
     private JLabel createLabel(String text) {
@@ -138,17 +155,27 @@ public class NVGHBaoCao extends JPanel {
         return tf;
     }
 
-    private void setFieldsEditable(boolean editable) {
+    /*private void setFieldsEditable(boolean editable) {
         receivedField.setEditable(editable);
         deliveredField.setEditable(editable);
         failedField.setEditable(editable);
         revenueField.setEditable(editable);
-    }
+    }*/
 
     public static void main(String[] args) {
+       try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         SwingUtilities.invokeLater(() -> {
-            try { UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf()); } catch (Exception ignored) {}
-            new NVGHBaoCao().setVisible(true);
+            JFrame frame = new JFrame("Báo cáo nhân viên");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(800, 600);
+            frame.setLocationRelativeTo(null);
+            frame.setContentPane(new NVGHBaoCao(1));
+            frame.setVisible(true);
         });
     }
 }
