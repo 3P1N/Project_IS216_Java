@@ -20,7 +20,6 @@ public class KhoHangDAO {
                 KhoHang kho = new KhoHang(
                         rs.getInt("ID_Kho"),
                         rs.getString("TenKho"),
-                        rs.getInt("ID_QuanLy"),
                         rs.getInt("SLHangToiDa"),
                         rs.getInt("SLHangTon"),
                         rs.getString("DiaChi")

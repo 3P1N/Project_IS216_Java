@@ -105,7 +105,7 @@ public class QLDonHangController {
 
     }
 
-    public void HuyDonHang(int ID_DonHang) {
+    public void HuyDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
     donHangDAO.HuyDonHang(ID_DonHang);
     }
     
