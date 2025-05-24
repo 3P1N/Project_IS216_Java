@@ -42,7 +42,7 @@ public class NVGHMainGUI extends JFrame{
         // Danh sách tên và icon menu
         
         // Tạo menu
-        NVGHMenu sidebar = new NVGHMenu();
+        NVGHMenu sidebar = new NVGHMenu(idtk);
         add(sidebar, BorderLayout.WEST);
 
         // Panel trung tâm hiển thị nội dung

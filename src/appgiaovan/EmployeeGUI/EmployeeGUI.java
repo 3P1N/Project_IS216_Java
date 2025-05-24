@@ -2,6 +2,7 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
@@ -28,7 +29,7 @@ public class EmployeeGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel contentPanel;
 
-    public EmployeeGUI() throws SQLException, ClassNotFoundException, Exception {
+    public EmployeeGUI(TaiKhoan tk) throws SQLException, ClassNotFoundException, Exception {
         
         setTitle("Giao diện chính");
         setSize(1200, 700);
@@ -68,16 +69,16 @@ public class EmployeeGUI extends JFrame {
         } catch (Exception ex) {
             System.err.println("Không thể cài đặt FlatLaf");
         }
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new EmployeeGUI().setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
+//        SwingUtilities.invokeLater(() -> {
+//            try {
+//                new EmployeeGUI().setVisible(true);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (Exception ex) {
+//                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
     }
 }

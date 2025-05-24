@@ -18,7 +18,8 @@ public class TaiKhoan {
     private String matKhauMaHoa;
     private String vaiTro;
     private Integer trangThaiXoa;
-
+    private String tenNguoiDung;
+    
     public TaiKhoan(Integer idTaiKhoan, String vaiTro) {
         this.idTaiKhoan = idTaiKhoan;
         this.vaiTro = vaiTro;
@@ -27,6 +28,13 @@ public class TaiKhoan {
     public TaiKhoan() {
     }
 
+    public String getTenNguoiDung(){
+        return tenNguoiDung;
+    }
+    
+    public void setTenNguoiDung(String name){
+        this.tenNguoiDung = name;
+    }
     
     public Integer getIdTaiKhoan() {
         return idTaiKhoan;

@@ -19,7 +19,9 @@ public class ConnectionUtils {
       // Lấy ra đối tượng Connection kết nối vào database.
       Connection conn = ConnectionUtils.getMyConnection();
  
+
       System.out.println("Đang kết nối " + conn);
+      System.out.println("Kết nối thành công");
  
   }
 }

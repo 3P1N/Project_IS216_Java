@@ -16,13 +16,13 @@ public class NVGHMenu extends JPanel {
 
     private MenuBar menu;
 
-    public NVGHMenu() {
+    public NVGHMenu(int idtk) {
         java.util.List<String> items = Arrays.asList("Trang chủ","Quản lý đơn hàng", "Báo cáo","Thông tin cá nhân", "Hỗ trợ", "Đăng xuất");
         java.util.List<String> icons = Arrays.asList("home.jpg","order.png", "report.png","employee.png", "support.jpg", "logout.png");
 
         setLayout(new BorderLayout());
 
-        menu = new MenuBar(items, icons);
+        menu = new MenuBar(items, icons, idtk);
         add(menu, BorderLayout.WEST);
         setPreferredSize(menu.getPreferredSize());
     }
@@ -33,7 +33,7 @@ public class NVGHMenu extends JPanel {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new NVGHMenu().setVisible(true);
+            new NVGHMenu(29).setVisible(true);
         });
     }
 }
