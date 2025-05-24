@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package appgiaovan.ManagerGUI;
-import appgiaovan.Controller.QLKHController;
+
+import appgiaovan.Controller.QLNVKhoController;
+import appgiaovan.Entity.NhanVienKho;
+import appgiaovan.Entity.TaiKhoan;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -22,28 +25,22 @@ import javax.swing.JPanel;
  */
 public class GUI_QLNVKho extends JPanel {
     private QLNVKhoController controller;
-    private JTable tblKhachHang;
+    private JTable tblNhanVienKho;
     private JTextField txtSearch;
-
-    public GUI_QLKH() throws ClassNotFoundException {
-        controller = new QLKHController();
-//        setTitle("Quản Lý Khách Hàng");
-//        setSize(1300, 600);
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        setLocationRelativeTo(null);
-
+    private TaiKhoan tk;
+    public GUI_QLNVKho() throws ClassNotFoundException {
+        controller = new QLNVKhoController();
         setLayout(new BorderLayout());
         initUI();
     }
 
     private void initUI() throws ClassNotFoundException {
-        // filter panel
         JPanel pnlTop = new JPanel();
         txtSearch = new JTextField(20);
         JButton btnSearch = new JButton("Tìm kiếm");
         btnSearch.addActionListener(e -> {
             try {
-                xuLiYeuCauTimKiemKhachHang();
+                xuLiYeuCauTimKiemNhanVienKho();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -53,8 +50,8 @@ public class GUI_QLNVKho extends JPanel {
         add(pnlTop, BorderLayout.NORTH);
 
         // table panel
-        tblKhachHang = new JTable();
-        add(new JScrollPane(tblKhachHang), BorderLayout.CENTER);
+        tblNhanVienKho = new JTable();
+        add(new JScrollPane(tblNhanVienKho), BorderLayout.CENTER);
 
         // sidebar actions
         JButton btnAdd = new JButton("Thêm");
@@ -67,7 +64,7 @@ public class GUI_QLNVKho extends JPanel {
             }
             form.setVisible(true);
             try {
-                hienThiDanhSachKhachHang();
+                hienThiDanhSachNhanVienKho();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -76,7 +73,7 @@ public class GUI_QLNVKho extends JPanel {
         JButton btnEdit = new JButton("Sửa");
         btnEdit.addActionListener(e -> {
             try {
-                xuLiLayThongTinKhachHang();
+                xuLiLayThongTinNhanVienKho();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -84,7 +81,7 @@ public class GUI_QLNVKho extends JPanel {
         JButton btnDelete = new JButton("Xóa");
         btnDelete.addActionListener(e -> {
             try {
-                xuLiXoaKhachHang();
+                xuLiXoaNhanVienKho();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -97,42 +94,42 @@ public class GUI_QLNVKho extends JPanel {
         add(pnlButtons, BorderLayout.SOUTH);
 
         // initial load
-        hienThiDanhSachKhachHang();
+        hienThiDanhSachNhanVienKho();
     }
 
-    public void hienThiDanhSachKhachHang() throws ClassNotFoundException {
-        List<KhachHang> list = controller.layTatCaKhachHang();
+    public void hienThiDanhSachNhanVienKho() throws ClassNotFoundException {
+        List<NhanVienKho> list = controller.layTatCaNhanVienKho();
         // convert to table model and set
-        tblKhachHang.setModel(new KhachHangTableModel(list));
+        tblNhanVienKho.setModel(new NhanVienKhoTableModel(list));
     }
 
-    public void xuLiYeuCauTimKiemKhachHang() throws ClassNotFoundException {
+    public void xuLiYeuCauTimKiemNhanVienKho() throws ClassNotFoundException {
         String kw = txtSearch.getText();
-        List<KhachHang> list = controller.timKiemKhachHang(kw);
-        tblKhachHang.setModel(new KhachHangTableModel(list));
+        List<NhanVienKho> list = controller.timKiemNhanVienKho(kw);
+        tblNhanVienKho.setModel(new NhanVienKhoTableModel(list));
     }
 
-    public void xuLiLayThongTinKhachHang() throws ClassNotFoundException {
-        int row = tblKhachHang.getSelectedRow();
+    public void xuLiLayThongTinNhanVienKho() throws ClassNotFoundException {
+        int row = tblNhanVienKho.getSelectedRow();
         if (row < 0) {
             return;
         }
-        int id = (int) tblKhachHang.getValueAt(row, 0); // column Mã KH
-        FormSuaKH form = new FormSuaKH(controller.layThongTinKhachHang(id));
+        int id = (int) tblNhanVienKho.getValueAt(row, 0); // column Mã KH
+        FormSuaNVKho form = new FormSuaNVKho(controller.layThongTinNhanVienKho(id));
         form.setVisible(true);
-        hienThiDanhSachKhachHang();
+        hienThiDanhSachNhanVienKho();
     }
 
-    public void xuLiXoaKhachHang() throws ClassNotFoundException {
-        int row = tblKhachHang.getSelectedRow();
+    public void xuLiXoaNhanVienKho() throws ClassNotFoundException {
+        int row = tblNhanVienKho.getSelectedRow();
         if (row < 0) {
             return;
         }
-        int id = (int) tblKhachHang.getValueAt(row, 0);
+        int id = (int) tblNhanVienKho.getValueAt(row, 0);
         int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            controller.xoaKhachHang(id);
-            hienThiDanhSachKhachHang();
+            controller.xoaNhanVienKho(id);
+            hienThiDanhSachNhanVienKho();
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         }
     }
@@ -145,12 +142,12 @@ public class GUI_QLNVKho extends JPanel {
             }
 
             try {
-                JFrame frame = new JFrame("Quản Lý Khách Hàng");
+                JFrame frame = new JFrame("Quản Lý Nhân Viên Kho");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(1300, 600);
-                frame.setLocationRelativeTo(null); // Center the frame
+                frame.setLocationRelativeTo(null); 
 
-                GUI_QLKH panel = new GUI_QLKH();
+                GUI_QLNVKho panel = new GUI_QLNVKho();
                 frame.setContentPane(panel);
                 
                 frame.setVisible(true);
