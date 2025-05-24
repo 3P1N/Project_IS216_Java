@@ -126,7 +126,7 @@ public class GUI_QLNVKho extends JPanel {
             return;
         }
         int id = (int) tblNhanVienKho.getValueAt(row, 0);
-        int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        int choice = JOptionPane.showConfirmDialog(this, "Xóa nhân viên kho?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             controller.xoaNhanVienKho(id);
             hienThiDanhSachNhanVienKho();

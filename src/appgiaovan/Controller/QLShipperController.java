@@ -18,7 +18,7 @@ public class QLShipperController {
         dao = new NhanVienGiaoHangDAO();
     }
 
-    public List<NhanVienGiaoHang> layTatCaNhanVienKho() throws ClassNotFoundException {
+    public List<NhanVienGiaoHang> layTatCaNhanVienGiaoHang() throws ClassNotFoundException {
         try {
             return dao.LayDSNhanVienGiaoHang();
         } catch (Exception e) {
@@ -27,7 +27,7 @@ public class QLShipperController {
         }
     }
 
-    public List<NhanVienGiaoHang> timKiemNhanVienKho(String kw) throws ClassNotFoundException {
+    public List<NhanVienGiaoHang> timKiemNhanVienGiaoHang(String kw) throws ClassNotFoundException {
         try {
             return dao.timKiemNhanVienGiaoHang(kw);
         } catch (Exception e) {

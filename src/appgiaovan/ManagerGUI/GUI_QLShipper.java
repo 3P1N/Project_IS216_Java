@@ -42,7 +42,7 @@ public class GUI_QLShipper extends JPanel {
             try {
                 xuLiYeuCauTimKiemNhanVienGiaoHang();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         pnlTop.add(txtSearch);
@@ -60,30 +60,30 @@ public class GUI_QLShipper extends JPanel {
             try {
                 form = new FormThemShipper();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
             }
             form.setVisible(true);
             try {
                 hienThiDanhSachNhanVienGiaoHang();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
         JButton btnEdit = new JButton("Sửa");
         btnEdit.addActionListener(e -> {
             try {
-                xuLiLayThongTinNhanVienKho();
+                xuLiLayThongTinNhanVienGiaoHang();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         JButton btnDelete = new JButton("Xóa");
         btnDelete.addActionListener(e -> {
             try {
-                xuLiXoaNhanVienKho();
+                xuLiXoaNhanVienGiaoHang();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -94,39 +94,39 @@ public class GUI_QLShipper extends JPanel {
         add(pnlButtons, BorderLayout.SOUTH);
 
         // initial load
-        hienThiDanhSachNhanVienKho();
+        hienThiDanhSachNhanVienGiaoHang();
     }
 
-    public void hienThiDanhSachNhanVienKho() throws ClassNotFoundException {
-        List<NhanVienKho> list = controller.layTatCaNhanVienKho();
+    public void hienThiDanhSachNhanVienGiaoHang() throws ClassNotFoundException {
+        List<NhanVienGiaoHang> list = controller.layTatCaNhanVienGiaoHang();
         // convert to table model and set
-        tblNhanVienKho.setModel(new NhanVienKhoTableModel(list));
+        tblNhanVienGiaoHang.setModel(new NhanVienGiaoHangTableModel(list));
     }
 
     public void xuLiYeuCauTimKiemNhanVienGiaoHang() throws ClassNotFoundException {
         String kw = txtSearch.getText();
-        List<NhanVienKho> list = controller.timKiemNhanVienKho(kw);
-        tblNhanVienKho.setModel(new NhanVienKhoTableModel(list));
+        List<NhanVienGiaoHang> list = controller.timKiemNhanVienGiaoHang(kw);
+        tblNhanVienGiaoHang.setModel(new NhanVienGiaoHangTableModel(list));
     }
 
-    public void xuLiLayThongTinNhanVienKho() throws ClassNotFoundException {
-        int row = tblNhanVienKho.getSelectedRow();
+    public void xuLiLayThongTinNhanVienGiaoHang() throws ClassNotFoundException {
+        int row = tblNhanVienGiaoHang.getSelectedRow();
         if (row < 0) {
             return;
         }
-        int id = (int) tblNhanVienKho.getValueAt(row, 0); // column Mã KH
-        FormSuaNVKho form = new FormSuaNVKho(controller.layThongTinNhanVienKho(id));
+        int id = (int) tblNhanVienGiaoHang.getValueAt(row, 0); // column Mã KH
+        FormSuaShipper form = new FormSuaShipper(controller.layThongTinNhanVienGiaoHang(id));
         form.setVisible(true);
-        hienThiDanhSachNhanVienKho();
+        hienThiDanhSachNhanVienGiaoHang();
     }
 
     public void xuLiXoaNhanVienKho() throws ClassNotFoundException {
-        int row = tblNhanVienKho.getSelectedRow();
+        int row = tblNhanVienGiaoHang.getSelectedRow();
         if (row < 0) {
             return;
         }
-        int id = (int) tblNhanVienKho.getValueAt(row, 0);
-        int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        int id = (int) tblNhanVienGiaoHang.getValueAt(row, 0);
+        int choice = JOptionPane.showConfirmDialog(this, "Xóa nhân viên giao hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
             controller.xoaNhanVienKho(id);
             hienThiDanhSachNhanVienKho();
