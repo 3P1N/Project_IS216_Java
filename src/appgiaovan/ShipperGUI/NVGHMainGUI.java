@@ -22,6 +22,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import appgiaovan.Controller.TokenController;
 
 /**
  *
@@ -31,7 +32,7 @@ public class NVGHMainGUI extends JFrame{
     private CardLayout cardLayout;
     private JPanel contentPanel;
 
-    public NVGHMainGUI(int idtk) throws ClassNotFoundException, SQLException {
+    public NVGHMainGUI(int idtk, int idToken) throws ClassNotFoundException, SQLException {
         
         setTitle("3P1N - Nhân viên giao hàng");
         setSize(1300, 700);
@@ -73,34 +74,42 @@ public class NVGHMainGUI extends JFrame{
 
                 if (confirm == JOptionPane.YES_OPTION) {
                     dispose();
+                    try {
+                        try {
+                            new TokenController().capNhatToken(idToken);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     SwingUtilities.invokeLater(() -> new LOGIN().setVisible(true));
                 }
-            }
-            else {
+            } else {
                 cardLayout.show(contentPanel, selectedName);
             }
         });
 
     }
 
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception ex) {
-            System.err.println("Không thể cài đặt FlatLaf");
-        }
-        SwingUtilities.invokeLater(() -> {
-            try {
-                try {
-                    new NVGHMainGUI(1).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-        });
-    }
+//    public static void main(String[] args) {
+//        try {
+//            UIManager.setLookAndFeel(new FlatLightLaf());
+//        } catch (Exception ex) {
+//            System.err.println("Không thể cài đặt FlatLaf");
+//        }
+//        SwingUtilities.invokeLater(() -> {
+//            try {
+//                try {
+//                    new NVGHMainGUI(1).setVisible(true);
+//                } catch (SQLException ex) {
+//                    Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(NVGHMainGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//           
+//        });
+//    }
 
 }

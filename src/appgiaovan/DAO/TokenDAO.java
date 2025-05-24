@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.lang.model.util.Types;
+import java.sql.*;
 
 /**
  *
@@ -16,9 +18,11 @@ import java.sql.SQLException;
  */
 public class TokenDAO {
 
-    public void taoToken(String username) throws SQLException, ClassNotFoundException {
+    private int idTK;
+    private int idToken;
+    public int taoToken(String username) throws SQLException, ClassNotFoundException {
         String sqlID = "SELECT ID_TaiKhoan FROM TAIKHOAN WHERE TENTAIKHOAN = ?";
-        String sqlToken = "{call sp_TaoTokenChoTaiKhoan(?)}";
+        String sqlToken = "{call sp_TaoTokenChoTaiKhoan(?,?)}";
 
         try (Connection conn = ConnectionUtils.getMyConnection();
              PreparedStatement st = conn.prepareStatement(sqlID)) {
@@ -28,14 +32,18 @@ public class TokenDAO {
 
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
-                    int idTK = rs.getInt("ID_TaiKhoan");
+                     idTK = rs.getInt("ID_TaiKhoan");
 
-                    try (PreparedStatement cs = conn.prepareStatement(sqlToken)) {
+                    try (CallableStatement cs = conn.prepareCall(sqlToken)) {
                         cs.setInt(1, idTK);
+                        cs.registerOutParameter(2, java.sql.Types.INTEGER);
                         cs.execute();
+                        idToken = cs.getInt(2); // Nhận ID_Token được trả về
+                        conn.commit();
+                        return idToken;
                     }
 
-                    conn.commit();
+                    //conn.commit();
                 } else {
                     throw new SQLException("Không tìm thấy tài khoản: " + username);
                 }
@@ -43,6 +51,19 @@ public class TokenDAO {
                 conn.rollback();
                 throw e;
             }
+        }
+      
+    }
+    public void capNhatToken(int idToken) throws SQLException, ClassNotFoundException{
+        String sqlToken = "{call ThuHoiTokenChoTaiKhoan (?)}";
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+            CallableStatement st = conn.prepareCall(sqlToken)) {
+            conn.setAutoCommit(false);
+            st.setInt(1, idToken);
+            st.executeQuery();
+            //conn.commit();
+            
         }
     }
 

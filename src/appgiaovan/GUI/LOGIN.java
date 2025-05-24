@@ -5,7 +5,7 @@
 package appgiaovan.GUI;
 
 import appgiaovan.Controller.LoginController;
-import appgiaovan.Controller.TaoTokenController;
+import appgiaovan.Controller.TokenController;
 import appgiaovan.CustomerGUI.CustomerGUI;
 import appgiaovan.EmployeeGUI.EmployeeGUI;
 import appgiaovan.Entity.TaiKhoan;
@@ -36,6 +36,8 @@ public class LOGIN extends JFrame {
     private JTextField userField = new JTextField();
     private JPasswordField passField = new JPasswordField();
     private TaiKhoan tk = new TaiKhoan();
+    private int idToken;
+    private TokenController controller = new TokenController();
     public LOGIN() {
         setTitle("Đăng nhập - Đơn vị giao vận 3P1N");
         setSize(900, 600);
@@ -165,24 +167,24 @@ public class LOGIN extends JFrame {
         else{
             if ("KH".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện khách hàng
-                new TaoTokenController().TaoToken(username);
+                idToken = controller.TaoToken(username);
                 new CustomerGUI(tk.getIdTaiKhoan()).setVisible(true);
                 setVisible(false);
             } else if ("QL".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện quản lý
-                new TaoTokenController().TaoToken(username);
+                idToken = controller.TaoToken(username);
                 new ManagerMainScreen().setVisible(true);
                 setVisible(false);
             } else if ("NVK".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên kho
-                new TaoTokenController().TaoToken(username);
+                idToken = controller.TaoToken(username);
                 new EmployeeGUI(tk).setVisible(true);
                 setVisible(false);
             }
             else if ("NVGH".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên giao hang
-                new TaoTokenController().TaoToken(username);
-                new NVGHMainGUI(tk.getIdTaiKhoan()).setVisible(true);
+                idToken = controller.TaoToken(username);
+                new NVGHMainGUI(tk.getIdTaiKhoan(), idToken).setVisible(true);
                 setVisible(false);
             }else {
                 JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);

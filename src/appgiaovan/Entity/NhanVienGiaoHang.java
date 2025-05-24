@@ -13,7 +13,7 @@ public class NhanVienGiaoHang extends NguoiDung {
     private String DiaChi;
     private int ID_Kho;
     private int ID_QuanLy;
-    private int DanhGia;
+    private int DiemDanhGia;
 
     public NhanVienGiaoHang() {}
 
@@ -41,12 +41,12 @@ public class NhanVienGiaoHang extends NguoiDung {
         this.ID_QuanLy = ID_QuanLy;
     }
 
-    public int getDanhGia() {
-        return DanhGia;
+    public int getDiemDanhGia() {
+        return DiemDanhGia;
     }
 
-    public void setDanhGia(int DanhGia) {
-        this.DanhGia = DanhGia;
+    public void setDiemDanhGia(int DiemDanhGia) {
+        this.DiemDanhGia = DiemDanhGia;
     }
      @Override
     public String toString() {
