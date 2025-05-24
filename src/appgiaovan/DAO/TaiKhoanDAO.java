@@ -13,8 +13,7 @@ public class TaiKhoanDAO {
     public TaiKhoan xacThucThongTin(String user, String pass) throws SQLException, ClassNotFoundException {
         String sql = "SELECT ID_TAIKHOAN, TenTaiKhoan, MatKhauMaHoa, VaiTro FROM TAIKHOAN WHERE TENTAIKHOAN = ?";
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-             PreparedStatement st = conn.prepareStatement(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
 
             st.setString(1, user);
             try (ResultSet rs = st.executeQuery()) {
@@ -34,4 +33,62 @@ public class TaiKhoanDAO {
         // Trả về null nếu sai tên đăng nhập hoặc mật khẩu
         return null;
     }
+
+    public TaiKhoan LayThongTinTaiKhoan(int idtk) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_TAIKHOAN, TenTaiKhoan, MatKhauMaHoa, VaiTro FROM TAIKHOAN WHERE ID_TaiKhoan = ?";
+        TaiKhoan tk = null;
+
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+
+            st.setInt(1, idtk);
+            try (ResultSet rs = st.executeQuery()) {
+                if (rs.next()) {
+                    tk = new TaiKhoan();
+                    tk.setIdTaiKhoan(rs.getInt("ID_TAIKHOAN"));
+                    tk.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
+                   
+                    tk.setVaiTro(rs.getString("VaiTro"));
+                } else {
+                    return null; // Không tìm thấy tài khoản
+                }
+            }
+
+            // Nếu tìm thấy, tiếp tục lấy thông tin từ bảng tương ứng
+            String vaiTro = tk.getVaiTro();
+            String hoTen = null;
+
+            String tableName = null;
+            if ("NVK".equals(vaiTro)) {
+                tableName = "NhanVienKho";
+                tk.setVaiTro("Nhân Viên Kho");
+            } else if ("KH".equals(vaiTro)) {
+                tableName = "Khách H";
+            }else if ("QL".equals(vaiTro)) {
+                tableName = "Quản L";
+            }else if ("NVGH".equals(vaiTro)) {
+                tableName = "Nhân Viên Giao H";
+            }
+
+            if (tableName != null) {
+                String sql2 = "SELECT HoTen FROM " + tableName + " WHERE ID_TaiKhoan = ?";
+                try (PreparedStatement st2 = conn.prepareStatement(sql2)) {
+                    st2.setInt(1, idtk);
+                    try (ResultSet rs2 = st2.executeQuery()) {
+                        if (rs2.next()) {
+                            hoTen = rs2.getString("HoTen");
+                            tk.setTenNguoiDung(hoTen); // Giả sử class TaiKhoan có setHoTen
+                        }
+                    }
+                }
+            }
+        }
+
+        return tk;
+    }
+
+    static void main(String[] args) throws SQLException, ClassNotFoundException {
+        TaiKhoan tk = new TaiKhoanDAO().LayThongTinTaiKhoan(29);
+        System.out.println(tk.getTenNguoiDung());
+    }
+
 }

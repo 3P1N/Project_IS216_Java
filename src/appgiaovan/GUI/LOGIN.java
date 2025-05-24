@@ -112,6 +112,8 @@ public class LOGIN extends JFrame {
                 yeuCauXacThuc();
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(LOGIN.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(LOGIN.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -145,7 +147,7 @@ public class LOGIN extends JFrame {
 
     }
 
-    public void yeuCauXacThuc() throws SQLException, ClassNotFoundException {
+    public void yeuCauXacThuc() throws SQLException, ClassNotFoundException, Exception {
         String username = userField.getText().trim();
         String pass = new String(passField.getPassword());
 
@@ -165,7 +167,7 @@ public class LOGIN extends JFrame {
         } else if ("NVK".equals(tk.getVaiTro())) {
             // Chuyển tới giao diện nhân viên kho
             new TaoTokenController().TaoToken(username);
-            new EmployeeGUI().setVisible(true);
+            new EmployeeGUI(tk).setVisible(true);
             setVisible(false);
         }
         else if ("NVGH".equals(tk.getVaiTro())) {
