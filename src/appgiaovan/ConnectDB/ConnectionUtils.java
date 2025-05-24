@@ -20,6 +20,7 @@ public class ConnectionUtils {
       Connection conn = ConnectionUtils.getMyConnection();
  
       System.out.println("Đang kết nối " + conn);
+      System.out.println("Kết nối thành công");
  
   }
 }
