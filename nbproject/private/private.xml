@@ -2,62 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-
         <group>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThongTinCaNhanPanel.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/BaoCao.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/DonHangDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/ForgotPass.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/dangkytest.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/BaoCaoThongKe.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/KhachHangMainPanel.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/KhoHangDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeGUI.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/RegisterGUI.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/DanhGiaForm.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/FilterPanel.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/images/logo2.png</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/LOGIN.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/LoginController.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ChiTietDonHang.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/QLDonHangController.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/TableListDonHang.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/NguoiDung.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThanhTimKiemDH.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemDonHangFrame.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/KHTaoDonHangPanel.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/TaiKhoanDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerMainScreen.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/TableList.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemGoiHangFrame.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerSidebar.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/CustomerSidebar.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/CustomerGUI.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/images/Webp.net-resizeimage.png</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/DonHang.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/TraCuuDonHangPanel.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/DangKyController.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/PasswordHashing.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyGoiHang.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/SuaDonHangFrame.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelTGH.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelQLGH.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/Components/MenuBar.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeSidebar.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLKH.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemKh.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/KhachHangTableModel.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/DanhGiaDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/KhachHang.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/DanhGia.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThongTinDonHang.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/QLKHController.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/TaiKhoan.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeMainPanel.java</file>
-        </group>
 
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/GUI/LOGIN.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionUtils.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/GUI/dangkytest.java</file>
+
+        </group>
     </open-files>
 </project-private>

@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static java.lang.System.exit;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -154,29 +155,39 @@ public class LOGIN extends JFrame {
 
         //String vaiTro = log.yeuCauXacThuc(username, pass);
         tk = log.yeuCauXacThuc(username, pass);
-        if ("KH".equals(tk.getVaiTro())) {
-            // Chuyển tới giao diện khách hàng
-            new TaoTokenController().TaoToken(username);
-            new CustomerGUI(tk.getIdTaiKhoan()).setVisible(true);
-            setVisible(false);
-        } else if ("QL".equals(tk.getVaiTro())) {
-            // Chuyển tới giao diện quản lý
-            new TaoTokenController().TaoToken(username);
-            new ManagerMainScreen().setVisible(true);
-            setVisible(false);
-        } else if ("NVK".equals(tk.getVaiTro())) {
-            // Chuyển tới giao diện nhân viên kho
-            new TaoTokenController().TaoToken(username);
-            new EmployeeGUI(tk).setVisible(true);
-            setVisible(false);
-        }
-        else if ("NVGH".equals(tk.getVaiTro())) {
-            // Chuyển tới giao diện nhân viên giao hang
-            new TaoTokenController().TaoToken(username);
-            new NVGHMainGUI(tk.getIdTaiKhoan()).setVisible(true);
-            setVisible(false);
-        }else {
+
+        if(tk == null)
+        {
+
             JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            
+        }
+        else{
+            if ("KH".equals(tk.getVaiTro())) {
+                // Chuyển tới giao diện khách hàng
+                new TaoTokenController().TaoToken(username);
+                new CustomerGUI(tk.getIdTaiKhoan()).setVisible(true);
+                setVisible(false);
+            } else if ("QL".equals(tk.getVaiTro())) {
+                // Chuyển tới giao diện quản lý
+                new TaoTokenController().TaoToken(username);
+                new ManagerMainScreen().setVisible(true);
+                setVisible(false);
+            } else if ("NVK".equals(tk.getVaiTro())) {
+                // Chuyển tới giao diện nhân viên kho
+                new TaoTokenController().TaoToken(username);
+                new EmployeeGUI().setVisible(true);
+                setVisible(false);
+            }
+            else if ("NVGH".equals(tk.getVaiTro())) {
+                // Chuyển tới giao diện nhân viên giao hang
+                new TaoTokenController().TaoToken(username);
+                new NVGHMainGUI(tk.getIdTaiKhoan()).setVisible(true);
+                setVisible(false);
+            }else {
+                JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            
+            }
         }
 
     }
