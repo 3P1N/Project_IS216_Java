@@ -68,21 +68,21 @@ public class LOGIN extends JFrame {
         JLabel logo = new JLabel("3P1N - Đăng nhập");
         logo.setFont(new Font("Arial", Font.BOLD, 20));
         logo.setForeground(new Color(0, 102, 204));
-        logo.setBounds(90, 45, 200, 20);
+        logo.setBounds(90, 45, 200, 40);
         loginPanel.add(logo);
 
         
-        userField.setBounds(30, 135, 290, 35);
+        userField.setBounds(30, 115, 290, 45);
         userField.setBorder(BorderFactory.createTitledBorder("Tên đăng nhập"));
         loginPanel.add(userField);
 
         
-        passField.setBounds(30, 185, 290, 35);
+        passField.setBounds(30, 165, 290, 40);
         passField.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
         loginPanel.add(passField);
 
         JLabel forgot = new JLabel("Quên mật khẩu?");
-        forgot.setBounds(200, 225, 120, 20);
+        forgot.setBounds(200, 205, 120, 20);
         forgot.setForeground(Color.BLUE);
         forgot.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginPanel.add(forgot);
@@ -98,7 +98,7 @@ public class LOGIN extends JFrame {
         });
 
         JButton loginButton = new JButton("Đăng nhập");
-        loginButton.setBounds(30, 260, 290, 40);
+        loginButton.setBounds(30, 240, 290, 40);
         loginButton.setBackground(new Color(0, 123, 255));
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
@@ -122,12 +122,12 @@ public class LOGIN extends JFrame {
 
         // Label "Bạn chưa có tài khoản?" 
         JLabel infoLabel = new JLabel("Bạn chưa có tài khoản?");
-        infoLabel.setBounds(70, 310, 150, 20);
+        infoLabel.setBounds(70, 290, 150, 20);
         loginPanel.add(infoLabel);
 
         // Label "Đăng ký ngay" - có thể click chuyển giao diện
         JLabel registerLabel = new JLabel("Đăng ký ngay");
-        registerLabel.setBounds(210, 310, 100, 20);
+        registerLabel.setBounds(210, 290, 100, 20);
         registerLabel.setForeground(Color.BLUE);
         registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         loginPanel.add(registerLabel);
@@ -176,7 +176,7 @@ public class LOGIN extends JFrame {
             } else if ("NVK".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên kho
                 new TaoTokenController().TaoToken(username);
-                new EmployeeGUI().setVisible(true);
+                new EmployeeGUI(tk).setVisible(true);
                 setVisible(false);
             }
             else if ("NVGH".equals(tk.getVaiTro())) {

@@ -62,11 +62,14 @@ public class TaiKhoanDAO {
                 tableName = "NhanVienKho";
                 tk.setVaiTro("Nhân Viên Kho");
             } else if ("KH".equals(vaiTro)) {
-                tableName = "Khách H";
+                tableName = "KHACHHANG";
+                tk.setVaiTro("Khách hàng");
             }else if ("QL".equals(vaiTro)) {
-                tableName = "Quản L";
+                tableName = "QUANLY";
+                tk.setVaiTro("Quản lý");
             }else if ("NVGH".equals(vaiTro)) {
-                tableName = "Nhân Viên Giao H";
+                tableName = "NHANVIENGIAOHANG";
+                tk.setVaiTro("Nhân Viên giao hàng");
             }
 
             if (tableName != null) {
