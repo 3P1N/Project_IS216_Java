@@ -1,9 +1,11 @@
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.EmployeeGUI.*;
 import appgiaovan.Controller.TaoDonHangController;
 import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.RoundedButton;
@@ -21,9 +23,8 @@ import javax.swing.*;
 
 public class KHTaoDonHangPanel extends JPanel {
     
-        
+        private QLDonHangController controller = new QLDonHangController();
     public KHTaoDonHangPanel() throws SQLException, ClassNotFoundException {
-        TaoDonHangController controller = new TaoDonHangController();
 
         setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
@@ -123,7 +124,7 @@ public class KHTaoDonHangPanel extends JPanel {
         cbLoaiHang.setBounds(240, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
         
-        // Nút Xác nhận
+        // Nút Tạo đơn hàng
         RoundedButton btnTaoDon = new RoundedButton("Tạo đơn hàng");
         btnTaoDon.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar
         btnTaoDon.setBackground(new Color(0x007BFF)); // Flat Blue
@@ -142,6 +143,54 @@ public class KHTaoDonHangPanel extends JPanel {
         //Thanh Weather
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
+        btnTaoDon.addActionListener(e->{
+            String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
+                String tenNguoiGui = txtTenNguoiGui.getText().trim();
+
+                KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
+                int idKho = selectedKho.getIdKho();
+
+
+                String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
+                String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
+                String diaChiNhan = txtDiaChiNhan.getText().trim();
+                String quanHuyen = (String) cbQuanHuyen.getSelectedItem();
+                String phuongXa = (String) cbPhuongXa.getSelectedItem();
+
+                String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
+                String loaiHang = (String) cbLoaiHang.getSelectedItem();
+                String hinhThucThanhToan = (String) cbHinhThucThanhToan.getSelectedItem();
+
+                // Gộp địa chỉ chi tiết
+                String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
+
+                // Tạo đối tượng DonHang
+                DonHang dh = new DonHang();
+//                dh.setIdDonHang(idDonHang);
+                dh.setSdtNguoiGui(sdtNguoiGui);
+                dh.setSdtNguoiNhan(sdtNguoiNhan);
+                dh.setTenNguoiGui(tenNguoiGui);
+                dh.setTenNguoiNhan(tenNguoiNhan);
+                dh.setDiaChiNhan(diaChiDayDu);
+                dh.setDichVu(loaiDichVu);
+                dh.setLoaiHangHoa(loaiHang);
+                dh.setIdKhoTiepNhan(idKho);
+                if (!controller.KiemTraDinhDang(dh)) {
+                    JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return; // Dừng lại, không thực hiện thêm
+                }
+            try {
+                // Gọi controller để thêm đơn hàng
+                controller.ThemDonHang(dh);
+            } catch (SQLException ex) {
+                Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                // Gọi callback
+                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                
+        });
     }
     
 

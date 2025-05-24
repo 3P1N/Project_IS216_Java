@@ -19,7 +19,10 @@ public class DonHangDAO {
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+                CallableStatement cs = conn.prepareCall(sql)) {
+
 //            if (donHang.getIdDonHang() != null) {
 //                cs.setInt(1, donHang.getIdDonHang());
 //            } else {
@@ -358,6 +361,19 @@ public class DonHangDAO {
             }
         }
     }
+    
+    public void CapNhatDH(int iddh, String trangthai) throws SQLException, ClassNotFoundException{
+        String sql = "call CapNhatTrangThaiDonHang(?,?)";
+        try (Connection conn = ConnectionUtils.getMyConnection()) {
+            CallableStatement cs = conn.prepareCall(sql);
+            cs.setInt(1, iddh);
+            cs.setString(2, trangthai);
+            cs.execute();
+//            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String[] DSDichVu() throws Exception {
         List<String> result = new ArrayList<>();
@@ -443,6 +459,7 @@ public class DonHangDAO {
         return result.toArray(String[]::new);
     }
 
+
     public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang) throws SQLException, ClassNotFoundException {
         if (listIdDonHang == null || listIdDonHang.isEmpty()) {
             return;
@@ -473,6 +490,24 @@ public class DonHangDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
+
+    public void HuyDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
+    String sql = "UPDATE DONHANG SET TRANGTHAI = 'Hủy' WHERE id_donhang = ?";
+
+    try (Connection conn = ConnectionUtils.getMyConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+        stmt.setInt(1, ID_DonHang);
+        int rowsUpdated = stmt.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            System.out.println("Đơn hàng đã được hủy thành công.");
+        } else {
+            System.out.println("Không tìm thấy đơn hàng với ID: " + ID_DonHang);
+        }
+    }
+}
 
 }

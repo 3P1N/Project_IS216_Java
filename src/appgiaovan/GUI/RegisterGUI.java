@@ -161,17 +161,8 @@ public class RegisterGUI extends JFrame{
                 String SDT=txtSDT.getText().trim();
                 Date ngaySinh = csdate.getDate();
                 // Lấy giới tính được chọn từ ComboBox
-                String selectedGender = (String) cbgioiTinh.getSelectedItem();
-                // Chuyển thành ký tự 'M' hoặc 'F'
-                char gioiTinh;
-                if ("Nam".equals(selectedGender)) {
-                    gioiTinh = 'M';
-                } 
-                else {
-                    gioiTinh = 'F';
-                } 
+                String gioiTinh = (String) cbgioiTinh.getSelectedItem();
     
-
                 // Tạo đối tượng KHACHHANG
                 KhachHang kh = new KhachHang();
                 kh.setHoTen(hoTen);
@@ -187,22 +178,27 @@ public class RegisterGUI extends JFrame{
                 
 
                 if (!controller.KiemTraDinhDang(kh,matKhau,matKhauNL,tenDangNhap)) {
-                    JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this,
+                            "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
                 }
                 // Gọi controller để thêm khách hàng,tài khoản
                 controller.themKhachHang(kh,tk);
                 // Gọi callback
-                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", 
+                        "Thành công", JOptionPane.INFORMATION_MESSAGE);
 
 
             } catch (Exception ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + 
+                        ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
 
         });
-        mainPanel.add(registerPanel);        mainPanel.add(background);
+        mainPanel.add(registerPanel);        
+        mainPanel.add(background);
 
 }
     

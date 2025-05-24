@@ -49,7 +49,8 @@ public class ManagerGUI extends JFrame {
 
         // Thêm các trang nội dung
         contentPanel.add(new ManagerMainScreen(),"Trang chủ");
-        contentPanel.add(new QuanLyNhanVien(),"Quản lý nhân viên");
+        contentPanel.add(new GUI_QLNVKho(),"Quản lý nhân viên kho");
+        contentPanel.add(new GUI_QLNVGiaoHang(),"Quản lý shipper");
         contentPanel.add(new GUI_QLKH(),"Quản lý khách hàng");
 //        contentPanel.add(new BaoCao(), "Báo cáo");
 //        contentPanel.add(new QuanLyDonHangPanel(),"Quản lý đơn hàng");

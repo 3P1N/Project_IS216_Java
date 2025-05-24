@@ -26,7 +26,7 @@ public class XemBangLuong extends JFrame {
         try {
             //Panel Menu
             
-            ManagerSidebar sidebar = new ManagerSidebar(this);
+            ManagerSidebar sidebar = new ManagerSidebar();
             
             add(sidebar, BorderLayout.WEST);
             

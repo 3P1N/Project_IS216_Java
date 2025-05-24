@@ -13,6 +13,9 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -23,6 +26,7 @@ public class ThongTinCaNhanPanel extends JPanel {
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
         private KhachHang kh=new KhachHang();
+        private QLKHController controller=new QLKHController();
     public ThongTinCaNhanPanel(int ID_KhachHang) throws ClassNotFoundException{
         QLKHController controller=new QLKHController();
         kh=controller.layThongTinKhachHang(ID_KhachHang);
@@ -91,14 +95,8 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblGioiTinh.setBounds(20, 320, 100, 25);
         infoPanel.add(lblGioiTinh);
         
-        String gioiTinh=new String();
-        if(kh.getGioiTinh()=='N'){
-            gioiTinh="Nam";
-        }
-        else {
-            gioiTinh="Nữ";
-        }
-        JTextField txtGioiTinh = new JTextField(gioiTinh);
+        
+        JTextField txtGioiTinh = new JTextField(kh.getGioiTinh());
         txtGioiTinh.setBounds(130, 320, 400, 30);
         infoPanel.add(txtGioiTinh);
         // Nút cập nhật
@@ -107,7 +105,23 @@ public class ThongTinCaNhanPanel extends JPanel {
         btnCapNhat.setBackground(new Color(0, 123, 255));
         btnCapNhat.setForeground(Color.WHITE);
         infoPanel.add(btnCapNhat);
-
+        btnCapNhat.addActionListener(e->{
+            kh.setHoTen(txtHoTen.getText());
+            kh.setSDT(txtSDT.getText());
+            kh.setEmail(txtEmail.getText());
+            kh.setCCCD(txtCCCD.getText());
+            String ngaySinhStr = txtNgaySinh.getText(); // ví dụ chuỗi ngày sinh
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date ngaySinhDate = sdf.parse(ngaySinhStr);
+                kh.setNgaySinh(ngaySinhDate);
+            } catch (ParseException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            kh.setGioiTinh(txtGioiTinh.getText());
+            controller.suaKhachHang(kh);
+        });
         // Thêm infoPanel vào khu vực CENTER của mainPanel
         mainPanel.add(infoPanel, BorderLayout.CENTER);
         //Thanh Weather

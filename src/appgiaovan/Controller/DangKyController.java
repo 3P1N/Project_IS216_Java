@@ -8,6 +8,7 @@ import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.DAO.TaiKhoanDAO;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
+import java.sql.SQLException;
 import javax.swing.JPasswordField;
 
 /**
@@ -58,6 +59,10 @@ public class DangKyController {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public int layID_KhachHang(int ID_TaiKhoan) throws SQLException, ClassNotFoundException {
+        return khachHangDAO.layID_KhachHang(ID_TaiKhoan);
     }
     
 }

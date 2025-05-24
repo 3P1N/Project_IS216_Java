@@ -93,7 +93,7 @@ public class QLDonHangController {
     public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang) throws SQLException, ClassNotFoundException{
         donHangDAO.PhanCongGiaoHang(nv,listIdDonHang);
     }
-    
+
 
     public DonHang layThongTinDH(int ID_DonHang) throws SQLException, ClassNotFoundException{
         
@@ -103,6 +103,10 @@ public class QLDonHangController {
     static public void main(String[] args ){
         System.out.print("Test");
 
+    }
+
+    public void HuyDonHang(int ID_DonHang) {
+    donHangDAO.HuyDonHang(ID_DonHang);
     }
     
 }
