@@ -54,9 +54,9 @@ public class QLShipperController {
         }
     }
 
-    public boolean taoNhanVienGiaoHang(NhanVienGiaoHang nv, TaiKhoan tk) {
+    public boolean taoNhanVienGiaoHang(NhanVienGiaoHang sh, TaiKhoan tk) {
         try {
-            return dao.themNhanVienGiaoHang(nv, tk);
+            return dao.themNhanVienGiaoHang(sh, tk);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -72,9 +72,9 @@ public class QLShipperController {
         }
     }
 
-    public boolean suaNhanVienGiaoHang(NhanVienGiaoHang nv) {
+    public boolean suaNhanVienGiaoHang(NhanVienGiaoHang sh) {
         try {
-            return dao.suaNhanVienGiaoHang(nv);
+            return dao.suaNhanVienGiaoHang(sh);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
