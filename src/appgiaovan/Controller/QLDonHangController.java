@@ -100,8 +100,8 @@ public class QLDonHangController {
         return donHangDAO.LayThongTinDonHang(ID_DonHang);
     }
 
-    public void main(String[] args ){
-        //System.out.print(new TaiKhoanDAO().layIDTaiKhoan());
+    static public void main(String[] args ){
+        System.out.print("Test");
 
     }
 
