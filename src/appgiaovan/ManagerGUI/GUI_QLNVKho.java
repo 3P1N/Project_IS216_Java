@@ -42,7 +42,7 @@ public class GUI_QLNVKho extends JPanel {
             try {
                 xuLiYeuCauTimKiemNhanVienKho();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLNVKho.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         pnlTop.add(txtSearch);
@@ -60,13 +60,13 @@ public class GUI_QLNVKho extends JPanel {
             try {
                 form = new FormThemNVKho();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLNVKho.class.getName()).log(Level.SEVERE, null, ex);
             }
             form.setVisible(true);
             try {
                 hienThiDanhSachNhanVienKho();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLNVKho.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -75,7 +75,7 @@ public class GUI_QLNVKho extends JPanel {
             try {
                 xuLiLayThongTinNhanVienKho();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLNVKho.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         JButton btnDelete = new JButton("Xóa");
@@ -83,7 +83,7 @@ public class GUI_QLNVKho extends JPanel {
             try {
                 xuLiXoaNhanVienKho();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUI_QLNVKho.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
