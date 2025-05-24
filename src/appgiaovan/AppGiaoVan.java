@@ -9,9 +9,7 @@ import appgiaovan.GUI.LOGIN;
 public class AppGiaoVan {
 
     public static void main(String[] args) {
-         LOGIN login = new LOGIN(null);
-         login.setVisible(true);
-          
-        
+         LOGIN login = new LOGIN();
+         login.setVisible(true);    
     }
 }

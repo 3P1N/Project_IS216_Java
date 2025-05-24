@@ -61,9 +61,26 @@ public class NVGHMainGUI extends JFrame{
         add(contentPanel);
 
         // Khi chọn mục trong MenuBar thì đổi trang
+        
         sidebar.addMenuClickListener((selectedName) -> {
-            cardLayout.show(contentPanel, selectedName);
+            if (selectedName.equals("Đăng xuất")) {
+                int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có chắc chắn muốn đăng xuất không?",
+                    "Xác nhận đăng xuất",
+                    JOptionPane.YES_NO_OPTION
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose();
+                    SwingUtilities.invokeLater(() -> new LOGIN().setVisible(true));
+                }
+            }
+            else {
+                cardLayout.show(contentPanel, selectedName);
+            }
         });
+
     }
 
     public static void main(String[] args) {

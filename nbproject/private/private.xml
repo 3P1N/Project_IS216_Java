@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHMenu.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/Controller/QLDonHangController.java</file>
             <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/GUI/LOGIN.java</file>
             <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionUtils.java</file>
             <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/GUI/dangkytest.java</file>
-
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/DAO/TaiKhoanDAO.java</file>
         </group>
     </open-files>
 </project-private>
