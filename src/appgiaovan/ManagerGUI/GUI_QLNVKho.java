@@ -56,9 +56,9 @@ public class GUI_QLNVKho extends JPanel {
         // sidebar actions
         JButton btnAdd = new JButton("Thêm");
         btnAdd.addActionListener(e -> {
-            FormThemKh form = null;
+            FormThemNVKho form = null;
             try {
-                form = new FormThemKh();
+                form = new FormThemNVKho();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }

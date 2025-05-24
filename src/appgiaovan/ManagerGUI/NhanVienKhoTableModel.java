@@ -17,7 +17,7 @@ import javax.swing.table.TableModel;
 public class NhanVienKhoTableModel extends AbstractTableModel {
     private final List<NhanVienKho> data;
     private final String[] cols = {
-        "Mã KH", "Họ Tên", "SĐT", "Email", "CCCD", "Ngày sinh", "Giới tính", "Địa chỉ", "ID_Kho", "ID_QuanLy", "Mức lương"
+        "Mã NV Kho", "Họ Tên", "SĐT", "Email", "CCCD", "Ngày sinh", "Giới tính", "Địa chỉ", "ID_Kho", "ID_QuanLy", "Mức lương"
     };
     private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 

@@ -15,7 +15,7 @@ import static appgiaovan.PasswordHashing.hashPassword;
 public class FormThemNVKho extends JDialog {
 
     private QLNVKhoController controller;
-    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtTenDangNhap, txtMatKhau;
+    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtIDKho, txtIDQuanLy, txtMucLuong, txtTenDangNhap, txtMatKhau;
     private JComboBox<String> cboGioiTinh;
 
     public FormThemNVKho() throws ClassNotFoundException {
@@ -32,14 +32,16 @@ public class FormThemNVKho extends JDialog {
     private void initUI() {
         JPanel pnl = new JPanel(new GridBagLayout());
         pnl.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        pnl.setPreferredSize(new Dimension(450, 350));  // <--- tăng chiều rộng
+        pnl.setPreferredSize(new Dimension(650, 550));  // <--- tăng chiều rộng
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 5, 5);
         c.fill = GridBagConstraints.HORIZONTAL;
 
         String[] labels = {
-            "Mã KH:", "Họ Tên:", "SĐT:", "Email:",
+            "Mã nhân viên kho:", "Họ Tên:", "SĐT:", "Email:",
             "CCCD:", "Ngày sinh:", "Giới tính:",
+            "Địa chỉ",
+            "ID_Kho:", "ID_QuanLy:", "Mức lương:",
             "Tên đăng nhập:", "Mật khẩu:"
         };
         Component[] fields = {
@@ -48,6 +50,8 @@ public class FormThemNVKho extends JDialog {
             txtCCCD = new JTextField(),
             txtNgaySinh = new JTextField(),
             cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"}),
+            txtDiaChi = new JTextField(), txtIDKho = new JTextField(),
+            txtIDQuanLy = new JTextField(), txtMucLuong = new JTextField(),
             txtTenDangNhap = new JTextField(),
             txtMatKhau = new JPasswordField()
         };
@@ -106,18 +110,22 @@ public class FormThemNVKho extends JDialog {
             hienThiThongBao("Thông tin không hợp lệ");
             return;
         }
-        KhachHang kh = new KhachHang();
+        NhanVienKho nv = new NhanVienKho();
         TaiKhoan tk = new TaiKhoan();
-        kh.setID_NguoiDung(Integer.parseInt(txtID.getText()));
-        kh.setHoTen(txtHoTen.getText());
-        kh.setSDT(txtSDT.getText());
-        kh.setEmail(txtEmail.getText());
-        kh.setCCCD(txtCCCD.getText());
-        kh.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
-        kh.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
+        nv.setID_NguoiDung(Integer.parseInt(txtID.getText()));
+        nv.setHoTen(txtHoTen.getText());
+        nv.setSDT(txtSDT.getText());
+        nv.setEmail(txtEmail.getText());
+        nv.setCCCD(txtCCCD.getText());
+        nv.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
+        nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
+        nv.setDiaChi(txtDiaChi.getText());
+        nv.setID_Kho(Integer.parseInt(txtIDKho.getText()));
+        nv.setID_QuanLy(Integer.parseInt(txtIDQuanLy.getText()));
+        nv.setMucLuong(Double.parseDouble(txtMucLuong.getText()));
         tk.setTenTaiKhoan(txtTenDangNhap.getText());
         tk.setMatKhauMaHoa(hashPassword(txtMatKhau.getText()));
-        boolean ok = controller.taoKhachHang(kh, tk);
+        boolean ok = controller.taoNhanVienKho(nv, tk);
         hienThiThongBao(ok ? "Thêm thành công" : "Thêm thất bại");
         if (ok) {
             dispose();

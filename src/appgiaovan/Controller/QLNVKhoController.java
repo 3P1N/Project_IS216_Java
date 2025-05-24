@@ -54,7 +54,7 @@ public class QLNVKhoController {
         }
     }
 
-    public boolean taoKhachHang(NhanVienKho nv, TaiKhoan tk) {
+    public boolean taoNhanVienKho(NhanVienKho nv, TaiKhoan tk) {
         try {
             return dao.themNhanVienKho(nv, tk);
         } catch (Exception e) {

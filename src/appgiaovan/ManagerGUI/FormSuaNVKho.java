@@ -32,22 +32,24 @@ public class FormSuaNVKho extends JDialog {
     private void initUI() {
         JPanel pnl = new JPanel(new GridBagLayout());
         pnl.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        pnl.setPreferredSize(new Dimension(450, 350));  // cùng kích thước với form Thêm
+        pnl.setPreferredSize(new Dimension(650, 550));  // cùng kích thước với form Thêm
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(5, 5, 5, 5);
         c.fill = GridBagConstraints.HORIZONTAL;
 
         String[] labels = {
-            "Mã KH:", "Họ Tên:", "SĐT:", "Email:",
-            "CCCD:", "Ngày sinh:", "Giới tính:"
+            "Mã nhân viên kho:", "Họ Tên:", "SĐT:", "Email:",
+            "CCCD:", "Ngày sinh:", "Giới tính:", "Địa chỉ",
+            "ID_Kho:", "ID_QuanLy:", "Mức lương:"
         };
         Component[] fields = {
             txtID = new JTextField(), txtHoTen = new JTextField(),
             txtSDT = new JTextField(), txtEmail = new JTextField(),
             txtCCCD = new JTextField(), txtNgaySinh = new JTextField(),
+            cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"}),
             txtDiaChi = new JTextField(), txtIDKho = new JTextField(),
-            txtIDQuanLy = new JTextField(), txtMucLuong = new JTextField(),
-            cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"})
+            txtIDQuanLy = new JTextField(), txtMucLuong = new JTextField()
+            
         };
         txtID.setEnabled(false);
 
@@ -105,6 +107,10 @@ public class FormSuaNVKho extends JDialog {
         nv.setCCCD(txtCCCD.getText());
         nv.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
         nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
+        nv.setDiaChi(txtDiaChi.getText());
+        nv.setID_Kho(Integer.parseInt(txtIDKho.getText()));
+        nv.setID_QuanLy(Integer.parseInt(txtIDQuanLy.getText()));
+        nv.setMucLuong(Double.parseDouble(txtMucLuong.getText()));
         boolean ok = controller.suaNhanVienKho(nv);
         hienThiThongBao(ok?"Sửa thành công":"Sửa thất bại");
         if (ok) dispose();
