@@ -16,13 +16,11 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmailSender.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLKHController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/FilterPanel.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/NguoiDung.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/TaoDonHangController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/LoginController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemDonHangFrame.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/images/LOGO3P1N.png</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/TaiKhoan.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLNVKho.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerSidebar.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyGoiHang.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormSuaShipper.java</file>
@@ -35,9 +33,8 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemShipper.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/images/avatar.png</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeSidebar.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/KhachHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelTGH.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemNVKho.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/GoiHangDAO.java</file>
