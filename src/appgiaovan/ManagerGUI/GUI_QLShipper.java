@@ -120,7 +120,7 @@ public class GUI_QLShipper extends JPanel {
         hienThiDanhSachNhanVienGiaoHang();
     }
 
-    public void xuLiXoaNhanVienKho() throws ClassNotFoundException {
+    public void xuLiXoaNhanVienGiaoHang() throws ClassNotFoundException {
         int row = tblNhanVienGiaoHang.getSelectedRow();
         if (row < 0) {
             return;
@@ -128,8 +128,8 @@ public class GUI_QLShipper extends JPanel {
         int id = (int) tblNhanVienGiaoHang.getValueAt(row, 0);
         int choice = JOptionPane.showConfirmDialog(this, "Xóa nhân viên giao hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            controller.xoaNhanVienKho(id);
-            hienThiDanhSachNhanVienKho();
+            controller.xoaNhanVienGiaoHang(id);
+            hienThiDanhSachNhanVienGiaoHang();
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         }
     }
@@ -142,12 +142,12 @@ public class GUI_QLShipper extends JPanel {
             }
 
             try {
-                JFrame frame = new JFrame("Quản Lý Nhân Viên Kho");
+                JFrame frame = new JFrame("Quản Lý Nhân Viên Giao Hang");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(1300, 600);
                 frame.setLocationRelativeTo(null); 
 
-                GUI_QLNVKho panel = new GUI_QLNVKho();
+                GUI_QLShipper panel = new GUI_QLShipper();
                 frame.setContentPane(panel);
                 
                 frame.setVisible(true);
