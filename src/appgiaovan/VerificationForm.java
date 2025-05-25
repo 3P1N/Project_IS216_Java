@@ -40,7 +40,7 @@ public class VerificationForm extends JFrame {
         }
     }
     static public void main(String[] args){
-        new VerificationForm().setVisible(true);
+        
     }
 }
 

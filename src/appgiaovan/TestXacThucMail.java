@@ -12,10 +12,10 @@ import java.util.Random;
  */
 public class TestXacThucMail {
 
-    static public void main(String[] args) {
+    public static void main(String[] args) {
         String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
-        String mail = "someone@gmail.com";
-       new EmailSender().sendMail(mail,generatedCode);
-       
+        String mail = "toilaphien2302@gmail.com";
+        EmailSender.sendEmail(mail, generatedCode);
+        new VerificationForm(generatedCode).setVisible(true);
     }
 }

@@ -7,10 +7,11 @@ import java.util.Random;
 
 public class EmailSender {
 
-    public void sendEmail(String toEmail, String code) {
+    static void sendEmail(String toEmail, String code) {
         // Cấu hình thông tin SMTP (Gmail)
         final String fromEmail = "3p1nPMIT@gmail.com";
         final String password = "fboftfflmqhazakj"; // Không dùng mật khẩu Gmail thường, dùng app password
+        String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com"); 
         props.put("mail.smtp.port", "587"); 
@@ -39,6 +40,10 @@ public class EmailSender {
         }
     }
     public static void main(String[] args) {
-       new EmailSender().sendEmail("tranthephong1908@gmail.com", "nothing");
+       sendEmail("tranthephong1908@gmail.com","nothing");
     }
+
+    
+
+    
 }
