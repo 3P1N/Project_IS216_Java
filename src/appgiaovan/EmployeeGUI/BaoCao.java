@@ -1,5 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.GUI.Components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
 
@@ -8,7 +9,22 @@ import java.awt.*;
 
 public class BaoCao extends JPanel {
 
-    public BaoCao() {
+    private NhanVienKho nhanVienKho;
+
+    private JTextField txtIdNhanVien;
+    private JTextField txtTenNhanVien;
+    private JTextField txtNgayBaoCao;
+    private JTextField txtKyBaoCao;
+
+    private JTextField txtSoGoiHangXuat;
+    private JTextField txtSoGoiHangNhap;
+    private JButton submitButton;
+
+    private BaoCaoKhoController controller;
+    
+    public BaoCao(NhanVienKho nhanVienKho) {
+        this.nhanVienKho = nhanVienKho;
+        controller = new BaoCaoKhoController();
         setLayout(new BorderLayout());
         setBackground(new Color(240, 240, 240)); // nền ngoài
 
@@ -33,19 +49,28 @@ public class BaoCao extends JPanel {
 
         formPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        // Các trường - Nhân viên (đưa lên đầu)
-        formPanel.add(createField("ID Nhân viên", new JTextField()));
-        formPanel.add(createField("Tên nhân viên", new JTextField()));
+        txtIdNhanVien = new JTextField();
+        formPanel.add(createField("ID Nhân viên", txtIdNhanVien));
 
-        // Trường khác
-        formPanel.add(createField("Ngày báo cáo", new JTextField()));
-        formPanel.add(createField("Số lượng đơn hàng", new JTextField()));
-        formPanel.add(createField("Gói hàng đã tạo", new JTextField()));
+        txtTenNhanVien = new JTextField();
+        formPanel.add(createField("Tên nhân viên", txtTenNhanVien));
+
+        txtNgayBaoCao = new JTextField();
+        formPanel.add(createField("Ngày báo cáo", txtNgayBaoCao));
+
+        txtKyBaoCao = new JTextField();
+        formPanel.add(createField("Kỳ báo cáo", txtKyBaoCao));
+
+        txtSoGoiHangNhap = new JTextField();
+        formPanel.add(createField("Số gói hàng nhập", txtSoGoiHangNhap));
+
+        txtSoGoiHangXuat = new JTextField();
+        formPanel.add(createField("Số gói hàng xuất", txtSoGoiHangXuat));
 
         formPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Nút gửi
-        JButton submitButton = new JButton("Gửi");
+        submitButton = new JButton("Gửi");
         submitButton.setBackground(new Color(0, 102, 204));
         submitButton.setForeground(Color.WHITE);
         submitButton.setPreferredSize(new Dimension(150, 40));
@@ -58,8 +83,15 @@ public class BaoCao extends JPanel {
         wrapper.setBackground(new Color(245, 245, 245));
         wrapper.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100)); // padding ngoài
         wrapper.add(formPanel, BorderLayout.CENTER);
-        
+
         add(wrapper, BorderLayout.CENTER);
+
+        submitButton.addActionListener(e -> XuLyGuiBaoCao());
+    }
+
+    public void XuLyGuiBaoCao() {
+        
+        controller.GuiBaoCao(baoCaoKho)
     }
 
     private JPanel createField(String labelText, JTextField textField) {
@@ -96,7 +128,8 @@ public class BaoCao extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(800, 600);
             frame.setLocationRelativeTo(null);
-            frame.setContentPane(new BaoCao());
+
+            frame.setContentPane(new BaoCao(new NhanVienKho()));
             frame.setVisible(true);
         });
     }

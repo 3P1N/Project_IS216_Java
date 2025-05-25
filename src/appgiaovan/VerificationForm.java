@@ -39,5 +39,8 @@ public class VerificationForm extends JFrame {
             JOptionPane.showMessageDialog(this, "Sai mã xác nhận.");
         }
     }
+    static public void main(String[] args){
+        new VerificationForm().setVisible(true);
+    }
 }
 

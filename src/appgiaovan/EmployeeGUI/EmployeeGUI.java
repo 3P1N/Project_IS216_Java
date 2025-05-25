@@ -2,6 +2,8 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.DAO.NhanVienKhoDAO;
+import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -28,15 +30,23 @@ public class EmployeeGUI extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel contentPanel;
-
+    private TaiKhoan taiKhoan;
+    private NhanVienKho nhanVienKho;
+    private NhanVienKhoDAO dao = new NhanVienKhoDAO();
     public EmployeeGUI(TaiKhoan tk) throws SQLException, ClassNotFoundException, Exception {
+        
+        
+        taiKhoan = tk;
+        
+        nhanVienKho = dao.layThongTinNhanVienKho( dao.layID_NhanVienKho(tk.getIdTaiKhoan()));
         
         setTitle("Giao diện chính");
         setSize(1200, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-
+        
+        
         // Danh sách tên và icon menu
         
         // Tạo menu
@@ -50,10 +60,10 @@ public class EmployeeGUI extends JFrame {
         // Thêm các trang nội dung
         contentPanel.add(new ThongTinCaNhan(),"Profile");
         contentPanel.add(new EmployeeMainPanel(),"Trang chủ");
-        contentPanel.add(new BaoCao(), "Báo cáo");
-        contentPanel.add(new QuanLyDonHangPanel(),"Quản lý đơn hàng");
+        contentPanel.add(new BaoCao(nhanVienKho), "Báo cáo");
+        contentPanel.add(new QuanLyDonHangPanel(nhanVienKho),"Quản lý đơn hàng");
 
-        contentPanel.add(new QuanLyGoiHang(), "Quản lý gói hàng");
+        contentPanel.add(new QuanLyGoiHang(nhanVienKho), "Quản lý gói hàng");
 
         add(contentPanel, BorderLayout.CENTER);
 
@@ -69,16 +79,18 @@ public class EmployeeGUI extends JFrame {
         } catch (Exception ex) {
             System.err.println("Không thể cài đặt FlatLaf");
         }
-//        SwingUtilities.invokeLater(() -> {
-//            try {
-//                new EmployeeGUI().setVisible(true);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (Exception ex) {
-//                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
+        SwingUtilities.invokeLater(() -> {
+            try {
+                TaiKhoan tk = new TaiKhoan();
+                tk.setIdTaiKhoan(7);
+                new EmployeeGUI(tk).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 }

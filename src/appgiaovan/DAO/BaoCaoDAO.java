@@ -37,6 +37,11 @@ public class BaoCaoDAO {
         }
         
     }
+    
+    public void GuiBaoCaoKho(BaoCaoKho baoCao){
+        String sql = "";
+    }
+    
     public void main(String[] args){
         BaoCaoGiaoHang(1,1,1,1);
     }
