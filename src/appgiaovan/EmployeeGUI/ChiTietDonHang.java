@@ -21,8 +21,7 @@ public class ChiTietDonHang extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        CustomerSidebar sidebar = new CustomerSidebar();
-        add(sidebar, BorderLayout.WEST);
+        
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);

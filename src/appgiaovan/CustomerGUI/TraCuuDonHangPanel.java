@@ -27,7 +27,7 @@ public class TraCuuDonHangPanel extends JPanel {
     private final ThanhTimKiemDH topPanel = new ThanhTimKiemDH();
     private final QLDonHangController controller = new QLDonHangController();
     private final TableList listOrder;
-    public TraCuuDonHangPanel() throws SQLException, ClassNotFoundException{
+    public TraCuuDonHangPanel(int ID_KhachHang) throws SQLException, ClassNotFoundException{
         
         setLayout(new BorderLayout());
         
@@ -49,7 +49,7 @@ public class TraCuuDonHangPanel extends JPanel {
             try {
                 DonHang dh = topPanel.getDonHang();
 
-                HienThiDanhSach(dh);
+                HienThiDanhSachCuaKH(dh,ID_KhachHang);
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -58,7 +58,7 @@ public class TraCuuDonHangPanel extends JPanel {
         });
 
         // Hiển thị danh sách ngay khi mở panel
-        HienThiDanhSach();
+        HienThiDanhSachCuaKH(ID_KhachHang);
         listOrder.getTable().addMouseListener(new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && listOrder.getTable().getSelectedRow() != -1) {
@@ -86,8 +86,8 @@ public class TraCuuDonHangPanel extends JPanel {
 
         
     }
-  public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {
-        java.util.List<DonHang> dsDonHang = controller.LayDSDonHang();
+  public final void HienThiDanhSachCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
+        java.util.List<DonHang> dsDonHang = controller.LayDSDonHangCuaKH(ID_KhachHang);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
 
@@ -98,8 +98,8 @@ public class TraCuuDonHangPanel extends JPanel {
         listOrder.setTableData(data);
     }
 
-    public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
-        java.util.List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
+    public final void HienThiDanhSachCuaKH(DonHang dh,int ID_KhachHang) throws SQLException, ClassNotFoundException {
+        java.util.List<DonHang> dsDonHang = controller.LayDSDonHangCuaKH(dh,ID_KhachHang);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
 
@@ -124,7 +124,7 @@ public class TraCuuDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new TraCuuDonHangPanel(), BorderLayout.CENTER);
+                frame.add(new TraCuuDonHangPanel(8), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

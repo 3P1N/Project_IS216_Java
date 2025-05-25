@@ -24,7 +24,7 @@ public class ThongTinDonHang extends JFrame {
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
         private DonHang donHang;
-        private QLDonHangController controller=new QLDonHangController();
+        private QLDonHangController qLDonHangController=new QLDonHangController();
     public ThongTinDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
         donHang=hienThiDonHang(ID_DonHang);
         setTitle("Chi Tiết Đơn Hàng");
@@ -33,8 +33,6 @@ public class ThongTinDonHang extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        CustomerSidebar sidebar = new CustomerSidebar();
-        add(sidebar, BorderLayout.WEST);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
@@ -108,18 +106,39 @@ public class ThongTinDonHang extends JFrame {
         btnHuy.setForeground(Color.WHITE);
         //Xử lý sự kiện ấn nút đánh giá
         btnDanhGia.addActionListener(e -> {
-        DanhGiaForm form = new DanhGiaForm(ID_DonHang);
-        form.setVisible(true);
+            if(!donHang.getTrangThai().equals("Đã giao")){
+                JOptionPane.showMessageDialog(null, "Đơn hàng chưa giao, không được đánh giá!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                DanhGiaForm form = new DanhGiaForm(ID_DonHang);
+                form.setVisible(true);
+            }
         });
         //Xử lý sự kiện ấn nút hủy
         btnHuy.addActionListener(e -> {
-        HuyDonHang(ID_DonHang);
+            System.out.println(donHang.getTrangThai());
+            if(!donHang.getTrangThai().equals("Đang xử lý")){
+                JOptionPane.showMessageDialog(null, "Đơn hàng đã rời kho, không được hủy!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                try {
+                    HuyDonHang(ID_DonHang);
+                    donHang = hienThiDonHang(ID_DonHang);
+                    txtTrangThai.setText(donHang.getTrangThai());
+                    JOptionPane.showMessageDialog(null, "Đã hủy đơn hàng thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         });
         mainPanel.add(btnDanhGia);
         mainPanel.add(btnHuy);
     }
-    void HuyDonHang(int ID_DonHang){
-        controller.HuyDonHang(ID_DonHang);
+    void HuyDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException{
+        qLDonHangController.HuyDonHang(ID_DonHang);
     }
 
     public static void main(String[] args) {
@@ -139,10 +158,9 @@ public class ThongTinDonHang extends JFrame {
             }
         });
     }
-
     private DonHang hienThiDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
         DonHang donHang=new DonHang();
-        donHang=controller.layThongTinDH(ID_DonHang);
+        donHang=qLDonHangController.layThongTinDH(ID_DonHang);
         return donHang;
     }
 }

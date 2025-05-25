@@ -15,8 +15,8 @@ public class CustomerSidebar extends MenuBar {
 
     private static final List<String> items = Arrays.asList("Trang chủ", "Tạo đơn hàng", "Tra cứu đơn hàng","Thông tin cá nhân", "Đăng xuất");
     private static final List<String> icons = Arrays.asList("home.jpg", "order.png", "package.png","customer.png", "logout.png");
-    public CustomerSidebar() throws SQLException, ClassNotFoundException {
-        super(CustomerSidebar.items, CustomerSidebar.icons, 11);
+    public CustomerSidebar(int ID_TaiKhoan) throws SQLException, ClassNotFoundException {
+        super(CustomerSidebar.items, CustomerSidebar.icons, ID_TaiKhoan);
     }
 }
 
