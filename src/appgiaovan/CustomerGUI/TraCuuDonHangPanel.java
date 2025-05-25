@@ -48,7 +48,7 @@ public class TraCuuDonHangPanel extends JPanel {
         topPanel.getfilterButton().addActionListener(e -> {
             try {
                 DonHang dh = topPanel.getDonHang();
-
+                System.out.print(dh.getTrangThai());
                 HienThiDanhSachCuaKH(dh,ID_KhachHang);
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,7 +124,7 @@ public class TraCuuDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new TraCuuDonHangPanel(8), BorderLayout.CENTER);
+                frame.add(new TraCuuDonHangPanel(1), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
