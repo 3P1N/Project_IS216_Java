@@ -72,7 +72,7 @@ public class ThanhTimKiemDH extends JPanel {
 
         // Xử lý combobox: nếu không chọn gì thì là null
         Object selected = statusComboBox.getSelectedItem();
-        dh.setTrangThai((String) selected);
+        dh.setTrangThai(selected != null ? selected.toString() : null);
         // Xử lý tên người gửi: nếu để trống thì là chuỗi rỗng hoặc null tùy bạn
         String name = customerField.getText().trim();
         dh.setTenNguoiGui(name.isEmpty() ? null : name);
