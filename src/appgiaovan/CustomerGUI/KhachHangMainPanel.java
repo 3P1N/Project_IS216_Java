@@ -4,6 +4,7 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.GUI.Components.RoundedPanel;
 import appgiaovan.GUI.Components.MenuBar;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -13,9 +14,12 @@ import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
 import appgiaovan.GUI.Components.TimeWeather;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
  public class KhachHangMainPanel extends JPanel {
-
-    public KhachHangMainPanel(){
+     QLDonHangController qlDonHangController=new QLDonHangController();
+    public KhachHangMainPanel(int ID_KhachHang) throws SQLException, ClassNotFoundException{
         setLayout(new BorderLayout());
         //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -24,10 +28,12 @@ import appgiaovan.GUI.Components.TimeWeather;
         //Thanh Weather
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
         statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        statPanel.add(RoundedPanel.createStatBox("Tổng số đơn", "20", "", new Color(76, 175, 80)));
-        statPanel.add(RoundedPanel.createStatBox("Đã giao", "5", "", new Color(33, 150, 243)));
-        statPanel.add(RoundedPanel.createStatBox("Đang vận chuyển", "15", "", new Color(255, 152, 0)));
+        int TongSoDon=qlDonHangController.LayTongSoDon(ID_KhachHang);
+        int SoDonDaGiao=qlDonHangController.LayTongSoDonDaGiao(ID_KhachHang);
+        int SoDonDangVanChuyen=(TongSoDon-SoDonDaGiao);
+        statPanel.add(RoundedPanel.createStatBox("Tổng số đơn", Integer.toString(TongSoDon), "", new Color(76, 175, 80)));
+        statPanel.add(RoundedPanel.createStatBox("Đã giao", Integer.toString(SoDonDaGiao), "", new Color(33, 150, 243)));
+        statPanel.add(RoundedPanel.createStatBox("Đang vận chuyển", Integer.toString(SoDonDangVanChuyen), "", new Color(255, 152, 0)));
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
@@ -65,7 +71,13 @@ import appgiaovan.GUI.Components.TimeWeather;
             frame.setLocationRelativeTo(null);
             frame.setLayout(new BorderLayout());
 
-            frame.add(new KhachHangMainPanel(), BorderLayout.CENTER);
+            try {
+                frame.add(new KhachHangMainPanel(8), BorderLayout.CENTER);
+            } catch (SQLException ex) {
+                Logger.getLogger(KhachHangMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(KhachHangMainPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         });
     }

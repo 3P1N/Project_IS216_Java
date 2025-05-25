@@ -34,18 +34,18 @@ import javax.swing.JPanel;
  * @author nhant
  */
 public class CustomerGUI extends JFrame {
-    private DangKyController controller=new DangKyController();
+    private DangKyController dangKyController=new DangKyController();
     private CardLayout cardLayout;
     private JPanel contentPanel;
     public CustomerGUI(int ID_TaiKhoan) throws SQLException, ClassNotFoundException{
-        int ID_KhachHang=controller.layID_KhachHang(ID_TaiKhoan);
+        int ID_KhachHang=dangKyController.layID_KhachHang(ID_TaiKhoan);
         setTitle("Giao diện chính");
         setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         //Thêm sidebar
-        CustomerSidebar sidebar = new CustomerSidebar();
+        CustomerSidebar sidebar = new CustomerSidebar(ID_TaiKhoan);
         add(sidebar, BorderLayout.WEST);
         // Thêm panel
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -54,9 +54,9 @@ public class CustomerGUI extends JFrame {
         cardLayout = new CardLayout();
         contentPanel = new JPanel(cardLayout);
         // Thêm các trang panel
-        contentPanel.add(new KhachHangMainPanel(),"Trang chủ");
-        contentPanel.add(new KHTaoDonHangPanel(),"Tạo đơn hàng");
-        contentPanel.add(new TraCuuDonHangPanel(),"Tra cứu đơn hàng");
+        contentPanel.add(new KhachHangMainPanel(ID_KhachHang),"Trang chủ");
+        contentPanel.add(new KHTaoDonHangPanel(ID_KhachHang),"Tạo đơn hàng");
+        contentPanel.add(new TraCuuDonHangPanel(ID_KhachHang),"Tra cứu đơn hàng");
         contentPanel.add(new ThongTinCaNhanPanel(ID_KhachHang),"Thông tin cá nhân");
         add(contentPanel,BorderLayout.CENTER);
         sidebar.addMenuClickListener((selectedName) -> {
@@ -66,7 +66,7 @@ public class CustomerGUI extends JFrame {
     }
     public int layID_KhachHang(int ID_TaiKhoan) throws SQLException{
         try {
-            return controller.layID_KhachHang(ID_TaiKhoan);
+            return dangKyController.layID_KhachHang(ID_TaiKhoan);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
         }

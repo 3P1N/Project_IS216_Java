@@ -31,11 +31,7 @@ public class ThanhTimKiemDH extends JPanel {
         statusComboBox.setPreferredSize(new Dimension(120, 40));
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
-
-        // TextField - Khách hàng
-        customerField.setPreferredSize(new Dimension(120, 40));
-        customerField.setBorder(BorderFactory.createTitledBorder("Tên khách hàng"));
-        add(customerField);
+        
 
         // Button - Lọc (màu xanh đậm)
         filterButton.setPreferredSize(new Dimension(60, 30));
