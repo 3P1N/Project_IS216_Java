@@ -240,10 +240,10 @@ public class DonHangDAO {
     }
     public List<DonHang> LayDSDonHangCuaKH(DonHang donHang,int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 AND ID_KhachHang="+Integer.toString(ID_KhachHang));
+        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 AND ID_KhachHang=?");
         
         List<Object> params = new ArrayList<>();
-
+        params.add(ID_KhachHang);
         if (null == donHang.getIdDonHang()) {
         } else {
             sql.append(" AND ID_DonHang = ?");
@@ -252,6 +252,7 @@ public class DonHangDAO {
 
         if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
             System.out.println(donHang.getTrangThai());
+            
             sql.append(" AND TrangThai LIKE ?");
             params.add("%" + donHang.getTrangThai() + "%");
         }
