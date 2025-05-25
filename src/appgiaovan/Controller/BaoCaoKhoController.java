@@ -4,14 +4,18 @@
  */
 package appgiaovan.Controller;
 
+import appgiaovan.DAO.BaoCaoDAO;
+import appgiaovan.Entity.BaoCaoKho;
+import java.sql.SQLException;
+
 /**
  *
  * @author HP
  */
 public class BaoCaoKhoController {
-    private BaoCaoKho
     
-    public void GuiBaoCao(BaoCaoKho baoCao){
-        
+    
+    public void GuiBaoCao(BaoCaoKho baoCao, int idnvk) throws SQLException, ClassNotFoundException{
+        BaoCaoDAO.GuiBaoCaoKho(baoCao, idnvk);
     }
 }

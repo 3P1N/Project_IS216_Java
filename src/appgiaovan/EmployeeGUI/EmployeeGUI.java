@@ -60,7 +60,7 @@ public class EmployeeGUI extends JFrame {
         // Thêm các trang nội dung
         contentPanel.add(new ThongTinCaNhan(),"Profile");
         contentPanel.add(new EmployeeMainPanel(),"Trang chủ");
-        contentPanel.add(new BaoCao(nhanVienKho), "Báo cáo");
+        contentPanel.add(new BaoCaoKhoFrame(nhanVienKho), "Báo cáo");
         contentPanel.add(new QuanLyDonHangPanel(nhanVienKho),"Quản lý đơn hàng");
 
         contentPanel.add(new QuanLyGoiHang(nhanVienKho), "Quản lý gói hàng");
