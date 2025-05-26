@@ -3,7 +3,7 @@
 	<property name="ireport.zoom" value="0.7513148009015796"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="ID_DONHANG" class="java.lang.Long">
+	<parameter name="ID_DONHANG" class="java.lang.Number">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="IDDH" class="java.lang.Number">

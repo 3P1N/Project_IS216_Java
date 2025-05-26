@@ -636,5 +636,22 @@ public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, Cl
 
         }
     }
+    public int layIDDHCuoiCungCuaKhach(int id) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT ID_DONHANG FROM DONHANG WHERE ID_KHACHHANG = ? "
+                + "ORDER BY THOIGIANTAO DESC";
+        try (Connection conn = ConnectionUtils.getMyConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id); // Gán tham số trước
+            try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt("ID_DONHANG");
+                    } else {
+                        throw new SQLException("Không thể ID đơn hàng.");
+                    }
+            }   
+
+        }
+    }
+    
 }
 
