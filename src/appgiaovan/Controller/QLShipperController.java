@@ -80,4 +80,8 @@ public class QLShipperController {
             return false;
         }
     }
+    
+    public int getIdTaiKhoanByNhanVienGiaoHang(int idNhanVien) throws Exception {
+        return dao.getIdTaiKhoanByNhanVienGiaoHang(idNhanVien);
+    }
 }
