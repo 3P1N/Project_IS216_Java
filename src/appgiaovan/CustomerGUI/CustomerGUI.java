@@ -37,7 +37,7 @@ public class CustomerGUI extends JFrame {
     private DangKyController dangKyController=new DangKyController();
     private CardLayout cardLayout;
     private JPanel contentPanel;
-    public CustomerGUI(int ID_TaiKhoan) throws SQLException, ClassNotFoundException{
+    public CustomerGUI(int ID_TaiKhoan) throws SQLException, ClassNotFoundException, Exception{
         int ID_KhachHang=dangKyController.layID_KhachHang(ID_TaiKhoan);
         setTitle("Giao diện chính");
         setSize(900, 700);
@@ -85,6 +85,8 @@ public class CustomerGUI extends JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         });

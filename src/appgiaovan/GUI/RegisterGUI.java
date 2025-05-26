@@ -194,6 +194,7 @@ public class RegisterGUI extends JFrame{
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + 
                         ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+               
             }
 
         });
