@@ -10,11 +10,12 @@ import appgiaovan.Entity.NhanVienKho;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.List;
 public class FormSuaNVKho extends JDialog {
     private QLNVKhoController controller;
     private NhanVienKho nv;
-    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtIDKho, txtIDQuanLy, txtMucLuong;
+    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtMucLuong;
+    private JComboBox<Integer> cboIDKho, cboIDQuanLy;
     private JComboBox<String> cboGioiTinh;
 
     public FormSuaNVKho(NhanVienKho nv) throws ClassNotFoundException {
@@ -27,6 +28,7 @@ public class FormSuaNVKho extends JDialog {
         this.nv = nv;
         initUI();
         hienThiThongTinNhanVienKho();
+        hienThiCacLuaChonIDKho();
     }
 
     private void initUI() {
@@ -47,12 +49,14 @@ public class FormSuaNVKho extends JDialog {
             txtSDT = new JTextField(), txtEmail = new JTextField(),
             txtCCCD = new JTextField(), txtNgaySinh = new JTextField(),
             cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"}),
-            txtDiaChi = new JTextField(), txtIDKho = new JTextField(),
-            txtIDQuanLy = new JTextField(), txtMucLuong = new JTextField()
+            txtDiaChi = new JTextField(), 
+            cboIDKho = new JComboBox<>(),
+            cboIDQuanLy = new JComboBox<>(), 
+            txtMucLuong = new JTextField()
             
         };
         txtID.setEnabled(false);
-
+        cboIDQuanLy.setEnabled(false);
         for (int i = 0; i < labels.length; i++) {
             c.gridx = 0; c.gridy = i; c.weightx = 0.2;
             pnl.add(new JLabel(labels[i]), c);
@@ -84,9 +88,39 @@ public class FormSuaNVKho extends JDialog {
         txtNgaySinh.setText(nv.getNgaySinh().toString());
         cboGioiTinh.setSelectedItem(nv.getGioiTinh());
         txtDiaChi.setText(nv.getDiaChi());
-        txtIDKho.setText(String.valueOf(nv.getID_Kho()));
-        txtIDQuanLy.setText(String.valueOf(nv.getID_QuanLy()));
+        cboIDKho.setSelectedItem(nv.getID_Kho());
+        cboIDQuanLy.setSelectedItem(nv.getID_QuanLy());
         txtMucLuong.setText(String.valueOf(nv.getMucLuong()));
+    }
+    public void hienThiCacLuaChonIDKho(){
+        try {
+            List<Integer> dsKho = controller.layTatCaIDKho();
+            for (Integer id : dsKho) {
+                cboIDKho.addItem(id);
+            }
+            // set lần đầu manager của kho đầu tiên
+            if (!dsKho.isEmpty()) {
+                Integer firstKho = dsKho.get(0);
+                Integer mg = controller.layIDQuanLyTheoKho(firstKho);
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        cboIDKho.addActionListener(e -> {
+        Integer selectedKho = (Integer) cboIDKho.getSelectedItem();
+        try {
+            Integer mg = controller.layIDQuanLyTheoKho(selectedKho);
+            cboIDQuanLy.removeAllItems();
+            if (mg != null) {
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    });
     }
 
     public boolean kiemTraDinhDangThongTin() {
@@ -108,8 +142,8 @@ public class FormSuaNVKho extends JDialog {
         nv.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
         nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
         nv.setDiaChi(txtDiaChi.getText());
-        nv.setID_Kho(Integer.parseInt(txtIDKho.getText()));
-        nv.setID_QuanLy(Integer.parseInt(txtIDQuanLy.getText()));
+        nv.setID_Kho((Integer)cboIDKho.getSelectedItem());
+        nv.setID_QuanLy((Integer)cboIDQuanLy.getSelectedItem());
         nv.setMucLuong(Double.parseDouble(txtMucLuong.getText()));
         boolean ok = controller.suaNhanVienKho(nv);
         hienThiThongBao(ok?"Sửa thành công":"Sửa thất bại");

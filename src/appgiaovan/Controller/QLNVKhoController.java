@@ -90,4 +90,8 @@ public class QLNVKhoController {
         return dao.layIDQuanLyTheoKho(idKho);      // trả về ID_QuanLy tương ứng
     }
 
+    public int getIdTaiKhoanByNhanVienKho(int idNhanVien) throws Exception {
+        return dao.getIdTaiKhoanByNhanVienKho(idNhanVien);
+    }
+
 }
