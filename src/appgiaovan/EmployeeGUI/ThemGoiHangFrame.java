@@ -87,6 +87,7 @@ public class ThemGoiHangFrame extends JFrame {
 
     public void HienThiDSDonHangDangXuLy() throws SQLException, ClassNotFoundException {
         DonHang donHang = new DonHang();
+        donHang.setIdKhoTiepNhan(nhanVienKho.getID_Kho());
         donHang.setTrangThai("Đang xử lý");
         List<DonHang> dsDonHang = controller.LayDSDonHang(donHang);
         String[] columns = DonHang.getTableHeaders();
@@ -108,7 +109,7 @@ public class ThemGoiHangFrame extends JFrame {
         SwingUtilities.invokeLater(() -> {
             try {
                 NhanVienKho nvkho = new NhanVienKho();
-                nvkho.setID_NguoiDung(7);
+                nvkho.setID_NguoiDung(1);
                 new ThemGoiHangFrame(() -> System.out.println("Thêm gói hàng!"), nvkho).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ThemGoiHangFrame.class.getName()).log(Level.SEVERE, null, ex);
