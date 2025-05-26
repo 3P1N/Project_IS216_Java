@@ -47,7 +47,7 @@ public class KhoHangDAO {
         }
         return tenKho;
     }
-
+    
     public static void main(String[] args) {
         try {
             KhoHangDAO khoHangDAO = new KhoHangDAO();

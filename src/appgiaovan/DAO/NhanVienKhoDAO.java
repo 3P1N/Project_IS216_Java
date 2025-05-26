@@ -235,6 +235,32 @@ public class NhanVienKhoDAO {
         }
         return -1;
     }
+    
+    public List<Integer> layTatCaIDKho() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_Kho FROM KhoHang";
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            List<Integer> ids = new ArrayList<>();
+            while (rs.next()) {
+                ids.add(rs.getInt("ID_Kho"));
+            }
+            return ids;
+        }
+    }
+
+    public Integer layIDQuanLyTheoKho(int idKho) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_QuanLy FROM KhoHang WHERE ID_Kho = ?";
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idKho);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt("ID_QuanLy");
+                else return null;
+            }
+        }
+    }
+
 }
 
 

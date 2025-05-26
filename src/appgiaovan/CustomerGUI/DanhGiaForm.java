@@ -79,8 +79,10 @@ public class DanhGiaForm extends JFrame {
                 qLDonHangController.ThemDanhGia(danhGia);
             } catch (SQLException ex) {
                 Logger.getLogger(DanhGiaForm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Đơn hàng đã được đánh giá", "Thông báo", JOptionPane.WARNING_MESSAGE);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(DanhGiaForm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Đơn hàng đã được đánh giá", "Thông báo", JOptionPane.WARNING_MESSAGE);
             }
             
         });
