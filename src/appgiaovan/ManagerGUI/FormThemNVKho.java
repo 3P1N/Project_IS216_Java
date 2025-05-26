@@ -10,12 +10,14 @@ import appgiaovan.Entity.TaiKhoan;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 import static appgiaovan.PasswordHashing.hashPassword;
 
 public class FormThemNVKho extends JDialog {
 
     private QLNVKhoController controller;
-    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtIDKho, txtIDQuanLy, txtMucLuong, txtTenDangNhap, txtMatKhau;
+    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtMucLuong, txtTenDangNhap, txtMatKhau;
+    private JComboBox<Integer> cboIDKho, cboIDQuanLy;
     private JComboBox<String> cboGioiTinh;
 
     public FormThemNVKho() throws ClassNotFoundException {
@@ -27,6 +29,7 @@ public class FormThemNVKho extends JDialog {
         controller = new QLNVKhoController();
         initUI();
         hienThiMaNhanVienKhoMoi();
+        hienThiCacLuaChonIDKho();
     }
 
     private void initUI() {
@@ -50,13 +53,15 @@ public class FormThemNVKho extends JDialog {
             txtCCCD = new JTextField(),
             txtNgaySinh = new JTextField(),
             cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"}),
-            txtDiaChi = new JTextField(), txtIDKho = new JTextField(),
-            txtIDQuanLy = new JTextField(), txtMucLuong = new JTextField(),
+            txtDiaChi = new JTextField(), 
+            cboIDKho = new JComboBox<>(),
+            cboIDQuanLy = new JComboBox<>(), 
+            txtMucLuong = new JTextField(),
             txtTenDangNhap = new JTextField(),
             txtMatKhau = new JPasswordField()
         };
         txtID.setEnabled(false);
-
+        cboIDQuanLy.setEnabled(false);
         for (int i = 0; i < labels.length; i++) {
             c.gridx = 0;
             c.gridy = i;
@@ -92,6 +97,39 @@ public class FormThemNVKho extends JDialog {
     public void hienThiMaNhanVienKhoMoi() throws ClassNotFoundException {
         txtID.setText(String.valueOf(controller.layMaNhanVienKhoMoi()));
     }
+    
+    public void hienThiCacLuaChonIDKho(){
+        try {
+            List<Integer> dsKho = controller.layTatCaIDKho();
+            for (Integer id : dsKho) {
+                cboIDKho.addItem(id);
+            }
+            // set lần đầu manager của kho đầu tiên
+            if (!dsKho.isEmpty()) {
+                Integer firstKho = dsKho.get(0);
+                Integer mg = controller.layIDQuanLyTheoKho(firstKho);
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    // thêm listener để cập nhật manager mỗi khi chọn kho:
+    cboIDKho.addActionListener(e -> {
+        Integer selectedKho = (Integer) cboIDKho.getSelectedItem();
+        try {
+            Integer mg = controller.layIDQuanLyTheoKho(selectedKho);
+            cboIDQuanLy.removeAllItems();
+            if (mg != null) {
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    });
+    }
 
     public boolean kiemTraDinhDangThongTin() {
         // simple validation
@@ -120,8 +158,8 @@ public class FormThemNVKho extends JDialog {
         nv.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
         nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
         nv.setDiaChi(txtDiaChi.getText());
-        nv.setID_Kho(Integer.parseInt(txtIDKho.getText()));
-        nv.setID_QuanLy(Integer.parseInt(txtIDQuanLy.getText()));
+        nv.setID_Kho((Integer)cboIDKho.getSelectedItem());
+        nv.setID_QuanLy((Integer)cboIDQuanLy.getSelectedItem());
         nv.setMucLuong(Double.parseDouble(txtMucLuong.getText()));
         tk.setTenTaiKhoan(txtTenDangNhap.getText());
         tk.setMatKhauMaHoa(hashPassword(txtMatKhau.getText()));
