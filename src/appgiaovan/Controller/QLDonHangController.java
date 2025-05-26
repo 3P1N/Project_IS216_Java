@@ -11,6 +11,7 @@ import appgiaovan.DAO.TaiKhoanDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
+import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.GUI.LOGIN;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,7 +20,7 @@ public class QLDonHangController {
 
     private final DonHangDAO donHangDAO = new DonHangDAO();
     private final DanhGiaDAO danhGiaDAO = new DanhGiaDAO();
-    
+
     public List<KhoHang> LayThongTinKho() throws SQLException, ClassNotFoundException {
         KhoHangDAO khoHangDAO = new KhoHangDAO();
         return khoHangDAO.LayThongTinKho();
@@ -30,8 +31,8 @@ public class QLDonHangController {
         donHangDAO.ThemDonHang(donHang);
 
     }
-    
-    public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException{
+
+    public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         donHangDAO.SuaDonHang(donHang);
     }
 
@@ -68,46 +69,51 @@ public class QLDonHangController {
         // Có thể thêm nhiều kiểm tra hơn nếu cần
         // Nếu qua tất cả kiểm tra
 
-        return !(donHang.getLoaiHangHoa() == null || donHang.getLoaiHangHoa().trim().isEmpty()); 
+        return !(donHang.getLoaiHangHoa() == null || donHang.getLoaiHangHoa().trim().isEmpty());
     }
-    public List<DonHang> LayDSDonHang() throws SQLException, ClassNotFoundException{
+
+    public List<DonHang> LayDSDonHang() throws SQLException, ClassNotFoundException {
         return donHangDAO.LayDSDonHang();
     }
 
-    public List<DonHang> LayDSDonHang(DonHang dh) throws SQLException, ClassNotFoundException{
+    public List<DonHang> LayDSDonHang(DonHang dh) throws SQLException, ClassNotFoundException {
         return donHangDAO.LayDSDonHang(dh);
     }
-    public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException{
+
+    public List<DonHang> LayDSDonHangCuaNVK(DonHang dh, NhanVienKho nvk) throws SQLException, ClassNotFoundException {
+        return donHangDAO.LayDSDonHangCuaNVK(dh,nvk);
+    }
+
+    public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         return donHangDAO.LayDSDonHangCuaKH(ID_KhachHang);
     }
 
-    public List<DonHang> LayDSDonHangCuaKH(DonHang dh,int ID_KhachHang) throws SQLException, ClassNotFoundException{
-        return donHangDAO.LayDSDonHangCuaKH(dh,ID_KhachHang);
+    public List<DonHang> LayDSDonHangCuaKH(DonHang dh, int ID_KhachHang) throws SQLException, ClassNotFoundException {
+        return donHangDAO.LayDSDonHangCuaKH(dh, ID_KhachHang);
     }
 
     public void ThemDanhGia(DanhGia danhGia) throws SQLException, ClassNotFoundException {
         danhGiaDAO.ThemDanhGia(danhGia);
     }
-   // String ab = new LOGIN().getuser();
+    // String ab = new LOGIN().getuser();
     //int idTaiKhoan;
-    public List<DonHang> HienThiDSDHChoNVGH(int idtk) throws SQLException, ClassNotFoundException{
+
+    public List<DonHang> HienThiDSDHChoNVGH(int idtk) throws SQLException, ClassNotFoundException {
         //int idTaiKhoan = new LoginController().layIDTaiKhoan() ;
         //String us = new LOGIN().getuser();
         return new DonHangDAO().layDSDonHangCuaNVGH(idtk);
     }
 
-    
-    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang) throws SQLException, ClassNotFoundException{
-        donHangDAO.PhanCongGiaoHang(nv,listIdDonHang);
+    public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang) throws SQLException, ClassNotFoundException {
+        donHangDAO.PhanCongGiaoHang(nv, listIdDonHang);
     }
 
+    public DonHang layThongTinDH(int ID_DonHang) throws SQLException, ClassNotFoundException {
 
-    public DonHang layThongTinDH(int ID_DonHang) throws SQLException, ClassNotFoundException{
-        
         return donHangDAO.LayThongTinDonHang(ID_DonHang);
     }
 
-    static public void main(String[] args ){
+    static public void main(String[] args) {
         System.out.print("Test");
 
     }
@@ -119,6 +125,7 @@ public class QLDonHangController {
     public int LayTongSoDon(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         return donHangDAO.LayTongSoDon(ID_KhachHang);
     }
+
     public int LayTongSoDonDaGiao(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         return donHangDAO.LayTongSoDonDaGiao(ID_KhachHang);
     }

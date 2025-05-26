@@ -58,7 +58,7 @@ public class QuanLyDonHangPanel extends JPanel {
         topPanel.getfilterButton().addActionListener(e -> {
             try {
                 DonHang dh = topPanel.getDonHang();
-
+                dh.setIdKhoTiepNhan(nhanVienKho.getID_Kho());
                 HienThiDanhSach(dh);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,7 +147,7 @@ public class QuanLyDonHangPanel extends JPanel {
     }
 
     public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
-        List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
+        List<DonHang> dsDonHang = controller.LayDSDonHangCuaNVK(dh,nhanVienKho);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
 
