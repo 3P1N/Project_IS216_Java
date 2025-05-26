@@ -102,7 +102,7 @@ public class QuanLyGoiHang extends JPanel {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
+        }, nhanVienKho);
         themGoiHang.setVisible(true);
     }
 

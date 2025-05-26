@@ -21,7 +21,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
     public PhanCongGiaoHangFrame(Runnable onSuccess) throws SQLException, ClassNotFoundException {
         setTitle("Phân Công Giao Hàng");
         setSize(1300, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         initUI(onSuccess);
     }

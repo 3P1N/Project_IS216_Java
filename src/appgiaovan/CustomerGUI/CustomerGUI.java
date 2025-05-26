@@ -86,6 +86,8 @@ public class CustomerGUI extends JFrame {
                 Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }*/
