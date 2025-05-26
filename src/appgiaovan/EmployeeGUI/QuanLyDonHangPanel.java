@@ -77,14 +77,30 @@ public class QuanLyDonHangPanel extends JPanel {
             }
         });
         
-        topPanel.getPhanCongButton().addActionListener(e-> PhanCongGiaoHang());
+        topPanel.getPhanCongButton().addActionListener(e-> {
+            try {
+                PhanCongGiaoHang();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
         // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach();
     }
     
-    public void PhanCongGiaoHang(){
-        
+    public void PhanCongGiaoHang() throws SQLException, ClassNotFoundException{
+        new PhanCongGiaoHangFrame(()->{
+            try {
+                HienThiDanhSach();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).setVisible(true);
     }
 
     public void XuLySuaDonHang() throws SQLException, ClassNotFoundException, Exception  {
@@ -125,15 +141,9 @@ public class QuanLyDonHangPanel extends JPanel {
     }
 
     public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {
-        List<DonHang> dsDonHang = controller.LayDSDonHang();
-        String[] columns = DonHang.getTableHeaders();
-        Object[][] data = new Object[dsDonHang.size()][columns.length];
-
-        for (int i = 0; i < dsDonHang.size(); i++) {
-            data[i] = dsDonHang.get(i).toTableRow();
-        }
-
-        listOrder.setTableData(data);
+        DonHang dh = new DonHang();
+        dh.setIdKhoTiepNhan(nhanVienKho.getID_Kho());
+        HienThiDanhSach(dh);
     }
 
     public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {

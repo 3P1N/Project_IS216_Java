@@ -41,6 +41,7 @@ public class DanhGiaDAO {
         } catch (SQLException e) {
             System.err.println("Lỗi khi gọi procedure ThemDonHang: " + e.getMessage());
             e.printStackTrace();
+            throw e;
         }
     }
 
