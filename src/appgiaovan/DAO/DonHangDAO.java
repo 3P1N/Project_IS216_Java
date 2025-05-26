@@ -203,8 +203,14 @@ public class DonHangDAO {
             sql.append(" AND TenNguoiGui LIKE ?");
             params.add("%" + donHang.getTenNguoiGui() + "%");
         }
+        
+        if (null == donHang.getIdKhoTiepNhan()) {
+        } else {
+            sql.append(" AND ID_KhoTiepNhan = ?");
+            params.add(donHang.getIdKhoTiepNhan());
+        }
 
-        sql.append(" ORDER BY ID_DonHang");
+        sql.append(" ORDER BY ID_DonHang desc");
 
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {

@@ -17,11 +17,13 @@ public class ThemGoiHangFrame extends JFrame {
     private QLGHController controller = new QLGHController();
     private TableDonHang listOrder;
     private TopPanelTGH topPanel;
+    private NhanVienKho nhanVienKho;
 
-    public ThemGoiHangFrame(Runnable onSuccess) throws SQLException, ClassNotFoundException {
+    public ThemGoiHangFrame(Runnable onSuccess, NhanVienKho nvkho) throws SQLException, ClassNotFoundException {
+        this.nhanVienKho = nvkho;
         setTitle("Quản Lý Đơn Hàng");
         setSize(1300, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         initUI(onSuccess);
     }
@@ -75,9 +77,9 @@ public class ThemGoiHangFrame extends JFrame {
         GoiHang goiHang = new GoiHang();
         KhoHang khoHang = topPanel.getKhoHangDen();
         goiHang.setIdKhoHangDen(khoHang.getIdKho());
-        goiHang.setIdKhoHangGui(1);
-        goiHang.setIdNhanVien(1);
-        controller.ThemGoiHang(goiHang,listDonHang);
+        goiHang.setIdKhoHangGui(nhanVienKho.getID_Kho());
+        goiHang.setIdNhanVien(nhanVienKho.getID_NguoiDung());
+        controller.ThemGoiHang(goiHang, listDonHang);
         JOptionPane.showMessageDialog(this, "Thêm gói hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
         onSuccess.run();
         this.dispose();
@@ -105,7 +107,9 @@ public class ThemGoiHangFrame extends JFrame {
         }
         SwingUtilities.invokeLater(() -> {
             try {
-                new ThemGoiHangFrame(() -> System.out.println("Thêm gói hàng!")).setVisible(true);
+                NhanVienKho nvkho = new NhanVienKho();
+                nvkho.setID_NguoiDung(7);
+                new ThemGoiHangFrame(() -> System.out.println("Thêm gói hàng!"), nvkho).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ThemGoiHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
