@@ -4,21 +4,26 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ThanhTimKiemDH extends JPanel {
 
     private JButton addButton = new JButton("Thêm mới");
     private JButton filterButton = new JButton("Lọc");
+    private DonHangDAO donHangDAO=new DonHangDAO();
     private final JTextField idField = new JTextField("");
     private final JComboBox<String> statusComboBox = new JComboBox<>(new String[]{"Đang xử lý"});
     private final JTextField customerField = new JTextField("");
 
-    public ThanhTimKiemDH() {
+    public ThanhTimKiemDH() throws SQLException, ClassNotFoundException {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
 
@@ -28,14 +33,15 @@ public class ThanhTimKiemDH extends JPanel {
         add(idField);
 
         // ComboBox - Trạng thái
+        String[] items = donHangDAO.DSTrangThai();
+        statusComboBox.removeAllItems();
+        for (String item : items) {
+            statusComboBox.addItem(item);
+        }
         statusComboBox.setPreferredSize(new Dimension(120, 40));
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
-
-        // TextField - Khách hàng
-        customerField.setPreferredSize(new Dimension(120, 40));
-        customerField.setBorder(BorderFactory.createTitledBorder("Tên khách hàng"));
-        add(customerField);
+        
 
         // Button - Lọc (màu xanh đậm)
         filterButton.setPreferredSize(new Dimension(60, 30));
@@ -66,8 +72,7 @@ public class ThanhTimKiemDH extends JPanel {
 
         // Xử lý combobox: nếu không chọn gì thì là null
         Object selected = statusComboBox.getSelectedItem();
-        dh.setDichVu(selected != null ? selected.toString() : null);
-
+        dh.setTrangThai(selected != null ? selected.toString() : null);
         // Xử lý tên người gửi: nếu để trống thì là chuỗi rỗng hoặc null tùy bạn
         String name = customerField.getText().trim();
         dh.setTenNguoiGui(name.isEmpty() ? null : name);
@@ -86,7 +91,13 @@ public class ThanhTimKiemDH extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
-            frame.add(new ThanhTimKiemDH());
+            try {
+                frame.add(new ThanhTimKiemDH());
+            } catch (SQLException ex) {
+                Logger.getLogger(ThanhTimKiemDH.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThanhTimKiemDH.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.setVisible(true);
         });
     }

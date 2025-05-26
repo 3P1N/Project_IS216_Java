@@ -26,13 +26,10 @@ public class ThongTinCaNhanPanel extends JPanel {
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
         private KhachHang kh=new KhachHang();
-        private QLKHController controller=new QLKHController();
     public ThongTinCaNhanPanel(int ID_KhachHang) throws ClassNotFoundException{
-        QLKHController controller=new QLKHController();
-        kh=controller.layThongTinKhachHang(ID_KhachHang);
+        QLKHController qLKHController=new QLKHController();
+        kh=qLKHController.layThongTinKhachHang(ID_KhachHang);
         setLayout(new BorderLayout());
-        // Sidebar trái
-        CustomerSidebar sidebar = new CustomerSidebar();
         //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
         // Thêm vào JFrame
@@ -58,11 +55,11 @@ public class ThongTinCaNhanPanel extends JPanel {
         infoPanel.add(txtHoTen);
 
         // Số điện thoại
-        JLabel lblSDT = new JLabel(kh.getSDT());
+        JLabel lblSDT = new JLabel("SDT:");
         lblSDT.setBounds(20, 120, 100, 25);
         infoPanel.add(lblSDT);
 
-        JTextField txtSDT = new JTextField("0123456789");
+        JTextField txtSDT = new JTextField(kh.getSDT());
         txtSDT.setBounds(130, 120, 200, 30);
         infoPanel.add(txtSDT);
         
@@ -120,7 +117,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             }
             
             kh.setGioiTinh(txtGioiTinh.getText());
-            controller.suaKhachHang(kh);
+            qLKHController.suaKhachHang(kh);
         });
         // Thêm infoPanel vào khu vực CENTER của mainPanel
         mainPanel.add(infoPanel, BorderLayout.CENTER);

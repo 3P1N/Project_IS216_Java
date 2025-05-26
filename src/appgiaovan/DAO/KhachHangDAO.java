@@ -139,7 +139,9 @@ public class KhachHangDAO {
 
     public List<KhachHang> layTatCaKhachHang() throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM KhachHang";
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+                PreparedStatement ps = conn.prepareStatement(sql); 
+                ResultSet rs = ps.executeQuery()) {
             List<KhachHang> results = new ArrayList<>();
             while (rs.next()) {
                 KhachHang kh = new KhachHang();

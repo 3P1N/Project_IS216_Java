@@ -15,10 +15,9 @@ public class KhoHang {
     // Constructors
     public KhoHang() {}
 
-    public KhoHang(int idKho, String tenKho, int idQuanLy, int slHangToiDa, int slHangTon, String diaChi) {
+    public KhoHang(int idKho, String tenKho, int slHangToiDa, int slHangTon, String diaChi) {
         this.idKho = idKho;
         this.tenKho = tenKho;
-        this.idQuanLy = idQuanLy;
         this.slHangToiDa = slHangToiDa;
         this.slHangTon = slHangTon;
         this.diaChi = diaChi;

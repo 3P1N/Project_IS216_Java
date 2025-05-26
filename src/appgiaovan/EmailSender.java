@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class EmailSender {
 
-    public static void sendEmail(String toEmail) {
+    static void sendEmail(String toEmail, String code) {
         // Cấu hình thông tin SMTP (Gmail)
         final String fromEmail = "3p1nPMIT@gmail.com";
         final String password = "fboftfflmqhazakj"; // Không dùng mật khẩu Gmail thường, dùng app password
@@ -30,7 +30,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress(fromEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject("Xác nhận đăng ký tài khoản");
-             message.setText("Mã xác nhận của bạn là: " + generatedCode);
+             message.setText("Mã xác nhận của bạn là: " + code);
 
             Transport.send(message);
             System.out.println("Email sent successfully to " + toEmail);
@@ -40,6 +40,10 @@ public class EmailSender {
         }
     }
     public static void main(String[] args) {
-       sendEmail("tranthephong1908@gmail.com");
+       sendEmail("tranthephong1908@gmail.com","nothing");
     }
+
+    
+
+    
 }

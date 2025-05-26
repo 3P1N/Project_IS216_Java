@@ -2,6 +2,7 @@ package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Entity.DonHang;
+import appgiaovan.Entity.NhanVienKho;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -16,10 +17,13 @@ public class QuanLyDonHangPanel extends JPanel {
     private final QLDonHangController controller = new QLDonHangController();
     private TableDonHang listOrder;
     private TopPanelQLDH topPanel;
-
-    public QuanLyDonHangPanel() throws SQLException, ClassNotFoundException {
+    private NhanVienKho nhanVienKho;
+    public QuanLyDonHangPanel(NhanVienKho nvKho) throws SQLException, ClassNotFoundException {
+        
+        this.nhanVienKho = nvKho;
+        
         setLayout(new BorderLayout());
-
+        
         // Panel chính
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -158,7 +162,7 @@ public class QuanLyDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new QuanLyDonHangPanel(), BorderLayout.CENTER);
+                frame.add(new QuanLyDonHangPanel(new NhanVienKho()), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Không thể kết nối cơ sở dữ liệu!");
             } catch (ClassNotFoundException ex) {

@@ -9,6 +9,7 @@ package appgiaovan.Entity;
  * @author ASUS
  */
 import java.util.*;
+
 public class BaoCao {
     protected Integer idBaoCao;
     protected Integer idNhanVien;

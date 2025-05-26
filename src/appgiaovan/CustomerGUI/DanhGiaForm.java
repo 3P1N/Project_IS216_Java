@@ -22,8 +22,7 @@ public class DanhGiaForm extends JFrame {
     private JRadioButton[] stars;
     private ButtonGroup starGroup;
     private JButton btnGuiDanhGia;
-    private DanhGiaDAO DAO;
-    private QLDonHangController controller=new QLDonHangController();;
+    private QLDonHangController qLDonHangController=new QLDonHangController();;
     public DanhGiaForm(int ID_DonHang) {
         setTitle("Đánh Giá Đơn Hàng");
         setSize(400, 350);
@@ -77,7 +76,7 @@ public class DanhGiaForm extends JFrame {
             danhGia.setDiemDanhGia(soSao);
             danhGia.setIdDonHang(ID_DonHang);
             try { 
-                controller.ThemDanhGia(danhGia);
+                qLDonHangController.ThemDanhGia(danhGia);
             } catch (SQLException ex) {
                 Logger.getLogger(DanhGiaForm.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
