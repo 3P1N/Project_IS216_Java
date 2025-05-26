@@ -2,6 +2,7 @@ package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Entity.DonHang;
+import appgiaovan.Entity.NhanVienKho;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -16,10 +17,13 @@ public class QuanLyDonHangPanel extends JPanel {
     private final QLDonHangController controller = new QLDonHangController();
     private TableDonHang listOrder;
     private TopPanelQLDH topPanel;
-
-    public QuanLyDonHangPanel() throws SQLException, ClassNotFoundException {
+    private NhanVienKho nhanVienKho;
+    public QuanLyDonHangPanel(NhanVienKho nvKho) throws SQLException, ClassNotFoundException {
+        
+        this.nhanVienKho = nvKho;
+        
         setLayout(new BorderLayout());
-
+        
         // Panel chính
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -73,14 +77,30 @@ public class QuanLyDonHangPanel extends JPanel {
             }
         });
         
-        topPanel.getPhanCongButton().addActionListener(e-> PhanCongGiaoHang());
+        topPanel.getPhanCongButton().addActionListener(e-> {
+            try {
+                PhanCongGiaoHang();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
         // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach();
     }
     
-    public void PhanCongGiaoHang(){
-        
+    public void PhanCongGiaoHang() throws SQLException, ClassNotFoundException{
+        new PhanCongGiaoHangFrame(()->{
+            try {
+                HienThiDanhSach();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }).setVisible(true);
     }
 
     public void XuLySuaDonHang() throws SQLException, ClassNotFoundException, Exception  {
@@ -121,15 +141,9 @@ public class QuanLyDonHangPanel extends JPanel {
     }
 
     public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {
-        List<DonHang> dsDonHang = controller.LayDSDonHang();
-        String[] columns = DonHang.getTableHeaders();
-        Object[][] data = new Object[dsDonHang.size()][columns.length];
-
-        for (int i = 0; i < dsDonHang.size(); i++) {
-            data[i] = dsDonHang.get(i).toTableRow();
-        }
-
-        listOrder.setTableData(data);
+        DonHang dh = new DonHang();
+        dh.setIdKhoTiepNhan(nhanVienKho.getID_Kho());
+        HienThiDanhSach(dh);
     }
 
     public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
@@ -158,7 +172,7 @@ public class QuanLyDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new QuanLyDonHangPanel(), BorderLayout.CENTER);
+                frame.add(new QuanLyDonHangPanel(new NhanVienKho()), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Không thể kết nối cơ sở dữ liệu!");
             } catch (ClassNotFoundException ex) {

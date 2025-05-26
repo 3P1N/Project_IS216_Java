@@ -96,9 +96,9 @@ public class GoiHangDAO {
             ArrayDescriptor descriptor = ArrayDescriptor.createDescriptor("DONHANGLIST", conn);
             ARRAY oracleArray = new ARRAY(descriptor, conn, donHangArray);
 
-            stmt.setInt(1, 1); // ID_KhoHangGui
-            stmt.setInt(2, 2); // ID_KhoHangDen
-            stmt.setInt(3, 1); // ID_NhanVien
+            stmt.setInt(1, goiHang.getIdKhoHangGui()); // ID_KhoHangGui
+            stmt.setInt(2, goiHang.getIdKhoHangDen()); // ID_KhoHangDen
+            stmt.setInt(3, goiHang.getIdNhanVien()); // ID_NhanVien
             stmt.setArray(4, oracleArray);
             stmt.execute();
 

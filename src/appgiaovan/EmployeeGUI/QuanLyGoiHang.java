@@ -3,6 +3,7 @@ package appgiaovan.EmployeeGUI;
 import appgiaovan.Controller.QLGHController;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.GoiHang;
+import appgiaovan.Entity.NhanVienKho;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +13,14 @@ import java.util.logging.Logger;
 
 public class QuanLyGoiHang extends JPanel {
 
-    private TopPanelQLGH topPanel ;
+    private TopPanelQLGH topPanel;
     private TableDonHang listOrder;
+    private NhanVienKho nhanVienKho;
+
     private QLGHController controller = new QLGHController();
-    public QuanLyGoiHang() throws SQLException, ClassNotFoundException, Exception {
+
+    public QuanLyGoiHang(NhanVienKho nvKho) throws SQLException, ClassNotFoundException, Exception {
+        this.nhanVienKho = nvKho;
         this.setLayout(new BorderLayout());
         initUI();
     }
@@ -35,8 +40,8 @@ public class QuanLyGoiHang extends JPanel {
         mainPanel.add(listOrder, BorderLayout.CENTER);
 
         this.add(mainPanel, BorderLayout.CENTER);
-        
-         topPanel.getaddButton().addActionListener(e -> {
+
+        topPanel.getaddButton().addActionListener(e -> {
             try {
                 ThemGoiHang();
             } catch (SQLException ex) {
@@ -47,8 +52,8 @@ public class QuanLyGoiHang extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
-         topPanel.getfilterButton().addActionListener(e -> {
+
+        topPanel.getfilterButton().addActionListener(e -> {
             try {
                 GoiHang goiHang = topPanel.getGoiHang();
                 HienThiDSGoiHang(goiHang);
@@ -60,11 +65,11 @@ public class QuanLyGoiHang extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         HienThiDSGoiHang();
     }
 
-    void HienThiDSGoiHang() throws SQLException, ClassNotFoundException{
+    void HienThiDSGoiHang() throws SQLException, ClassNotFoundException {
         java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHang();
         String[] columns = GoiHang.getTableHeaders();
         Object[][] data = new Object[dsGoiHang.size()][columns.length];
@@ -75,8 +80,8 @@ public class QuanLyGoiHang extends JPanel {
 
         listOrder.setTableData(data);
     }
-    
-    void HienThiDSGoiHang(GoiHang goiHang) throws SQLException, ClassNotFoundException{
+
+    void HienThiDSGoiHang(GoiHang goiHang) throws SQLException, ClassNotFoundException {
         java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHang(goiHang);
         String[] columns = GoiHang.getTableHeaders();
         Object[][] data = new Object[dsGoiHang.size()][columns.length];
@@ -87,8 +92,8 @@ public class QuanLyGoiHang extends JPanel {
 
         listOrder.setTableData(data);
     }
-    
-    public void ThemGoiHang() throws SQLException, ClassNotFoundException{
+
+    public void ThemGoiHang() throws SQLException, ClassNotFoundException {
         ThemGoiHangFrame themGoiHang = new ThemGoiHangFrame(() -> {
             try {
                 HienThiDSGoiHang();
@@ -97,9 +102,10 @@ public class QuanLyGoiHang extends JPanel {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
+        }, nhanVienKho);
         themGoiHang.setVisible(true);
     }
+
     // Dùng để test panel trong một JFrame
     public static void main(String[] args) {
         try {
@@ -110,7 +116,7 @@ public class QuanLyGoiHang extends JPanel {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Quản Lý Gói Hàng");
             try {
-                frame.setContentPane(new QuanLyGoiHang());
+                frame.setContentPane(new QuanLyGoiHang(new NhanVienKho()));
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

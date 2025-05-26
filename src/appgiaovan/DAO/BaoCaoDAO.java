@@ -5,6 +5,8 @@
 package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.Entity.BaoCaoKho;
+import appgiaovan.Entity.NhanVienKho;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -20,7 +22,8 @@ public class BaoCaoDAO {
 
     public BaoCaoDAO() {
     }
-    public void BaoCaoGiaoHang(int idtk,int dagiao,int thatbai,int cod){
+
+    public void BaoCaoGiaoHang(int idtk, int dagiao, int thatbai, int cod) {
         String sql = "call ThemBaoCaoGiaoHang(?,?,?,?)";
         try {
             Connection conn = ConnectionUtils.getMyConnection();
@@ -35,9 +38,23 @@ public class BaoCaoDAO {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(BaoCaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    public void main(String[] args){
-        BaoCaoGiaoHang(1,1,1,1);
+
+    static public void GuiBaoCaoKho(BaoCaoKho baoCao, int idnvk) throws SQLException, ClassNotFoundException {
+        String sql = "call ThemBaoCaoKho(?,?,?,?)";
+
+        Connection conn = ConnectionUtils.getMyConnection();
+        CallableStatement cs = conn.prepareCall(sql);
+        cs.setInt(1, idnvk);
+        cs.setDate(2, new java.sql.Date(baoCao.getKyBaoCao().getTime()));
+        cs.setInt(3, baoCao.getSoGoiHangNhap());
+        cs.setInt(4, baoCao.getSoGoiHangXuat());
+        cs.executeQuery();
+
+    }
+
+    public void main(String[] args) {
+
     }
 }
