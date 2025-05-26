@@ -26,7 +26,7 @@ public class QLDonHangController {
         return khoHangDAO.LayThongTinKho();
 
     }
-
+   
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         donHangDAO.ThemDonHang(donHang);
 

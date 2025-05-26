@@ -20,7 +20,7 @@ public class QLNVKhoController {
 
     public List<NhanVienKho> layTatCaNhanVienKho() throws ClassNotFoundException {
         try {
-            return dao.layTatCaNhanVienKho();
+                return dao.layTatCaNhanVienKho();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();

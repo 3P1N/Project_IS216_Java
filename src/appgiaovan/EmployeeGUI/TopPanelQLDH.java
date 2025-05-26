@@ -19,15 +19,16 @@ public class TopPanelQLDH extends JPanel {
     private JButton addButton = new JButton("Thêm mới");
     private JButton filterButton = new JButton("Lọc");
     private JButton updateButton = new JButton("Sửa");
+    private JButton deleteButton = new JButton("Hủy đơn hàng");
+
     private JButton phanCongButton = new JButton("Phân công giao hàng");
     private final JTextField idField = new JTextField("");
-    private final JComboBox<String> statusComboBox ;
+    private final JComboBox<String> statusComboBox;
     private final JTextField customerField = new JTextField("");
-    private final DonHangDAO donHangDAO  = new DonHangDAO();
+    private final DonHangDAO donHangDAO = new DonHangDAO();
 
-    
-    public TopPanelQLDH() throws SQLException, ClassNotFoundException  {
-        
+    public TopPanelQLDH() throws SQLException, ClassNotFoundException {
+
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
 
@@ -38,7 +39,7 @@ public class TopPanelQLDH extends JPanel {
 
         // ComboBox - Trạng thái
         String[] dsTrangThai = donHangDAO.DSTrangThai();
-        statusComboBox =  new JComboBox<>(dsTrangThai);
+        statusComboBox = new JComboBox<>(dsTrangThai);
         statusComboBox.setPreferredSize(new Dimension(130, 40));
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
@@ -61,13 +62,19 @@ public class TopPanelQLDH extends JPanel {
         addButton.setForeground(Color.WHITE);
         addButton = new RoundedButton(addButton, 20);
         add(addButton);
+        
+        deleteButton.setPreferredSize(new Dimension(120, 30));
+        deleteButton.setBackground(new Color(200, 0, 0));
+        deleteButton.setForeground(Color.white);
+        deleteButton = new RoundedButton(deleteButton, 20);
+        add(deleteButton);
 
         updateButton.setPreferredSize(new Dimension(100, 30));
         updateButton.setBackground(new Color(0, 153, 76));
         updateButton.setForeground(Color.WHITE);
         updateButton = new RoundedButton(updateButton, 20);
         add(updateButton);
-        
+
         phanCongButton.setPreferredSize(new Dimension(150, 30));
         phanCongButton.setBackground(new Color(0, 153, 76));
         phanCongButton.setForeground(Color.WHITE);
@@ -79,17 +86,21 @@ public class TopPanelQLDH extends JPanel {
     public JButton getaddButton() {
         return this.addButton;
     }
-    
-    public JButton getupdateButton(){
+
+    public JButton getupdateButton() {
         return this.updateButton;
     }
 
     public JButton getfilterButton() {
         return this.filterButton;
     }
-    
-    public JButton getPhanCongButton(){
+
+    public JButton getPhanCongButton() {
         return this.phanCongButton;
+    }
+    
+    public JButton getDeleteButton(){
+        return this.deleteButton;
     }
 
     public DonHang getDonHang() {
@@ -110,12 +121,12 @@ public class TopPanelQLDH extends JPanel {
         // Xử lý tên người gửi: nếu để trống thì là chuỗi rỗng hoặc null tùy bạn
         String name = customerField.getText().trim();
         dh.setTenNguoiGui(name.isEmpty() ? null : name);
-       System.out.println(dh.getTrangThai());
+        System.out.println(dh.getTrangThai());
         return dh;
     }
 
     static public void main(String[] args) {
-        
+
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
@@ -126,7 +137,7 @@ public class TopPanelQLDH extends JPanel {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
-            
+
             try {
                 frame.add(new TopPanelQLDH());
             } catch (SQLException ex) {
@@ -134,8 +145,7 @@ public class TopPanelQLDH extends JPanel {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(TopPanelQLDH.class.getName()).log(Level.SEVERE, null, ex);
             }
-           
-            
+
             frame.setVisible(true);
         });
     }
