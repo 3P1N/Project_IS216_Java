@@ -3,70 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/MenuBar.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/TaiKhoanDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/NhanVienGiaoHangDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/RegisterGUI.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/TestXacThucMail.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/TableList.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/VerificationForm.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/RoundedComboBox.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/BaoCaoDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmailSender.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionUtils.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLKHController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThongTinDonHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/NguoiDung.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/TaoDonHangController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/LoginController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Test.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemDonHangFrame.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/TaiKhoan.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/DonHangDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/KhoHangDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/DangKyController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/KhachHangTableModel.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/SuaDonHangFrame.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLGHController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/DonHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/DoanhThuLoiNhuanDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemKh.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/ThemGoiHangFrame.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/BaoCao.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelQLDH.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeSidebar.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/DanhGiaDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelTGH.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeMainPanel.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/CustomerGUI/ThongTinCaNhanPanel.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLDonHangController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/GoiHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/DanhGia.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/XemBaoCao.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/NhanVienGiaoHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/TaiKhoan_Token.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerMainScreen.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLShipperController.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLShipper.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLNVKho.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerSidebar.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/BaoCaoThongKe.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/TokenDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/BaoCaoKho.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/BaoCaoGiaoHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/DoanhThuLoiNhuan.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/PasswordHashing.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionOracle.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelPCGH.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TableDonHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/KtraDinhDang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/KhoHang.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelQLGH.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/BaoCao.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLKH.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/BaoCaoKhoController.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeGUI.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/NhanVienKhoDAO.java</file>
-
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/NhanVienGiaoHangTableModel.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerGUI.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/NhanVienKhoTableModel.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/LOGIN.java</file>
         </group>
     </open-files>
 </project-private>
