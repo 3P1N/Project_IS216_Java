@@ -93,5 +93,9 @@ public class QLNVKhoController {
     public int getIdTaiKhoanByNhanVienKho(int idNhanVien) throws Exception {
         return dao.getIdTaiKhoanByNhanVienKho(idNhanVien);
     }
+    
+    public static void main(String[] args){
+        System.out.println("nothing");
+    }
 
 }
