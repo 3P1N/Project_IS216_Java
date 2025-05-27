@@ -272,11 +272,11 @@ public class KHTaoDonHangPanel extends JPanel {
                 }
             try {
                 // Gọi controller để thêm đơn hàng
-                qLDonHangController.ThemDonHang(dh);
+                 int id_dh = qLDonHangController.ThemDonHang(dh);
                 // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                int id_dh = new DonHangDAO().layIDDHMoiNhat(ID_KhachHang);
-                System.out.print(id_dh);
+//                = new DonHangDAO().layIDDHMoiNhat(ID_KhachHang);
+//                System.out.print(id_dh);
                 new HoaDonKH().XuatHD(id_dh);
                 
             } catch (SQLException ex) {
