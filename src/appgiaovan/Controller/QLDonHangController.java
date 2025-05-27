@@ -11,6 +11,7 @@ import appgiaovan.DAO.TaiKhoanDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
+import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.GUI.LOGIN;
 import java.sql.SQLException;
 import java.util.List;
@@ -121,5 +122,9 @@ public class QLDonHangController {
     }
     public int LayTongSoDonDaGiao(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         return donHangDAO.LayTongSoDonDaGiao(ID_KhachHang);
+    }
+
+    public List<DonHang> LayDSDonHangCuaNVK(DonHang dh, NhanVienKho nhanVienKho) throws SQLException, ClassNotFoundException {
+        return donHangDAO.LayDSDonHangCuaNVK(dh, nhanVienKho);
     }
 }
