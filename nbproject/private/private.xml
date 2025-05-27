@@ -5,9 +5,17 @@
         <group>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLShipper.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLNVKho.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemNVKho.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelPCGH.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TableDonHang.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormSuaShipper.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/NhanVienGiaoHangDAO.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLKHController.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLKH.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemKh.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeGUI.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/NhanVienKhoDAO.java</file>
         </group>
     </open-files>
