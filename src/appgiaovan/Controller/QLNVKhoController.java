@@ -20,7 +20,7 @@ public class QLNVKhoController {
 
     public List<NhanVienKho> layTatCaNhanVienKho() throws ClassNotFoundException {
         try {
-            return dao.layTatCaNhanVienKho();
+                return dao.layTatCaNhanVienKho();
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
@@ -80,4 +80,18 @@ public class QLNVKhoController {
             return false;
         }
     }
+    
+  
+    public List<Integer> layTatCaIDKho() throws Exception {
+        return dao.layTatCaIDKho();                // trả về danh sách ID_Kho
+    }
+
+    public Integer layIDQuanLyTheoKho(int idKho) throws Exception {
+        return dao.layIDQuanLyTheoKho(idKho);      // trả về ID_QuanLy tương ứng
+    }
+
+    public int getIdTaiKhoanByNhanVienKho(int idNhanVien) throws Exception {
+        return dao.getIdTaiKhoanByNhanVienKho(idNhanVien);
+    }
+
 }

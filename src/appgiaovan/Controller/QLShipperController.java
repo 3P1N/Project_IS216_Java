@@ -80,4 +80,16 @@ public class QLShipperController {
             return false;
         }
     }
+    
+    public int getIdTaiKhoanByNhanVienGiaoHang(int idNhanVien) throws Exception {
+        return dao.getIdTaiKhoanByNhanVienGiaoHang(idNhanVien);
+    }
+    
+    public List<Integer> layTatCaIDKho() throws Exception {
+        return dao.layTatCaIDKho();                // trả về danh sách ID_Kho
+    }
+
+    public Integer layIDQuanLyTheoKho(int idKho) throws Exception {
+        return dao.layIDQuanLyTheoKho(idKho);      // trả về ID_QuanLy tương ứng
+    }
 }

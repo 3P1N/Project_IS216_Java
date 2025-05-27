@@ -106,12 +106,16 @@ public class NhanVienKhoDAO {
             return rs.getInt("maxId") + 1;
         }
     }
-    public boolean xoaNhanVienKho(int idNguoiDung) throws SQLException, ClassNotFoundException{
-        String sql = "DELETE FROM NhanVienKho WHERE ID_NhanVien = ?";
-        try (Connection conn = ConnectionUtils.getMyConnection(); 
-                PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idNguoiDung);
-            return ps.executeUpdate() > 0;
+    public boolean xoaNhanVienKho(int idNguoiDung) throws SQLException, ClassNotFoundException {
+        String callSql = "{ CALL XoaTaiKhoan(?) }";
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             CallableStatement cs = conn.prepareCall(callSql)) {
+            cs.setInt(1, idNguoiDung);
+            cs.execute();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi xóa nhân viên kho: " + e.getMessage());
+            throw e; 
         }
     }
         
@@ -136,14 +140,14 @@ public class NhanVienKhoDAO {
     }
     
     public List<NhanVienKho> layTatCaNhanVienKho() throws SQLException, ClassNotFoundException {
-    String sql = "SELECT * FROM NhanVienKho";
+    String sql = "SELECT * FROM NhanVienKho n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0";
     try (Connection conn = ConnectionUtils.getMyConnection(); 
             PreparedStatement ps = conn.prepareStatement(sql); 
             ResultSet rs = ps.executeQuery()) {
         List<NhanVienKho> results = new ArrayList<>();
         while (rs.next()) {
             NhanVienKho nv = new NhanVienKho();
-            nv.setID_NguoiDung(rs.getInt("ID_KhachHang"));
+            nv.setID_NguoiDung(rs.getInt("ID_NhanVien"));
             nv.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
             nv.setHoTen(rs.getString("HoTen"));
             nv.setSDT(rs.getString("SDT"));
@@ -172,7 +176,7 @@ public class NhanVienKhoDAO {
                 List<NhanVienKho> results = new ArrayList<>();
                 while (rs.next()) {
                     NhanVienKho nv = new NhanVienKho();
-                    nv.setID_NguoiDung(rs.getInt("ID_KhachHang"));
+                    nv.setID_NguoiDung(rs.getInt("ID_NhanVien"));
                     nv.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
                     nv.setHoTen(rs.getString("HoTen"));
                     nv.setSDT(rs.getString("SDT"));
@@ -235,6 +239,50 @@ public class NhanVienKhoDAO {
         }
         return -1;
     }
+    
+    public int getIdTaiKhoanByNhanVienKho(int idNhanVien) 
+        throws SQLException, ClassNotFoundException {
+    String sql = "SELECT ID_TaiKhoan FROM NhanVienKho WHERE ID_NhanVien = ?";
+    try (Connection conn = ConnectionUtils.getMyConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idNhanVien);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt("ID_TaiKhoan");
+            } else {
+                throw new SQLException("Không tìm thấy nhân viên kho với ID=" + idNhanVien);
+            }
+        }
+    }
+}
+
+    
+    
+    public List<Integer> layTatCaIDKho() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_Kho FROM KhoHang";
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            List<Integer> ids = new ArrayList<>();
+            while (rs.next()) {
+                ids.add(rs.getInt("ID_Kho"));
+            }
+            return ids;
+        }
+    }
+
+    public Integer layIDQuanLyTheoKho(int idKho) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_QuanLy FROM KhoHang WHERE ID_Kho = ?";
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idKho);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) return rs.getInt("ID_QuanLy");
+                else return null;
+            }
+        }
+    }
+
 }
 
 

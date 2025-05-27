@@ -78,6 +78,8 @@ public class GUI_QLKH extends JPanel {
                 xuLiXoaKhachHang();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GUI_QLKH.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -114,15 +116,16 @@ public class GUI_QLKH extends JPanel {
         hienThiDanhSachKhachHang();
     }
 
-    public void xuLiXoaKhachHang() throws ClassNotFoundException {
+    public void xuLiXoaKhachHang() throws ClassNotFoundException, Exception {
         int row = tblKhachHang.getSelectedRow();
         if (row < 0) {
             return;
         }
-        int id = (int) tblKhachHang.getValueAt(row, 0);
+        int idKhachHang = (int) tblKhachHang.getValueAt(row, 0);
+        int idTaiKhoan = controller.getIdTaiKhoanByKhachHang(idKhachHang);
         int choice = JOptionPane.showConfirmDialog(this, "Xóa khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            controller.xoaKhachHang(id);
+            controller.xoaKhachHang(idTaiKhoan);
             hienThiDanhSachKhachHang();
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         }

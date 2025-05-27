@@ -84,6 +84,8 @@ public class GUI_QLShipper extends JPanel {
                 xuLiXoaNhanVienGiaoHang();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -120,15 +122,19 @@ public class GUI_QLShipper extends JPanel {
         hienThiDanhSachNhanVienGiaoHang();
     }
 
-    public void xuLiXoaNhanVienGiaoHang() throws ClassNotFoundException {
+    public void xuLiXoaNhanVienGiaoHang() throws ClassNotFoundException, Exception {
         int row = tblNhanVienGiaoHang.getSelectedRow();
         if (row < 0) {
             return;
         }
-        int id = (int) tblNhanVienGiaoHang.getValueAt(row, 0);
+        int idNhanVien = (int) tblNhanVienGiaoHang.getValueAt(row, 0);
+
+    // Bổ sung method trong controller:
+        int idTaiKhoan = controller.getIdTaiKhoanByNhanVienGiaoHang(idNhanVien);
+
         int choice = JOptionPane.showConfirmDialog(this, "Xóa nhân viên giao hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
         if (choice == JOptionPane.YES_OPTION) {
-            controller.xoaNhanVienGiaoHang(id);
+            controller.xoaNhanVienGiaoHang(idTaiKhoan);
             hienThiDanhSachNhanVienGiaoHang();
             JOptionPane.showMessageDialog(this, "Xóa thành công");
         }
