@@ -94,7 +94,7 @@ public class KhachHangDAO {
             cs.execute();
         } catch (SQLException e) {
 
-            System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
+            System.err.println("Lỗi khi gọi function TaoTaiKhoanKH_Func: " + e.getMessage());
             e.printStackTrace();
             return false;
         }

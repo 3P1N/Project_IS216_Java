@@ -121,7 +121,7 @@ public class NhanVienGiaoHangDAO {
             cs.execute();
         } catch (SQLException e) {
 
-            System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
+            System.err.println("Lỗi khi gọi function TaoTaiKhoanNVGH_Func: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
