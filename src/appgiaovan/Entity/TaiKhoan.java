@@ -83,5 +83,7 @@ public class TaiKhoan {
     public void setTrangThaiXoa(Integer trangThaiXoa) {
         this.trangThaiXoa = trangThaiXoa;
     }
-    
+    public static void main(String[] args){
+        System.out.println("nothing here");
+    }
 }
