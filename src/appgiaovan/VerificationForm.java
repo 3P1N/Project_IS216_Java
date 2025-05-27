@@ -1,6 +1,7 @@
 
 package appgiaovan;
 
+import appgiaovan.GUI.FormNhapMatKhauMoi;
 import javax.swing.*;
 
 public class VerificationForm extends JFrame {
@@ -8,7 +9,7 @@ public class VerificationForm extends JFrame {
     private final JButton verifyButton;
     private final String realCode;
 
-    public VerificationForm(String realCode) {
+    public VerificationForm(String realCode,String email) {
         this.realCode = realCode;
 
         setTitle("Xác nhận đăng ký");
@@ -28,13 +29,14 @@ public class VerificationForm extends JFrame {
         verifyButton.setBounds(100, 60, 100, 30);
         add(verifyButton);
 
-        verifyButton.addActionListener(e -> verifyCode());
+        verifyButton.addActionListener(e -> verifyCode(email));
     }
 
-    private void verifyCode() {
+    private void verifyCode(String email) {
         if (codeField.getText().equals(realCode)) {
             JOptionPane.showMessageDialog(this, "Xác nhận thành công!");
-            dispose(); // đóng form xác nhận
+            FormNhapMatKhauMoi form=new FormNhapMatKhauMoi(email);
+            form.setVisible(true);// đóng form xác nhận
         } else {
             JOptionPane.showMessageDialog(this, "Sai mã xác nhận.");
         }

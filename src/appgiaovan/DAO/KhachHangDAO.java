@@ -254,4 +254,18 @@ public class KhachHangDAO {
             }
         }
     }
+
+    public int layID_TaiKhoan(String email) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_TaiKhoan FROM KhachHang WHERE EMAIL=?";
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int ID_TaiKhoan = rs.getInt("ID_TaiKhoan");
+                    return ID_TaiKhoan;
+                }
+            }
+        }
+        return -1;
+    }
 }
