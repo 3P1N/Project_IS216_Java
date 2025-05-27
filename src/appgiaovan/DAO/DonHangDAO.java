@@ -17,8 +17,8 @@ import oracle.jdbc.OracleTypes;
 
 public class DonHangDAO {
 
-    public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
-        String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+    public int ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
+        String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
 
 
@@ -52,22 +52,27 @@ public class DonHangDAO {
 
             cs.setString(9, donHang.getDichVu());
             cs.setString(10, donHang.getLoaiHangHoa());
+            cs.registerOutParameter(11, Types.INTEGER);
 
             cs.execute();
+            return cs.getInt(11);
 
         } catch (SQLException e) {
-            System.err.println("Lỗi khi gọi procedure ThemDonHang: " + e.getMessage());
+            System.err.println("Lỗi khi gọi procedure ThemDonHang: " 
+                    + e.getMessage());
             JOptionPane.showMessageDialog(null,
             "Tạo đơn hàng thất bại.\nChi tiết: " + e.getMessage(),
             "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
+        return -1;
     }
 
     public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement stmt = conn.prepareCall(sql)) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+                CallableStatement stmt = conn.prepareCall(sql)) {
 
             // 1. ID đơn hàng (bắt buộc)
             stmt.setInt(1, donHang.getIdDonHang());

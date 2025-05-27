@@ -26,8 +26,8 @@ public class QLDonHangController {
 
     }
 
-    public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
-        donHangDAO.ThemDonHang(donHang);
+    public int ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
+        return donHangDAO.ThemDonHang(donHang);
 
     }
     
