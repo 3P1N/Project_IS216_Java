@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class EmailSender {
 
-    static void sendEmail(String toEmail, String code) {
+    public static void sendEmail(String toEmail, String code) {
         // Cấu hình thông tin SMTP (Gmail)
         final String fromEmail = "3p1nPMIT@gmail.com";
         final String password = "fboftfflmqhazakj"; // Không dùng mật khẩu Gmail thường, dùng app password

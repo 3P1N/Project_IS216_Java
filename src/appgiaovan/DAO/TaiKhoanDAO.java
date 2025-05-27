@@ -94,4 +94,25 @@ public class TaiKhoanDAO {
         System.out.println(tk.getTenNguoiDung());
     }
 
+    public void CapNhatMK(String hashPassword, int ID_TaiKhoan) throws SQLException, ClassNotFoundException {
+        
+        String sql = "UPDATE TAIKHOAN SET MATKHAUMAHOA = ? WHERE ID_TaiKhoan = ?";
+
+        try(Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+            
+            st.setString(1, hashPassword);
+            st.setInt(2, ID_TaiKhoan);
+
+            int rowsUpdated = st.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Cập nhật mật khẩu thành công cho: " );
+            } else {
+                System.out.println("Không tìm thấy tài khoản với email: " );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // hoặc log lỗi nếu cần
+        } 
+    }
+
 }

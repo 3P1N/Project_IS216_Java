@@ -14,8 +14,8 @@ public class TestXacThucMail {
 
     public static void main(String[] args) {
         String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
-        String mail = "toilaphien2302@gmail.com";
+        String mail = "nhantn248@gmail.com";
         EmailSender.sendEmail(mail, generatedCode);
-        new VerificationForm(generatedCode).setVisible(true);
+        new VerificationForm(generatedCode,"").setVisible(true);
     }
 }
