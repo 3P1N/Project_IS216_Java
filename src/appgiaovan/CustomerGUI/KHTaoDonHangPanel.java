@@ -14,6 +14,8 @@ import appgiaovan.GUI.Components.RoundedComboBox;
 
 import appgiaovan.GUI.Components.RoundedTextField;
 import appgiaovan.GUI.Components.TimeWeather;
+import appgiaovan.report.HoaDonKH;
+import appgiaovan.report.*;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -271,6 +273,12 @@ public class KHTaoDonHangPanel extends JPanel {
             try {
                 // Gọi controller để thêm đơn hàng
                 qLDonHangController.ThemDonHang(dh);
+                // Gọi callback
+                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                int id_dh = new DonHangDAO().layIDDHMoiNhat(ID_KhachHang);
+                System.out.print(id_dh);
+                new HoaDonKH().XuatHD(id_dh);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thất bại. Vui lòng thử lại.\nChi tiết: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -280,8 +288,7 @@ public class KHTaoDonHangPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thất bại. Vui lòng thử lại.\nChi tiết: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
-                // Gọi callback
-                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                
                 
         });
     }
