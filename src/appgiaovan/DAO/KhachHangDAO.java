@@ -116,10 +116,16 @@ public class KhachHangDAO {
      * Xóa khách hàng theo ID
      */
     public boolean xoaKhachHang(int idNguoiDung) throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM KhachHang WHERE ID_KhachHang = ?";
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, idNguoiDung);
-            return ps.executeUpdate() > 0;
+        String callSql = "{ CALL XoaTaiKhoan(?) }";
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             CallableStatement cs = conn.prepareCall(callSql)) {
+            cs.setInt(1, idNguoiDung);
+            cs.execute();
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Lỗi khi xóa khách hàng: " + e.getMessage());
+            throw e;  
         }
     }
 
@@ -138,7 +144,7 @@ public class KhachHangDAO {
     }
 
     public List<KhachHang> layTatCaKhachHang() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM KhachHang";
+        String sql = "SELECT * FROM KhachHang k JOIN TaiKhoan t ON k.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0";
         try (Connection conn = ConnectionUtils.getMyConnection(); 
                 PreparedStatement ps = conn.prepareStatement(sql); 
                 ResultSet rs = ps.executeQuery()) {
@@ -231,5 +237,21 @@ public class KhachHangDAO {
             }
         }
         return -1;
+    }
+    
+    public int getIdTaiKhoanByKhachHang(int id) 
+            throws SQLException, ClassNotFoundException {
+        String sql = "SELECT ID_TaiKhoan FROM KhachHang WHERE ID_KhachHang = ?";
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("ID_TaiKhoan");
+                } else {
+                    throw new SQLException("Không tìm thấy khách hàng với ID=" + id);
+                }
+            }
+        }
     }
 }
