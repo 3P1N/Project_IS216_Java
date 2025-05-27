@@ -53,8 +53,8 @@ public class ManagerGUI extends JFrame {
         contentPanel.add(new GUI_QLShipper(),"Quản lý shipper");
         contentPanel.add(new GUI_QLKH(),"Quản lý khách hàng");
 
-        contentPanel.add(new GUI_XemBaoCao(), "Xem Báo cáo");
-//        contentPanel.add(new QuanLyDonHangPanel(),"Quản lý đơn hàng");
+        contentPanel.add(new GUI_XemBaoCao(), "Xem báo cáo");
+        contentPanel.add(new ThongKePanel(),"Báo cáo thống kê");
 
 //        contentPanel.add(new QuanLyGoiHang(), "Quản lý gói hàng");
 

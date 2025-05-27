@@ -12,61 +12,79 @@ import java.util.List;
 
 public class XemBaoCaoDAO {
 
-    /** Lấy danh sách báo cáo kho, nếu keyword rỗng thì lấy tất cả */
+    /** Lấy danh sách báo cáo kho, có thể lọc theo keyword (ký báo cáo hoặc ngày tạo) */
     public List<BaoCaoKho> getBaoCaoKho(String keyword) throws SQLException, ClassNotFoundException {
         List<BaoCaoKho> list = new ArrayList<>();
-        String sql = "SELECT idBaoCao, idNhanVien, ngayKhoiTao, kyBaoCao, soGoiHangNhap, soGoiHangXuat "
-                   + "FROM BaoCaoKho "
-                   + (keyword != null && !keyword.isEmpty() ? "WHERE to_char(kyBaoCao, 'YYYY-MM-DD') LIKE ? " : "")
-                   + "ORDER BY kyBaoCao DESC";
-        Connection conn = ConnectionUtils.getMyConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
+        StringBuilder sql = new StringBuilder(
+            "SELECT ID_BaoCaoKho, ID_NhanVien, NgayTaoBaoCao, KyBaoCao, SoGoiHangNhap, SoGoiHangXuat " +
+            "FROM BaoCaoKho"
+        );
         if (keyword != null && !keyword.isEmpty()) {
-            ps.setString(1, "%" + keyword + "%");
+            sql.append(" WHERE TO_CHAR(KyBaoCao, 'YYYY-MM-DD') LIKE ? OR TO_CHAR(NgayTaoBaoCao, 'YYYY-MM-DD') LIKE ?");
         }
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            BaoCaoKho bc = new BaoCaoKho();
-            bc.setIdBaoCao(rs.getInt("idBaoCao"));
-            bc.setIdNhanVien(rs.getInt("idNhanVien"));
-            bc.setNgayKhoiTao(rs.getDate("ngayKhoiTao"));
-            bc.setKyBaoCao(rs.getDate("kyBaoCao"));
-            bc.setSoGoiHangNhap(rs.getInt("soGoiHangNhap"));
-            bc.setSoGoiHangXuat(rs.getInt("soGoiHangXuat"));
-            list.add(bc);
+        sql.append(" ORDER BY KyBaoCao DESC");
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            if (keyword != null && !keyword.isEmpty()) {
+                String kw = "%" + keyword + "%";
+                ps.setString(1, kw);
+                ps.setString(2, kw);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    BaoCaoKho bc = new BaoCaoKho();
+                    bc.setIdBaoCao(rs.getInt("ID_BaoCaoKho"));
+                    bc.setIdNhanVien(rs.getInt("ID_NhanVien"));
+                    // ánh xạ NgayTaoBaoCao vào thuộc tính ngayKhoiTao
+                    bc.setNgayKhoiTao(rs.getDate("NgayTaoBaoCao"));
+                    bc.setKyBaoCao(rs.getDate("KyBaoCao"));
+                    bc.setSoGoiHangNhap(rs.getInt("SoGoiHangNhap"));
+                    bc.setSoGoiHangXuat(rs.getInt("SoGoiHangXuat"));
+                    list.add(bc);
+                }
+            }
         }
-        rs.close();
-        ps.close();
-        conn.close();
+
         return list;
     }
 
-    /** Lấy danh sách báo cáo giao hàng, có thể filter theo ngày hoặc idNV tương tự */
+    /** Lấy danh sách báo cáo giao hàng, có thể lọc theo keyword (ngày tạo) */
     public List<BaoCaoGiaoHang> getBaoCaoGiaoHang(String keyword) throws SQLException, ClassNotFoundException {
         List<BaoCaoGiaoHang> list = new ArrayList<>();
-        String sql = "SELECT idBaoCao, idNhanVien, ngayKhoiTao, tongDonHangDaGiao, tongDHGiaoThatBai, tongTienCOD "
-                   + "FROM BaoCaoGiaoHang "
-                   + (keyword != null && !keyword.isEmpty() ? "WHERE to_char(ngayKhoiTao, 'YYYY-MM-DD') LIKE ? " : "")
-                   + "ORDER BY ngayKhoiTao DESC";
-        Connection conn = ConnectionUtils.getMyConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
+        StringBuilder sql = new StringBuilder(
+            "SELECT ID_BaoCaoGiaoHang, ID_NVGiaoHang, NgayKhoiTao, TongDonHangDaGiao, TongDHGiaoThatBai, TongTienCOD " +
+            "FROM BaoCaoGiaoHang"
+        );
         if (keyword != null && !keyword.isEmpty()) {
-            ps.setString(1, "%" + keyword + "%");
+            sql.append(" WHERE TO_CHAR(NgayKhoiTao, 'YYYY-MM-DD') LIKE ?");
         }
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            BaoCaoGiaoHang bc = new BaoCaoGiaoHang();
-            bc.setIdBaoCao(rs.getInt("idBaoCao"));
-            bc.setIdNhanVien(rs.getInt("idNhanVien"));
-            bc.setNgayKhoiTao(rs.getDate("ngayKhoiTao"));
-            bc.setTongDonHangDaGiao(rs.getInt("tongDonHangDaGiao"));
-            bc.setTongDHGiaoThatBai(rs.getInt("tongDHGiaoThatBai"));
-            bc.setTongTienCOD(rs.getInt("tongTienCOD"));
-            list.add(bc);
+        sql.append(" ORDER BY NgayKhoiTao DESC");
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            if (keyword != null && !keyword.isEmpty()) {
+                ps.setString(1, "%" + keyword + "%");
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    BaoCaoGiaoHang bc = new BaoCaoGiaoHang();
+                    bc.setIdBaoCao(rs.getInt("ID_BaoCaoGiaoHang"));
+                    // ánh xạ ID_NVGiaoHang vào thuộc tính idNhanVien
+                    bc.setIdNhanVien(rs.getInt("ID_NVGiaoHang"));
+                    bc.setNgayKhoiTao(rs.getDate("NgayKhoiTao"));
+                    bc.setTongDonHangDaGiao(rs.getInt("TongDonHangDaGiao"));
+                    bc.setTongDHGiaoThatBai(rs.getInt("TongDHGiaoThatBai"));
+                    bc.setTongTienCOD(rs.getInt("TongTienCOD"));
+                    list.add(bc);
+                }
+            }
         }
-        rs.close();
-        ps.close();
-        conn.close();
+
         return list;
     }
 }
