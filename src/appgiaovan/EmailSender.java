@@ -40,7 +40,7 @@ public class EmailSender {
         }
     }
     public static void main(String[] args) {
-       sendEmail("tranthephong1908@gmail.com","nothing");
+       sendEmail("toilaphien2302@gmail.com","nothing");
     }
 
     
