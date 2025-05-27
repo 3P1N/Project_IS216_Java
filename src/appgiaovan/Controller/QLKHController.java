@@ -75,4 +75,8 @@ public class QLKHController {
             return false;
         }
     }
+    
+    public int getIdTaiKhoanByKhachHang(int idKhachHang) throws Exception {
+        return dao.getIdTaiKhoanByKhachHang(idKhachHang);
+    }
 }

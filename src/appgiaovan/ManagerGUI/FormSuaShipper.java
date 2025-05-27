@@ -14,7 +14,8 @@ import java.awt.event.*;
 public class FormSuaShipper extends JDialog {
     private QLShipperController controller;
     private NhanVienGiaoHang sh;
-    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtIDKho, txtIDQuanLy, txtDiemDanhGia;
+    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtDiemDanhGia;
+    private JComboBox<Integer> cboIDKho, cboIDQuanLy;
     private JComboBox<String> cboGioiTinh;
 
     public FormSuaShipper(NhanVienGiaoHang sh) throws ClassNotFoundException {
@@ -27,6 +28,7 @@ public class FormSuaShipper extends JDialog {
         this.sh = sh;
         initUI();
         hienThiThongTinNhanVienGiaoHang();
+        hienThiCacLuaChonIDKho();
     }
 
     private void initUI() {
@@ -47,12 +49,14 @@ public class FormSuaShipper extends JDialog {
             txtSDT = new JTextField(), txtEmail = new JTextField(),
             txtCCCD = new JTextField(), txtNgaySinh = new JTextField(),
             cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"}),
-            txtDiaChi = new JTextField(), txtIDKho = new JTextField(),
-            txtIDQuanLy = new JTextField(), txtDiemDanhGia = new JTextField()
+            txtDiaChi = new JTextField(), 
+            cboIDKho = new JComboBox<>(),
+            cboIDQuanLy = new JComboBox<>(),
+            txtDiemDanhGia = new JTextField()
             
         };
         txtID.setEnabled(false);
-
+        cboIDQuanLy.setEnabled(false);
         for (int i = 0; i < labels.length; i++) {
             c.gridx = 0; c.gridy = i; c.weightx = 0.2;
             pnl.add(new JLabel(labels[i]), c);
@@ -84,8 +88,8 @@ public class FormSuaShipper extends JDialog {
         txtNgaySinh.setText(sh.getNgaySinh().toString());
         cboGioiTinh.setSelectedItem(sh.getGioiTinh());
         txtDiaChi.setText(sh.getDiaChi());
-        txtIDKho.setText(String.valueOf(sh.getID_Kho()));
-        txtIDQuanLy.setText(String.valueOf(sh.getID_QuanLy()));
+        cboIDKho.setSelectedItem(sh.getID_Kho());
+        cboIDQuanLy.setSelectedItem(sh.getID_QuanLy());
         txtDiemDanhGia.setText(String.valueOf(sh.getDiemDanhGia()));
     }
 
@@ -93,6 +97,38 @@ public class FormSuaShipper extends JDialog {
         return !txtHoTen.getText().isEmpty();
     }
 
+    public void hienThiCacLuaChonIDKho(){
+        try {
+            java.util.List<Integer> dsKho = controller.layTatCaIDKho();
+            for (Integer id : dsKho) {
+                cboIDKho.addItem(id);
+            }
+            // set lần đầu manager của kho đầu tiên
+            if (!dsKho.isEmpty()) {
+                Integer firstKho = dsKho.get(0);
+                Integer mg = controller.layIDQuanLyTheoKho(firstKho);
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        cboIDKho.addActionListener(e -> {
+        Integer selectedKho = (Integer) cboIDKho.getSelectedItem();
+        try {
+            Integer mg = controller.layIDQuanLyTheoKho(selectedKho);
+            cboIDQuanLy.removeAllItems();
+            if (mg != null) {
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    });
+    }    
+    
+    
     public void hienThiThongBao(String msg) {
         JOptionPane.showMessageDialog(this, msg);
     }
@@ -108,8 +144,8 @@ public class FormSuaShipper extends JDialog {
         sh.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
         sh.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
         sh.setDiaChi(txtDiaChi.getText());
-        sh.setID_Kho(Integer.parseInt(txtIDKho.getText()));
-        sh.setID_QuanLy(Integer.parseInt(txtIDQuanLy.getText()));
+        sh.setID_Kho((Integer)cboIDKho.getSelectedItem());
+        sh.setID_QuanLy((Integer)cboIDQuanLy.getSelectedItem());
         sh.setDiemDanhGia(Integer.parseInt(txtDiemDanhGia.getText()));
         boolean ok = controller.suaNhanVienGiaoHang(sh);
         hienThiThongBao(ok?"Sửa thành công":"Sửa thất bại");
