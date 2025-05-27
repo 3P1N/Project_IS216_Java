@@ -12,8 +12,10 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class ThemGoiHangFrame extends JFrame {
 
+    
     private QLGHController controller = new QLGHController();
     private TableDonHang listOrder;
     private TopPanelTGH topPanel;

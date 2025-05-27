@@ -97,6 +97,16 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
+        topPanel.getRefreshButton().addActionListener(e -> {
+            try {
+                HienThiDanhSach();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
         // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach();
@@ -199,6 +209,8 @@ public class QuanLyDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
+                NhanVienKho nvkho = new NhanVienKho();
+               
                 frame.add(new QuanLyDonHangPanel(new NhanVienKho()), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Không thể kết nối cơ sở dữ liệu!");
