@@ -84,6 +84,8 @@ public class GUI_QLShipper extends JPanel {
                 xuLiXoaNhanVienGiaoHang();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(GUI_QLShipper.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
@@ -120,7 +122,7 @@ public class GUI_QLShipper extends JPanel {
         hienThiDanhSachNhanVienGiaoHang();
     }
 
-    public void xuLiXoaNhanVienGiaoHang() throws ClassNotFoundException {
+    public void xuLiXoaNhanVienGiaoHang() throws ClassNotFoundException, Exception {
         int row = tblNhanVienGiaoHang.getSelectedRow();
         if (row < 0) {
             return;

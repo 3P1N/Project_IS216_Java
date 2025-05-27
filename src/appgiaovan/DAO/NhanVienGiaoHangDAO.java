@@ -63,7 +63,7 @@ public class NhanVienGiaoHangDAO {
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
                     NhanVienGiaoHang sh = new NhanVienGiaoHang();
-                    sh.setID_NguoiDung(rs.getInt("ID_NhanVien"));
+                    sh.setID_NguoiDung(rs.getInt("ID_NVGiaoHang"));
                     sh.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
                     sh.setHoTen(rs.getString("HoTen"));
                     sh.setSDT(rs.getString("SDT"));
@@ -188,7 +188,7 @@ public class NhanVienGiaoHangDAO {
                 List<NhanVienGiaoHang> results = new ArrayList<>();
                 while (rs.next()) {
                     NhanVienGiaoHang nv = new NhanVienGiaoHang();
-                    nv.setID_NguoiDung(rs.getInt("ID_KhachHang"));
+                    nv.setID_NguoiDung(rs.getInt("ID_NVGiaoHang"));
                     nv.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
                     nv.setHoTen(rs.getString("HoTen"));
                     nv.setSDT(rs.getString("SDT"));
