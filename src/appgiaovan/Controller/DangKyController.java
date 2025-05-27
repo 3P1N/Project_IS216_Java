@@ -51,6 +51,27 @@ public class DangKyController {
         // Có thể thêm nhiều kiểm tra hơn nếu cần
         return true; // Nếu qua tất cả kiểm tra
     }
+        public boolean KiemTraDinhDangCapNhat(KhachHang khachHang) {
+            
+        //1. họ tên không được để trống
+        if (khachHang.getHoTen() == null || khachHang.getHoTen().trim().isEmpty()) {
+            return false;
+        }
+        //5. CCCD không được để trống
+        if (khachHang.getCCCD() == null || khachHang.getCCCD().trim().isEmpty()) {
+            return false;
+        }
+        //6. Gmail không được để trống
+        if (khachHang.getEmail() == null || khachHang.getEmail().trim().isEmpty()) {
+            return false;
+        }
+        //7. Số điện thoại khách hàng phải bắt đầu bằng '0' và đủ 10 chữ số
+        if (khachHang.getSDT() == null || !khachHang.getSDT().matches("0\\d{9}")) {
+            return false;
+        }
+        // Có thể thêm nhiều kiểm tra hơn nếu cần
+        return true; // Nếu qua tất cả kiểm tra
+    }
     public boolean themKhachHang(KhachHang kh,TaiKhoan tk) {
         try {
             khachHangDAO.themKhachHang(kh,tk);
@@ -63,6 +84,16 @@ public class DangKyController {
 
     public int layID_KhachHang(int ID_TaiKhoan) throws SQLException, ClassNotFoundException {
         return khachHangDAO.layID_KhachHang(ID_TaiKhoan);
+    }
+    public int layID_TaiKhoan(String email) throws SQLException, ClassNotFoundException{
+        return khachHangDAO.layID_TaiKhoan(email);
+    }
+
+    public void CapNhatMK(String hashPassword,String email) throws SQLException, ClassNotFoundException {
+        int ID_TaiKhoan=this.layID_TaiKhoan(email);
+        System.out.print(ID_TaiKhoan);
+        System.out.println(hashPassword);
+        taiKhoanDAO.CapNhatMK(hashPassword,ID_TaiKhoan);
     }
     
 }

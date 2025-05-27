@@ -4,6 +4,7 @@
  */
 package appgiaovan.CustomerGUI;
 
+import appgiaovan.Controller.DangKyController;
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Controller.QLKHController;
 import appgiaovan.Entity.KhachHang;
@@ -26,6 +27,7 @@ public class ThongTinCaNhanPanel extends JPanel {
         private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
         private JButton btnCapNhat;
         private KhachHang kh=new KhachHang();
+        private DangKyController controller=new DangKyController();
     public ThongTinCaNhanPanel(int ID_KhachHang) throws ClassNotFoundException{
         QLKHController qLKHController=new QLKHController();
         kh=qLKHController.layThongTinKhachHang(ID_KhachHang);
@@ -117,6 +119,12 @@ public class ThongTinCaNhanPanel extends JPanel {
             }
             
             kh.setGioiTinh(txtGioiTinh.getText());
+            if (!controller.KiemTraDinhDangCapNhat(kh)) {
+                    JOptionPane.showMessageDialog(this,
+                            "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return; // Dừng lại, không thực hiện thêm
+                }
             qLKHController.suaKhachHang(kh);
         });
         // Thêm infoPanel vào khu vực CENTER của mainPanel
@@ -140,7 +148,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new ThongTinCaNhanPanel(46), BorderLayout.CENTER);
+                frame.add(new ThongTinCaNhanPanel(1), BorderLayout.CENTER);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
