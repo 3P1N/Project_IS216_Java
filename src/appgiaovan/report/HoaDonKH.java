@@ -40,12 +40,12 @@ import appgiaovan.ConnectDB.ConnectionUtils;
 
 public class HoaDonKH {
 
-    public static void main(String[] args) {
-        int idDonHang = 87; // ID đơn hàng truyền vào
-        XuatHD(idDonHang);
-    }
+//    public void main(String[] args) {
+//        int idDonHang = 87; // ID đơn hàng truyền vào
+//        XuatHD(idDonHang);
+//    }
 
-    public static void XuatHD(int idDonHang) {
+    public void XuatHD(int idDonHang) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;

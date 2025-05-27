@@ -3,7 +3,6 @@ package appgiaovan.DAO;
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
-import appgiaovan.Entity.NhanVienKho;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -21,13 +20,18 @@ public class DonHangDAO {
     public void ThemDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         String sql = "{call ThemDonHang( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
 
-        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
+
+
+        try (Connection conn = ConnectionUtils.getMyConnection();
+                CallableStatement cs = conn.prepareCall(sql)) {
+
 
 //            if (donHang.getIdDonHang() != null) {
 //                cs.setInt(1, donHang.getIdDonHang());
 //            } else {
 //                cs.setNull(1, Types.INTEGER);
 //            }
+
             if (donHang.getIdKhachHang() != null) {
                 cs.setInt(1, donHang.getIdKhachHang());
             } else {
@@ -54,8 +58,8 @@ public class DonHangDAO {
         } catch (SQLException e) {
             System.err.println("Lỗi khi gọi procedure ThemDonHang: " + e.getMessage());
             JOptionPane.showMessageDialog(null,
-                    "Tạo đơn hàng thất bại.\nChi tiết: " + e.getMessage(),
-                    "Lỗi", JOptionPane.ERROR_MESSAGE);
+            "Tạo đơn hàng thất bại.\nChi tiết: " + e.getMessage(),
+            "Lỗi", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
@@ -200,13 +204,7 @@ public class DonHangDAO {
             params.add("%" + donHang.getTenNguoiGui() + "%");
         }
 
-        if (null == donHang.getIdKhoTiepNhan()) {
-        } else {
-            sql.append(" AND ID_KhoTiepNhan = ?");
-            params.add(donHang.getIdKhoTiepNhan());
-        }
-
-        sql.append(" ORDER BY ID_DonHang desc");
+        sql.append(" ORDER BY ID_DonHang");
 
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
@@ -240,94 +238,10 @@ public class DonHangDAO {
 
         return list;
     }
-
-    public List<DonHang> LayDSDonHangCuaNVK(DonHang donHang, NhanVienKho nvk) throws SQLException, ClassNotFoundException {
-        List<DonHang> list = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("""
-        SELECT 
-            ID_DonHang, ID_KhachHang, ID_NVGiaoHang, SDTNguoiGui, SDTNguoiNhan, 
-            ID_KhoTiepNhan, TenNguoiGui, TenNguoiNhan, DiaChiNhan, TienCOD, Phi, 
-            ThoiGianNhan, ThoiGianTao, ThoiGianDuKien, TrangThai, DichVu, LoaiHangHoa 
-        FROM DonHang 
-        WHERE 1=1
-    """);
-
-        List<Object> params = new ArrayList<>();
-
-        if (donHang.getIdDonHang() != null) {
-            sql.append(" AND ID_DonHang = ?");
-            params.add(donHang.getIdDonHang());
-        }
-
-        if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
-            sql.append(" AND TrangThai LIKE ?");
-            params.add("%" + donHang.getTrangThai() + "%");
-        }
-
-        if (donHang.getTenNguoiGui() != null && !donHang.getTenNguoiGui().isEmpty()) {
-            sql.append(" AND TenNguoiGui LIKE ?");
-            params.add("%" + donHang.getTenNguoiGui() + "%");
-        }
-
-        if (donHang.getIdKhoTiepNhan() != null) {
-            sql.append(" AND ID_KhoTiepNhan = ?");
-            params.add(donHang.getIdKhoTiepNhan());
-        }
-
-        if (nvk.getID_Kho() != null) {
-            sql.append("""
-            UNION
-            SELECT 
-                d.ID_DonHang, d.ID_KhachHang, d.ID_NVGiaoHang, d.SDTNguoiGui, d.SDTNguoiNhan, 
-                d.ID_KhoTiepNhan, d.TenNguoiGui, d.TenNguoiNhan, d.DiaChiNhan, d.TienCOD, d.Phi, 
-                d.ThoiGianNhan, d.ThoiGianTao, d.ThoiGianDuKien, d.TrangThai, d.DichVu, d.LoaiHangHoa 
-            FROM DONHANG d
-            JOIN CHITIETGOIHANG c ON d.ID_DonHang = c.ID_DonHang
-            JOIN GOIHANG g ON c.ID_GOIHANG = g.ID_GOIHANG
-            WHERE g.ID_KHOHANGDEN = ?
-        """);
-            params.add(nvk.getID_Kho());
-        }
-
-        sql.append(" ORDER BY ID_DonHang DESC");
-
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
-
-            for (int i = 0; i < params.size(); i++) {
-                stmt.setObject(i + 1, params.get(i));
-            }
-
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                DonHang dh = new DonHang();
-                dh.setIdDonHang(rs.getInt("ID_DonHang"));
-                dh.setIdKhachHang(rs.getInt("ID_KhachHang"));
-                dh.setIdNVGiaoHang(rs.getInt("ID_NVGiaoHang"));
-                dh.setSdtNguoiGui(rs.getString("SDTNguoiGui"));
-                dh.setSdtNguoiNhan(rs.getString("SDTNguoiNhan"));
-                dh.setIdKhoTiepNhan(rs.getInt("ID_KhoTiepNhan"));
-                dh.setTenNguoiGui(rs.getString("TenNguoiGui"));
-                dh.setTenNguoiNhan(rs.getString("TenNguoiNhan"));
-                dh.setDiaChiNhan(rs.getString("DiaChiNhan"));
-                dh.setTienCOD(rs.getDouble("TienCOD"));
-                dh.setPhi(rs.getDouble("Phi"));
-                dh.setThoiGianNhan(rs.getTimestamp("ThoiGianNhan"));
-                dh.setThoiGianTao(rs.getTimestamp("ThoiGianTao"));
-                dh.setThoiGianDuKien(rs.getTimestamp("ThoiGianDuKien"));
-                dh.setTrangThai(rs.getString("TrangThai"));
-                dh.setDichVu(rs.getString("DichVu"));
-                dh.setLoaiHangHoa(rs.getString("LoaiHangHoa"));
-                list.add(dh);
-            }
-        }
-
-        return list;
-    }
-
-    public List<DonHang> LayDSDonHangCuaKH(DonHang donHang, int ID_KhachHang) throws SQLException, ClassNotFoundException {
+    public List<DonHang> LayDSDonHangCuaKH(DonHang donHang,int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 AND ID_KhachHang=?");
-
+        
         List<Object> params = new ArrayList<>();
         params.add(ID_KhachHang);
         if (null == donHang.getIdDonHang()) {
@@ -338,7 +252,7 @@ public class DonHangDAO {
 
         if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
             System.out.println(donHang.getTrangThai());
-
+            
             sql.append(" AND TrangThai LIKE ?");
             params.add("%" + donHang.getTrangThai() + "%");
         }
@@ -382,11 +296,10 @@ public class DonHangDAO {
 
         return list;
     }
-
-    public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
+public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang=" + Integer.toString(ID_KhachHang);
+        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang="+Integer.toString(ID_KhachHang);
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -418,7 +331,6 @@ public class DonHangDAO {
 
         return list;
     }
-
     public List<DonHang> LayDSDonHang() throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
 
@@ -547,8 +459,8 @@ public class DonHangDAO {
             }
         }
     }
-
-    public void CapNhatDH(int iddh, String trangthai) throws SQLException, ClassNotFoundException {
+    
+    public void CapNhatDH(int iddh, String trangthai) throws SQLException, ClassNotFoundException{
         String sql = "call CapNhatTrangThaiDonHang(?,?)";
         try (Connection conn = ConnectionUtils.getMyConnection()) {
             CallableStatement cs = conn.prepareCall(sql);
@@ -645,6 +557,7 @@ public class DonHangDAO {
         return result.toArray(String[]::new);
     }
 
+
     public void PhanCongGiaoHang(NhanVienGiaoHang nv, List<Integer> listIdDonHang) throws SQLException, ClassNotFoundException {
         if (listIdDonHang == null || listIdDonHang.isEmpty()) {
             return;
@@ -679,65 +592,64 @@ public class DonHangDAO {
     }
 
     public void HuyDonHang(int ID_DonHang) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE DONHANG SET TRANGTHAI = 'Hủy' WHERE id_donhang = ?";
+    String sql = "UPDATE DONHANG SET TRANGTHAI = 'Hủy' WHERE id_donhang = ?";
 
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+    try (Connection conn = ConnectionUtils.getMyConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, ID_DonHang);
-            int rowsUpdated = stmt.executeUpdate();
+        stmt.setInt(1, ID_DonHang);
+        int rowsUpdated = stmt.executeUpdate();
 
-            if (rowsUpdated > 0) {
-                System.out.println("Đơn hàng đã được hủy thành công.");
-            } else {
-                System.out.println("Không tìm thấy đơn hàng với ID: " + ID_DonHang);
-            }
+        if (rowsUpdated > 0) {
+            System.out.println("Đơn hàng đã được hủy thành công.");
+        } else {
+            System.out.println("Không tìm thấy đơn hàng với ID: " + ID_DonHang);
         }
     }
+}
 
     public int LayTongSoDon(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         String sql = "SELECT COUNT(*) FROM DONHANG WHERE ID_KhachHang = ?";
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID_KhachHang); // Gán tham số trước
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1); // Lấy giá trị COUNT(*)
-                } else {
-                    throw new SQLException("Không thể lấy số lượng đơn hàng.");
-                }
+    try (Connection conn = ConnectionUtils.getMyConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, ID_KhachHang); // Gán tham số trước
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1); // Lấy giá trị COUNT(*)
+            } else {
+                throw new SQLException("Không thể lấy số lượng đơn hàng.");
             }
+        }   
 
         }
     }
-
     public int LayTongSoDonDaGiao(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         String sql = "SELECT COUNT(*) FROM DONHANG WHERE ID_KhachHang = ? AND TRANGTHAI='Đã giao'";
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, ID_KhachHang); // Gán tham số trước
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1); // Lấy giá trị COUNT(*)
-                } else {
-                    throw new SQLException("Không thể lấy số lượng đơn hàng.");
-                }
+    try (Connection conn = ConnectionUtils.getMyConnection();PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, ID_KhachHang); // Gán tham số trước
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1); // Lấy giá trị COUNT(*)
+            } else {
+                throw new SQLException("Không thể lấy số lượng đơn hàng.");
             }
+        }   
 
         }
     }
-    public int layIDDHCuoiCungCuaKhach(int id) throws SQLException, ClassNotFoundException{
-        String sql = "SELECT ID_DONHANG FROM DONHANG WHERE ID_KHACHHANG = ? "
-                + "ORDER BY THOIGIANTAO DESC";
+    public int layIDDHMoiNhat(int id_kh) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT ID_DONHANG FROM DONHANG WHERE ID_KHACHHANG = ? ORDER BY THOIGIANTAO DESC";
         try (Connection conn = ConnectionUtils.getMyConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, id); // Gán tham số trước
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id_kh);
             try (ResultSet rs = stmt.executeQuery()) {
-                    if (rs.next()) {
-                        return rs.getInt("ID_DONHANG");
-                    } else {
-                        throw new SQLException("Không thể ID đơn hàng.");
-                    }
+                if (rs.next()) {
+                    return rs.getInt("ID_DONHANG");
+                } else {
+                    throw new SQLException("Không thể lấy mã đơn hàng.");
+                }
             }   
 
         }
     }
-    
 }
+

@@ -40,7 +40,7 @@ public class CustomerGUI extends JFrame {
     public CustomerGUI(int ID_TaiKhoan) throws SQLException, ClassNotFoundException, Exception{
         int ID_KhachHang=dangKyController.layID_KhachHang(ID_TaiKhoan);
         setTitle("Giao diện chính");
-        setSize(900, 700);
+        setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
