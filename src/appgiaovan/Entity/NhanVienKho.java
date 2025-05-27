@@ -11,7 +11,7 @@ package appgiaovan.Entity;
 
 public class NhanVienKho extends NguoiDung {
     private String DiaChi;
-    private Integer ID_Kho;
+    private int ID_Kho;
     private int ID_QuanLy;
     private double MucLuong;
 
@@ -25,7 +25,7 @@ public class NhanVienKho extends NguoiDung {
         this.DiaChi = DiaChi;
     }
 
-    public Integer getID_Kho() {
+    public int getID_Kho() {
         return ID_Kho;
     }
 
@@ -33,7 +33,7 @@ public class NhanVienKho extends NguoiDung {
         this.ID_Kho = ID_Kho;
     }
 
-    public Integer getID_QuanLy() {
+    public int getID_QuanLy() {
         return ID_QuanLy;
     }
 

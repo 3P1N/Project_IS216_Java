@@ -21,7 +21,7 @@ public class ManagerSidebar extends MenuBar {
     private static final List<String>  icons = Arrays.asList("home.png", "employee.png", "employee.png", "customer.png","report.png", "statistic.png", "salary.png", "logout.png");
 
     public ManagerSidebar() throws SQLException, ClassNotFoundException {
-        super(ManagerSidebar.items, ManagerSidebar.icons, 8);
+        super(ManagerSidebar.items, ManagerSidebar.icons, 101);
     }
 
 

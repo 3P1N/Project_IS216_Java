@@ -120,7 +120,7 @@ public class NhanVienKhoDAO {
             return true;
         } catch (SQLException e) {
             // Tùy nhu cầu, bạn có thể log hoặc xử lý thêm
-            System.err.println("Lỗi khi xóa nhân viên kho (soft-delete): " + e.getMessage());
+            System.err.println("Lỗi khi xóa nhân viên kho: " + e.getMessage());
             throw e;  // hoặc return false;
         }
     }

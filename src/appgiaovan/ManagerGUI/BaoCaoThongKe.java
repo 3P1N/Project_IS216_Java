@@ -20,6 +20,7 @@ import org.jfree.data.general.DefaultPieDataset;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.IntStream;
@@ -32,7 +33,7 @@ public class BaoCaoThongKe extends JFrame {
     private DefaultPieDataset dsFeedback;
     private ChartPanel chartPanel;
 
-    public BaoCaoThongKe() {
+    public BaoCaoThongKe() throws SQLException, ClassNotFoundException {
         setTitle("Báo Cáo Thống Kê");
         setSize(1400, 800);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -41,7 +42,7 @@ public class BaoCaoThongKe extends JFrame {
         initUI();
     }
 
-    private void initUI() {
+    private void initUI() throws SQLException, ClassNotFoundException {
         EmployeeSidebar sidebar = new EmployeeSidebar();
         add(sidebar, BorderLayout.WEST);
 
@@ -124,9 +125,9 @@ public class BaoCaoThongKe extends JFrame {
         //tblFeedback.setData(rows);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new BaoCaoThongKe().setVisible(true));
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> new BaoCaoThongKe().setVisible(true));
+//    }
 
     @FunctionalInterface
     interface BiChartFactory {
