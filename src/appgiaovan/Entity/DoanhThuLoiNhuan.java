@@ -9,27 +9,25 @@ package appgiaovan.Entity;
 import java.util.Date;
 
 public class DoanhThuLoiNhuan {
-    private Date ngay;
+    private int thang;
     private Double doanhThu;
-    private Double loiNhuan;
 
     // Constructor mặc định
     public DoanhThuLoiNhuan() {}
 
     // Constructor có tham số
-    public DoanhThuLoiNhuan(Date ngay, Double doanhThu, Double loiNhuan) {
-        this.ngay = ngay;
+    public DoanhThuLoiNhuan(int thang, Double doanhThu) {
+        this.thang = thang;
         this.doanhThu = doanhThu;
-        this.loiNhuan = loiNhuan;
     }
 
     // Getters and Setters
-    public Date getNgay() {
-        return ngay;
+    public int getThang() {
+        return thang;
     }
 
-    public void setNgay(Date ngay) {
-        this.ngay = ngay;
+    public void setThang(int thang) {
+        this.thang = thang;
     }
 
     public Double getDoanhThu() {
@@ -40,12 +38,6 @@ public class DoanhThuLoiNhuan {
         this.doanhThu = doanhThu;
     }
 
-    public Double getLoiNhuan() {
-        return loiNhuan;
-    }
-
-    public void setLoiNhuan(Double loiNhuan) {
-        this.loiNhuan = loiNhuan;
-    }
+    
 }
 
