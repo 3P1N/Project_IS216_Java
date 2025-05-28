@@ -34,7 +34,7 @@ import javax.swing.JOptionPane;
  */
 public class ExportPDF {
 
-    public static void exportDoanhThu(JFreeChart chart, String thangBaoCao, double tongDoanhThu, double tongLoiNhuan) {
+    public static void exportDoanhThu(JFreeChart chart, String thangBaoCao, double tongDoanhThu) {
         try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Lưu báo cáo PDF");
@@ -66,7 +66,6 @@ public class ExportPDF {
                 document.add(new Paragraph("Tháng báo cáo: " + thangBaoCao, normalFont));
 
                 document.add(new Paragraph(String.format("Tổng doanh thu: %.2f triệu VND", tongDoanhThu), normalFont));
-                document.add(new Paragraph(String.format("Tổng lợi nhuận: %.2f triệu VND", tongLoiNhuan), normalFont));
                 document.add(Chunk.NEWLINE);
 
                 // ========== MỤC 2 ==========

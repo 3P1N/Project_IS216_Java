@@ -4,6 +4,7 @@ import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.DAO.ThongKeDAO;
 import appgiaovan.Entity.DoanhThuLoiNhuan;
 import appgiaovan.Entity.TK_DanhGia;
+import appgiaovan.Entity.TK_DoanhThu;
 import appgiaovan.Entity.TK_DonHang;
 import java.sql.Connection;
 import java.sql.Date;
@@ -22,7 +23,7 @@ public class ThongKeController {
     public ThongKeController() throws SQLException, ClassNotFoundException {
         dao = new ThongKeDAO();
     }
-
+        
     public List<TK_DanhGia> getListTKDanhGia() throws SQLException, ClassNotFoundException {
         List<TK_DanhGia> list = new ArrayList<>();
         String sql = "SELECT * FROM TK_DanhGia ORDER BY NGAY";
@@ -88,6 +89,44 @@ public class ThongKeController {
 //        }
 //
 //        return list;
+    }
+    public List<TK_DoanhThu> getListTKDoanhThu() throws SQLException, ClassNotFoundException {
+        List<TK_DanhGia> list = new ArrayList<>();
+        String sql = "SELECT * FROM TK_DanhGia ORDER BY NGAY";
+
+
+        try (
+                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery();) {
+            while (rs.next()) {
+                Date ngay = rs.getDate("NGAY");
+                int soLuong1Sao = rs.getInt("SoLuong1Sao");
+                int soLuong2Sao = rs.getInt("SoLuong2Sao");
+                int soLuong3Sao = rs.getInt("SoLuong3Sao");
+                int soLuong4Sao = rs.getInt("SoLuong4Sao");
+                int soLuong5Sao = rs.getInt("SoLuong5Sao");
+
+                int tongLuotDanhGia = soLuong1Sao + soLuong2Sao + soLuong3Sao + soLuong4Sao + soLuong5Sao;
+
+                TK_DanhGia danhgia = new TK_DanhGia(
+                        ngay,
+                        tongLuotDanhGia,
+                        soLuong1Sao,
+                        soLuong2Sao,
+                        soLuong3Sao,
+                        soLuong4Sao,
+                        soLuong5Sao
+                );
+
+                list.add(danhgia);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    public List<Map<String, Object>> LayDuLieuThongKe() {
+        return dao.layTatCaThongKe();
     }
 
 }
