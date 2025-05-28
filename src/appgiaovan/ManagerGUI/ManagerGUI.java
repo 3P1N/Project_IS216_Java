@@ -28,7 +28,7 @@ public class ManagerGUI extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel contentPanel;
-
+    private TaiKhoan taiKhoan;
     public ManagerGUI() throws SQLException, ClassNotFoundException {
         
         setTitle("Giao diện chính");
