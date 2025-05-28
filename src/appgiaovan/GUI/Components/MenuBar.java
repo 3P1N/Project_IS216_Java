@@ -190,6 +190,8 @@ public class MenuBar extends JPanel {
         
         
         TaiKhoan tk = new TaiKhoanDAO().LayThongTinTaiKhoan(idtk);
+        System.out.println(tk.getTenNguoiDung());
+
         nameLabel = new JLabel(tk.getTenNguoiDung());
         nameLabel.setForeground(Color.WHITE);
         System.out.println(tk.getTenTaiKhoan());
@@ -271,7 +273,7 @@ public class MenuBar extends JPanel {
 
             MenuBar menu = null;
             try {
-                menu = new MenuBar(items, icons, 29);
+                menu = new MenuBar(items, icons, 6);
             } catch (SQLException ex) {
                 Logger.getLogger(MenuBar.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

@@ -3,6 +3,7 @@ package appgiaovan.ManagerGUI;
 
 import appgiaovan.EmployeeGUI.*;
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
@@ -29,8 +30,8 @@ public class ManagerGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel contentPanel;
     private TaiKhoan taiKhoan;
-    public ManagerGUI() throws SQLException, ClassNotFoundException {
-        
+    public ManagerGUI(TaiKhoan tk) throws SQLException, ClassNotFoundException {
+        this.taiKhoan = tk;
         setTitle("Giao diện chính");
         setSize(1200, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +41,7 @@ public class ManagerGUI extends JFrame {
         // Danh sách tên và icon menu
         
         // Tạo menu
-        ManagerSidebar sidebar = new ManagerSidebar();
+        ManagerSidebar sidebar = new ManagerSidebar(taiKhoan.getIdTaiKhoan());
         add(sidebar, BorderLayout.WEST);
 
         // Panel trung tâm hiển thị nội dung
@@ -74,7 +75,9 @@ public class ManagerGUI extends JFrame {
         }
         SwingUtilities.invokeLater(() -> {
             try {
-                new ManagerGUI().setVisible(true);
+                TaiKhoan tk = new TaiKhoan();
+                tk.setIdTaiKhoan(6);
+                new ManagerGUI(tk).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

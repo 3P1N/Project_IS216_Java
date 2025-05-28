@@ -9,6 +9,7 @@ import appgiaovan.Controller.TokenController;
 import appgiaovan.CustomerGUI.CustomerGUI;
 import appgiaovan.EmployeeGUI.EmployeeGUI;
 import appgiaovan.Entity.TaiKhoan;
+import appgiaovan.ManagerGUI.ManagerGUI;
 import appgiaovan.ManagerGUI.ManagerMainScreen;
 import appgiaovan.ShipperGUI.NVGHHomeGUI;
 import appgiaovan.ShipperGUI.NVGHMainGUI;
@@ -174,7 +175,7 @@ public class LOGIN extends JFrame {
             } else if ("QL".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện quản lý
                 idToken = controller.TaoToken(username);
-                new ManagerMainScreen().setVisible(true);
+                new ManagerGUI(tk).setVisible(true);
                 setVisible(false);
             } else if ("NVK".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên kho
