@@ -27,6 +27,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
 import javax.swing.JPanel;
 
 /**
@@ -69,27 +70,28 @@ public class CustomerGUI extends JFrame {
             return dangKyController.layID_KhachHang(ID_TaiKhoan);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex, "Lỗi hệ thống", WARNING_MESSAGE);
         }
         return -1;
     }
-    /*public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e) {
-            System.err.println("Không thể cài đặt FlatLaf");
-        }
-
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new CustomerGUI(11).setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }*/
+//   public static void main(String[] args) {
+//        try {
+//            UIManager.setLookAndFeel(new FlatLightLaf());
+//        } catch (Exception e) {
+//            System.err.println("Không thể cài đặt FlatLaf");
+//        }
+//
+//        SwingUtilities.invokeLater(() -> {
+//            try {
+//                new CustomerGUI(11).setVisible(true);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (Exception ex) {
+//                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+//    }
     
 }

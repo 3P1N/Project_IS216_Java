@@ -186,7 +186,7 @@ public class RegisterGUI extends JFrame{
                 // Gọi controller để thêm khách hàng,tài khoản
                 controller.themKhachHang(kh,tk);
                 // Gọi callback
-                JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", 
+                JOptionPane.showMessageDialog(this, "Đăng ký tài khoản thành công!", 
                         "Thành công", JOptionPane.INFORMATION_MESSAGE);
 
 
