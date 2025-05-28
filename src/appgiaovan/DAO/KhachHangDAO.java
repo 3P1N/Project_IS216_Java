@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.naming.spi.DirStateFactory.Result;
 
 public class KhachHangDAO {
 
@@ -52,9 +53,23 @@ public class KhachHangDAO {
         }
     }
 
-    /**
-     * Tạo mới khách hàng
-     */
+    public String layEmailKH(int iddh) throws SQLException, ClassNotFoundException{
+        String kq = null;
+        String sql = "SELECT EMAIL FROM KHACHHANG K "
+                + "JOIN DONHANG D ON K.ID_KHACHHANG = D.ID_KHACHHANG "
+                + "WHERE D.ID_DONHANG = ?";
+        try(Connection conn = ConnectionUtils.getMyConnection(); 
+                PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, iddh);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {                
+                    kq = rs.getString("EMAIL");
+                }
+            }
+        }
+        return kq;
+    }
     public boolean taoKhachHang(KhachHang kh) throws SQLException, ClassNotFoundException {
         int newId = layMaKhachHangMoi();
         kh.setID_NguoiDung(newId);

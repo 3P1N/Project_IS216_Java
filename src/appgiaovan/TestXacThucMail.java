@@ -4,6 +4,7 @@
  */
 package appgiaovan;
 
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -12,10 +13,10 @@ import java.util.Random;
  */
 public class TestXacThucMail {
 
-    public static void main(String[] args) {
-        String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
-        String mail = "toilaphien2302@gmail.com";
-        EmailSender.sendEmail(mail, generatedCode);
-        new VerificationForm(generatedCode).setVisible(true);
+    public static void main(String[] args) throws Exception {
+       // String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
+        String mail = "datbac3b1@gmail.com";
+        EmailSender.sendMail(mail,new File("E:/JAVA/Project_IS216_Java/exportpdf/hoadon_103.pdf"), "xin chào");
+        //new VerificationForm("xin chào").setVisible(true);
     }
 }
