@@ -5,6 +5,7 @@
 package appgiaovan.ManagerGUI;
 
 import appgiaovan.Controller.ThongKeController;
+import appgiaovan.EmailSender;
 import appgiaovan.Entity.TK_DanhGia;
 import appgiaovan.report.ExportPDF;
 import java.awt.BorderLayout;
@@ -116,24 +117,29 @@ public class ThongKeDanhGiaPanel extends JPanel {
         JButton btnExportPDF = new JButton("Xuất PDF");
         btnExportPDF.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btnExportPDF.setBackground(new Color(0, 123, 255));
-//        btnExportPDF.setForeground(Color.WHITE);
 
-// Panel chứa nút
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(btnExportPDF);
 
-        add(buttonPanel, BorderLayout.SOUTH);
-
-// Gán sự kiện
         btnExportPDF.addActionListener(e -> {
             try {
-               
+
                 ExportPDF.exportDanhGia(latest, pieChart);
             } catch (Exception ex) {
                 Logger.getLogger(ThongKeDanhGiaPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
+        JButton btnSendMail = new JButton("Gửi Email");
+        btnSendMail.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSendMail.setBackground(new Color(33, 150, 243));
+        btnSendMail.setFocusPainted(false);
+        btnSendMail.addActionListener(e -> {
+            EmailSender.sendFileByEmail(); // Gọi hàm trong lớp SendMail
+        });
+
+        buttonPanel.add(btnSendMail);
+        add(buttonPanel, BorderLayout.SOUTH);
 
     }
 
