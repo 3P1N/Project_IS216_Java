@@ -123,4 +123,25 @@ public class FormThemKh extends JDialog {
             dispose();
         }
     }
+    
+    
+
+    public static void main(String[] args) {
+        try {
+            // Khởi chạy giao diện trên luồng EDT (Event Dispatch Thread)
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                try {
+                    FormThemKh dialog = new FormThemKh();
+                    dialog.setVisible(true);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    
 }

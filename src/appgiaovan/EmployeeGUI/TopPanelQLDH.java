@@ -20,6 +20,7 @@ public class TopPanelQLDH extends JPanel {
     private JButton filterButton = new JButton("Lọc");
     private JButton updateButton = new JButton("Sửa");
     private JButton deleteButton = new JButton("Hủy đơn hàng");
+    private JButton refreshButton = new JButton("Refresh");
 
     private JButton phanCongButton = new JButton("Phân công giao hàng");
     private final JTextField idField = new JTextField("");
@@ -80,7 +81,17 @@ public class TopPanelQLDH extends JPanel {
         phanCongButton.setForeground(Color.WHITE);
         phanCongButton = new RoundedButton(phanCongButton, 20);
         add(phanCongButton);
+        
+        refreshButton.setPreferredSize(new Dimension(150, 30));
+        refreshButton.setBackground(new Color(0, 136, 153));
+        refreshButton.setForeground(Color.WHITE);
+        refreshButton = new RoundedButton(refreshButton, 20);
+        add(refreshButton);
 
+    }
+    
+    public JButton getRefreshButton(){
+        return this.refreshButton;
     }
 
     public JButton getaddButton() {

@@ -90,7 +90,7 @@ public class NhanVienKhoDAO {
             cs.execute();
         } catch (SQLException e) {
 
-            System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
+            System.err.println("Lỗi khi gọi function TaoTaiKhoanNVK_Func: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -108,20 +108,14 @@ public class NhanVienKhoDAO {
     }
     public boolean xoaNhanVienKho(int idNguoiDung) throws SQLException, ClassNotFoundException {
         String callSql = "{ CALL XoaTaiKhoan(?) }";
-        // Tùy driver, bạn có thể cần load driver ở lớp khởi tạo hoặc một lần duy nhất
-        //Class.forName("oracle.jdbc.driver.OracleDriver");
         try (Connection conn = ConnectionUtils.getMyConnection();
              CallableStatement cs = conn.prepareCall(callSql)) {
-            // Gán tham số đầu vào p_ID_TaiKhoan
             cs.setInt(1, idNguoiDung);
-            // Thực thi thủ tục
             cs.execute();
-            // Nếu không có exception, coi như thành công
             return true;
         } catch (SQLException e) {
-            // Tùy nhu cầu, bạn có thể log hoặc xử lý thêm
             System.err.println("Lỗi khi xóa nhân viên kho: " + e.getMessage());
-            throw e;  // hoặc return false;
+            throw e; 
         }
     }
         

@@ -82,7 +82,7 @@ public class EmployeeGUI extends JFrame {
         SwingUtilities.invokeLater(() -> {
             try {
                 TaiKhoan tk = new TaiKhoan();
-                tk.setIdTaiKhoan(7);
+                tk.setIdTaiKhoan(47);
                 new EmployeeGUI(tk).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);

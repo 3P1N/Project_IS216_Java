@@ -29,11 +29,12 @@ public class NhanVienGiaoHangDAO {
     public List<NhanVienGiaoHang> LayDSNhanVienGiaoHang() throws SQLException, ClassNotFoundException {
         List<NhanVienGiaoHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM NhanVienGiaoHang";
+        String sql = "SELECT * FROM NhanVienGiaoHang n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0";
         try (Connection conn = ConnectionUtils.getMyConnection(); 
-                PreparedStatement stmt = conn.prepareStatement(sql); 
-                ResultSet rs = stmt.executeQuery()) 
+                PreparedStatement ps = conn.prepareStatement(sql); 
+                ResultSet rs = ps.executeQuery()) 
         {
+            List<NhanVienGiaoHang> results = new ArrayList<>();
             while (rs.next()) {
                 NhanVienGiaoHang sh = new NhanVienGiaoHang();
                 sh.setID_NguoiDung(rs.getInt("ID_NVGiaoHang"));
@@ -49,14 +50,10 @@ public class NhanVienGiaoHangDAO {
                 sh.setID_Kho(rs.getInt("ID_Kho"));
                 sh.setID_QuanLy(rs.getInt("ID_QuanLy"));
                 sh.setDiemDanhGia(rs.getInt("DiemDanhGia"));
-
-                list.add(sh);
+                results.add(sh);
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        return results;    
         }
-        return list;    
     }
     public NhanVienGiaoHang layThongTinNhanVienGiaoHang(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM NhanVienGiaoHang WHERE ID_NVGiaoHang = ?";
@@ -66,7 +63,7 @@ public class NhanVienGiaoHangDAO {
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next()){
                     NhanVienGiaoHang sh = new NhanVienGiaoHang();
-                    sh.setID_NguoiDung(rs.getInt("ID_NhanVien"));
+                    sh.setID_NguoiDung(rs.getInt("ID_NVGiaoHang"));
                     sh.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
                     sh.setHoTen(rs.getString("HoTen"));
                     sh.setSDT(rs.getString("SDT"));
@@ -124,7 +121,7 @@ public class NhanVienGiaoHangDAO {
             cs.execute();
         } catch (SQLException e) {
 
-            System.err.println("Lỗi khi gọi function ThemTaiKhoan: " + e.getMessage());
+            System.err.println("Lỗi khi gọi function TaoTaiKhoanNVGH_Func: " + e.getMessage());
             e.printStackTrace();
             return false;
         }
@@ -191,7 +188,7 @@ public class NhanVienGiaoHangDAO {
                 List<NhanVienGiaoHang> results = new ArrayList<>();
                 while (rs.next()) {
                     NhanVienGiaoHang nv = new NhanVienGiaoHang();
-                    nv.setID_NguoiDung(rs.getInt("ID_KhachHang"));
+                    nv.setID_NguoiDung(rs.getInt("ID_NVGiaoHang"));
                     nv.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
                     nv.setHoTen(rs.getString("HoTen"));
                     nv.setSDT(rs.getString("SDT"));

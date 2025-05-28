@@ -4,9 +4,12 @@
  */
 package appgiaovan.GUI;
 
+import appgiaovan.EmailSender;
+import appgiaovan.VerificationForm;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class ForgotPass extends JFrame {
@@ -31,6 +34,9 @@ public class ForgotPass extends JFrame {
         sendBtn.addActionListener(ev -> {
             String input = emailField.getText().trim();
             // TODO: Gọi backend gửi mail/OTP
+            String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
+            EmailSender.sendEmail(input, generatedCode);
+            new VerificationForm(generatedCode,input).setVisible(true);
             JOptionPane.showMessageDialog(this,
                     "Kiểm tra mail để được hướng dẫn",
                 "Đã gửi", JOptionPane.INFORMATION_MESSAGE);

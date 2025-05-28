@@ -11,11 +11,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import static appgiaovan.PasswordHashing.hashPassword;
+import java.util.List;
 
 public class FormThemShipper extends JDialog {
 
     private QLShipperController controller;
-    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtIDKho, txtIDQuanLy, txtDiemDanhGia, txtTenDangNhap, txtMatKhau;
+    private JTextField txtID, txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtDiaChi, txtDiemDanhGia, txtTenDangNhap, txtMatKhau;
+    private JComboBox<Integer> cboIDKho, cboIDQuanLy;
     private JComboBox<String> cboGioiTinh;
 
     public FormThemShipper() throws ClassNotFoundException {
@@ -27,6 +29,7 @@ public class FormThemShipper extends JDialog {
         controller = new QLShipperController();
         initUI();
         hienThiMaNhanVienGiaoHangMoi();
+        hienThiCacLuaChonIDKho();
     }
 
     private void initUI() {
@@ -50,13 +53,15 @@ public class FormThemShipper extends JDialog {
             txtCCCD = new JTextField(),
             txtNgaySinh = new JTextField(),
             cboGioiTinh = new JComboBox<>(new String[]{"Nam", "Nữ"}),
-            txtDiaChi = new JTextField(), txtIDKho = new JTextField(),
-            txtIDQuanLy = new JTextField(), txtDiemDanhGia = new JTextField(),
+            txtDiaChi = new JTextField(), 
+            cboIDKho = new JComboBox<>(),
+            cboIDQuanLy = new JComboBox<>(),  
+            txtDiemDanhGia = new JTextField(),
             txtTenDangNhap = new JTextField(),
             txtMatKhau = new JPasswordField()
         };
         txtID.setEnabled(false);
-
+        cboIDQuanLy.setEnabled(false);
         for (int i = 0; i < labels.length; i++) {
             c.gridx = 0;
             c.gridy = i;
@@ -93,6 +98,37 @@ public class FormThemShipper extends JDialog {
         txtID.setText(String.valueOf(controller.layMaNhanVienGiaoHangMoi()));
     }
 
+    public void hienThiCacLuaChonIDKho(){
+        try {
+            List<Integer> dsKho = controller.layTatCaIDKho();
+            for (Integer id : dsKho) {
+                cboIDKho.addItem(id);
+            }
+            // set lần đầu manager của kho đầu tiên
+            if (!dsKho.isEmpty()) {
+                Integer firstKho = dsKho.get(0);
+                Integer mg = controller.layIDQuanLyTheoKho(firstKho);
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        cboIDKho.addActionListener(e -> {
+        Integer selectedKho = (Integer) cboIDKho.getSelectedItem();
+        try {
+            Integer mg = controller.layIDQuanLyTheoKho(selectedKho);
+            cboIDQuanLy.removeAllItems();
+            if (mg != null) {
+                cboIDQuanLy.addItem(mg);
+                cboIDQuanLy.setSelectedItem(mg);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    });
+    }
+    
     public boolean kiemTraDinhDangThongTin() {
         // simple validation
         if (txtHoTen.getText().isEmpty() || txtSDT.getText().isEmpty()) {
@@ -120,8 +156,8 @@ public class FormThemShipper extends JDialog {
         sh.setNgaySinh(java.sql.Date.valueOf(txtNgaySinh.getText()));
         sh.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
         sh.setDiaChi(txtDiaChi.getText());
-        sh.setID_Kho(Integer.parseInt(txtIDKho.getText()));
-        sh.setID_QuanLy(Integer.parseInt(txtIDQuanLy.getText()));
+        sh.setID_Kho((Integer)cboIDKho.getSelectedItem());
+        sh.setID_QuanLy((Integer)cboIDQuanLy.getSelectedItem());
         sh.setDiemDanhGia(Integer.parseInt(txtDiemDanhGia.getText()));
         tk.setTenTaiKhoan(txtTenDangNhap.getText());
         tk.setMatKhauMaHoa(hashPassword(txtMatKhau.getText()));

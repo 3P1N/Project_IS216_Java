@@ -317,7 +317,7 @@ public class KHTaoDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new KHTaoDonHangPanel(1), BorderLayout.CENTER);
+                frame.add(new KHTaoDonHangPanel(21), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
