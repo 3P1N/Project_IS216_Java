@@ -4,6 +4,7 @@
  */
 package appgiaovan;
 
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Random;
  * @author HP
  */
 public class TestXacThucMail {
+
 
     public static void main(String[] args) {
         String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
