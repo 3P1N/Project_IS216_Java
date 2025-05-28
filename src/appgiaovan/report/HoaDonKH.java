@@ -24,11 +24,6 @@ import java.awt.Desktop; // Để mở file PDF sau khi tạo [cite: 95]
 
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -44,7 +39,12 @@ public class HoaDonKH {
 //        int idDonHang = 87; // ID đơn hàng truyền vào
 //        XuatHD(idDonHang);
 //    }
+    private String filePath;
 
+    public String getFilePath() {
+        return filePath;
+    }
+    
     public void XuatHD(int idDonHang) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -75,7 +75,7 @@ public class HoaDonKH {
 
                 // Tạo PDF
                 Document document = new Document(PageSize.A6, 20, 20, 20, 20);
-                String filePath = "exportpdf" + "/hoadon_" + idDonHang + ".pdf";
+                filePath = "exportpdf" + "/hoadon_" + idDonHang + ".pdf";
                 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
                 document.open();
@@ -178,6 +178,7 @@ public class HoaDonKH {
         }
     }
 }
+    
 
    /* try {
         // Lấy ID đơn hàng mới tạo (giả sử bạn có hàm lấy ID mới nhất của khách hàng)

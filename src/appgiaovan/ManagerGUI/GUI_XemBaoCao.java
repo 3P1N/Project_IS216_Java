@@ -113,13 +113,13 @@ public class GUI_XemBaoCao extends JPanel {
         }
     }
     public static void main(String[] args) {
-    // Chạy trên Event Dispatch Thread
+
     SwingUtilities.invokeLater(() -> {
         JFrame frame = new JFrame("Xem Báo Cáo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(new GUI_XemBaoCao());
-        frame.pack();             // tự động điều chỉnh kích thước theo nội dung
-        frame.setLocationRelativeTo(null); // đặt ở giữa màn hình
+        frame.pack();             
+        frame.setLocationRelativeTo(null); 
         frame.setVisible(true);
     });
 }

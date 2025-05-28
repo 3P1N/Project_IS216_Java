@@ -6,6 +6,7 @@ import appgiaovan.Controller.TaoDonHangController;
 import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.EmailSender;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.KhoHang;
@@ -17,6 +18,7 @@ import appgiaovan.GUI.Components.TimeWeather;
 import appgiaovan.report.HoaDonKH;
 import appgiaovan.report.*;
 import java.awt.*;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -277,7 +279,13 @@ public class KHTaoDonHangPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 //                = new DonHangDAO().layIDDHMoiNhat(ID_KhachHang);
 //                System.out.print(id_dh);
-                new HoaDonKH().XuatHD(id_dh);
+                HoaDonKH hd = new HoaDonKH();
+                hd.XuatHD(id_dh);
+                try {
+                    new EmailSender().sendMail(new KhachHangDAO().layEmailKH(id_dh),new File(hd.getFilePath()),"GỬI HÓA ĐƠN");
+                } catch (Exception ex) {
+                    Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
             } catch (SQLException ex) {
                 Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -309,7 +317,7 @@ public class KHTaoDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new KHTaoDonHangPanel(1), BorderLayout.CENTER);
+                frame.add(new KHTaoDonHangPanel(21), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 Logger.getLogger(KHTaoDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

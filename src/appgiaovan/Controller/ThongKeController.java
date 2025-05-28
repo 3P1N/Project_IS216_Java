@@ -60,38 +60,40 @@ public class ThongKeController {
     }
 
     public List<TK_DonHang> getListTKDonHang() throws SQLException, ClassNotFoundException {
-        List<TK_DonHang> list = new ArrayList<>();
-        String sql = "SELECT * FROM TK_DonHang ORDER BY NGAY";
-
-        try (
-                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery();) {
-            while (rs.next()) {
-                Date ngay = rs.getDate("NGAY");
-                int soLuongDaGiao = rs.getInt("SoLuongDaGiao");
-                int soLuongThatBai = rs.getInt("SoLuongThatBai");
-                int soLuongDaHuy = rs.getInt("SoLuongDaHuy");
-
-                int tongSoDonHang = soLuongDaGiao + soLuongThatBai + soLuongDaHuy;
-
-                TK_DonHang donhang = new TK_DonHang(
-                        ngay,
-                        tongSoDonHang,
-                        soLuongDaGiao,
-                        soLuongThatBai,
-                        soLuongDaHuy
-                );
-
-                list.add(donhang);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return list;
+        return ThongKeDAO.getListTKDonHang();
+//        List<TK_DonHang> list = new ArrayList<>();
+//        String sql = "SELECT * FROM TK_DonHang ORDER BY NGAY";
+//
+//        try (
+//                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery();) {
+//            while (rs.next()) {
+//                Date ngay = rs.getDate("NGAY");
+//                int soLuongDaGiao = rs.getInt("SoLuongDaGiao");
+//                int soLuongThatBai = rs.getInt("SoLuongThatBai");
+//                int soLuongDaHuy = rs.getInt("SoLuongDaHuy");
+//
+//                int tongSoDonHang = soLuongDaGiao + soLuongThatBai + soLuongDaHuy;
+//
+//                TK_DonHang donhang = new TK_DonHang(
+//                        ngay,
+//                        tongSoDonHang,
+//                        soLuongDaGiao,
+//                        soLuongThatBai,
+//                        soLuongDaHuy
+//                );
+//
+//                list.add(donhang);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return list;
     }
     public List<TK_DoanhThu> getListTKDoanhThu() throws SQLException, ClassNotFoundException {
         List<TK_DanhGia> list = new ArrayList<>();
         String sql = "SELECT * FROM TK_DanhGia ORDER BY NGAY";
+
 
         try (
                 Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery();) {
@@ -126,4 +128,5 @@ public class ThongKeController {
     public List<Map<String, Object>> LayDuLieuThongKe() {
         return dao.layTatCaThongKe();
     }
+
 }

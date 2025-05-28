@@ -142,6 +142,7 @@ public class RegisterGUI extends JFrame{
                 SwingUtilities.invokeLater(() -> {
                     LOGIN fp = new LOGIN();
                     fp.setVisible(true);
+                    dispose();
                 });
             }
         });
