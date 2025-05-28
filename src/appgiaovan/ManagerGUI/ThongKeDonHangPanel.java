@@ -5,17 +5,20 @@
 package appgiaovan.ManagerGUI;
 
 import appgiaovan.Controller.ThongKeController;
+import appgiaovan.EmailSender;
 import appgiaovan.Entity.TK_DonHang;
 import appgiaovan.report.ExportPDF;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -127,7 +130,8 @@ public class ThongKeDonHangPanel extends JPanel {
         // --- Button Export PDF ---
         JPanel bottomPanel = new JPanel();
         javax.swing.JButton btnExport = new javax.swing.JButton("Xuất PDF");
-
+        btnExport.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnExport.setBackground(new Color(33, 150, 243));
         btnExport.addActionListener(e -> {
             try {
                 ExportPDF.exportDonHang(list, barChart);
@@ -137,6 +141,14 @@ public class ThongKeDonHangPanel extends JPanel {
         });
 
         bottomPanel.add(btnExport);
+        JButton btnSendMail = new JButton("Gửi Email");
+        btnSendMail.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSendMail.setBackground(new Color(33, 150, 243));
+        btnSendMail.setFocusPainted(false);
+        btnSendMail.addActionListener(e -> {
+            EmailSender.sendFileByEmail(); // Gọi hàm trong lớp SendMail
+        });
+        bottomPanel.add(btnSendMail);
         add(bottomPanel, BorderLayout.SOUTH);
 
     }

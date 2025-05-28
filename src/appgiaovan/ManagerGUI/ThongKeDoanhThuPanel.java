@@ -5,6 +5,7 @@
 package appgiaovan.ManagerGUI;
 
 import appgiaovan.DAO.DoanhThuLoiNhuanDAO;
+import appgiaovan.EmailSender;
 import appgiaovan.Entity.DoanhThuLoiNhuan;
 import appgiaovan.report.ExportPDF;
 import java.awt.BasicStroke;
@@ -148,12 +149,23 @@ public class ThongKeDoanhThuPanel extends JPanel {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton extractPDF = new JButton("Xuất PDF");
+        extractPDF.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        extractPDF.setBackground(new Color(33, 150, 243));
 
         extractPDF.addActionListener(e -> {
             ExportPDF.exportDoanhThu(lineChart, thangBaoCao, tongDoanhThu, tongLoiNhuan);
         });
 
         buttonPanel.add(extractPDF);
+        JButton btnSendMail = new JButton("Gửi Email");
+        btnSendMail.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        btnSendMail.setBackground(new Color(33, 150, 243));
+        btnSendMail.setFocusPainted(false);
+        btnSendMail.addActionListener(e -> {
+            EmailSender.sendFileByEmail(); // Gọi hàm trong lớp SendMail
+        });
+        
+        buttonPanel.add(btnSendMail);
         add(buttonPanel, BorderLayout.SOUTH);
 
     }

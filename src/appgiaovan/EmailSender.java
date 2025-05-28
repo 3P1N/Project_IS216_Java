@@ -1,9 +1,15 @@
-
 package appgiaovan;
+
+import java.io.File;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 import java.util.Random;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class EmailSender {
 
@@ -13,10 +19,10 @@ public class EmailSender {
         final String password = "fboftfflmqhazakj"; // Không dùng mật khẩu Gmail thường, dùng app password
         String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); 
-        props.put("mail.smtp.port", "587"); 
-        props.put("mail.smtp.auth", "true"); 
-        props.put("mail.smtp.starttls.enable", "true"); 
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
 
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
@@ -30,7 +36,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress(fromEmail));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject("Xác nhận đăng ký tài khoản");
-             message.setText("Mã xác nhận của bạn là: " + code);
+            message.setText("Mã xác nhận của bạn là: " + code);
 
             Transport.send(message);
             System.out.println("Email sent successfully to " + toEmail);
@@ -39,9 +45,82 @@ public class EmailSender {
             e.printStackTrace();
         }
     }
+
+    public static void sendEmailWithAttachment(String toEmail, String subject, String body, File attachment) {
+        final String fromEmail = "3p1nPMIT@gmail.com";
+        final String password = "fboftfflmqhazakj"; // App password
+
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(fromEmail, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(fromEmail));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
+            message.setSubject(subject);
+
+            // Body email
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(body);
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+
+            // File đính kèm
+            if (attachment != null && attachment.exists()) {
+                MimeBodyPart attachmentPart = new MimeBodyPart();
+                DataSource source = new FileDataSource(attachment);
+                attachmentPart.setDataHandler(new DataHandler(source));
+                attachmentPart.setFileName(attachment.getName());
+                multipart.addBodyPart(attachmentPart);
+            }
+
+            message.setContent(multipart);
+            Transport.send(message);
+
+            System.out.println("Email với file đính kèm đã được gửi tới " + toEmail);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static void sendFileByEmail() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Chọn file để gửi email");
+        int result = fileChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            String toEmail = JOptionPane.showInputDialog(null, "Nhập địa chỉ email người nhận:");
+            if (toEmail == null || toEmail.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Địa chỉ email không hợp lệ.");
+                return;
+            }
+
+            String subject = "File thống kê đơn hàng";
+            String body = "Vui lòng xem file thống kê đính kèm.";
+
+            EmailSender.sendEmailWithAttachment(toEmail, subject, body, selectedFile);
+
+            JOptionPane.showMessageDialog(null, "Đã gửi file tới: " + toEmail);
+        }
+    }
+    
+
     public static void main(String[] args) {
-       sendEmail("toilaphien2302@gmail.com","nothing");
+        sendFileByEmail();
     }
 
-    
 }
