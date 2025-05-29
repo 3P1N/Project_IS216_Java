@@ -129,7 +129,7 @@ public class QuanLyDonHangPanel extends JPanel {
     }
 
     public void PhanCongGiaoHang() throws SQLException, ClassNotFoundException {
-        new PhanCongGiaoHangFrame(() -> {
+        new PhanCongGiaoHangFrame(nhanVienKho.getID_Kho(), ()-> {
             try {
                 HienThiDanhSach();
             } catch (SQLException ex) {
