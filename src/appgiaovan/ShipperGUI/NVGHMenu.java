@@ -20,8 +20,8 @@ public class NVGHMenu extends JPanel {
     private MenuBar menu;
 
     public NVGHMenu(int idtk) throws SQLException, ClassNotFoundException {
-        java.util.List<String> items = Arrays.asList("Trang chủ","Quản lý đơn hàng", "Báo cáo","Thông tin cá nhân", "Hỗ trợ", "Đăng xuất");
-        java.util.List<String> icons = Arrays.asList("home.jpg","order.png", "report.png","employee.png", "support.jpg", "logout.png");
+        java.util.List<String> items = Arrays.asList("Quản lý đơn hàng", "Báo cáo","Thông tin cá nhân", "Hỗ trợ", "Đăng xuất");
+        java.util.List<String> icons = Arrays.asList("order.png", "report.png","employee.png", "support.jpg", "logout.png");
 
         setLayout(new BorderLayout());
 

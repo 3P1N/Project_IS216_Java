@@ -33,7 +33,7 @@ public class RoundedPanel extends JPanel {
     /**
      * Tạo một panel thống kê đẹp với bo góc.
      */
-    public static JPanel createStatBox(String title, String value, String subtitle, Color bgColor) {
+    public static JPanel createStatBox(String title, String danggiao, String _100, Color bgColor) {
         RoundedPanel panel = new RoundedPanel(20);
         panel.setBackground(bgColor);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

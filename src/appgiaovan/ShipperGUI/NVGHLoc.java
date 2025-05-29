@@ -41,7 +41,7 @@ public class NVGHLoc extends JPanel {
         String[] trangThai = { "Đang giao", "Đã giao", "Giao thất bại" };
         statusComboBox = new JComboBox<>(trangThai);
         statusComboBox.setPreferredSize(new Dimension(120, 50));
-        statusComboBox.setBounds(130, 10, 120, 40);
+        statusComboBox.setBounds(130, 10, 120, 45);
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
 

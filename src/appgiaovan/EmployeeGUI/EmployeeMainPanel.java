@@ -22,9 +22,9 @@ public class EmployeeMainPanel extends JPanel {
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
         statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        statPanel.add(RoundedPanel.createStatBox("DOANH THU THÁNG", "0","", new Color(76, 175, 80)));
-        statPanel.add(RoundedPanel.createStatBox("TỔNG ĐƠN HÀNG THÁNG", "0", "", new Color(255, 152, 0)));
-        statPanel.add(RoundedPanel.createStatBox("TỒN KHO", "2.9 tỷ sản phẩm", "", new Color(121, 85, 72)));
+        statPanel.add(RoundedPanel.createStatBox("DOANH THU THÁNG", danggiao, "\u2193 100%", new Color(76, 175, 80)));
+        statPanel.add(RoundedPanel.createStatBox("TỔNG ĐƠN HÀNG THÁNG", danggiao, "\u2193 100%", new Color(255, 152, 0)));
+        statPanel.add(RoundedPanel.createStatBox("TỒN KHO", danggiao, "\u2193 100%", new Color(121, 85, 72)));
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 

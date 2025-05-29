@@ -31,9 +31,9 @@ import java.util.logging.Logger;
         int TongSoDon=qlDonHangController.LayTongSoDon(ID_KhachHang);
         int SoDonDaGiao=qlDonHangController.LayTongSoDonDaGiao(ID_KhachHang);
         int SoDonDangVanChuyen=(TongSoDon-SoDonDaGiao);
-        statPanel.add(RoundedPanel.createStatBox("Tổng số đơn", Integer.toString(TongSoDon), "", new Color(76, 175, 80)));
-        statPanel.add(RoundedPanel.createStatBox("Đã giao", Integer.toString(SoDonDaGiao), "", new Color(33, 150, 243)));
-        statPanel.add(RoundedPanel.createStatBox("Đang vận chuyển", Integer.toString(SoDonDangVanChuyen), "", new Color(255, 152, 0)));
+        statPanel.add(RoundedPanel.createStatBox("Tổng số đơn", danggiao, "\u2193 100%", new Color(76, 175, 80)));
+        statPanel.add(RoundedPanel.createStatBox("Đã giao", danggiao, "\u2193 100%", new Color(33, 150, 243)));
+        statPanel.add(RoundedPanel.createStatBox("Đang vận chuyển", danggiao, "\u2193 100%", new Color(255, 152, 0)));
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
