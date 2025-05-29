@@ -12,42 +12,6 @@ public class DoanhThuLoiNhuanDAO {
 
     // Thông tin kết nối DB - thay đổi theo cấu hình bạn
     
-     public static List<TK_DoanhThu> getListDoanhThuLoiNhuan2() throws SQLException, ClassNotFoundException {
-        List<TK_DoanhThu> list = new ArrayList<>();
-        String sql = "SELECT "
-                + "d.THOIGIANTAO AS NGAY, "
-                + "SUM(CASE WHEN D.TRANGTHAI = N'Đã giao' THEN 1 ELSE 0 END) AS SoLuongDaGiao, "
-                + "SUM(CASE WHEN D.TRANGTHAI = N'Giao thất bại' THEN 1 ELSE 0 END) AS SoLuongThatBai, "
-                + "SUM(CASE WHEN D.TRANGTHAI = N'Hủy' THEN 1 ELSE 0 END) AS SoLuongDaHuy "
-                + "FROM DONHANG d "
-                + "GROUP BY d.THOIGIANTAO "
-                + "ORDER BY d.THOIGIANTAO";
-
-        Connection conn = ConnectionUtils.getMyConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            java.sql.Date ngay = rs.getDate("NGAY");
-            int soLuongDaGiao = rs.getInt("SOLUONGDAGIAO");
-            int soLuongThatBai = rs.getInt("SOLUONGTHATBAI");
-            int soLuongDaHuy = rs.getInt("SOLUONGDAHUY");
-
-            int tongSoDonHang = soLuongDaGiao + soLuongThatBai + soLuongDaHuy;
-
-            TK_DonHang donhang = new TK_DonHang(
-                    ngay,
-                    tongSoDonHang,
-                    soLuongDaGiao,
-                    soLuongThatBai,
-                    soLuongDaHuy
-            );
-
-            list.add(donhang);
-        }
-
-        return list;
-    }
     public List<DoanhThuLoiNhuan> getListDoanhThuLoiNhuan() throws SQLException, ClassNotFoundException {
         List<DoanhThuLoiNhuan> list = new ArrayList<>();
 
