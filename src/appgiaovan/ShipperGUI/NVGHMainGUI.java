@@ -23,6 +23,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import appgiaovan.Controller.TokenController;
+import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
+import appgiaovan.Entity.TaiKhoan;
 
 /**
  *
@@ -53,7 +55,11 @@ public class NVGHMainGUI extends JFrame{
         // Thêm các trang nội dung
         //contentPanel.add(new ThongTinCaNhan(),"Profile");
         contentPanel.add(new NVGHHomeGUI(),"Trang chủ");
-        contentPanel.add(new ThongTinCaNhan(),"Thông tin cá nhân");
+        
+        TaiKhoan tk = new TaiKhoan();
+        tk.setIdTaiKhoan(idtk);
+        tk.setVaiTro("NVGH");
+        contentPanel.add(new ThongTinCaNhanPanel(tk),"Thông tin cá nhân");
         contentPanel.add(new QuanLyDonHang(idtk),"Quản lý đơn hàng");
         contentPanel.add(new NVGHBaoCao(idtk), "Báo cáo");
         contentPanel.add(new NVGHHotro(), "Hỗ trợ");

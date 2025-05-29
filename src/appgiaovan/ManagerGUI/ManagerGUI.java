@@ -3,6 +3,7 @@ package appgiaovan.ManagerGUI;
 
 import appgiaovan.EmployeeGUI.*;
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -49,6 +50,7 @@ public class ManagerGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         // Thêm các trang nội dung
+        contentPanel.add(new ThongTinCaNhanPanel(tk),"Trang chủ");
         contentPanel.add(new ManagerMainScreen(),"Trang chủ");
         contentPanel.add(new GUI_QLNVKho(),"Quản lý nhân viên kho");
         contentPanel.add(new GUI_QLShipper(),"Quản lý shipper");

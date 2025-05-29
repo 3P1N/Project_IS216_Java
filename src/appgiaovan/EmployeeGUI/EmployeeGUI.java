@@ -2,6 +2,7 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
 import appgiaovan.DAO.NhanVienKhoDAO;
 import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.Entity.TaiKhoan;
@@ -58,7 +59,7 @@ public class EmployeeGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         // Thêm các trang nội dung
-        contentPanel.add(new ThongTinCaNhan(),"Profile");
+        contentPanel.add(new ThongTinCaNhanPanel(taiKhoan),"Profile");
         contentPanel.add(new EmployeeMainPanel(),"Trang chủ");
         contentPanel.add(new BaoCaoKhoFrame(nhanVienKho), "Báo cáo");
         contentPanel.add(new QuanLyDonHangPanel(nhanVienKho),"Quản lý đơn hàng");

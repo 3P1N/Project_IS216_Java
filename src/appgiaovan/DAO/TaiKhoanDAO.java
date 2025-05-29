@@ -1,6 +1,8 @@
+
 package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.Entity.NguoiDung;
 import appgiaovan.Entity.TaiKhoan;
 import static appgiaovan.PasswordHashing.hashPassword;
 import java.sql.Connection;
@@ -8,16 +10,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class TaiKhoanDAO {
 
     public TaiKhoan xacThucThongTin(String user, String pass) throws SQLException, ClassNotFoundException {
         String sql = "SELECT ID_TAIKHOAN, TenTaiKhoan, MatKhauMaHoa, VaiTro FROM TAIKHOAN WHERE TENTAIKHOAN = ?";
+        System.out.println(user);
 
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
 
             st.setString(1, user);
             try (ResultSet rs = st.executeQuery()) {
                 if (rs.next()) {
+                    System.out.println(pass);
+
                     String passH = rs.getString("MatKhauMaHoa");
 
                     // So sánh mật khẩu sau khi mã hóa
@@ -46,7 +52,7 @@ public class TaiKhoanDAO {
                     tk = new TaiKhoan();
                     tk.setIdTaiKhoan(rs.getInt("ID_TAIKHOAN"));
                     tk.setTenTaiKhoan(rs.getString("TenTaiKhoan"));
-                   
+
                     tk.setVaiTro(rs.getString("VaiTro"));
                 } else {
                     return null; // Không tìm thấy tài khoản
@@ -64,10 +70,10 @@ public class TaiKhoanDAO {
             } else if ("KH".equals(vaiTro)) {
                 tableName = "KHACHHANG";
                 tk.setVaiTro("Khách hàng");
-            }else if ("QL".equals(vaiTro)) {
+            } else if ("QL".equals(vaiTro)) {
                 tableName = "QUANLY";
                 tk.setVaiTro("Quản lý");
-            }else if ("NVGH".equals(vaiTro)) {
+            } else if ("NVGH".equals(vaiTro)) {
                 tableName = "NHANVIENGIAOHANG";
                 tk.setVaiTro("Nhân Viên giao hàng");
             }
@@ -88,31 +94,71 @@ public class TaiKhoanDAO {
 
         return tk;
     }
+    
+    public NguoiDung LayThongTinNguoiDung(TaiKhoan taiKhoan) throws SQLException, ClassNotFoundException{
+        NguoiDung nd = new NguoiDung();
+        
+         String tableName = null;
+            if ("NVK".equals(taiKhoan.getVaiTro())) {
+                tableName = "NhanVienKho";
+            } else if ("KH".equals(taiKhoan.getVaiTro())) {
+                tableName = "KHACHHANG";
+            } else if ("QL".equals(taiKhoan.getVaiTro())) {
+                tableName = "QUANLY";
+            } else if ("NVGH".equals(taiKhoan.getVaiTro())) {
+                tableName = "NHANVIENGIAOHANG";
+            }
+            System.out.println(tableName);
+            if (tableName != null) {
+                String sql = "SELECT * FROM " + tableName + " WHERE ID_TaiKhoan = ?";
+                try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+                    st.setInt(1, taiKhoan.getIdTaiKhoan());
+                    try (ResultSet rs = st.executeQuery()) {
+                        if (rs.next()) {
+                             nd.setID_NguoiDung(rs.getInt("ID_" + tableName));
+                    nd.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
+                    nd.setHoTen(rs.getString("HoTen"));
+                    nd.setSDT(rs.getString("SDT"));
+                    nd.setEmail(rs.getString("Email"));
+                    nd.setCCCD(rs.getString("CCCD"));
+                    nd.setNgaySinh(rs.getDate("NgaySinh"));
+                    nd.setGioiTinh(rs.getString("GioiTinh"));
+                        }
+                    }
+                }
+            }
+        
+
+        return nd;
+    }
 
     static void main(String[] args) throws SQLException, ClassNotFoundException {
-        TaiKhoan tk = new TaiKhoanDAO().LayThongTinTaiKhoan(29);
-        System.out.println(tk.getTenNguoiDung());
+        TaiKhoan tk = new TaiKhoan();
+        tk.setIdTaiKhoan(1);
+        tk.setVaiTro("QL");
+        NguoiDung nd = new TaiKhoanDAO().LayThongTinNguoiDung(tk);
+        System.out.println(nd.getHoTen());
     }
 
     public void CapNhatMK(String hashPassword, int ID_TaiKhoan) throws SQLException, ClassNotFoundException {
-        
+
         String sql = "UPDATE TAIKHOAN SET MATKHAUMAHOA = ? WHERE ID_TaiKhoan = ?";
 
-        try(Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
-            
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+
             st.setString(1, hashPassword);
             st.setInt(2, ID_TaiKhoan);
 
             int rowsUpdated = st.executeUpdate();
             if (rowsUpdated > 0) {
-                System.out.println("Cập nhật mật khẩu thành công cho: " );
+                System.out.println("Cập nhật mật khẩu thành công cho: ");
             } else {
-                System.out.println("Không tìm thấy tài khoản với email: " );
+                System.out.println("Không tìm thấy tài khoản với email: ");
             }
 
         } catch (SQLException e) {
             e.printStackTrace(); // hoặc log lỗi nếu cần
-        } 
+        }
     }
 
 }
