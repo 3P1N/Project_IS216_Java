@@ -38,7 +38,6 @@ public class ThongKePanel extends JPanel {
     private DefaultTableModel tableModel;
     private JButton btnXuatPDF;
     private ThongKeController controller;
-    private List<Map<String, Object>> duLieuThongKe;
 
     public ThongKePanel() {
         try {
@@ -48,7 +47,7 @@ public class ThongKePanel extends JPanel {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ThongKePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.duLieuThongKe = controller.LayDuLieuThongKe();
+       
 
         setLayout(new BorderLayout());
 

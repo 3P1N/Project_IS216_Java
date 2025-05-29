@@ -76,8 +76,14 @@ public class TraCuuDonHangPanel extends JPanel {
                     new ThongTinDonHang(rowData).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                            "Lỗi hệ thống",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null,
+                            "Lỗi hệ thống",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);        
                 }
             }
         }

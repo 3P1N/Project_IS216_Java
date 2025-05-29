@@ -37,6 +37,7 @@ public class VerificationForm extends JFrame {
             JOptionPane.showMessageDialog(this, "Xác nhận thành công!");
             FormNhapMatKhauMoi form=new FormNhapMatKhauMoi(email);
             form.setVisible(true);// đóng form xác nhận
+            dispose(); 
         } else {
             JOptionPane.showMessageDialog(this, "Sai mã xác nhận.");
         }

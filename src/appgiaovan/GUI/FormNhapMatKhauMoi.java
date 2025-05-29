@@ -20,6 +20,7 @@ import static appgiaovan.PasswordHashing.hashPassword;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author nhant
@@ -68,6 +69,9 @@ public class FormNhapMatKhauMoi extends JFrame {
         if(matKhau.equals(matKhauNL)){
             try {
                 dangKyController.CapNhatMK(hashPassword(matKhau),email);
+                JOptionPane.showMessageDialog(null, "Cập nhật mật khẩu thành công!", 
+                        "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                dispose(); 
             } catch (SQLException ex) {
                 Logger.getLogger(FormNhapMatKhauMoi.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

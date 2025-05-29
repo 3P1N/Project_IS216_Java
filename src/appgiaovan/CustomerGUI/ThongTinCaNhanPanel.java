@@ -125,7 +125,13 @@ public class ThongTinCaNhanPanel extends JPanel {
                             "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
                 }
-            qLKHController.suaKhachHang(kh);
+            if(qLKHController.suaKhachHang(kh)){
+                JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            JOptionPane.showMessageDialog(this,
+                            "Lỗi hệ thống",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);
         });
         // Thêm infoPanel vào khu vực CENTER của mainPanel
         mainPanel.add(infoPanel, BorderLayout.CENTER);

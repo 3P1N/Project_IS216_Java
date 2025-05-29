@@ -282,7 +282,7 @@ public class NhanVienGiaoHangDAO {
     }
 
     public Integer layIDQuanLyTheoKho(int idKho) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT ID_QuanLy FROM KhoHang WHERE ID_Kho = ?";
+        String sql = "SELECT ID_QuanLy FROM QuanLy WHERE ID_Kho = ?";
         try (Connection conn = ConnectionUtils.getMyConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idKho);

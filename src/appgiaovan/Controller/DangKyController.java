@@ -91,8 +91,7 @@ public class DangKyController {
 
     public void CapNhatMK(String hashPassword,String email) throws SQLException, ClassNotFoundException {
         int ID_TaiKhoan=this.layID_TaiKhoan(email);
-        System.out.print(ID_TaiKhoan);
-        System.out.println(hashPassword);
+        
         taiKhoanDAO.CapNhatMK(hashPassword,ID_TaiKhoan);
     }
     
