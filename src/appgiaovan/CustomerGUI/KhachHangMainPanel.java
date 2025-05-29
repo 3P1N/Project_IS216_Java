@@ -39,9 +39,9 @@ import java.util.logging.Logger;
 
         // Biểu đồ (sử dụng JFreeChart)
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(20, "Số lượng", "Tổng đơn");
-        dataset.addValue(5, "Số lượng", "Đang giao");
-        dataset.addValue(15, "Số lượng", "Đã giao");
+        dataset.addValue(TongSoDon, "Số lượng", "Tổng đơn");
+        dataset.addValue(SoDonDaGiao, "Số lượng", "Đang giao");
+        dataset.addValue(SoDonDangVanChuyen, "Số lượng", "Đã giao");
 
         JFreeChart barChart = ChartFactory.createBarChart(
         "Thống kê đơn hàng",
