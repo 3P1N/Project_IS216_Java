@@ -251,4 +251,8 @@ public class DonHang {
     public void setLoaiHangHoa(String loaiHangHoa) {
         this.loaiHangHoa = loaiHangHoa;
     }
+    static public void main(String[] args){
+        
+    }
+    
 }

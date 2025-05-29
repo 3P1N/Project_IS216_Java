@@ -260,23 +260,23 @@ public class DonHangDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 DonHang dh = new DonHang();
-                dh.setIdDonHang(rs.getInt("D.ID_DonHang"));
-                dh.setIdKhachHang(rs.getInt("D.ID_KhachHang"));
-                dh.setIdNVGiaoHang(rs.getInt("D.ID_NVGiaoHang"));
-                dh.setSdtNguoiGui(rs.getString("D.SDTNguoiGui"));
-                dh.setSdtNguoiNhan(rs.getString("D.SDTNguoiNhan"));
-                dh.setIdKhoTiepNhan(rs.getInt("D.ID_KhoTiepNhan"));
-                dh.setTenNguoiGui(rs.getString("D.TenNguoiGui"));
-                dh.setTenNguoiNhan(rs.getString("D.TenNguoiNhan"));
-                dh.setDiaChiNhan(rs.getString("D.DiaChiNhan"));
-                dh.setTienCOD(rs.getDouble("D.TienCOD"));
-                dh.setPhi(rs.getDouble("D.Phi"));
-                dh.setThoiGianNhan(rs.getTimestamp("D.ThoiGianNhan"));
-                dh.setThoiGianTao(rs.getTimestamp("D.ThoiGianTao"));
-                dh.setThoiGianDuKien(rs.getTimestamp("D.ThoiGianDuKien"));
-                dh.setTrangThai(rs.getString("D.TrangThai"));
-                dh.setDichVu(rs.getString("D.DichVu"));
-                dh.setLoaiHangHoa(rs.getString("D.LoaiHangHoa"));
+                dh.setIdDonHang(rs.getInt("ID_DonHang"));
+                dh.setIdKhachHang(rs.getInt("ID_KhachHang"));
+                dh.setIdNVGiaoHang(rs.getInt("ID_NVGiaoHang"));
+                dh.setSdtNguoiGui(rs.getString("SDTNguoiGui"));
+                dh.setSdtNguoiNhan(rs.getString("SDTNguoiNhan"));
+                dh.setIdKhoTiepNhan(rs.getInt("ID_KhoTiepNhan"));
+                dh.setTenNguoiGui(rs.getString("TenNguoiGui"));
+                dh.setTenNguoiNhan(rs.getString("TenNguoiNhan"));
+                dh.setDiaChiNhan(rs.getString("DiaChiNhan"));
+                dh.setTienCOD(rs.getDouble("TienCOD"));
+                dh.setPhi(rs.getDouble("Phi"));
+                dh.setThoiGianNhan(rs.getTimestamp("ThoiGianNhan"));
+                dh.setThoiGianTao(rs.getTimestamp("ThoiGianTao"));
+                dh.setThoiGianDuKien(rs.getTimestamp("ThoiGianDuKien"));
+                dh.setTrangThai(rs.getString("TrangThai"));
+                dh.setDichVu(rs.getString("DichVu"));
+                dh.setLoaiHangHoa(rs.getString("LoaiHangHoa"));
 
                 list.add(dh);
             }
