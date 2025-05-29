@@ -10,6 +10,7 @@ import appgiaovan.GUI.Components.RoundedComboBox;
 
 import appgiaovan.GUI.Components.RoundedTextField;
 import appgiaovan.GUI.Components.TimeWeather;
+import appgiaovan.report.HoaDonKH;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -185,7 +186,9 @@ public class ThemDonHangFrame extends JFrame {
                     return; // Dừng lại, không thực hiện thêm
                 }
                 // Gọi controller để thêm đơn hàng
-                controller.ThemDonHang(dh);
+                int id_dh = controller.ThemDonHang(dh);
+                HoaDonKH hd = new HoaDonKH();
+                hd.XuatHD(id_dh);
                 // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 onSucces.run();

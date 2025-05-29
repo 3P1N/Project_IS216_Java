@@ -80,7 +80,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
 
     public void HienThiDSDonHangDangXuLy() throws SQLException, ClassNotFoundException {
         DonHang donHang = new DonHang();
-        donHang.setTrangThai("Đang xử lý");
+        donHang.setTrangThai("Đang vận chuyển");
         List<DonHang> dsDonHang = controller.LayDSDonHang(donHang);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];

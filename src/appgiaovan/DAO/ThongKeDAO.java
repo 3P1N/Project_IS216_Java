@@ -93,7 +93,7 @@ public class ThongKeDAO {
         return list;
     }
 
-    public static void main(String[] args) {
+    static public void main(String[] args) {
         try {
             List<TK_DonHang> list = getListTKDonHang();
             for (TK_DonHang item : list) {

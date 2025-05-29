@@ -7,30 +7,43 @@ package appgiaovan.CustomerGUI;
 import appgiaovan.Controller.DangKyController;
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Controller.QLKHController;
+import appgiaovan.DAO.TaiKhoanDAO;
 import appgiaovan.Entity.KhachHang;
+import appgiaovan.Entity.NguoiDung;
+import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.Components.TimeWeather;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  *
  * @author nhant
  */
 public class ThongTinCaNhanPanel extends JPanel {
-        private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
-        private JButton btnCapNhat;
-        private KhachHang kh=new KhachHang();
-        private DangKyController controller=new DangKyController();
-    public ThongTinCaNhanPanel(int ID_KhachHang) throws ClassNotFoundException{
-        QLKHController qLKHController=new QLKHController();
-        kh=qLKHController.layThongTinKhachHang(ID_KhachHang);
+
+    private JTextField txtHoTen, txtSDT, txtEmail, txtCCCD, txtNgaySinh, txtGioiTinh;
+    private JButton btnCapNhat;
+    private NguoiDung nd = null;
+//    private KhachHang kh = new KhachHang();
+    private DangKyController controller = new DangKyController();
+
+    public ThongTinCaNhanPanel(TaiKhoan taiKhoan) throws ClassNotFoundException {
+        QLKHController qLKHController = new QLKHController();
+        
+        try {
+            nd = new TaiKhoanDAO().LayThongTinNguoiDung(taiKhoan);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setLayout(new BorderLayout());
         //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -52,7 +65,7 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblHoTen.setBounds(20, 70, 100, 25);
         infoPanel.add(lblHoTen);
 
-        JTextField txtHoTen = new JTextField(kh.getHoTen());
+        JTextField txtHoTen = new JTextField(nd.getHoTen());
         txtHoTen.setBounds(130, 70, 200, 30);
         infoPanel.add(txtHoTen);
 
@@ -61,41 +74,40 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblSDT.setBounds(20, 120, 100, 25);
         infoPanel.add(lblSDT);
 
-        JTextField txtSDT = new JTextField(kh.getSDT());
+        JTextField txtSDT = new JTextField(nd.getSDT());
         txtSDT.setBounds(130, 120, 200, 30);
         infoPanel.add(txtSDT);
-        
+
         // Email
         JLabel lblEmail = new JLabel("Email:");
         lblEmail.setBounds(20, 170, 100, 25);
         infoPanel.add(lblEmail);
 
-        JTextField txtEmail = new JTextField(kh.getEmail());
+        JTextField txtEmail = new JTextField(nd.getEmail());
         txtEmail.setBounds(130, 170, 300, 30);
         infoPanel.add(txtEmail);
         //CCCD  
-        JLabel lblCCCD  = new JLabel("CCCD :");
-        lblCCCD .setBounds(20, 220, 100, 25);
-        infoPanel.add(lblCCCD );
+        JLabel lblCCCD = new JLabel("CCCD :");
+        lblCCCD.setBounds(20, 220, 100, 25);
+        infoPanel.add(lblCCCD);
 
-        JTextField txtCCCD  = new JTextField(kh.getCCCD());
-        txtCCCD .setBounds(130, 220, 400, 30);
-        infoPanel.add(txtCCCD );
+        JTextField txtCCCD = new JTextField(nd.getCCCD());
+        txtCCCD.setBounds(130, 220, 400, 30);
+        infoPanel.add(txtCCCD);
         // NgaySinh
         JLabel lblNgaySinh = new JLabel("Ngày sinh:");
         lblNgaySinh.setBounds(20, 270, 100, 25);
         infoPanel.add(lblNgaySinh);
 
-        JTextField txtNgaySinh = new JTextField(String.valueOf(kh.getNgaySinh()));
+        JTextField txtNgaySinh = new JTextField(String.valueOf(nd.getNgaySinh()));
         txtNgaySinh.setBounds(130, 270, 400, 30);
         infoPanel.add(txtNgaySinh);
         //Gioitinh
         JLabel lblGioiTinh = new JLabel("Giới tính:");
         lblGioiTinh.setBounds(20, 320, 100, 25);
         infoPanel.add(lblGioiTinh);
-        
-        
-        JTextField txtGioiTinh = new JTextField(kh.getGioiTinh());
+
+        JTextField txtGioiTinh = new JTextField(nd.getGioiTinh());
         txtGioiTinh.setBounds(130, 320, 400, 30);
         infoPanel.add(txtGioiTinh);
         // Nút cập nhật
@@ -104,41 +116,41 @@ public class ThongTinCaNhanPanel extends JPanel {
         btnCapNhat.setBackground(new Color(0, 123, 255));
         btnCapNhat.setForeground(Color.WHITE);
         infoPanel.add(btnCapNhat);
-        btnCapNhat.addActionListener(e->{
-            kh.setHoTen(txtHoTen.getText());
-            kh.setSDT(txtSDT.getText());
-            kh.setEmail(txtEmail.getText());
-            kh.setCCCD(txtCCCD.getText());
+        btnCapNhat.addActionListener(e -> {
+            nd.setHoTen(txtHoTen.getText());
+            nd.setSDT(txtSDT.getText());
+            nd.setEmail(txtEmail.getText());
+            nd.setCCCD(txtCCCD.getText());
             String ngaySinhStr = txtNgaySinh.getText(); // ví dụ chuỗi ngày sinh
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date ngaySinhDate = sdf.parse(ngaySinhStr);
-                kh.setNgaySinh(ngaySinhDate);
+                nd.setNgaySinh(ngaySinhDate);
             } catch (ParseException ex) {
                 Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            kh.setGioiTinh(txtGioiTinh.getText());
-            if (!controller.KiemTraDinhDangCapNhat(kh)) {
-                    JOptionPane.showMessageDialog(this,
-                            "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
-                            "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return; // Dừng lại, không thực hiện thêm
-                }
-            if(qLKHController.suaKhachHang(kh)){
+
+            nd.setGioiTinh(txtGioiTinh.getText());
+            if (!controller.KiemTraDinhDangCapNhat((KhachHang) nd)) {
+                JOptionPane.showMessageDialog(this,
+                        "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
+                        "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return; // Dừng lại, không thực hiện thêm
+            }
+            if (qLKHController.suaKhachHang((KhachHang) nd)) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
             JOptionPane.showMessageDialog(this,
-                            "Lỗi hệ thống",
-                            "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    "Lỗi hệ thống",
+                    "Lỗi", JOptionPane.ERROR_MESSAGE);
         });
         // Thêm infoPanel vào khu vực CENTER của mainPanel
         mainPanel.add(infoPanel, BorderLayout.CENTER);
         //Thanh Weather
-        
+
     }
-    
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
@@ -154,7 +166,10 @@ public class ThongTinCaNhanPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new ThongTinCaNhanPanel(1), BorderLayout.CENTER);
+                TaiKhoan taiKhoan = new TaiKhoan();
+                taiKhoan.setIdTaiKhoan(1);
+                taiKhoan.setVaiTro("QL");
+                frame.add(new ThongTinCaNhanPanel(taiKhoan), BorderLayout.CENTER);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
             }

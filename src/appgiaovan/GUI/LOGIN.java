@@ -39,6 +39,7 @@ public class LOGIN extends JFrame {
     private TaiKhoan tk = new TaiKhoan();
     private int idToken;
     private TokenController controller = new TokenController();
+
     public LOGIN() {
         setTitle("Đăng nhập - Đơn vị giao vận 3P1N");
         setSize(900, 600);
@@ -74,12 +75,10 @@ public class LOGIN extends JFrame {
         logo.setBounds(90, 45, 200, 40);
         loginPanel.add(logo);
 
-        
         userField.setBounds(30, 115, 290, 45);
         userField.setBorder(BorderFactory.createTitledBorder("Tên đăng nhập"));
         loginPanel.add(userField);
 
-        
         passField.setBounds(30, 165, 290, 40);
         passField.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
         loginPanel.add(passField);
@@ -106,7 +105,7 @@ public class LOGIN extends JFrame {
         loginButton.setForeground(Color.WHITE);
         loginButton.setFocusPainted(false);
         loginPanel.add(loginButton);
-        
+
         // Đặt loginButton là nút mặc định
         getRootPane().setDefaultButton(loginButton);
 
@@ -120,8 +119,6 @@ public class LOGIN extends JFrame {
                 Logger.getLogger(LOGIN.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-
-
 
         // Label "Bạn chưa có tài khoản?" 
         JLabel infoLabel = new JLabel("Bạn chưa có tài khoản?");
@@ -156,46 +153,44 @@ public class LOGIN extends JFrame {
         String username = userField.getText().trim();
         String pass = new String(passField.getPassword());
 
-
         //String vaiTro = log.yeuCauXacThuc(username, pass);
         tk = log.yeuCauXacThuc(username, pass);
 
-        if(tk == null)
-        {
+        if (tk == null) {
 
             JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            
-        }
-        else{
+
+        } else {
             if ("KH".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện khách hàng
                 idToken = controller.TaoToken(username);
-                new CustomerGUI(tk.getIdTaiKhoan()).setVisible(true);
+                new CustomerGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("QL".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện quản lý
                 idToken = controller.TaoToken(username);
-                new ManagerGUI(tk).setVisible(true);
+                new ManagerGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("NVK".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên kho
                 idToken = controller.TaoToken(username);
-                new EmployeeGUI(tk).setVisible(true);
+                
+                new EmployeeGUI(tk,idToken).setVisible(true);
                 setVisible(false);
-            }
-            else if ("NVGH".equals(tk.getVaiTro())) {
+            } else if ("NVGH".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên giao hang
                 idToken = controller.TaoToken(username);
                 new NVGHMainGUI(tk.getIdTaiKhoan(), idToken).setVisible(true);
                 setVisible(false);
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu!", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            
+
             }
         }
 
     }
-    public String getuser(){
+
+    public String getuser() {
         return userField.getText().trim();
     }
 
