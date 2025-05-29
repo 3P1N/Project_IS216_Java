@@ -78,7 +78,13 @@ public class QLDonHangController {
     public List<DonHang> LayDSDonHang(DonHang dh) throws SQLException, ClassNotFoundException{
         return donHangDAO.LayDSDonHang(dh);
     }
-    
+    public List<DonHang> LayDSDonHangSP(int idtk) throws SQLException, ClassNotFoundException{
+        return donHangDAO.layDSDonHangCuaNVGH(idtk);
+    }
+
+    public List<DonHang> LayDSDonHangSP(DonHang dh, int idtk) throws SQLException, ClassNotFoundException{
+        return donHangDAO.LayDSDonHangCuaNVGH(dh, idtk);
+    }
     public List<DonHang> LayDSDonHangPhanCong(DonHang dh, int idKho) throws SQLException, ClassNotFoundException{
         return donHangDAO.LayDSDonHangPhanCong(dh, idKho);
     }
