@@ -12,7 +12,6 @@ public class DoanhThuLoiNhuanDAO {
 
     // Thông tin kết nối DB - thay đổi theo cấu hình bạn
     
-    
     public List<DoanhThuLoiNhuan> getListDoanhThuLoiNhuan() throws SQLException, ClassNotFoundException {
         List<DoanhThuLoiNhuan> list = new ArrayList<>();
 

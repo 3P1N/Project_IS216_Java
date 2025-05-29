@@ -1,6 +1,7 @@
 package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.Entity.TK_DanhGia;
 import appgiaovan.Entity.TK_DoanhThu;
 import appgiaovan.Entity.TK_DonHang;
 import java.sql.*;
@@ -46,7 +47,52 @@ public class ThongKeDAO {
 
         return list;
     }
-   
+
+    public static List<TK_DanhGia> getListTKDanhGia() throws SQLException, ClassNotFoundException {
+        List<TK_DanhGia> list = new ArrayList<>();
+       String sql = "SELECT"
+        + " d.NGAYTAO AS NGAY,"
+        + " SUM(CASE WHEN D.DIEMDANHGIA = 1 THEN 1 ELSE 0 END) AS SoLuong1Sao,"
+        + " SUM(CASE WHEN D.DIEMDANHGIA = 2 THEN 1 ELSE 0 END) AS SoLuong2Sao,"
+        + " SUM(CASE WHEN D.DIEMDANHGIA = 3 THEN 1 ELSE 0 END) AS SoLuong3Sao,"
+        + " SUM(CASE WHEN D.DIEMDANHGIA = 4 THEN 1 ELSE 0 END) AS SoLuong4Sao,"
+        + " SUM(CASE WHEN D.DIEMDANHGIA = 5 THEN 1 ELSE 0 END) AS SoLuong5Sao"
+        + " FROM DANHGIA d"
+        + " GROUP BY d.NGAYTAO"
+        + " ORDER BY d.NGAYTAO";
+
+
+        try (
+                Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery();) {
+            while (rs.next()) {
+                java.sql.Date ngay = rs.getDate("NGAY");
+                int soLuong1Sao = rs.getInt("SOLUONG1SAO");
+                int soLuong2Sao = rs.getInt("SOLUONG2SAO");
+                int soLuong3Sao = rs.getInt("SOLUONG3SAO");
+                int soLuong4Sao = rs.getInt("SOLUONG4SAO");
+                int soLuong5Sao = rs.getInt("SOLUONG5SAO");
+
+                int tongLuotDanhGia = soLuong1Sao + soLuong2Sao + soLuong3Sao + soLuong4Sao + soLuong5Sao;
+
+                TK_DanhGia danhgia = new TK_DanhGia(
+                        ngay,
+                        tongLuotDanhGia,
+                        soLuong1Sao,
+                        soLuong2Sao,
+                        soLuong3Sao,
+                        soLuong4Sao,
+                        soLuong5Sao
+                );
+
+                list.add(danhgia);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) {
         try {
             List<TK_DonHang> list = getListTKDonHang();
