@@ -343,10 +343,7 @@ public class DonHangDAO {
 
         return list;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 296301b0c029d3f78a128d9c65ca5aee8c77501b
     public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
 
@@ -422,109 +419,36 @@ public class DonHangDAO {
     public List<DonHang> layDSDonHangCuaNVGH(int idTaiKhoan) throws SQLException, ClassNotFoundException {
         List<DonHang> danhSachDonHang = new ArrayList<>();
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-             CallableStatement cs = conn.prepareCall("{call LayDSDHCuaNVGH(?, ?)}")) {
-
+        try (Connection conn = ConnectionUtils.getMyConnection()) {
+            CallableStatement cs = conn.prepareCall("{call LayDSDHCuaNVGH(?, ?)}");
             cs.setInt(1, idTaiKhoan);
-            cs.registerOutParameter(2, Types.REF_CURSOR);
-
+            try {
+                cs.registerOutParameter(2, Types.REF_CURSOR);
+            } catch (Exception e) {
+            }
             cs.execute();
 
-            try (ResultSet rs = (ResultSet) cs.getObject(2)) {
-                if (rs != null) {
-                    while (rs.next()) {
-                        DonHang dh = new DonHang();
-                        dh.setIdDonHang(rs.getInt("ID_DONHANG"));
-                        dh.setTenNguoiNhan(rs.getString("TENNGUOINHAN"));
-                        dh.setDiaChiNhan(rs.getString("DIACHINHAN"));
-                        dh.setSdtNguoiNhan(rs.getString("SDTNGUOINHAN"));
-                        dh.setTrangThai(rs.getString("TRANGTHAI"));
-                        dh.setTienCOD(rs.getDouble("TIENCOD"));
-                        dh.setThoiGianTao(rs.getTimestamp("THOIGIANTAO"));
-                        dh.setSdtNguoiGui(rs.getString("SDTNGUOIGUI"));
-                        dh.setTenNguoiGui(rs.getString("TENNGUOIGUI"));
-                        dh.setIdKhoTiepNhan(rs.getInt("ID_KHOTIEPNHAN"));
-                        danhSachDonHang.add(dh);
-                    }
-                } else {
-                    System.err.println("ResultSet trả về null từ procedure.");
-                }
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Lỗi SQL khi gọi procedure LayDSDHCuaNVGH: " + e.getMessage());
-            throw e;  // ném lại lỗi để lớp gọi xử lý
-        }
-
-        return danhSachDonHang;
-    }
-    public List<DonHang> LayDSDonHangCuaNVGH(DonHang donHang,int idtk) throws SQLException, ClassNotFoundException {
-        List<DonHang> list = new ArrayList<>();
-        int idnvgh;
-        String sql1 = "SELECT ID_NVGIAOHANG FROM NHANVIENGIAOHANG "
-                + "WHERE ID_TAIKHOAN = ?";
-        try (Connection conn = ConnectionUtils.getMyConnection()) {
-        PreparedStatement st = conn.prepareStatement(sql1);  
-        st.setInt(1, idtk);
-        ResultSet rs1 = st.executeQuery();
-        rs1.next();
-        idnvgh = rs1.getInt("ID_NVGIAOHANG");
-        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE ID_NVGiaoHang = ?");
-        
-        List<Object> params = new ArrayList<>();
-        params.add(idnvgh);
-        if (null == donHang.getIdDonHang()) {
-        } else {
-            sql.append(" AND ID_DonHang = ?");
-            params.add(donHang.getIdDonHang());
-        }
-
-        if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
-            System.out.println(donHang.getTrangThai());
-            
-            sql.append(" AND TrangThai LIKE ?");
-            params.add("%" + donHang.getTrangThai() + "%");
-        }
-
-        if (donHang.getTenNguoiGui() != null && !donHang.getTenNguoiGui().isEmpty()) {
-            sql.append(" AND TenNguoiGui LIKE ?");
-            params.add("%" + donHang.getTenNguoiGui() + "%");
-        }
-
-        sql.append(" ORDER BY ID_DonHang");
-
-        
-                PreparedStatement stmt = conn.prepareStatement(sql.toString()); 
-            for (int i = 0; i < params.size(); i++) {
-                stmt.setObject(i + 1, params.get(i));
-            }
-
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = (ResultSet) cs.getObject(2);
             while (rs.next()) {
                 DonHang dh = new DonHang();
-                dh.setIdDonHang(rs.getInt("ID_DonHang"));
-                dh.setIdKhachHang(rs.getInt("ID_KhachHang"));
-                dh.setIdNVGiaoHang(rs.getInt("ID_NVGiaoHang"));
-                dh.setSdtNguoiGui(rs.getString("SDTNguoiGui"));
-                dh.setSdtNguoiNhan(rs.getString("SDTNguoiNhan"));
-                dh.setIdKhoTiepNhan(rs.getInt("ID_KhoTiepNhan"));
-                dh.setTenNguoiGui(rs.getString("TenNguoiGui"));
-                dh.setTenNguoiNhan(rs.getString("TenNguoiNhan"));
-                dh.setDiaChiNhan(rs.getString("DiaChiNhan"));
-                dh.setTienCOD(rs.getDouble("TienCOD"));
-                dh.setPhi(rs.getDouble("Phi"));
-                dh.setThoiGianNhan(rs.getTimestamp("ThoiGianNhan"));
-                dh.setThoiGianTao(rs.getTimestamp("ThoiGianTao"));
-                dh.setThoiGianDuKien(rs.getTimestamp("ThoiGianDuKien"));
-                dh.setTrangThai(rs.getString("TrangThai"));
-                dh.setDichVu(rs.getString("DichVu"));
-                dh.setLoaiHangHoa(rs.getString("LoaiHangHoa"));
-
-                list.add(dh);
+                dh.setIdDonHang(rs.getInt("ID_DONHANG"));
+                dh.setTenNguoiNhan(rs.getString("TENNGUOINHAN"));
+                dh.setDiaChiNhan(rs.getString("DIACHINHAN"));
+                dh.setSdtNguoiNhan(rs.getString("SDTNGUOINHAN"));
+                dh.setTrangThai(rs.getString("TRANGTHAI"));
+                dh.setTienCOD(rs.getDouble("TIENCOD"));
+                dh.setThoiGianTao(rs.getTimestamp("THOIGIANTAO"));
+                dh.setSdtNguoiGui(rs.getString("SDTNGUOIGUI"));
+                dh.setTenNguoiGui(rs.getString("TENNGUOIGUI"));
+                dh.setIdKhoTiepNhan(rs.getInt("ID_KHOTIEPNHAN"));
+                danhSachDonHang.add(dh);
             }
+            rs.close();
+            cs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        return list;
+        return danhSachDonHang;
     }
 
     public DonHang LayThongTinDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
