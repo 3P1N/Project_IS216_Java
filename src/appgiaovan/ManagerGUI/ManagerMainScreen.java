@@ -55,19 +55,16 @@ public class ManagerMainScreen extends JPanel {
         List<DoanhThuLoiNhuan> list = new DoanhThuLoiNhuanDAO().getListDoanhThuLoiNhuan();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
 
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (DoanhThuLoiNhuan dtln : list) {
-            String ngay = sdf.format(dtln.getNgay());
-            dataset.addValue(dtln.getDoanhThu(), "Doanh thu", ngay);
-            dataset.addValue(dtln.getLoiNhuan(), "Lợi nhuận", ngay);
+            int thang = dtln.getThang();
+            dataset.addValue(dtln.getDoanhThu(), "Doanh thu", String.valueOf(thang));
         }
 
         JFreeChart lineChart = ChartFactory.createLineChart(
-                "Biểu đồ Doanh thu và Lợi nhuận (triệu VND)",
-                "Ngày", "Giá trị", dataset,
-                PlotOrientation.VERTICAL,
-                true, // Hiển thị chú thích (legend) để phân biệt 2 dòng
-                true, // Tooltips
-                false // URLs
+                "Biểu đồ Doanh thu (triệu VND)",
+                "Tháng", "Giá trị", dataset,
+                PlotOrientation.VERTICAL, true, true, false
         );
 
         // Tùy chỉnh plot
@@ -118,9 +115,8 @@ public class ManagerMainScreen extends JPanel {
             dataset.clear();  // Xóa dữ liệu cũ trước khi thêm mới
 
             for (DoanhThuLoiNhuan dtln : list) {
-                String ngay = sdf.format(dtln.getNgay());
+                String ngay = sdf.format(dtln.getThang());
                 dataset.addValue(dtln.getDoanhThu(), "Doanh thu", ngay);
-                dataset.addValue(dtln.getLoiNhuan(), "Lợi nhuận", ngay);
             }
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
