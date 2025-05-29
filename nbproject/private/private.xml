@@ -3,6 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHBaoCao.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHMenu.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHHotro.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHHomeGUI.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHMainGUI.java</file>
+            <file>file:/E:/JAVA/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHLoc.java</file>
+=======
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/GUI/Components/MenuBar.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/TK_DanhGia.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/TaiKhoanDAO.java</file>
@@ -75,6 +83,7 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeGUI.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ShipperGUI/NVGHMainGUI.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/NhanVienKhoDAO.java</file>
+>>>>>>> febce8f8b4f334d772f414667e9e6201191e3e23
         </group>
     </open-files>
 </project-private>

@@ -54,14 +54,20 @@ public class NVGHMainGUI extends JFrame{
 
         // Thêm các trang nội dung
         //contentPanel.add(new ThongTinCaNhan(),"Profile");
+<<<<<<< HEAD
+        //contentPanel.add(new NVGHHomeGUI(idtk),"Trang chủ");
+        
+=======
         contentPanel.add(new NVGHHomeGUI(),"Trang chủ");
         
         TaiKhoan tk = new TaiKhoan();
         tk.setIdTaiKhoan(idtk);
         tk.setVaiTro("NVGH");
         contentPanel.add(new ThongTinCaNhanPanel(tk),"Thông tin cá nhân");
+>>>>>>> febce8f8b4f334d772f414667e9e6201191e3e23
         contentPanel.add(new QuanLyDonHang(idtk),"Quản lý đơn hàng");
         contentPanel.add(new NVGHBaoCao(idtk), "Báo cáo");
+        contentPanel.add(new ThongTinCaNhan(),"Thông tin cá nhân");
         contentPanel.add(new NVGHHotro(), "Hỗ trợ");
         //contentPanel.add(new LOGIN(), "Đăng xuất");
 
