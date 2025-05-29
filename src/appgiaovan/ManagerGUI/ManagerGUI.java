@@ -3,9 +3,12 @@ package appgiaovan.ManagerGUI;
 
 import appgiaovan.EmployeeGUI.*;
 import appgiaovan.ConnectDB.ConnectionUtils;
+import appgiaovan.Controller.TokenController;
 import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
+import appgiaovan.GUI.LOGIN;
+import appgiaovan.ShipperGUI.NVGHMainGUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +34,7 @@ public class ManagerGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel contentPanel;
     private TaiKhoan taiKhoan;
-    public ManagerGUI(TaiKhoan tk) throws SQLException, ClassNotFoundException {
+    public ManagerGUI(TaiKhoan tk, int idToken) throws SQLException, ClassNotFoundException {
         this.taiKhoan = tk;
         setTitle("Giao diện chính");
         setSize(1200, 700);
@@ -50,7 +53,7 @@ public class ManagerGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         // Thêm các trang nội dung
-        contentPanel.add(new ThongTinCaNhanPanel(tk),"Trang chủ");
+        contentPanel.add(new ThongTinCaNhanPanel(tk),"Thông tin cá nhân");
         contentPanel.add(new ManagerMainScreen(),"Trang chủ");
         contentPanel.add(new GUI_QLNVKho(),"Quản lý nhân viên kho");
         contentPanel.add(new GUI_QLShipper(),"Quản lý shipper");
@@ -64,8 +67,34 @@ public class ManagerGUI extends JFrame {
         add(contentPanel, BorderLayout.CENTER);
 
         // Khi chọn mục trong MenuBar thì đổi trang
+//        sidebar.addMenuClickListener((selectedName) -> {
+//            cardLayout.show(contentPanel, selectedName);
+//        });
         sidebar.addMenuClickListener((selectedName) -> {
-            cardLayout.show(contentPanel, selectedName);
+            if (selectedName.equals("Đăng xuất")) {
+                int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có chắc chắn muốn đăng xuất không?",
+                    "Xác nhận đăng xuất",
+                    JOptionPane.YES_NO_OPTION
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose();
+                    try {
+                        try {
+                            new TokenController().capNhatToken(idToken);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(ManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    SwingUtilities.invokeLater(() -> new LOGIN().setVisible(true));
+                }
+            } else {
+                cardLayout.show(contentPanel, selectedName);
+            }
         });
     }
 
@@ -79,7 +108,8 @@ public class ManagerGUI extends JFrame {
             try {
                 TaiKhoan tk = new TaiKhoan();
                 tk.setIdTaiKhoan(6);
-                new ManagerGUI(tk).setVisible(true);
+                
+                new ManagerGUI(tk,1).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

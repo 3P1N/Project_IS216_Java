@@ -653,6 +653,7 @@ public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, Cl
         }
 
         StringBuilder sql = new StringBuilder("UPDATE DonHang SET ID_NVGiaoHang = ? WHERE ID_DonHang IN (");
+        
         for (int i = 0; i < listIdDonHang.size(); i++) {
             sql.append("?");
             if (i < listIdDonHang.size() - 1) {

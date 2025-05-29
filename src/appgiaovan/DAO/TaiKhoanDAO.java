@@ -1,4 +1,3 @@
-
 package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
@@ -9,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 public class TaiKhoanDAO {
 
@@ -41,6 +39,7 @@ public class TaiKhoanDAO {
     }
 
     public TaiKhoan LayThongTinTaiKhoan(int idtk) throws SQLException, ClassNotFoundException {
+     
         String sql = "SELECT ID_TAIKHOAN, TenTaiKhoan, MatKhauMaHoa, VaiTro FROM TAIKHOAN WHERE ID_TaiKhoan = ?";
         TaiKhoan tk = null;
 
@@ -58,7 +57,9 @@ public class TaiKhoanDAO {
                     return null; // Không tìm thấy tài khoản
                 }
             }
-
+            
+            System.out.println("Đây là " +tk.getVaiTro());
+            
             // Nếu tìm thấy, tiếp tục lấy thông tin từ bảng tương ứng
             String vaiTro = tk.getVaiTro();
             String hoTen = null;
@@ -94,40 +95,44 @@ public class TaiKhoanDAO {
 
         return tk;
     }
-    
-    public NguoiDung LayThongTinNguoiDung(TaiKhoan taiKhoan) throws SQLException, ClassNotFoundException{
+
+    public NguoiDung LayThongTinNguoiDung(TaiKhoan taiKhoan) throws SQLException, ClassNotFoundException {
         NguoiDung nd = new NguoiDung();
-        
-         String tableName = null;
-            if ("NVK".equals(taiKhoan.getVaiTro())) {
-                tableName = "NhanVienKho";
-            } else if ("KH".equals(taiKhoan.getVaiTro())) {
-                tableName = "KHACHHANG";
-            } else if ("QL".equals(taiKhoan.getVaiTro())) {
-                tableName = "QUANLY";
-            } else if ("NVGH".equals(taiKhoan.getVaiTro())) {
-                tableName = "NHANVIENGIAOHANG";
-            }
-            System.out.println(tableName);
-            if (tableName != null) {
-                String sql = "SELECT * FROM " + tableName + " WHERE ID_TaiKhoan = ?";
-                try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
-                    st.setInt(1, taiKhoan.getIdTaiKhoan());
-                    try (ResultSet rs = st.executeQuery()) {
-                        if (rs.next()) {
-                             nd.setID_NguoiDung(rs.getInt("ID_" + tableName));
-                    nd.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
-                    nd.setHoTen(rs.getString("HoTen"));
-                    nd.setSDT(rs.getString("SDT"));
-                    nd.setEmail(rs.getString("Email"));
-                    nd.setCCCD(rs.getString("CCCD"));
-                    nd.setNgaySinh(rs.getDate("NgaySinh"));
-                    nd.setGioiTinh(rs.getString("GioiTinh"));
-                        }
+        String idName = null;
+        String tableName = null;
+        if ("NVK".equals(taiKhoan.getVaiTro())) {
+            tableName = "NHANVIENKHO";
+            idName = "NHANVIEN";
+        } else if ("KH".equals(taiKhoan.getVaiTro())) {
+            tableName = "KHACHHANG";
+            idName = "KHACHHANG";
+        } else if ("QL".equals(taiKhoan.getVaiTro())) {
+            tableName = "QUANLY";
+            idName = "QUANLY";
+
+        } else if ("NVGH".equals(taiKhoan.getVaiTro())) {
+            tableName = "NHANVIENGIAOHANG";
+            idName = "NVGIAOHANG";
+        }
+       
+        if (tableName != null) {
+            String sql = "SELECT * FROM " + tableName + " WHERE ID_TaiKhoan = ?";
+            try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
+                st.setInt(1, taiKhoan.getIdTaiKhoan());
+                try (ResultSet rs = st.executeQuery()) {
+                    if (rs.next()) {
+                        nd.setID_NguoiDung(rs.getInt("ID_" + idName));
+                        nd.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
+                        nd.setHoTen(rs.getString("HoTen"));
+                        nd.setSDT(rs.getString("SDT"));
+                        nd.setEmail(rs.getString("Email"));
+                        nd.setCCCD(rs.getString("CCCD"));
+                        nd.setNgaySinh(rs.getDate("NgaySinh"));
+                        nd.setGioiTinh(rs.getString("GioiTinh"));
                     }
                 }
             }
-        
+        }
 
         return nd;
     }

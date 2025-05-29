@@ -164,17 +164,18 @@ public class LOGIN extends JFrame {
             if ("KH".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện khách hàng
                 idToken = controller.TaoToken(username);
-                new CustomerGUI(tk).setVisible(true);
+                new CustomerGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("QL".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện quản lý
                 idToken = controller.TaoToken(username);
-                new ManagerGUI(tk).setVisible(true);
+                new ManagerGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("NVK".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên kho
                 idToken = controller.TaoToken(username);
-                new EmployeeGUI(tk).setVisible(true);
+                
+                new EmployeeGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("NVGH".equals(tk.getVaiTro())) {
                 // Chuyển tới giao diện nhân viên giao hang

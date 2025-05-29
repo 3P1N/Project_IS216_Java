@@ -4,8 +4,11 @@
  */
 package appgiaovan.CustomerGUI;
 import appgiaovan.Controller.DangKyController;
+import appgiaovan.Controller.TokenController;
 import appgiaovan.CustomerGUI.KHTaoDonHangPanel;
 import appgiaovan.Entity.TaiKhoan;
+import appgiaovan.GUI.LOGIN;
+import appgiaovan.ManagerGUI.ManagerGUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +41,7 @@ public class CustomerGUI extends JFrame {
     private DangKyController dangKyController=new DangKyController();
     private CardLayout cardLayout;
     private JPanel contentPanel;
-    public CustomerGUI(TaiKhoan taikhoan) throws SQLException, ClassNotFoundException, Exception{
+    public CustomerGUI(TaiKhoan taikhoan, int idToken) throws SQLException, ClassNotFoundException, Exception{
         int ID_KhachHang=dangKyController.layID_KhachHang(taikhoan.getIdTaiKhoan());
         setTitle("Giao diện chính");
         setSize(1000, 700);
@@ -61,7 +64,30 @@ public class CustomerGUI extends JFrame {
         contentPanel.add(new ThongTinCaNhanPanel(taikhoan),"Thông tin cá nhân");
         add(contentPanel,BorderLayout.CENTER);
         sidebar.addMenuClickListener((selectedName) -> {
-            cardLayout.show(contentPanel, selectedName);
+            if (selectedName.equals("Đăng xuất")) {
+                int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có chắc chắn muốn đăng xuất không?",
+                    "Xác nhận đăng xuất",
+                    JOptionPane.YES_NO_OPTION
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose();
+                    try {
+                        try {
+                            new TokenController().capNhatToken(idToken);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    SwingUtilities.invokeLater(() -> new LOGIN().setVisible(true));
+                }
+            } else {
+                cardLayout.show(contentPanel, selectedName);
+            }
         });
         
     }
