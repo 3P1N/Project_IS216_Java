@@ -18,6 +18,7 @@ import java.awt.GradientPaint;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,9 +47,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class ThongKeDoanhThuPanel extends JPanel {
 
-    private String thangBaoCao = "";
+    private String namBaoCao = "";
     private double tongDoanhThu = 0;
-    private double tongLoiNhuan = 0;
 
     public ThongKeDoanhThuPanel() {
         setLayout(new BorderLayout());
@@ -63,24 +63,19 @@ public class ThongKeDoanhThuPanel extends JPanel {
         JPanel infoPanel = new JPanel(new GridLayout(2, 3, 10, 5));
         infoPanel.setBorder(BorderFactory.createTitledBorder("Thông tin báo cáo"));
 
-        JLabel lblThang = new JLabel("Tháng báo cáo:");
-        JTextField txtThang = new JTextField();
-        txtThang.setEditable(false);
+        JLabel lblNam = new JLabel("Năm báo cáo:");
+        JTextField txtNam = new JTextField();
+        txtNam.setEditable(false);
 
         JLabel lblTongDoanhThu = new JLabel("Tổng doanh thu:");
         JTextField txtTongDoanhThu = new JTextField();
         txtTongDoanhThu.setEditable(false);
 
-        JLabel lblTongLoiNhuan = new JLabel("Tổng lợi nhuận:");
-        JTextField txtTongLoiNhuan = new JTextField();
-        txtTongLoiNhuan.setEditable(false);
 
-        infoPanel.add(lblThang);
+        infoPanel.add(lblNam);
         infoPanel.add(lblTongDoanhThu);
-        infoPanel.add(lblTongLoiNhuan);
-        infoPanel.add(txtThang);
+        infoPanel.add(txtNam);
         infoPanel.add(txtTongDoanhThu);
-        infoPanel.add(txtTongLoiNhuan);
 
         // Tính tổng giá trị
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
@@ -88,26 +83,25 @@ public class ThongKeDoanhThuPanel extends JPanel {
 
         if (list != null && !list.isEmpty()) {
             tongDoanhThu = list.stream().mapToDouble(DoanhThuLoiNhuan::getDoanhThu).sum();
-            tongLoiNhuan = list.stream().mapToDouble(DoanhThuLoiNhuan::getLoiNhuan).sum();
-            thangBaoCao = thangFormat.format(list.get(0).getNgay());
+            int currentYear = LocalDate.now().getYear();
+            namBaoCao = String.valueOf(currentYear);
         }
 
-        txtThang.setText(thangBaoCao);
+        txtNam.setText(namBaoCao);
         txtTongDoanhThu.setText(String.format("%.2f triệu", tongDoanhThu));
-        txtTongLoiNhuan.setText(String.format("%.2f triệu", tongLoiNhuan));
 
         add(infoPanel, BorderLayout.NORTH);
 
         // ======= BIỂU ĐỒ =========
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (DoanhThuLoiNhuan dtln : list) {
-            String ngay = sdf.format(dtln.getNgay());
-            dataset.addValue(dtln.getDoanhThu(), "Doanh thu", ngay);
+            int thang = dtln.getThang();
+            dataset.addValue(dtln.getDoanhThu(), "Doanh thu", String.valueOf(thang));
         }
 
         JFreeChart lineChart = ChartFactory.createLineChart(
                 "Biểu đồ Doanh thu (triệu VND)",
-                "Ngày", "Giá trị", dataset,
+                "Tháng", "Giá trị", dataset,
                 PlotOrientation.VERTICAL, true, true, false
         );
 
@@ -151,9 +145,8 @@ public class ThongKeDoanhThuPanel extends JPanel {
         JButton extractPDF = new JButton("Xuất PDF");
         extractPDF.setFont(new Font("Segoe UI", Font.BOLD, 13));
         extractPDF.setBackground(new Color(33, 150, 243));
-
         extractPDF.addActionListener(e -> {
-            ExportPDF.exportDoanhThu(lineChart, thangBaoCao, tongDoanhThu, tongLoiNhuan);
+            ExportPDF.exportDoanhThu(lineChart, namBaoCao, tongDoanhThu);
         });
 
         buttonPanel.add(extractPDF);

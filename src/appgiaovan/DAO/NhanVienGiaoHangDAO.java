@@ -55,6 +55,36 @@ public class NhanVienGiaoHangDAO {
         return results;    
         }
     }
+    public List<NhanVienGiaoHang> LayDSNhanVienGiaoHangTheoKho(int idKho) throws SQLException, ClassNotFoundException {
+        List<NhanVienGiaoHang> list = new ArrayList<>();
+
+        String sql = "SELECT * FROM NhanVienGiaoHang n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0"
+                + "and ID_KHO = " + idKho;
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+                PreparedStatement ps = conn.prepareStatement(sql); 
+                ResultSet rs = ps.executeQuery()) 
+        {
+            List<NhanVienGiaoHang> results = new ArrayList<>();
+            while (rs.next()) {
+                NhanVienGiaoHang sh = new NhanVienGiaoHang();
+                sh.setID_NguoiDung(rs.getInt("ID_NVGiaoHang"));
+                sh.setID_TaiKhoan(rs.getInt("ID_TaiKhoan"));
+                sh.setHoTen(rs.getString("HoTen"));
+                sh.setSDT(rs.getString("SDT"));
+                sh.setEmail(rs.getString("Email"));
+                sh.setCCCD(rs.getString("CCCD"));
+                sh.setNgaySinh(rs.getDate("NgaySinh"));
+                sh.setGioiTinh(rs.getString("GioiTinh"));
+                
+                sh.setDiaChi(rs.getString("DiaChi"));
+                sh.setID_Kho(rs.getInt("ID_Kho"));
+                sh.setID_QuanLy(rs.getInt("ID_QuanLy"));
+                sh.setDiemDanhGia(rs.getInt("DiemDanhGia"));
+                results.add(sh);
+            }
+        return results;    
+        }
+    }
     public NhanVienGiaoHang layThongTinNhanVienGiaoHang(int id) throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM NhanVienGiaoHang WHERE ID_NVGiaoHang = ?";
         try (Connection conn = ConnectionUtils.getMyConnection();

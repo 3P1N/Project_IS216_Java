@@ -52,10 +52,12 @@ public class NVGHMainGUI extends JFrame{
 
         // Thêm các trang nội dung
         //contentPanel.add(new ThongTinCaNhan(),"Profile");
-        contentPanel.add(new NVGHHomeGUI(),"Trang chủ");
-        contentPanel.add(new ThongTinCaNhan(),"Thông tin cá nhân");
+        //contentPanel.add(new NVGHHomeGUI(idtk),"Trang chủ");
+        
         contentPanel.add(new QuanLyDonHang(idtk),"Quản lý đơn hàng");
+        
         contentPanel.add(new NVGHBaoCao(idtk), "Báo cáo");
+        contentPanel.add(new ThongTinCaNhan(),"Thông tin cá nhân");
         contentPanel.add(new NVGHHotro(), "Hỗ trợ");
         //contentPanel.add(new LOGIN(), "Đăng xuất");
 

@@ -24,7 +24,7 @@ public class TopPanelPCGH extends JPanel {
     private JButton btnXacNhan = new JButton("Xác nhận");
     private JComboBox cbSelectShipper;
     private NhanVienGiaoHangDAO nhanVienGiaoHangDAO = new NhanVienGiaoHangDAO();
-    public TopPanelPCGH() throws SQLException, ClassNotFoundException {
+    public TopPanelPCGH(int idKho) throws SQLException, ClassNotFoundException {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
 
@@ -32,7 +32,7 @@ public class TopPanelPCGH extends JPanel {
         
 
         
-        List<NhanVienGiaoHang> dsShipper = nhanVienGiaoHangDAO.LayDSNhanVienGiaoHang();
+        List<NhanVienGiaoHang> dsShipper = nhanVienGiaoHangDAO.LayDSNhanVienGiaoHangTheoKho(idKho);
         cbSelectShipper = new RoundedComboBox();
         for(NhanVienGiaoHang nv : dsShipper){
             cbSelectShipper.addItem(nv);
@@ -68,7 +68,7 @@ public class TopPanelPCGH extends JPanel {
             frame.setSize(900, 120);
             frame.setLocationRelativeTo(null);
             try {
-                frame.add(new TopPanelPCGH());
+                frame.add(new TopPanelPCGH(1));
             } catch (SQLException ex) {
                 Logger.getLogger(TopPanelPCGH.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

@@ -128,9 +128,14 @@ public class ThongTinDonHang extends JFrame {
                     JOptionPane.showMessageDialog(null, "Đã hủy đơn hàng thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
                     Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
-                    
+                    JOptionPane.showMessageDialog(this,
+                            "Lỗi hệ thống",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this,
+                            "Lỗi hệ thống",
+                            "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

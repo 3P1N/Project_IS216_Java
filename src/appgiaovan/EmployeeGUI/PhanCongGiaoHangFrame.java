@@ -18,22 +18,22 @@ public class PhanCongGiaoHangFrame extends JFrame {
     private TableDonHang listOrder;
     private TopPanelPCGH topPanel;
 
-    public PhanCongGiaoHangFrame(Runnable onSuccess) throws SQLException, ClassNotFoundException {
+    public PhanCongGiaoHangFrame(int idKho, Runnable onSuccess) throws SQLException, ClassNotFoundException {
         setTitle("Phân Công Giao Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        initUI(onSuccess);
+        initUI(idKho, onSuccess);
     }
 
-    private void initUI(Runnable onSuccess) throws SQLException, ClassNotFoundException {
+    private void initUI(int idKho, Runnable onSuccess) throws SQLException, ClassNotFoundException {
 
         //main
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
 
         //thanh filter
-        topPanel = new TopPanelPCGH();
+        topPanel = new TopPanelPCGH(idKho);
         mainPanel.add(topPanel, BorderLayout.NORTH);
 
         // Panel danh sách
@@ -47,7 +47,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
 
         topPanel.getBtnXacNhan().addActionListener(e -> {
             try {
-                SelectShipper(onSuccess);
+                SelectShipper(idKho, onSuccess);
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -56,10 +56,10 @@ public class PhanCongGiaoHangFrame extends JFrame {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        HienThiDSDonHangDangXuLy();
+        HienThiDSDonHangDangPhanCong(idKho);
     }
 
-    public void SelectShipper(Runnable onSuccess) throws SQLException, ClassNotFoundException {
+    public void SelectShipper(int idKho, Runnable onSuccess) throws SQLException, ClassNotFoundException {
         NhanVienGiaoHang nv = topPanel.getNVGiaoHang();
         List<Integer> listIdDonHang = new ArrayList<>();
 
@@ -75,13 +75,13 @@ public class PhanCongGiaoHangFrame extends JFrame {
         controller.PhanCongGiaoHang(nv, listIdDonHang);
         JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 
-        HienThiDSDonHangDangXuLy();
+        HienThiDSDonHangDangPhanCong(idKho);
     }
 
-    public void HienThiDSDonHangDangXuLy() throws SQLException, ClassNotFoundException {
+    public void HienThiDSDonHangDangPhanCong(int idKho) throws SQLException, ClassNotFoundException {
         DonHang donHang = new DonHang();
-        donHang.setTrangThai("Đang xử lý");
-        List<DonHang> dsDonHang = controller.LayDSDonHang(donHang);
+        donHang.setTrangThai("Đang vận chuyển");
+        List<DonHang> dsDonHang = controller.LayDSDonHangPhanCong(donHang, idKho);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
 
@@ -100,7 +100,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
         }
         SwingUtilities.invokeLater(() -> {
             try {
-                new PhanCongGiaoHangFrame(() -> System.out.println("Thêm gói hàng!")).setVisible(true);
+                new PhanCongGiaoHangFrame(1,() -> System.out.println("Thêm gói hàng!")).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(PhanCongGiaoHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
