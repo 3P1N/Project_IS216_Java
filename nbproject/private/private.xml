@@ -6,6 +6,8 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLNVKhoController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLShipper.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLNVKho.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemNVKho.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/DonHangDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerSidebar.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ThongKePanel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/NhanVienGiaoHangDAO.java</file>
@@ -15,11 +17,11 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerMainScreen.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_XemBaoCao.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/BaoCaoDAO.java</file>
-            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemQuanLy.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLKHController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLKH.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/BaoCaoKhoController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/XemBaoCaoController.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/NhanVienGiaoHangTableModel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/TokenDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/BaoCaoKho.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/BaoCaoGiaoHang.java</file>
