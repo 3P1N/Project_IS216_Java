@@ -60,6 +60,7 @@ public class FormThemShipper extends JDialog {
             txtTenDangNhap = new JTextField(),
             txtMatKhau = new JPasswordField()
         };
+        txtDiemDanhGia.setText("5");
         txtID.setEnabled(false);
         cboIDQuanLy.setEnabled(false);
         for (int i = 0; i < labels.length; i++) {
