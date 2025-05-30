@@ -45,7 +45,7 @@ public class EmployeeGUI extends JFrame {
         nhanVienKho = dao.layThongTinNhanVienKho( dao.layID_NhanVienKho(tk.getIdTaiKhoan()));
         
         setTitle("Giao diện chính");
-        setSize(1200, 700);
+        setSize(1400, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -109,7 +109,7 @@ public class EmployeeGUI extends JFrame {
         SwingUtilities.invokeLater(() -> {
             try {
                 TaiKhoan tk = new TaiKhoan();
-                tk.setIdTaiKhoan(47);
+                tk.setIdTaiKhoan(64);
                 new EmployeeGUI(tk,1).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(EmployeeGUI.class.getName()).log(Level.SEVERE, null, ex);
