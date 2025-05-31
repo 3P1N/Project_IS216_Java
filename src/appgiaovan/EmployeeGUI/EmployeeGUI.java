@@ -62,11 +62,11 @@ public class EmployeeGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         // Thêm các trang nội dung
-        contentPanel.add(new ThongTinCaNhanPanel(taiKhoan),"Profile");
+        contentPanel.add(new ThongTinCaNhanPanel(taiKhoan),"Thông tin cá nhân");
         contentPanel.add(new EmployeeMainPanel(),"Trang chủ");
         contentPanel.add(new BaoCaoKhoFrame(nhanVienKho), "Báo cáo");
         contentPanel.add(new QuanLyDonHangPanel(nhanVienKho),"Quản lý đơn hàng");
-
+        
         contentPanel.add(new QuanLyGoiHang(nhanVienKho), "Quản lý gói hàng");
 
         add(contentPanel, BorderLayout.CENTER);
