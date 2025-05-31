@@ -133,48 +133,48 @@ public class FormThemNVKho extends JDialog {
     });
     }
 
-public boolean kiemTraDinhDangThongTin() {
-    // Kiểm tra các trường không được để trống (trừ mật khẩu)
-    if (txtID.getText().trim().isEmpty() ||
-        txtHoTen.getText().trim().isEmpty() ||
-        txtSDT.getText().trim().isEmpty() ||
-        txtEmail.getText().trim().isEmpty() ||
-        txtCCCD.getText().trim().isEmpty() ||
-        txtNgaySinh.getText().trim().isEmpty() ||
-        cboGioiTinh.getSelectedItem() == null ||
-        txtDiaChi.getText().trim().isEmpty() ||
-        cboIDKho.getSelectedItem() == null ||
-        cboIDQuanLy.getSelectedItem() == null ||
-        txtMucLuong.getText().trim().isEmpty() ||
-        txtTenDangNhap.getText().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin (trừ mật khẩu).");
-        return false;
-    }
+    public boolean kiemTraDinhDangThongTin() {
 
-    // Kiểm tra định dạng số điện thoại
-    String sdt = txtSDT.getText().trim();
-    if (!sdt.matches("^0\\d{9}$")) {
-        JOptionPane.showMessageDialog(null, "Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0.");
-        return false;
-    }
+        if (txtID.getText().trim().isEmpty() ||
+            txtHoTen.getText().trim().isEmpty() ||
+            txtSDT.getText().trim().isEmpty() ||
+            txtEmail.getText().trim().isEmpty() ||
+            txtCCCD.getText().trim().isEmpty() ||
+            txtNgaySinh.getText().trim().isEmpty() ||
+            cboGioiTinh.getSelectedItem() == null ||
+            txtDiaChi.getText().trim().isEmpty() ||
+            cboIDKho.getSelectedItem() == null ||
+            cboIDQuanLy.getSelectedItem() == null ||
+            txtMucLuong.getText().trim().isEmpty() ||
+            txtTenDangNhap.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin (trừ mật khẩu).");
+            return false;
+        }
 
-    // Kiểm tra định dạng ngày sinh (YYYY-MM-DD)
-    String ngaySinh = txtNgaySinh.getText().trim();
-    if (!ngaySinh.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
-        JOptionPane.showMessageDialog(null, "Ngày sinh phải theo định dạng YYYY-MM-DD.");
-        return false;
-    }
 
-    // Tùy chọn: Có thể thêm kiểm tra ngày sinh có hợp lệ không (nếu cần)
-    try {
-        LocalDate.parse(ngaySinh); // sẽ ném lỗi nếu không hợp lệ
-    } catch (DateTimeParseException e) {
-        JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ.");
-        return false;
-    }
+        String sdt = txtSDT.getText().trim();
+        if (!sdt.matches("^0\\d{9}$")) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0.");
+            return false;
+        }
 
-    return true; // Tất cả điều kiện hợp lệ
-}
+        // Kiểm tra định dạng ngày sinh (YYYY-MM-DD)
+        String ngaySinh = txtNgaySinh.getText().trim();
+        if (!ngaySinh.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+            JOptionPane.showMessageDialog(null, "Ngày sinh phải theo định dạng YYYY-MM-DD.");
+            return false;
+        }
+
+
+        try {
+            LocalDate.parse(ngaySinh); 
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ.");
+            return false;
+        }
+
+        return true; 
+    }
 
 
 
