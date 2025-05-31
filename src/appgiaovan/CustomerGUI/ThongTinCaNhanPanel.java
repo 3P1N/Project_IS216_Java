@@ -85,8 +85,8 @@ public class ThongTinCaNhanPanel extends JPanel {
         JLabel lblNgaySinh = new JLabel("Ngày sinh:");
         lblNgaySinh.setBounds(20, 270, 100, 25);
         infoPanel.add(lblNgaySinh);
-
-        JTextField txtNgaySinh = new JTextField(String.valueOf(kh.getNgaySinh()));
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+        JTextField txtNgaySinh = new JTextField(String.valueOf(sdf2.format(kh.getNgaySinh())));
         txtNgaySinh.setBounds(130, 270, 400, 30);
         infoPanel.add(txtNgaySinh);
         //Gioitinh
@@ -110,7 +110,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             kh.setEmail(txtEmail.getText());
             kh.setCCCD(txtCCCD.getText());
             String ngaySinhStr = txtNgaySinh.getText(); // ví dụ chuỗi ngày sinh
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             try {
                 Date ngaySinhDate = sdf.parse(ngaySinhStr);
                 kh.setNgaySinh(ngaySinhDate);
