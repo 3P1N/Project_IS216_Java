@@ -133,15 +133,21 @@ public class ThongTinCaNhanPanel extends JPanel {
             }
 
             nd.setGioiTinh(txtGioiTinh.getText());
-            if (!controller.KiemTraDinhDangCapNhat((KhachHang) nd)) {
+            if (!controller.KiemTraDinhDangCapNhat(nd)) {
                 JOptionPane.showMessageDialog(this,
                         "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
                         "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return; // Dừng lại, không thực hiện thêm
             }
-            if (qLKHController.suaKhachHang((KhachHang) nd)) {
-                JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            try {
+                if (TaiKhoanDAO.suaNguoiDung(nd, taiKhoan)) {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(this,
                     "Lỗi hệ thống",

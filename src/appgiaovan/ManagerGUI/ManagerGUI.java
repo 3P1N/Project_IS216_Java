@@ -1,4 +1,3 @@
-
 package appgiaovan.ManagerGUI;
 
 import appgiaovan.EmployeeGUI.*;
@@ -34,6 +33,7 @@ public class ManagerGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel contentPanel;
     private TaiKhoan taiKhoan;
+
     public ManagerGUI(TaiKhoan tk, int idToken) throws SQLException, ClassNotFoundException {
         this.taiKhoan = tk;
         setTitle("Giao diện chính");
@@ -43,7 +43,6 @@ public class ManagerGUI extends JFrame {
         setLayout(new BorderLayout());
 
         // Danh sách tên và icon menu
-        
         // Tạo menu
         ManagerSidebar sidebar = new ManagerSidebar(taiKhoan.getIdTaiKhoan());
         add(sidebar, BorderLayout.WEST);
@@ -53,17 +52,16 @@ public class ManagerGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         // Thêm các trang nội dung
-        contentPanel.add(new ThongTinCaNhanPanel(tk),"Thông tin cá nhân");
-        contentPanel.add(new ManagerMainScreen(),"Trang chủ");
-        contentPanel.add(new GUI_QLNVKho(),"Quản lý nhân viên kho");
-        contentPanel.add(new GUI_QLShipper(),"Quản lý shipper");
-        contentPanel.add(new GUI_QLKH(),"Quản lý khách hàng");
+        contentPanel.add(new ManagerMainScreen(), "Trang chủ");
+        contentPanel.add(new GUI_QLNVKho(), "Quản lý nhân viên kho");
+        contentPanel.add(new GUI_QLShipper(), "Quản lý shipper");
+        contentPanel.add(new GUI_QLKH(), "Quản lý khách hàng");
+        contentPanel.add(new ThongTinCaNhanPanel(tk), "Thông tin cá nhân");
 
         contentPanel.add(new GUI_XemBaoCao(), "Xem báo cáo");
-        contentPanel.add(new ThongKePanel(),"Báo cáo thống kê");
+        contentPanel.add(new ThongKePanel(), "Báo cáo thống kê");
 
 //        contentPanel.add(new QuanLyGoiHang(), "Quản lý gói hàng");
-
         add(contentPanel, BorderLayout.CENTER);
 
         // Khi chọn mục trong MenuBar thì đổi trang
@@ -73,10 +71,10 @@ public class ManagerGUI extends JFrame {
         sidebar.addMenuClickListener((selectedName) -> {
             if (selectedName.equals("Đăng xuất")) {
                 int confirm = JOptionPane.showConfirmDialog(
-                    this,
-                    "Bạn có chắc chắn muốn đăng xuất không?",
-                    "Xác nhận đăng xuất",
-                    JOptionPane.YES_NO_OPTION
+                        this,
+                        "Bạn có chắc chắn muốn đăng xuất không?",
+                        "Xác nhận đăng xuất",
+                        JOptionPane.YES_NO_OPTION
                 );
 
                 if (confirm == JOptionPane.YES_OPTION) {
@@ -108,8 +106,8 @@ public class ManagerGUI extends JFrame {
             try {
                 TaiKhoan tk = new TaiKhoan();
                 tk.setIdTaiKhoan(6);
-                
-                new ManagerGUI(tk,1).setVisible(true);
+
+                new ManagerGUI(tk, 1).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
