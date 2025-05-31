@@ -38,7 +38,7 @@ public class ThongTinCaNhanPanel extends JPanel {
 
     public ThongTinCaNhanPanel(TaiKhoan taiKhoan) throws ClassNotFoundException {
         QLKHController qLKHController = new QLKHController();
-        
+       
         try {
             nd = new TaiKhoanDAO().LayThongTinNguoiDung(taiKhoan);
         } catch (SQLException ex) {
@@ -176,7 +176,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             try {
                 TaiKhoan taiKhoan = new TaiKhoan();
                 taiKhoan.setIdTaiKhoan(1);
-                taiKhoan.setVaiTro("QL");
+                taiKhoan.setVaiTro("KH");
                 frame.add(new ThongTinCaNhanPanel(taiKhoan), BorderLayout.CENTER);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
