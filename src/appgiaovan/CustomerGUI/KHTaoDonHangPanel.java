@@ -10,6 +10,7 @@ import appgiaovan.EmailSender;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.KhoHang;
+import appgiaovan.GUI.Components.DiaChiPanel;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedComboBox;
 
@@ -30,6 +31,7 @@ public class KHTaoDonHangPanel extends JPanel {
         private DonHangDAO donHangDAO= new DonHangDAO();
         private KhachHangDAO khachHangDAO= new KhachHangDAO();
         private QLDonHangController qLDonHangController = new QLDonHangController();
+        private DiaChiPanel diaChiPanel;
     public KHTaoDonHangPanel(int ID_KhachHang) throws SQLException, ClassNotFoundException, Exception {
 
         setLayout(new BorderLayout());
@@ -93,22 +95,12 @@ public class KHTaoDonHangPanel extends JPanel {
 
         RoundedTextField txtDiaChiNhan = new RoundedTextField("Nhập địa chỉ người nhận");
         txtDiaChiNhan.setBorder(BorderFactory.createTitledBorder("Địa Chỉ Nhận *"));
-        txtDiaChiNhan.setBounds(460, 160, 300, 50);
+        txtDiaChiNhan.setBounds(500, 230, 300, 50);
         mainPanel.add(txtDiaChiNhan);
 
-        JComboBox<String> cbQuanHuyen = new JComboBox<>(new String[]{
-            "Quận 1", "Quận 2", "Quận 3"
-        });
-        cbQuanHuyen.setBorder(BorderFactory.createTitledBorder("Quận/Huyện"));
-        cbQuanHuyen.setBounds(20, 230, 200, 50);
-        mainPanel.add(cbQuanHuyen);
-
-        RoundedComboBox cbPhuongXa = new RoundedComboBox(new String[]{
-            "Phường 1", "Phường 2", "Phường 3"
-        });
-        cbPhuongXa.setBorder(BorderFactory.createTitledBorder("Phường/Xã"));
-        cbPhuongXa.setBounds(20, 300, 200, 50);
-        mainPanel.add(cbPhuongXa);
+         diaChiPanel = new DiaChiPanel();
+        diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
+        mainPanel.add(this.diaChiPanel);
 
 //        RoundedTextField txtThoiGianNhan = new RoundedTextField("VD: 12/05/2025 14:30");
 //        txtThoiGianNhan.setBorder(BorderFactory.createTitledBorder("Thời Gian Nhận *"));
@@ -124,7 +116,7 @@ public class KHTaoDonHangPanel extends JPanel {
         String[] dsLoaiHang = donHangDAO.DSLoaiHang();
         RoundedComboBox cbLoaiHang = new RoundedComboBox(dsLoaiHang);
         cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Hàng Hóa *"));
-        cbLoaiHang.setBounds(240, 300, 300, 50);
+        cbLoaiHang.setBounds(20, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
         
         // Nút Tạo đơn hàng
@@ -154,8 +146,9 @@ public class KHTaoDonHangPanel extends JPanel {
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
                 String diaChiNhan = txtDiaChiNhan.getText().trim();
-                String quanHuyen = (String) cbQuanHuyen.getSelectedItem();
-                String phuongXa = (String) cbPhuongXa.getSelectedItem();
+                String tinhThanh = (String) diaChiPanel.getSelectedTinh();
+                String quanHuyen = (String) diaChiPanel.getSelectedHuyen();
+                String phuongXa = (String) diaChiPanel.getSelectedXa();
 
                 String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
                 String loaiHang = (String) cbLoaiHang.getSelectedItem();
@@ -163,7 +156,7 @@ public class KHTaoDonHangPanel extends JPanel {
                 double tienCOD=0;
                 
                 // Gộp địa chỉ chi tiết
-                String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
+                String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen + ", " + tinhThanh;
                 if(hinhThucThanhToan.equals("Thanh toán COD")){
                     String input = JOptionPane.showInputDialog(null, "Nhập số tiền COD:", "Thông tin COD", JOptionPane.PLAIN_MESSAGE);
 

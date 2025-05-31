@@ -5,6 +5,7 @@ import appgiaovan.EmployeeGUI.*;
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Controller.TokenController;
 import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
+import appgiaovan.DAO.TokenDAO;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
 import appgiaovan.GUI.LOGIN;
@@ -34,6 +35,8 @@ public class ManagerGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel contentPanel;
     private TaiKhoan taiKhoan;
+    
+;
     public ManagerGUI(TaiKhoan tk, int idToken) throws SQLException, ClassNotFoundException {
         this.taiKhoan = tk;
         setTitle("Giao diện chính");
@@ -107,8 +110,11 @@ public class ManagerGUI extends JFrame {
         SwingUtilities.invokeLater(() -> {
             try {
                 TaiKhoan tk = new TaiKhoan();
-                tk.setIdTaiKhoan(6);
-                
+                tk.setIdTaiKhoan(101);
+                String username="admin1";
+                TokenDAO tokenDAO =new TokenDAO();
+                int id=0;
+                id=tokenDAO.taoToken(username);
                 new ManagerGUI(tk,1).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ManagerGUI.class.getName()).log(Level.SEVERE, null, ex);
