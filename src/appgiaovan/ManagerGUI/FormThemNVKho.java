@@ -147,7 +147,7 @@ public class FormThemNVKho extends JDialog {
             cboIDQuanLy.getSelectedItem() == null ||
             txtMucLuong.getText().trim().isEmpty() ||
             txtTenDangNhap.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin (trừ mật khẩu).");
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
             return false;
         }
 

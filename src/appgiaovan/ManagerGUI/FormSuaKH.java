@@ -9,6 +9,8 @@ import appgiaovan.Entity.KhachHang;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class FormSuaKH extends JDialog {
     private QLKHController controller;
@@ -80,8 +82,42 @@ public class FormSuaKH extends JDialog {
         cboGioiTinh.setSelectedItem(kh.getGioiTinh());
     }
 
-    public boolean kiemTraDinhDangThongTin() {
-        return !txtHoTen.getText().isEmpty();
+   public boolean kiemTraDinhDangThongTin() {
+
+        if (txtID.getText().trim().isEmpty() ||
+            txtHoTen.getText().trim().isEmpty() ||
+            txtSDT.getText().trim().isEmpty() ||
+            txtEmail.getText().trim().isEmpty() ||
+            txtCCCD.getText().trim().isEmpty() ||
+            txtNgaySinh.getText().trim().isEmpty() ||
+            cboGioiTinh.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
+            return false;
+        }
+
+
+        String sdt = txtSDT.getText().trim();
+        if (!sdt.matches("^0\\d{9}$")) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0.");
+            return false;
+        }
+
+        // Kiểm tra định dạng ngày sinh (YYYY-MM-DD)
+        String ngaySinh = txtNgaySinh.getText().trim();
+        if (!ngaySinh.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+            JOptionPane.showMessageDialog(null, "Ngày sinh phải theo định dạng YYYY-MM-DD.");
+            return false;
+        }
+
+
+        try {
+            LocalDate.parse(ngaySinh); 
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ.");
+            return false;
+        }
+
+        return true; 
     }
 
     public void hienThiThongBao(String msg) {

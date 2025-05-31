@@ -107,6 +107,7 @@ public class NhanVienKhoDAO {
         }
     }
     public boolean xoaNhanVienKho(int idNguoiDung) throws SQLException, ClassNotFoundException {
+
         String callSql = "{ CALL XoaTaiKhoan(?) }";
         try (Connection conn = ConnectionUtils.getMyConnection();
              CallableStatement cs = conn.prepareCall(callSql)) {
