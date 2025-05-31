@@ -100,7 +100,7 @@ public class ThongTinCaNhanPanel extends JPanel {
         infoPanel.add(lblNgaySinh);
 
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
-        JTextField txtNgaySinh = new JTextField(String.valueOf(sdf2.format(kh.getNgaySinh())));
+        JTextField txtNgaySinh = new JTextField(String.valueOf(sdf2.format(nd.getNgaySinh())));
 
         txtNgaySinh.setBounds(130, 270, 400, 30);
         infoPanel.add(txtNgaySinh);
