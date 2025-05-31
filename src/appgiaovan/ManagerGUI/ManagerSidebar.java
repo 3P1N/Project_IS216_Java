@@ -16,9 +16,9 @@ import javax.swing.JFrame;
  * @author pc
  */
 public class ManagerSidebar extends MenuBar {
-    private static final List<String>  items = Arrays.asList("Trang chủ", "Quản lý nhân viên kho","Quản lý shipper", "Quản lý khách hàng","Xem báo cáo", "Báo cáo thống kê", "Xem bảng lương", "Đăng xuất");
+    private static final List<String>  items = Arrays.asList("Trang chủ", "Quản lý nhân viên kho","Quản lý shipper", "Quản lý khách hàng","Xem báo cáo", "Báo cáo thống kê","Thông tin cá nhân",  "Đăng xuất");
       
-    private static final List<String>  icons = Arrays.asList("home.png", "employee.png", "employee.png", "customer.png","report.png", "statistic.png", "salary.png", "logout.png");
+    private static final List<String>  icons = Arrays.asList("home.png", "employee.png", "employee.png", "customer.png","report.png", "statistic.png", "customer.png", "logout.png");
 
     public ManagerSidebar(int idtk) throws SQLException, ClassNotFoundException {
         super(ManagerSidebar.items, ManagerSidebar.icons, idtk);

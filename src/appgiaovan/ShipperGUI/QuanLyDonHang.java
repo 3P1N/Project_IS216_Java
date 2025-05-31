@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 
 public class QuanLyDonHang extends JPanel {
 
+    private int idtk;
     private NVGHLoc filter = new NVGHLoc();
     private TableDonHang listOrder ;
     private final QLDonHangController controller = new QLDonHangController();
@@ -57,29 +58,38 @@ public class QuanLyDonHang extends JPanel {
         // Chuẩn bị header
         String[] columns = {
             "", "Mã đơn hàng", "Tên người nhận", "Địa chỉ", "SĐT nhận",
-            "Trạng thái", "Tiền COD", "Thời gian tạo", "SĐT gửi", "Tên người gửi", "Kho tiếp nhận"
+            "Trạng thái", "Tiền COD", "Thời gian tạo", "SĐT gửi", "Tên người gửi"
         };
 
         // Chuyển List<DonHang> thành Object[][]
         QLDonHangController dsdh = new QLDonHangController();
         List<DonHang> ds = dsdh.HienThiDSDHChoNVGH(idtk);
-        Object[][] data = new Object[ds.size()][columns.length];
-        for (int i = 0; i < ds.size(); i++) {
-            DonHang dh = ds.get(i);
-            data[i][0] = false;                                    // checkbox
-            data[i][1] = dh.getIdDonHang();
-            data[i][2] = dh.getTenNguoiNhan();
-            data[i][3] = dh.getDiaChiNhan();
-            data[i][4] = dh.getSdtNguoiNhan();
-            data[i][5] = dh.getTrangThai();
-            data[i][6] = dh.getTienCOD();
-            data[i][7] = dh.getThoiGianTao();
-            data[i][8] = dh.getSdtNguoiGui();
-            data[i][9] = dh.getTenNguoiGui();
-            data[i][10] = dh.getIdKhoTiepNhan();
+
+        // Tạo bảng ngay cả khi không có dữ liệu
+        Object[][] data;
+        if (ds == null || ds.isEmpty()) {
+            // Không hiển thị gì nếu rỗng
+            data = new Object[0][columns.length];
+            //JOptionPane.showMessageDialog(this, "Không có đơn hàng nào!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            data = new Object[ds.size()][columns.length];
+            for (int i = 0; i < ds.size(); i++) {
+                DonHang dh = ds.get(i);
+                data[i][0] = false;                                    // checkbox
+                data[i][1] = dh.getIdDonHang();
+                data[i][2] = dh.getTenNguoiNhan();
+                data[i][3] = dh.getDiaChiNhan();
+                data[i][4] = dh.getSdtNguoiNhan();
+                data[i][5] = dh.getTrangThai();
+                data[i][6] = dh.getTienCOD();
+                data[i][7] = dh.getThoiGianTao();
+                data[i][8] = dh.getSdtNguoiGui();
+                data[i][9] = dh.getTenNguoiGui();  
+            }
         }
         listOrder = new TableDonHang(columns, data);
         centerPanel.add(listOrder, BorderLayout.CENTER);
+
         
         // 3) Gắn centerPanel vào mainPanel
         mainPanel.add(centerPanel, BorderLayout.CENTER);
@@ -92,7 +102,7 @@ public class QuanLyDonHang extends JPanel {
             try {
                 DonHang dh = filter.getDonHang();
 
-                HienThiDanhSach(dh);
+                HienThiDanhSach(dh, idtk);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -133,27 +143,27 @@ public class QuanLyDonHang extends JPanel {
 //        });
 
         // Hiển thị danh sách ngay khi mở panel
-        HienThiDanhSach();
+        HienThiDanhSach(idtk);
     }
-    public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {
-        List<DonHang> dsDonHang = controller.LayDSDonHang();
-        String[] columns = DonHang.getTableHeaders();
+    public final void HienThiDanhSach(int idtk) throws SQLException, ClassNotFoundException {
+        List<DonHang> dsDonHang = controller.LayDSDonHangSP(idtk);
+        String[] columns = DonHang.getTableHeaders1();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
 
         for (int i = 0; i < dsDonHang.size(); i++) {
-            data[i] = dsDonHang.get(i).toTableRow();
+            data[i] = dsDonHang.get(i).toTableRow1();
         }
 
         listOrder.setTableData(data);
     }
 
-    public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
-        List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
-        String[] columns = DonHang.getTableHeaders();
+    public final void HienThiDanhSach(DonHang dh, int idtk) throws SQLException, ClassNotFoundException {
+        List<DonHang> dsDonHang = controller.LayDSDonHangSP(dh, idtk);
+        String[] columns = DonHang.getTableHeaders1();
 
         // Kiểm tra xem danh sách có trống không
         if (dsDonHang.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không tìm thấy đơn hàng phù hợp!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(this, "Không tìm thấy đơn hàng phù hợp!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
             // Đặt dữ liệu trống cho bảng
             Object[][] data = new Object[0][columns.length];
@@ -164,7 +174,7 @@ public class QuanLyDonHang extends JPanel {
         // Chuyển List<DonHang> thành Object[][] cho bảng
         Object[][] data = new Object[dsDonHang.size()][columns.length];
         for (int i = 0; i < dsDonHang.size(); i++) {
-            data[i] = dsDonHang.get(i).toTableRow();
+            data[i] = dsDonHang.get(i).toTableRow1();
         }
 
         // Cập nhật bảng với dữ liệu mới
@@ -180,7 +190,7 @@ public class QuanLyDonHang extends JPanel {
 
                 // Gọi hàm xử lý
                 new CapNhatController().CapNhatDHDaGiao(maDonHang, trangThai);
-                HienThiDanhSach();
+                HienThiDanhSach(idtk);
 
             }
         }
