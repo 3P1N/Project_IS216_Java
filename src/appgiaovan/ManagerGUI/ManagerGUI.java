@@ -7,7 +7,6 @@ import appgiaovan.Controller.TokenController;
 import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
 import appgiaovan.DAO.TokenDAO;
 import appgiaovan.Entity.TaiKhoan;
-import appgiaovan.GUI.Components.ThongTinCaNhan;
 import appgiaovan.GUI.LOGIN;
 import appgiaovan.ShipperGUI.NVGHMainGUI;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -56,6 +55,8 @@ public class ManagerGUI extends JFrame {
         contentPanel = new JPanel(cardLayout);
 
         // Thêm các trang nội dung
+                System.out.println("thêre");
+
         contentPanel.add(new ThongTinCaNhanPanel(tk),"Thông tin cá nhân");
         contentPanel.add(new ManagerMainScreen(),"Trang chủ");
         contentPanel.add(new GUI_QLNVKho(),"Quản lý nhân viên kho");

@@ -38,7 +38,7 @@ public class ThongTinCaNhanPanel extends JPanel {
 
     public ThongTinCaNhanPanel(TaiKhoan taiKhoan) throws ClassNotFoundException {
         QLKHController qLKHController = new QLKHController();
-        
+       
         try {
             nd = new TaiKhoanDAO().LayThongTinNguoiDung(taiKhoan);
         } catch (SQLException ex) {
