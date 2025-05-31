@@ -26,12 +26,12 @@ public class ThemDonHangFrame extends JFrame {
 
     public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException, Exception {
         donHangDAO = new DonHangDAO();
-        
+
         setTitle("Tạo Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Center on screen
-        
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
@@ -146,7 +146,6 @@ public class ThemDonHangFrame extends JFrame {
 
             try {
 
-
                 // Lấy dữ liệu từ các trường
 //                System.out.println(txtMaDon.getText().trim());
 //                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
@@ -155,7 +154,6 @@ public class ThemDonHangFrame extends JFrame {
 
                 KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
                 int idKho = selectedKho.getIdKho();
-
 
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
@@ -188,10 +186,10 @@ public class ThemDonHangFrame extends JFrame {
                 // Gọi controller để thêm đơn hàng
                 int id_dh = controller.ThemDonHang(dh);
                 HoaDonKH hd = new HoaDonKH();
-                hd.XuatHD(id_dh);
                 // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 onSucces.run();
+                hd.XuatHD(id_dh);
 
                 dispose();
 
@@ -204,19 +202,16 @@ public class ThemDonHangFrame extends JFrame {
 
     }
 
-    public void ThemDonHang(){
-        
+    public void ThemDonHang() {
+
     }
-    
+
     public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
         DonHangDAO donHangDAO = new DonHangDAO();
         int maDon = donHangDAO.LayMaDon();
         this.txtMaDon.setText(String.valueOf(maDon)); // chuyển int sang String
         System.out.println(maDon);
     }
-
-    
-    
 
     public static void main(String[] args) {
         try {
