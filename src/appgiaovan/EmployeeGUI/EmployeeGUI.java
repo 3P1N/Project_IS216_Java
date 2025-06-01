@@ -44,7 +44,7 @@ public class EmployeeGUI extends JFrame {
         
         nhanVienKho = dao.layThongTinNhanVienKho( dao.layID_NhanVienKho(tk.getIdTaiKhoan()));
         
-        setTitle("Giao diện chính");
+        setTitle("3P1N - Nhân viên kho");
         setSize(1400, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -54,7 +54,7 @@ public class EmployeeGUI extends JFrame {
         // Danh sách tên và icon menu
         
         // Tạo menu
-        EmployeeSidebar sidebar = new EmployeeSidebar();
+        EmployeeSidebar sidebar = new EmployeeSidebar(taiKhoan.getIdTaiKhoan());
         add(sidebar, BorderLayout.WEST);
 
         // Panel trung tâm hiển thị nội dung
