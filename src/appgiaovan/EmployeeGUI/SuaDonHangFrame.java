@@ -5,6 +5,7 @@ import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
+import appgiaovan.GUI.Components.DiaChiPanel;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedComboBox;
 
@@ -34,13 +35,13 @@ public class SuaDonHangFrame extends JFrame {
     private JTextField txtDiaChiNhan = new JTextField("");
 
     private RoundedButton btnSuaDonHang = new RoundedButton("Sửa đơn hàng");
-
+    private DiaChiPanel diaChiPanel;
     public SuaDonHangFrame(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException, Exception {
         setTitle("Sửa Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Center on screen
-
+        diaChiPanel = new DiaChiPanel();
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
@@ -98,32 +99,22 @@ public class SuaDonHangFrame extends JFrame {
         txtDiaChiNhan.setBounds(460, 160, 300, 50);
         mainPanel.add(txtDiaChiNhan);
 
-        JComboBox<String> cbQuanHuyen = new JComboBox<>(new String[]{
-            "Quận 1", "Quận 2", "Quận 3"
-        });
-        cbQuanHuyen.setBorder(BorderFactory.createTitledBorder("Quận/Huyện"));
-        cbQuanHuyen.setBounds(20, 230, 200, 50);
-        mainPanel.add(cbQuanHuyen);
-
-        RoundedComboBox cbPhuongXa = new RoundedComboBox(new String[]{
-            "Phường 1", "Phường 2", "Phường 3"
-        });
-        cbPhuongXa.setBorder(BorderFactory.createTitledBorder("Phường/Xã"));
-        cbPhuongXa.setBounds(20, 300, 200, 50);
-        mainPanel.add(cbPhuongXa);
+         diaChiPanel = new DiaChiPanel();
+        diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
+        mainPanel.add(this.diaChiPanel);
 
 //        
         String[] dsDichVu = donHangDAO.DSDichVu();
         cbLoaiDichVu = new JComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
-        cbLoaiDichVu.setBounds(240, 230, 150, 50);
+        cbLoaiDichVu.setBounds(20, 300, 150, 50);
         mainPanel.add(cbLoaiDichVu);
 
         //Loai Hang
         String[] dsLoaiHang = donHangDAO.DSLoaiHang();
         cbLoaiHang = new JComboBox(dsLoaiHang);
         cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Hàng Hóa *"));
-        cbLoaiHang.setBounds(240, 300, 300, 50);
+        cbLoaiHang.setBounds(200, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
 
         // Nút Xác nhận
@@ -132,12 +123,12 @@ public class SuaDonHangFrame extends JFrame {
         mainPanel.add(btnSuaDonHang);
         //Thêm hình thức thanh toán
         
-        cbHinhThucThanhToan = new JComboBox(new String[]{
-            "Chọn hình thức thanh toán", "Tiền mặt", "Thanh toán online", "Thanh toán COD"
-        });
-        cbHinhThucThanhToan.setBorder(BorderFactory.createTitledBorder("Hình Thức Thanh Toán *"));
-        cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
-        mainPanel.add(cbHinhThucThanhToan);
+//        cbHinhThucThanhToan = new JComboBox(new String[]{
+//            "Chọn hình thức thanh toán", "Tiền mặt", "Thanh toán online", "Thanh toán COD"
+//        });
+//        cbHinhThucThanhToan.setBorder(BorderFactory.createTitledBorder("Hình Thức Thanh Toán *"));
+//        cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
+//        mainPanel.add(cbHinhThucThanhToan);
 
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
@@ -169,6 +160,7 @@ public class SuaDonHangFrame extends JFrame {
         txtTenNguoiNhan.setText(dh.getTenNguoiNhan());
         txtDiaChiNhan.setText(dh.getDiaChiNhan());
         cbKhoTiepNhan.setSelectedItem(dh);
+        
     }
 
     public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
