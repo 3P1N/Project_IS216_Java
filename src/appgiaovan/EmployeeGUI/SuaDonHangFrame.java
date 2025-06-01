@@ -36,7 +36,7 @@ public class SuaDonHangFrame extends JFrame {
     private RoundedButton btnSuaDonHang = new RoundedButton("Sửa đơn hàng");
 
     public SuaDonHangFrame(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException, Exception {
-        setTitle("Tạo Đơn Hàng");
+        setTitle("Sửa Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Center on screen

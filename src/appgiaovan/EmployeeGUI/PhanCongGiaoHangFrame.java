@@ -73,7 +73,7 @@ public class PhanCongGiaoHangFrame extends JFrame {
             }
         }
         controller.PhanCongGiaoHang(nv, listIdDonHang);
-        JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Phân công giao hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 
         HienThiDSDonHangDangPhanCong(idKho);
     }

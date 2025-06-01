@@ -23,7 +23,7 @@ public class ThemGoiHangFrame extends JFrame {
 
     public ThemGoiHangFrame(Runnable onSuccess, NhanVienKho nvkho) throws SQLException, ClassNotFoundException {
         this.nhanVienKho = nvkho;
-        setTitle("Quản Lý Đơn Hàng");
+        setTitle("Thêm Gói Hàng");
         setSize(1300, 600);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);

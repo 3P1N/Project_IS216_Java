@@ -27,6 +27,10 @@ public class QLGHController {
         return donHangDAO.LayDSDonHang(donHang);
     }
     
+    public void HoanThanhGoiHang(Integer maGoiHang) throws SQLException, ClassNotFoundException{
+        goiHangDAO.HoanThanhGoiHang(maGoiHang);
+    }
+    
     public void ThemGoiHang(GoiHang goiHang, List<Integer> listDonHang) throws SQLException, ClassNotFoundException{
         goiHangDAO.ThemGoiHang(goiHang, listDonHang);
     }
