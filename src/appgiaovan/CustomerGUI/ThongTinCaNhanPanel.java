@@ -38,7 +38,7 @@ public class ThongTinCaNhanPanel extends JPanel {
 
     public ThongTinCaNhanPanel(TaiKhoan taiKhoan) throws ClassNotFoundException {
         QLKHController qLKHController = new QLKHController();
-        
+       
         try {
             nd = new TaiKhoanDAO().LayThongTinNguoiDung(taiKhoan);
         } catch (SQLException ex) {
@@ -99,7 +99,9 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblNgaySinh.setBounds(20, 270, 100, 25);
         infoPanel.add(lblNgaySinh);
 
-        JTextField txtNgaySinh = new JTextField(String.valueOf(nd.getNgaySinh()));
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+        JTextField txtNgaySinh = new JTextField(String.valueOf(sdf2.format(nd.getNgaySinh())));
+
         txtNgaySinh.setBounds(130, 270, 400, 30);
         infoPanel.add(txtNgaySinh);
         //Gioitinh
@@ -122,7 +124,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             nd.setEmail(txtEmail.getText());
             nd.setCCCD(txtCCCD.getText());
             String ngaySinhStr = txtNgaySinh.getText(); // ví dụ chuỗi ngày sinh
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             try {
                 Date ngaySinhDate = sdf.parse(ngaySinhStr);
                 nd.setNgaySinh(ngaySinhDate);
@@ -131,15 +133,21 @@ public class ThongTinCaNhanPanel extends JPanel {
             }
 
             nd.setGioiTinh(txtGioiTinh.getText());
-            if (!controller.KiemTraDinhDangCapNhat((KhachHang) nd)) {
+            if (!controller.KiemTraDinhDangCapNhat(nd)) {
                 JOptionPane.showMessageDialog(this,
                         "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
                         "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return; // Dừng lại, không thực hiện thêm
             }
-            if (qLKHController.suaKhachHang((KhachHang) nd)) {
-                JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            try {
+                if (TaiKhoanDAO.suaNguoiDung(nd, taiKhoan)) {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(this,
                     "Lỗi hệ thống",
@@ -168,7 +176,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             try {
                 TaiKhoan taiKhoan = new TaiKhoan();
                 taiKhoan.setIdTaiKhoan(1);
-                taiKhoan.setVaiTro("QL");
+                taiKhoan.setVaiTro("KH");
                 frame.add(new ThongTinCaNhanPanel(taiKhoan), BorderLayout.CENTER);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);

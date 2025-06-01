@@ -39,7 +39,7 @@ public class TaiKhoanDAO {
     }
 
     public TaiKhoan LayThongTinTaiKhoan(int idtk) throws SQLException, ClassNotFoundException {
-     
+
         String sql = "SELECT ID_TAIKHOAN, TenTaiKhoan, MatKhauMaHoa, VaiTro FROM TAIKHOAN WHERE ID_TaiKhoan = ?";
         TaiKhoan tk = null;
 
@@ -57,9 +57,9 @@ public class TaiKhoanDAO {
                     return null; // Không tìm thấy tài khoản
                 }
             }
-            
-            System.out.println("Đây là " +tk.getVaiTro());
-            
+
+            System.out.println("Đây là " + tk.getVaiTro());
+
             // Nếu tìm thấy, tiếp tục lấy thông tin từ bảng tương ứng
             String vaiTro = tk.getVaiTro();
             String hoTen = null;
@@ -114,7 +114,7 @@ public class TaiKhoanDAO {
             tableName = "NHANVIENGIAOHANG";
             idName = "NVGIAOHANG";
         }
-       
+
         if (tableName != null) {
             String sql = "SELECT * FROM " + tableName + " WHERE ID_TaiKhoan = ?";
             try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
@@ -137,6 +137,43 @@ public class TaiKhoanDAO {
         return nd;
     }
 
+    public static boolean suaNguoiDung(NguoiDung nd, TaiKhoan taiKhoan) throws SQLException, ClassNotFoundException {
+
+        String idName = null;
+        String tableName = null;
+        if ("NVK".equals(taiKhoan.getVaiTro())) {
+            tableName = "NHANVIENKHO";
+            idName = "NHANVIEN";
+        } else if ("KH".equals(taiKhoan.getVaiTro())) {
+            tableName = "KHACHHANG";
+            idName = "KHACHHANG";
+        } else if ("QL".equals(taiKhoan.getVaiTro())) {
+            tableName = "QUANLY";
+            idName = "QUANLY";
+
+        } else if ("NVGH".equals(taiKhoan.getVaiTro())) {
+            tableName = "NHANVIENGIAOHANG";
+            idName = "NVGIAOHANG";
+        }
+
+        if (tableName != null) {
+            String sql = "UPDATE " + tableName + " SET HoTen=?, SDT=?, Email=?, CCCD=?, NgaySinh=?, GioiTinh=? WHERE ID_" + idName+ "= ?";
+            try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, nd.getHoTen());
+                ps.setString(2, nd.getSDT());
+                ps.setString(3, nd.getEmail());
+                ps.setString(4, nd.getCCCD());
+                ps.setDate(5, new java.sql.Date(nd.getNgaySinh().getTime()));
+                ps.setString(6, nd.getGioiTinh());
+                ps.setInt(7, nd.getID_NguoiDung());
+                return true;
+            }
+        }
+        return false;
+
+    }
+    
+   
     static void main(String[] args) throws SQLException, ClassNotFoundException {
         TaiKhoan tk = new TaiKhoan();
         tk.setIdTaiKhoan(1);
