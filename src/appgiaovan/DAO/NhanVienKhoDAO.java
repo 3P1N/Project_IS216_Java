@@ -167,7 +167,7 @@ public class NhanVienKhoDAO {
     }
     
     public List<NhanVienKho> timKiemNhanVienKho(String keyword) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM NhanVienKho WHERE HoTen LIKE ? OR SDT LIKE ?";
+        String sql = "SELECT * FROM NhanVienKho n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE ((HoTen LIKE ?) OR (SDT LIKE ?)) AND TrangThaiXoa = 0";
         try (Connection conn = ConnectionUtils.getMyConnection(); 
                 PreparedStatement ps = conn.prepareStatement(sql)) {
             String pattern = "%" + keyword + "%";

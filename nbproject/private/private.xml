@@ -11,6 +11,7 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/DoanhThuLoiNhuanDAO.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/KhachHangMainPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/KhoHangDAO.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/TokenDAO.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/GUI/FormNhapMatKhauMoi.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TopPanelQLDH.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/DoanhThuLoiNhuan.java</file>
@@ -67,10 +68,12 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/TestXacThucMail.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/report/ExportPDF.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemShipper.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/TokenController.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeSidebar.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_QLKH.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemKh.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/KhachHangTableModel.java</file>
+            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/PhanCongGiaoHangFrame.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/DanhGiaDAO.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/KhachHang.java</file>
