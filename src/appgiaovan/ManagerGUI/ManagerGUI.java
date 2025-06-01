@@ -36,7 +36,7 @@ public class ManagerGUI extends JFrame {
 
     public ManagerGUI(TaiKhoan tk, int idToken) throws SQLException, ClassNotFoundException {
         this.taiKhoan = tk;
-        setTitle("Giao diện chính");
+        setTitle("3P1N - Quản lý");
         setSize(1200, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
