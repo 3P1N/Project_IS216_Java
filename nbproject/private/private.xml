@@ -9,7 +9,9 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ManagerGUI.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/GUI_XemBaoCao.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/BaoCaoDAO.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLShipperController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLKHController.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormSuaNVKho.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/NhanVienGiaoHangTableModel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/TokenDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Entity/BaoCaoKho.java</file>
@@ -29,6 +31,7 @@
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemKh.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormThemShipper.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/NhanVienKhoDAO.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/FormSuaKH.java</file>
         </group>
     </open-files>
 </project-private>
