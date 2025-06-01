@@ -188,7 +188,7 @@ public class MenuBar extends JPanel {
 
         });
         
-        // mở chat gpt cho t cái
+        
         TaiKhoan tk = new TaiKhoanDAO().LayThongTinTaiKhoan(idtk);
         System.out.println(tk.getTenNguoiDung());
 
