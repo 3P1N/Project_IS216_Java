@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class QuanLyGoiHang extends JPanel {
+public class QuanLyGoiHangPanel extends JPanel {
 
     private TopPanelQLGH topPanel;
     private TableDonHang listOrder;
@@ -19,7 +19,7 @@ public class QuanLyGoiHang extends JPanel {
 
     private QLGHController controller = new QLGHController();
 
-    public QuanLyGoiHang(NhanVienKho nvKho) throws SQLException, ClassNotFoundException, Exception {
+    public QuanLyGoiHangPanel(NhanVienKho nvKho) throws SQLException, ClassNotFoundException, Exception {
         this.nhanVienKho = nvKho;
         this.setLayout(new BorderLayout());
         initUI();
@@ -65,6 +65,18 @@ public class QuanLyGoiHang extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
+        topPanel.getUpdateButton().addActionListener(e -> {
+            try {
+                XuLyHoanThanhGoiHang();
+            } catch (SQLException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
 
         HienThiDSGoiHang();
     }
@@ -98,14 +110,30 @@ public class QuanLyGoiHang extends JPanel {
             try {
                 HienThiDSGoiHang();
             } catch (SQLException ex) {
-                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyGoiHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyGoiHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }, nhanVienKho);
         themGoiHang.setVisible(true);
     }
+    
+    public void XuLyHoanThanhGoiHang() throws SQLException, ClassNotFoundException{
+        for (int i = 0; i < listOrder.getRowCount(); i++) {
+            Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
+            if (Boolean.TRUE.equals(isChecked)) {
+                // Lấy thông tin dòng được chọn
+                Integer maGoiHang = (Integer) listOrder.getValueAt(i, 1); // cột 1: mã ĐH
+                System.out.println(maGoiHang);
 
+                // Gọi hàm xử lý
+                controller.HoanThanhGoiHang(maGoiHang);
+                JOptionPane.showMessageDialog(this, "Xác nhận gói hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                HienThiDSGoiHang();
+            }
+        }
+    }
+    
     // Dùng để test panel trong một JFrame
     public static void main(String[] args) {
         try {
@@ -116,13 +144,13 @@ public class QuanLyGoiHang extends JPanel {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Quản Lý Gói Hàng");
             try {
-                frame.setContentPane(new QuanLyGoiHang(new NhanVienKho()));
+                frame.setContentPane(new QuanLyGoiHangPanel(new NhanVienKho()));
             } catch (SQLException ex) {
-                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyGoiHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyGoiHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
-                Logger.getLogger(QuanLyGoiHang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyGoiHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             frame.setSize(1300, 600);
             frame.setLocationRelativeTo(null);
