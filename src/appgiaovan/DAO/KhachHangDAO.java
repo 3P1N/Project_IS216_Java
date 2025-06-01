@@ -70,22 +70,7 @@ public class KhachHangDAO {
         }
         return kq;
     }
-    public boolean taoKhachHang(KhachHang kh) throws SQLException, ClassNotFoundException {
-        int newId = layMaKhachHangMoi();
-        kh.setID_NguoiDung(newId);
-        String sql = "INSERT INTO KhachHang(ID_KhachHang, ID_TaiKhoan, HoTen, SDT, Email, CCCD, NgaySinh, GioiTinh) VALUES(?,?,?,?,?,?,?,?)";
-        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, kh.getID_NguoiDung());
-            ps.setInt(2, kh.getID_TaiKhoan());
-            ps.setString(3, kh.getHoTen());
-            ps.setString(4, kh.getSDT());
-            ps.setString(5, kh.getEmail());
-            ps.setString(6, kh.getCCCD());
-            ps.setDate(7, new java.sql.Date(kh.getNgaySinh().getTime()));
-            ps.setString(8, kh.getGioiTinh());
-            return ps.executeUpdate() > 0;
-        }
-    }
+    
 
 
     public boolean themKhachHang(KhachHang kh, TaiKhoan tk) throws SQLException, ClassNotFoundException {

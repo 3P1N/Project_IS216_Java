@@ -166,6 +166,7 @@ public class TaiKhoanDAO {
                 ps.setDate(5, new java.sql.Date(nd.getNgaySinh().getTime()));
                 ps.setString(6, nd.getGioiTinh());
                 ps.setInt(7, nd.getID_NguoiDung());
+                ps.execute();
                 return true;
             }
         }

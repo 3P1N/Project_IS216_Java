@@ -5,6 +5,7 @@
 package appgiaovan.GUI;
 import appgiaovan.Controller.DangKyController;
 import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.EmailSender;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -17,6 +18,8 @@ import com.toedter.calendar.JDateChooser;
 import java.util.Date;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import static appgiaovan.PasswordHashing.hashPassword;
+import appgiaovan.VerificationForm;
+import java.util.Random;
 /**
  *
  * @author ASUS
@@ -184,16 +187,11 @@ public class RegisterGUI extends JFrame{
                             "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
                 }
-                // Gọi controller để thêm khách hàng,tài khoản
-                controller.themKhachHang(kh,tk);
-                // Gọi callback
-                JOptionPane.showMessageDialog(this, "Đăng ký tài khoản thành công!", 
-                        "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                SwingUtilities.invokeLater(() -> {
-                    LOGIN fp = new LOGIN();
-                    fp.setVisible(true);
-                    dispose();
-                });
+                String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
+                EmailSender.sendEmail(email, generatedCode);
+                new VerificationForm(generatedCode,email,kh,tk).setVisible(true);
+                
+               
 
             } catch (Exception ex) {
                 ex.printStackTrace();
