@@ -181,7 +181,7 @@ public class DonHangDAO {
             sql.append(" AND TenNguoiGui LIKE ?");
             params.add("%" + donHang.getTenNguoiGui() + "%");
         }
-        
+
         if (donHang.getIdKhoTiepNhan() != null) {
             sql.append(" AND ID_KhoTiepNhan = ?");
             params.add(donHang.getIdKhoTiepNhan());
@@ -295,7 +295,6 @@ public class DonHangDAO {
         }
 
         if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
-          
 
             sql.append(" AND TrangThai LIKE ?");
             params.add("%" + donHang.getTrangThai() + "%");
@@ -344,7 +343,7 @@ public class DonHangDAO {
     public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang=" + Integer.toString(ID_KhachHang)+" ORDER BY ID_DonHang DESC";
+        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang=" + Integer.toString(ID_KhachHang) + " ORDER BY ID_DonHang DESC";
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -413,11 +412,10 @@ public class DonHangDAO {
         return list;
     }
 
-     public List<DonHang> layDSDonHangCuaNVGH(int idTaiKhoan) throws SQLException, ClassNotFoundException {
+    public List<DonHang> layDSDonHangCuaNVGH(int idTaiKhoan) throws SQLException, ClassNotFoundException {
         List<DonHang> danhSachDonHang = new ArrayList<>();
 
-        try (Connection conn = ConnectionUtils.getMyConnection();
-             CallableStatement cs = conn.prepareCall("{call LayDSDHCuaNVGH(?, ?)}")) {
+        try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall("{call LayDSDHCuaNVGH(?, ?)}")) {
 
             cs.setInt(1, idTaiKhoan);
             cs.registerOutParameter(2, Types.REF_CURSOR);
@@ -452,43 +450,43 @@ public class DonHangDAO {
 
         return danhSachDonHang;
     }
-    public List<DonHang> LayDSDonHangCuaNVGH(DonHang donHang,int idtk) throws SQLException, ClassNotFoundException {
+
+    public List<DonHang> LayDSDonHangCuaNVGH(DonHang donHang, int idtk) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
         int idnvgh;
         String sql1 = "SELECT ID_NVGIAOHANG FROM NHANVIENGIAOHANG "
                 + "WHERE ID_TAIKHOAN = ?";
         try (Connection conn = ConnectionUtils.getMyConnection()) {
-        PreparedStatement st = conn.prepareStatement(sql1);  
-        st.setInt(1, idtk);
-        ResultSet rs1 = st.executeQuery();
-        rs1.next();
-        idnvgh = rs1.getInt("ID_NVGIAOHANG");
-        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE ID_NVGiaoHang = ?");
-        
-        List<Object> params = new ArrayList<>();
-        params.add(idnvgh);
-        if (null == donHang.getIdDonHang()) {
-        } else {
-            sql.append(" AND ID_DonHang = ?");
-            params.add(donHang.getIdDonHang());
-        }
+            PreparedStatement st = conn.prepareStatement(sql1);
+            st.setInt(1, idtk);
+            ResultSet rs1 = st.executeQuery();
+            rs1.next();
+            idnvgh = rs1.getInt("ID_NVGIAOHANG");
+            StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE ID_NVGiaoHang = ?");
 
-        if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
-            System.out.println(donHang.getTrangThai());
-            
-            sql.append(" AND TrangThai LIKE ?");
-            params.add("%" + donHang.getTrangThai() + "%");
-        }
+            List<Object> params = new ArrayList<>();
+            params.add(idnvgh);
+            if (null == donHang.getIdDonHang()) {
+            } else {
+                sql.append(" AND ID_DonHang = ?");
+                params.add(donHang.getIdDonHang());
+            }
 
-        if (donHang.getTenNguoiGui() != null && !donHang.getTenNguoiGui().isEmpty()) {
-            sql.append(" AND TenNguoiGui LIKE ?");
-            params.add("%" + donHang.getTenNguoiGui() + "%");
-        }
+            if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
+                System.out.println(donHang.getTrangThai());
 
-        sql.append(" ORDER BY ID_DonHang DESC");
+                sql.append(" AND TrangThai LIKE ?");
+                params.add("%" + donHang.getTrangThai() + "%");
+            }
 
-        
-                PreparedStatement stmt = conn.prepareStatement(sql.toString()); 
+            if (donHang.getTenNguoiGui() != null && !donHang.getTenNguoiGui().isEmpty()) {
+                sql.append(" AND TenNguoiGui LIKE ?");
+                params.add("%" + donHang.getTenNguoiGui() + "%");
+            }
+
+            sql.append(" ORDER BY ID_DonHang DESC");
+
+            PreparedStatement stmt = conn.prepareStatement(sql.toString());
             for (int i = 0; i < params.size(); i++) {
                 stmt.setObject(i + 1, params.get(i));
             }
@@ -521,7 +519,6 @@ public class DonHangDAO {
         return list;
     }
 
-  
     public DonHang LayThongTinDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
         String sql = "Select * from DonHang where id_donhang =" + idDonHang;
         Connection conn = ConnectionUtils.getMyConnection();
@@ -854,4 +851,21 @@ public class DonHangDAO {
 
         }
     }
+
+    public static int TongDonHang() throws SQLException, ClassNotFoundException {
+        String sql = "SELECT COUNT(ID_DONHANG) FROM DONHANG";
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1); // ✅ Lấy giá trị từ cột đầu tiên
+                } else {
+                    throw new SQLException("Không thể lấy tổng đơn hàng.");
+                }
+            }
+        }
+        
+    }
+
 }
