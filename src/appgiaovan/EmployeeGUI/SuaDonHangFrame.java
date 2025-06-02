@@ -167,7 +167,7 @@ public class SuaDonHangFrame extends JFrame {
         DonHangDAO donHangDAO = new DonHangDAO();
         int maDon = donHangDAO.LayMaDon();
         this.txtMaDon.setText(String.valueOf(maDon)); // chuyển int sang String
-        System.out.println(maDon);
+      
     }
 
     public void SuaDonHang(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException {
@@ -233,8 +233,7 @@ public class SuaDonHangFrame extends JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(SuaDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-//            frame.setVisible(true);
-//            frame.setVisible(true);
+
         });
     }
 }
