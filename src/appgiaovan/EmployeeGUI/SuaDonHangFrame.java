@@ -22,17 +22,18 @@ public class SuaDonHangFrame extends JFrame {
     private JTextField txtMaDon = new JTextField("");
     private JTextField txtSDTNguoiGui = new JTextField("");
     private JTextField txtTenNguoiGui = new JTextField("");
-    private JComboBox cbKhoTiepNhan = new JComboBox();
+    private JTextField txtKhoTiepNhan;
     private JTextField txtSDTNguoiNhan = new JTextField("");
     private JTextField txtTenNguoiNhan = new JTextField("");
     private JComboBox cbLoaiDichVu;
     private JComboBox cbLoaiHang;
     private JComboBox cbHinhThucThanhToan;
-    
+
     private JTextField txtDiaChiNhan = new JTextField("");
 
     private RoundedButton btnSuaDonHang = new RoundedButton("Sửa đơn hàng");
     private DiaChiPanel diaChiPanel;
+
     public SuaDonHangFrame(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException, Exception {
         setTitle("Sửa Đơn Hàng");
         setSize(920, 600);
@@ -64,15 +65,17 @@ public class SuaDonHangFrame extends JFrame {
         txtTenNguoiGui.setBounds(460, 50, 200, 50);
         mainPanel.add(txtTenNguoiGui);
 
-        List<KhoHang> listKho = controller.LayThongTinKho();
+        txtKhoTiepNhan = new JTextField();
+        String tenKho = null;
 
-        for (KhoHang kho : listKho) {
-            cbKhoTiepNhan.addItem(kho);
-        }
+       
+        
 
-        cbKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
-        cbKhoTiepNhan.setBounds(680, 50, 200, 50);
-        mainPanel.add(cbKhoTiepNhan);
+        txtKhoTiepNhan.setText(tenKho);
+        txtKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
+        txtKhoTiepNhan.setBounds(680, 50, 200, 50);
+        txtKhoTiepNhan.setFocusable(false);
+        mainPanel.add(txtKhoTiepNhan);
 
         JSeparator separator = new JSeparator();
         separator.setBounds(20, 120, 820, 10);
@@ -96,7 +99,7 @@ public class SuaDonHangFrame extends JFrame {
         txtDiaChiNhan.setBounds(460, 160, 300, 50);
         mainPanel.add(txtDiaChiNhan);
 
-         diaChiPanel = new DiaChiPanel();
+        diaChiPanel = new DiaChiPanel();
         diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
         mainPanel.add(this.diaChiPanel);
 
@@ -147,25 +150,43 @@ public class SuaDonHangFrame extends JFrame {
         txtSDTNguoiNhan.setText(dh.getSdtNguoiNhan());
         txtTenNguoiNhan.setText(dh.getTenNguoiNhan());
         txtDiaChiNhan.setText(dh.getDiaChiNhan());
-        cbKhoTiepNhan.setSelectedItem(dh);
-        
+
+        List<KhoHang> listKho = controller.LayThongTinKho();
+
+        String tenKho = null;
+        for (KhoHang kho : listKho) {
+            if (kho.getIdKho() == dh.getIdKhoTiepNhan()) {
+                tenKho = kho.getTenKho();
+                break;
+            }
+        }
+        txtKhoTiepNhan.setText(tenKho);
+
     }
 
     public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
         DonHangDAO donHangDAO = new DonHangDAO();
         int maDon = donHangDAO.LayMaDon();
         this.txtMaDon.setText(String.valueOf(maDon)); // chuyển int sang String
-      
+
     }
 
     public void SuaDonHang(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException {
         // Lấy dữ liệu từ các trường
-        System.out.println(txtMaDon.getText().trim());
+
         String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
         String tenNguoiGui = txtTenNguoiGui.getText().trim();
 
-        KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
-        int idKho = selectedKho.getIdKho();
+        String tenKho = txtKhoTiepNhan.getText().trim();
+        List<KhoHang> listKho = controller.LayThongTinKho();
+
+        Integer idKho = null;
+        for (KhoHang kho : listKho) {
+            if (kho.getTenKho().equals(tenKho)) {
+                idKho = kho.getIdKho();
+                break;
+            }
+        }
 
         String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
         String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
@@ -175,7 +196,7 @@ public class SuaDonHangFrame extends JFrame {
 
         String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
         String loaiHang = (String) cbLoaiHang.getSelectedItem();
-        String hinhThucThanhToan = (String) cbHinhThucThanhToan.getSelectedItem();
+  
 
         // Gộp địa chỉ chi tiết
 //        String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
