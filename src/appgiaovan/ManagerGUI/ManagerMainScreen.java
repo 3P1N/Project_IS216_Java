@@ -9,12 +9,16 @@ package appgiaovan.ManagerGUI;
  * @author pc
  */
 import appgiaovan.DAO.DoanhThuLoiNhuanDAO;
+import appgiaovan.DAO.DonHangDAO;
+import appgiaovan.DAO.KhoHangDAO;
 import appgiaovan.Entity.DoanhThuLoiNhuan;
+import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.RoundedPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,15 +40,29 @@ public class ManagerMainScreen extends JPanel {
 
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
         statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        List<DoanhThuLoiNhuan> list = new DoanhThuLoiNhuanDAO().getListDoanhThuLoiNhuan();
 
-        statPanel.add(RoundedPanel.createStatBox("DOANH THU", "0", "↓ 100%", new Color(76, 175, 80)));
-        statPanel.add(RoundedPanel.createStatBox("BÁN LẺ", "0", "↓ 100% (0 hóa đơn)", new Color(33, 150, 243)));
-        statPanel.add(RoundedPanel.createStatBox("ĐƠN HÀNG", "0", "↓ 100% (0 đơn)", new Color(255, 152, 0)));
-        statPanel.add(RoundedPanel.createStatBox("TỒN KHO", "2.9 tỷ", "7.309 sản phẩm", new Color(121, 85, 72)));
+        double TongDoanhThu = 0;
+        for (DoanhThuLoiNhuan dtln : list) {
+            TongDoanhThu += dtln.getDoanhThu();
+        }
+
+        int TongDonHang = DonHangDAO.TongDonHang();
+        KhoHang khoHang = KhoHangDAO.LayThongTinKho(1);
+        int tonKho = khoHang.getSlHangTon();
+
+        DecimalFormat df = new DecimalFormat("#,###");
+
+        String doanhThuStr = df.format(TongDoanhThu) + " VND";
+        String donHangStr = df.format(TongDonHang);
+        String tonKhoStr = df.format(tonKho) + " sản phẩm";
+
+        statPanel.add(RoundedPanel.createStatBox("DOANH THU THÁNG", doanhThuStr, "", new Color(76, 175, 80)));
+        statPanel.add(RoundedPanel.createStatBox("TỔNG ĐƠN HÀNG THÁNG", donHangStr, "", new Color(255, 152, 0)));
+        statPanel.add(RoundedPanel.createStatBox("TỒN KHO", tonKhoStr, "", new Color(121, 85, 72)));
 
         mainPanel.add(statPanel, BorderLayout.NORTH);
 
-        List<DoanhThuLoiNhuan> list = new DoanhThuLoiNhuanDAO().getListDoanhThuLoiNhuan();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -90,7 +108,7 @@ public class ManagerMainScreen extends JPanel {
 
         add(mainPanel, BorderLayout.CENTER);
 
-        int delay = 600; 
+        int delay = 600;
         new javax.swing.Timer(delay, e -> loadChartData()).start();
 
     }
@@ -122,7 +140,7 @@ public class ManagerMainScreen extends JPanel {
                 JFrame frame = new JFrame("Quản Lý Khách Hàng");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(1300, 600);
-                frame.setLocationRelativeTo(null); 
+                frame.setLocationRelativeTo(null);
 
                 ManagerMainScreen panel = new ManagerMainScreen();
                 frame.setContentPane(panel);

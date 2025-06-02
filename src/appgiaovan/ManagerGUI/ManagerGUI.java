@@ -22,7 +22,7 @@ public class ManagerGUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel contentPanel;
     private TaiKhoan taiKhoan;
-
+    
     public ManagerGUI(TaiKhoan tk, int idToken) throws SQLException, ClassNotFoundException {
         this.taiKhoan = tk;
         setTitle("3P1N - Quản lý");
