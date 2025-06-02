@@ -74,9 +74,10 @@ public class QuanLyDonHang extends JPanel {
         });
         filter.getDGButton().addActionListener(e -> {
             try {
-                System.out.print(123);
+                
                 XuLyCapNhatDonHang("Đã giao");
                 HienThiDanhSach(idtk);
+
 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,6 +90,7 @@ public class QuanLyDonHang extends JPanel {
                 System.out.print(234);
                 XuLyCapNhatDonHang("Giao thất bại");
                 HienThiDanhSach(idtk);
+
 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
@@ -141,7 +143,7 @@ public class QuanLyDonHang extends JPanel {
         }
 
 //        DonHang dh = filter.getDonHang();
-//        HienThiDanhSach(dh, idtk);
+
 
     }
 
