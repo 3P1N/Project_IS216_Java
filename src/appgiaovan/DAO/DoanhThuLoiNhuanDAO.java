@@ -2,15 +2,12 @@ package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DoanhThuLoiNhuan;
-import appgiaovan.Entity.TK_DoanhThu;
-import appgiaovan.Entity.TK_DonHang;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DoanhThuLoiNhuanDAO {
 
-    // Thông tin kết nối DB - thay đổi theo cấu hình bạn
     
     public List<DoanhThuLoiNhuan> getListDoanhThuLoiNhuan() throws SQLException, ClassNotFoundException {
         List<DoanhThuLoiNhuan> list = new ArrayList<>();

@@ -5,19 +5,11 @@
 package appgiaovan.CustomerGUI;
 
 import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.GUI.Components.RoundedPanel;
-import appgiaovan.GUI.Components.MenuBar;
-import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
-import org.jfree.chart.*;
-import org.jfree.chart.plot.*;
-import org.jfree.data.category.*;
-import appgiaovan.CustomerGUI.ThanhTimKiemDH;
 import appgiaovan.EmployeeGUI.QuanLyDonHangPanel;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.GUI.Components.TableList;
-import appgiaovan.GUI.Components.TimeWeather;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;

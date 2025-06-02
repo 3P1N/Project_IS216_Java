@@ -6,13 +6,11 @@ package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.BaoCaoKho;
-import appgiaovan.Entity.NhanVienKho;
 import java.sql.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
 
 /**
  *

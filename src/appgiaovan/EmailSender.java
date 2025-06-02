@@ -64,9 +64,9 @@ public class EmailSender {
     }
 
     public static void sendEmail(String toEmail, String code) {
-        // Cấu hình thông tin SMTP (Gmail)
+        // Cấu hình thông tin SMTP 
         final String fromEmail = "3p1nPMIT@gmail.com";
-        final String password = "fboftfflmqhazakj"; // Không dùng mật khẩu Gmail thường, dùng app password
+        final String password = "fboftfflmqhazakj"; 
         String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -172,5 +172,4 @@ public class EmailSender {
     public static void main(String[] args) {
         sendFileByEmail();
     }
-
 }

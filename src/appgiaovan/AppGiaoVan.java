@@ -4,9 +4,6 @@ import appgiaovan.GUI.LOGIN;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 
-//import appgiaovan.GUI.LoginGUI;
-//import javax.mail.MessagingException;
-
 
 public class AppGiaoVan {
 
