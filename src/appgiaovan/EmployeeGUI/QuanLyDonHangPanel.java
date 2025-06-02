@@ -172,7 +172,7 @@ public class QuanLyDonHangPanel extends JPanel {
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
+        }, nhanVienKho.getID_Kho());
 
 //        themDH.setVisible(true);
     }
