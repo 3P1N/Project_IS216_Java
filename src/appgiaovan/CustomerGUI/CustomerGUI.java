@@ -82,7 +82,7 @@ public class CustomerGUI extends JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex, "Lỗi hệ thống", WARNING_MESSAGE);
-        }
+        }   
         return -1;
     }
     
