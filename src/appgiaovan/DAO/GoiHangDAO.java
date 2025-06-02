@@ -7,6 +7,7 @@ package appgiaovan.DAO;
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.GoiHang;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -133,6 +134,15 @@ public class GoiHangDAO {
         }
 
         return result.toArray(String[]::new);
+    }
+
+    public void HoanThanhGoiHang(Integer maGoiHang) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE GOIHANG SET TRANGTHAI = 'Hoàn thành' WHERE ID_GOIHANG = ?";
+        try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, maGoiHang);
+            stmt.executeUpdate(); // executeUpdate dùng cho UPDATE, INSERT, DELETE
+        }
     }
 
     public static void main(String[] agrs) {

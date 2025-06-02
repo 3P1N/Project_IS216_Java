@@ -4,25 +4,30 @@
  */
 package appgiaovan.CustomerGUI;
 
-import appgiaovan.Controller.DangKyController;
-import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.Controller.QLKHController;
-import appgiaovan.DAO.TaiKhoanDAO;
-import appgiaovan.Entity.KhachHang;
-import appgiaovan.Entity.NguoiDung;
-import appgiaovan.Entity.TaiKhoan;
-import appgiaovan.GUI.Components.TimeWeather;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import appgiaovan.Controller.DangKyController;
+import appgiaovan.Controller.QLKHController;
+import appgiaovan.DAO.TaiKhoanDAO;
+import appgiaovan.Entity.NguoiDung;
+import appgiaovan.Entity.TaiKhoan;
 
 /**
  *
@@ -38,7 +43,7 @@ public class ThongTinCaNhanPanel extends JPanel {
 
     public ThongTinCaNhanPanel(TaiKhoan taiKhoan) throws ClassNotFoundException {
         QLKHController qLKHController = new QLKHController();
-        
+       
         try {
             nd = new TaiKhoanDAO().LayThongTinNguoiDung(taiKhoan);
         } catch (SQLException ex) {
@@ -99,7 +104,11 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblNgaySinh.setBounds(20, 270, 100, 25);
         infoPanel.add(lblNgaySinh);
 
-        JTextField txtNgaySinh = new JTextField(String.valueOf(nd.getNgaySinh()));
+
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
+        JTextField txtNgaySinh = new JTextField(String.valueOf(sdf2.format(nd.getNgaySinh())));
+
+
         txtNgaySinh.setBounds(130, 270, 400, 30);
         infoPanel.add(txtNgaySinh);
         //Gioitinh
@@ -131,15 +140,21 @@ public class ThongTinCaNhanPanel extends JPanel {
             }
 
             nd.setGioiTinh(txtGioiTinh.getText());
-            if (!controller.KiemTraDinhDangCapNhat((KhachHang) nd)) {
+            if (!controller.KiemTraDinhDangCapNhat(nd)) {
                 JOptionPane.showMessageDialog(this,
                         "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
                         "Lỗi", JOptionPane.ERROR_MESSAGE);
                 return; // Dừng lại, không thực hiện thêm
             }
-            if (qLKHController.suaKhachHang((KhachHang) nd)) {
-                JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            try {
+                if (TaiKhoanDAO.suaNguoiDung(nd, taiKhoan)) {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(this,
                     "Lỗi hệ thống",
@@ -168,7 +183,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             try {
                 TaiKhoan taiKhoan = new TaiKhoan();
                 taiKhoan.setIdTaiKhoan(1);
-                taiKhoan.setVaiTro("QL");
+                taiKhoan.setVaiTro("KH");
                 frame.add(new ThongTinCaNhanPanel(taiKhoan), BorderLayout.CENTER);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ThongTinCaNhanPanel.class.getName()).log(Level.SEVERE, null, ex);

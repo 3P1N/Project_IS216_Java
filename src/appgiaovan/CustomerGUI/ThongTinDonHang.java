@@ -29,7 +29,7 @@ public class ThongTinDonHang extends JFrame {
         donHang=hienThiDonHang(ID_DonHang);
         setTitle("Chi Tiết Đơn Hàng");
         setSize(900, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -126,6 +126,7 @@ public class ThongTinDonHang extends JFrame {
                     donHang = hienThiDonHang(ID_DonHang);
                     txtTrangThai.setText(donHang.getTrangThai());
                     JOptionPane.showMessageDialog(null, "Đã hủy đơn hàng thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 } catch (SQLException ex) {
                     Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(this,
@@ -155,7 +156,7 @@ public class ThongTinDonHang extends JFrame {
 
         SwingUtilities.invokeLater(() -> {
             try {
-                new ThongTinDonHang(1).setVisible(true);
+                new ThongTinDonHang(6).setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ThongTinDonHang.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

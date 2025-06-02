@@ -10,6 +10,7 @@ import appgiaovan.EmailSender;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.KhoHang;
+import appgiaovan.GUI.Components.DiaChiPanel;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedComboBox;
 
@@ -19,6 +20,7 @@ import appgiaovan.report.HoaDonKH;
 import appgiaovan.report.*;
 import java.awt.*;
 import java.io.File;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,6 +32,7 @@ public class KHTaoDonHangPanel extends JPanel {
         private DonHangDAO donHangDAO= new DonHangDAO();
         private KhachHangDAO khachHangDAO= new KhachHangDAO();
         private QLDonHangController qLDonHangController = new QLDonHangController();
+        private DiaChiPanel diaChiPanel;
     public KHTaoDonHangPanel(int ID_KhachHang) throws SQLException, ClassNotFoundException, Exception {
 
         setLayout(new BorderLayout());
@@ -93,22 +96,12 @@ public class KHTaoDonHangPanel extends JPanel {
 
         RoundedTextField txtDiaChiNhan = new RoundedTextField("Nhập địa chỉ người nhận");
         txtDiaChiNhan.setBorder(BorderFactory.createTitledBorder("Địa Chỉ Nhận *"));
-        txtDiaChiNhan.setBounds(460, 160, 300, 50);
+        txtDiaChiNhan.setBounds(500, 230, 300, 50);
         mainPanel.add(txtDiaChiNhan);
 
-        JComboBox<String> cbQuanHuyen = new JComboBox<>(new String[]{
-            "Quận 1", "Quận 2", "Quận 3"
-        });
-        cbQuanHuyen.setBorder(BorderFactory.createTitledBorder("Quận/Huyện"));
-        cbQuanHuyen.setBounds(20, 230, 200, 50);
-        mainPanel.add(cbQuanHuyen);
-
-        RoundedComboBox cbPhuongXa = new RoundedComboBox(new String[]{
-            "Phường 1", "Phường 2", "Phường 3"
-        });
-        cbPhuongXa.setBorder(BorderFactory.createTitledBorder("Phường/Xã"));
-        cbPhuongXa.setBounds(20, 300, 200, 50);
-        mainPanel.add(cbPhuongXa);
+         diaChiPanel = new DiaChiPanel();
+        diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
+        mainPanel.add(this.diaChiPanel);
 
 //        RoundedTextField txtThoiGianNhan = new RoundedTextField("VD: 12/05/2025 14:30");
 //        txtThoiGianNhan.setBorder(BorderFactory.createTitledBorder("Thời Gian Nhận *"));
@@ -117,14 +110,14 @@ public class KHTaoDonHangPanel extends JPanel {
         String[] dsDichVu = donHangDAO.DSDichVu();
         RoundedComboBox cbLoaiDichVu = new RoundedComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
-        cbLoaiDichVu.setBounds(240, 230, 150, 50);
+        cbLoaiDichVu.setBounds(20, 300, 170, 50);
         mainPanel.add(cbLoaiDichVu);
 
         //Loai Hang
         String[] dsLoaiHang = donHangDAO.DSLoaiHang();
         RoundedComboBox cbLoaiHang = new RoundedComboBox(dsLoaiHang);
         cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Hàng Hóa *"));
-        cbLoaiHang.setBounds(240, 300, 300, 50);
+        cbLoaiHang.setBounds(220, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
         
         // Nút Tạo đơn hàng
@@ -154,8 +147,9 @@ public class KHTaoDonHangPanel extends JPanel {
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
                 String diaChiNhan = txtDiaChiNhan.getText().trim();
-                String quanHuyen = (String) cbQuanHuyen.getSelectedItem();
-                String phuongXa = (String) cbPhuongXa.getSelectedItem();
+                String tinhThanh = (String) diaChiPanel.getSelectedTinh();
+                String quanHuyen = (String) diaChiPanel.getSelectedHuyen();
+                String phuongXa = (String) diaChiPanel.getSelectedXa();
 
                 String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
                 String loaiHang = (String) cbLoaiHang.getSelectedItem();
@@ -163,7 +157,7 @@ public class KHTaoDonHangPanel extends JPanel {
                 double tienCOD=0;
                 
                 // Gộp địa chỉ chi tiết
-                String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
+                String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen + ", " + tinhThanh;
                 if(hinhThucThanhToan.equals("Thanh toán COD")){
                     String input = JOptionPane.showInputDialog(null, "Nhập số tiền COD:", "Thông tin COD", JOptionPane.PLAIN_MESSAGE);
 
@@ -230,10 +224,25 @@ public class KHTaoDonHangPanel extends JPanel {
                     phiLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
                     qrDialog.add(phiLabel, BorderLayout.NORTH);
                     // Thêm ảnh mã QR
-                    ImageIcon qrIcon = new ImageIcon("D:\\github\\Project_IS216_Java\\src\\images\\LOGO3P1N.png"); // Đường dẫn ảnh QR
-                    JLabel qrLabel = new JLabel(qrIcon);
-                    qrLabel.setHorizontalAlignment(JLabel.CENTER);
-                    qrDialog.add(qrLabel, BorderLayout.CENTER);
+                    URL qrUrl = getClass().getResource("/images/QRCODE.jpg");
+                    System.out.println("QR URL: " + qrUrl);
+
+                    if (qrUrl != null) {
+                        ImageIcon originalIcon = new ImageIcon(qrUrl);
+                        Image scaledImage = originalIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+                        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+                        JLabel qrLabel = new JLabel(scaledIcon);
+                        qrLabel.setHorizontalAlignment(JLabel.CENTER);
+                        qrDialog.add(qrLabel, BorderLayout.CENTER);
+                    } else {
+                        JLabel qrLabel = new JLabel("QR CODE");
+                        qrLabel.setHorizontalAlignment(JLabel.CENTER);
+                        qrLabel.setForeground(Color.RED);
+                        qrLabel.setFont(new Font("Arial", Font.BOLD, 16));
+                        qrDialog.add(qrLabel, BorderLayout.CENTER);
+                    }
+
 
                     // Thêm nút OK
                     JButton okButton = new JButton("Đã chuyển khoản");

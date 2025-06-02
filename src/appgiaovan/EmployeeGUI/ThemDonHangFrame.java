@@ -5,6 +5,7 @@ import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
+import appgiaovan.GUI.Components.DiaChiPanel;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedComboBox;
 
@@ -23,15 +24,17 @@ public class ThemDonHangFrame extends JFrame {
     private JTextField txtMaDon = new JTextField("");
     private DonHangDAO donHangDAO;
     private QLDonHangController controller = new QLDonHangController();
+    private DiaChiPanel diaChiPanel;
 
     public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException, Exception {
         donHangDAO = new DonHangDAO();
-        
+       
+
         setTitle("Tạo Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Center on screen
-        
+
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(null);
         mainPanel.setBackground(Color.WHITE);
@@ -41,21 +44,17 @@ public class ThemDonHangFrame extends JFrame {
         lblBenGui.setFont(new Font("Arial", Font.BOLD, 14));
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
-        //MaDon
-//        txtMaDon.setFocusable(false);
-//        txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
-//        txtMaDon.setBounds(20, 50, 200, 50);
-//        txtMaDon.setFont(new Font("Arial", Font.BOLD, 16));
-//        mainPanel.add(txtMaDon);
+        
+
         //SDT
         RoundedTextField txtSDTNguoiGui = new RoundedTextField("Nhập số điện thoại người gửi");
         txtSDTNguoiGui.setBorder(BorderFactory.createTitledBorder("SĐT Người Gửi *"));
-        txtSDTNguoiGui.setBounds(240, 50, 200, 50);
+        txtSDTNguoiGui.setBounds(20, 50, 200, 50);
         mainPanel.add(txtSDTNguoiGui);
         //Ho ten
         RoundedTextField txtTenNguoiGui = new RoundedTextField("Nhập tên người gửi");
         txtTenNguoiGui.setBorder(BorderFactory.createTitledBorder("Tên Người Gửi *"));
-        txtTenNguoiGui.setBounds(460, 50, 200, 50);
+        txtTenNguoiGui.setBounds(240, 50, 200, 50);
         mainPanel.add(txtTenNguoiGui);
 
         List<KhoHang> listKho = controller.LayThongTinKho();
@@ -66,7 +65,7 @@ public class ThemDonHangFrame extends JFrame {
         }
 
         cbKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
-        cbKhoTiepNhan.setBounds(680, 50, 200, 50);
+        cbKhoTiepNhan.setBounds(460, 50, 200, 50);
         mainPanel.add(cbKhoTiepNhan);
 
         JSeparator separator = new JSeparator();
@@ -91,35 +90,24 @@ public class ThemDonHangFrame extends JFrame {
 
         RoundedTextField txtDiaChiNhan = new RoundedTextField("Nhập địa chỉ người nhận");
         txtDiaChiNhan.setBorder(BorderFactory.createTitledBorder("Địa Chỉ Nhận *"));
-        txtDiaChiNhan.setBounds(460, 160, 300, 50);
+        txtDiaChiNhan.setBounds(500, 230, 300, 50);
         mainPanel.add(txtDiaChiNhan);
 
-        JComboBox<String> cbQuanHuyen = new JComboBox<>(new String[]{
-            "Quận 1", "Quận 2", "Quận 3"
-        });
-        cbQuanHuyen.setBorder(BorderFactory.createTitledBorder("Quận/Huyện"));
-        cbQuanHuyen.setBounds(20, 230, 200, 50);
-        mainPanel.add(cbQuanHuyen);
-
-        RoundedComboBox cbPhuongXa = new RoundedComboBox(new String[]{
-            "Phường 1", "Phường 2", "Phường 3"
-        });
-        cbPhuongXa.setBorder(BorderFactory.createTitledBorder("Phường/Xã"));
-        cbPhuongXa.setBounds(20, 300, 200, 50);
-        mainPanel.add(cbPhuongXa);
-
+         diaChiPanel = new DiaChiPanel();
+        diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
+        mainPanel.add(this.diaChiPanel);
 //        
         String[] dsDichVu = donHangDAO.DSDichVu();
-        RoundedComboBox cbLoaiDichVu = new RoundedComboBox(dsDichVu);
+        JComboBox cbLoaiDichVu = new JComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
-        cbLoaiDichVu.setBounds(240, 230, 150, 50);
+        cbLoaiDichVu.setBounds(20, 300, 150, 50);
         mainPanel.add(cbLoaiDichVu);
 
         //Loai Hang
         String[] dsLoaiHang = donHangDAO.DSLoaiHang();
-        RoundedComboBox cbLoaiHang = new RoundedComboBox(dsLoaiHang);
+        JComboBox cbLoaiHang = new JComboBox(dsLoaiHang);
         cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Hàng *"));
-        cbLoaiHang.setBounds(240, 300, 300, 50);
+        cbLoaiHang.setBounds(200, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
 
         // Nút Xác nhận
@@ -146,7 +134,6 @@ public class ThemDonHangFrame extends JFrame {
 
             try {
 
-
                 // Lấy dữ liệu từ các trường
 //                System.out.println(txtMaDon.getText().trim());
 //                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
@@ -156,19 +143,20 @@ public class ThemDonHangFrame extends JFrame {
                 KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
                 int idKho = selectedKho.getIdKho();
 
-
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
                 String diaChiNhan = txtDiaChiNhan.getText().trim();
-                String quanHuyen = (String) cbQuanHuyen.getSelectedItem();
-                String phuongXa = (String) cbPhuongXa.getSelectedItem();
+                String tinhThanh = (String) diaChiPanel.getSelectedTinh();
+                String quanHuyen = (String) diaChiPanel.getSelectedHuyen();
+                String phuongXa = (String) diaChiPanel.getSelectedXa();
+                
 
                 String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
                 String loaiHang = (String) cbLoaiHang.getSelectedItem();
                 String hinhThucThanhToan = (String) cbHinhThucThanhToan.getSelectedItem();
 
                 // Gộp địa chỉ chi tiết
-                String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
+                String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen + ", " + tinhThanh;
 
                 // Tạo đối tượng DonHang
                 DonHang dh = new DonHang();
@@ -188,10 +176,10 @@ public class ThemDonHangFrame extends JFrame {
                 // Gọi controller để thêm đơn hàng
                 int id_dh = controller.ThemDonHang(dh);
                 HoaDonKH hd = new HoaDonKH();
-                hd.XuatHD(id_dh);
                 // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 onSucces.run();
+                hd.XuatHD(id_dh);
 
                 dispose();
 
@@ -204,19 +192,16 @@ public class ThemDonHangFrame extends JFrame {
 
     }
 
-    public void ThemDonHang(){
-        
+    public void ThemDonHang() {
+
     }
-    
+
     public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
         DonHangDAO donHangDAO = new DonHangDAO();
         int maDon = donHangDAO.LayMaDon();
         this.txtMaDon.setText(String.valueOf(maDon)); // chuyển int sang String
         System.out.println(maDon);
     }
-
-    
-    
 
     public static void main(String[] args) {
         try {
