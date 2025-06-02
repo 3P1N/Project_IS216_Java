@@ -1,5 +1,4 @@
 package appgiaovan.EmployeeGUI;
-
 import appgiaovan.Controller.QLGHController;
 import appgiaovan.Entity.*;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -8,7 +7,6 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

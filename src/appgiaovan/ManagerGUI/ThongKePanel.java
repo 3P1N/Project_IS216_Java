@@ -1,36 +1,12 @@
 package appgiaovan.ManagerGUI;
 
 import appgiaovan.Controller.ThongKeController;
-import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
-import appgiaovan.DAO.DanhGiaDAO;
-import appgiaovan.DAO.DoanhThuLoiNhuanDAO;
-import appgiaovan.Entity.DoanhThuLoiNhuan;
-import appgiaovan.Entity.TK_DanhGia;
-import appgiaovan.Entity.TK_DonHang;
-import appgiaovan.report.ExportPDF;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.*;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.CategoryLabelPositions;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
 public class ThongKePanel extends JPanel {
 

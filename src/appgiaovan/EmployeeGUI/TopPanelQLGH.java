@@ -6,7 +6,6 @@ package appgiaovan.EmployeeGUI;
 
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.DAO.GoiHangDAO;
-import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.GoiHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -44,10 +43,6 @@ public class TopPanelQLGH extends JPanel {
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
 
-        // TextField - Khách hàng
-//        customerField.setPreferredSize(new Dimension(120, 40));
-//        customerField.setBorder(BorderFactory.createTitledBorder("Tên khách hàng"));
-//        add(customerField);
 
         // Button - Lọc (màu xanh đậm)
         filterButton.setPreferredSize(new Dimension(60, 30));
@@ -88,19 +83,16 @@ public class TopPanelQLGH extends JPanel {
     public GoiHang getGoiHang() {
         GoiHang goiHang = new GoiHang();
 
-        // Xử lý ID: Nếu trống thì không set hoặc gán null (nếu bạn dùng Integer thay vì int)
         String idText = idField.getText().trim();
         if (!idText.isEmpty()) {
             goiHang.setIdGoiHang(Integer.valueOf(idText));
         } else {
-            goiHang.setIdGoiHang(null); // Cần đổi kiểu idDonHang sang Integer
+            goiHang.setIdGoiHang(null);
         }
 
-        // Xử lý combobox: nếu không chọn gì thì là null
         Object selected = statusComboBox.getSelectedItem();
         goiHang.setTrangThai(selected != null ? selected.toString() : null);
 
-        // Xử lý tên người gửi: nếu để trống thì là chuỗi rỗng hoặc null tùy bạn
         
         return goiHang;
     }

@@ -17,7 +17,6 @@ public class GoiHang {
     private int soLuong;
     private String trangThai;
 
-    // Constructors
     public GoiHang() {}
 
     public GoiHang(int idGoiHang, int idKhoHangGui, int idKhoHangDen, Date ngayGui, int idNhanVien, int soLuong, String trangThai) {
@@ -36,15 +35,12 @@ public class GoiHang {
 
     public Object[] toTableRow() throws SQLException, ClassNotFoundException {
         KhoHangDAO khoHangDAO = new KhoHangDAO();
-//        NhanVienKhoDAO nhanVienKhoDAO = new NhanVienKhoDAO();
         String KhoGui = khoHangDAO.LayTenKho(idKhoHangGui);
         String KhoDen = khoHangDAO.LayTenKho(idKhoHangDen);
-//        String tenNhanVien = nhanVienKhoDAO.LayTen(idNhanVien);
         return new Object[]{"",idGoiHang,  "<html>" + idNhanVien + "<br/>" +"</html>"
                 , KhoGui ,KhoDen, trangThai,soLuong};
     }
 
-    // Getters and Setters
     public Integer getIdGoiHang() {
         return idGoiHang;
     }

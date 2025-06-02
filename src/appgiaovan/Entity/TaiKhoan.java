@@ -9,7 +9,6 @@ package appgiaovan.Entity;
  * @author ASUS
  */
 import java.util.*;
-import javax.swing.JTextField;
 
 public class TaiKhoan {
     private Integer idTaiKhoan;

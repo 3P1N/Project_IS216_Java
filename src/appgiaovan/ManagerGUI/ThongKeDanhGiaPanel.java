@@ -61,10 +61,8 @@ public class ThongKeDanhGiaPanel extends JPanel {
             return;
         }
 
-        // Dùng dữ liệu gần nhất (cuối danh sách)
         TK_DanhGia latest = list.get(list.size() - 1);
 
-        // Tạo PieDataset
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("1 sao", latest.getSoLuong1Sao());
         dataset.setValue("2 sao", latest.getSoLuong2Sao());
@@ -72,7 +70,6 @@ public class ThongKeDanhGiaPanel extends JPanel {
         dataset.setValue("4 sao", latest.getSoLuong4Sao());
         dataset.setValue("5 sao", latest.getSoLuong5Sao());
 
-        // Tạo PieChart
         JFreeChart pieChart = ChartFactory.createPieChart(
                 "Tỷ lệ đánh giá sao", dataset, true, true, false);
 
@@ -86,12 +83,10 @@ public class ThongKeDanhGiaPanel extends JPanel {
         plot.setSimpleLabels(true);
         plot.setCircular(true);
 
-        // Panel biểu đồ
         ChartPanel chartPanel = new ChartPanel(pieChart);
         chartPanel.setPreferredSize(new Dimension(500, 300));
         chartPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel phía trên biểu đồ: Tổng lượt đánh giá + Ngày báo cáo
         JPanel infoPanel = new JPanel(new GridLayout(2, 2, 10, 5));
         infoPanel.setBorder(BorderFactory.createTitledBorder("Thông tin tổng quan"));
 

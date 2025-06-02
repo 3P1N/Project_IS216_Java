@@ -7,7 +7,6 @@ package appgiaovan.EmployeeGUI;
 import appgiaovan.DAO.KhoHangDAO;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.RoundedButton;
-import appgiaovan.GUI.Components.RoundedComboBox;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -38,9 +37,6 @@ public class TopPanelTGH extends JPanel {
         khoDenComboBox.setBorder(BorderFactory.createTitledBorder("Chọn kho đến"));
         add(khoDenComboBox);
 
-        // TextField - Khách hàng
-        // Button - Lọc (màu xanh đậm)
-        // Button - Thêm mới (màu xanh lá)
         addButton.setPreferredSize(new Dimension(100, 30));
         addButton.setBackground(new Color(0, 153, 76));
         addButton.setForeground(Color.WHITE);

@@ -1,33 +1,20 @@
 
 package appgiaovan.EmployeeGUI;
-
-import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Controller.TokenController;
-import appgiaovan.CustomerGUI.CustomerGUI;
 import appgiaovan.CustomerGUI.ThongTinCaNhanPanel;
 import appgiaovan.DAO.NhanVienKhoDAO;
 import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.Entity.TaiKhoan;
-import appgiaovan.GUI.Components.ThongTinCaNhan;
 import appgiaovan.GUI.LOGIN;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 public class EmployeeGUI extends JFrame {
@@ -51,7 +38,6 @@ public class EmployeeGUI extends JFrame {
         setLayout(new BorderLayout());
         
         
-        // Danh sách tên và icon menu
         
         // Tạo menu
         EmployeeSidebar sidebar = new EmployeeSidebar(taiKhoan.getIdTaiKhoan());
@@ -71,7 +57,6 @@ public class EmployeeGUI extends JFrame {
 
         add(contentPanel, BorderLayout.CENTER);
 
-        // Khi chọn mục trong MenuBar thì đổi trang
         sidebar.addMenuClickListener((selectedName) -> {
             if (selectedName.equals("Đăng xuất")) {
                 int confirm = JOptionPane.showConfirmDialog(

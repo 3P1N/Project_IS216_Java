@@ -3,14 +3,11 @@ package appgiaovan.DAO;
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
-
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.naming.spi.DirStateFactory.Result;
 
 public class KhachHangDAO {
 
@@ -196,22 +193,18 @@ public class KhachHangDAO {
             String sql = "{ ? = call DOANGIAOVAN.TaoTaiKhoan_Func(?, ?) }";
             try (CallableStatement stmt = conn.prepareCall(sql)) {
 
-                // Đăng ký kiểu trả về (RETURN)
-                stmt.registerOutParameter(1, Types.INTEGER); // vị trí 1: RETURN NUMBER
+                stmt.registerOutParameter(1, Types.INTEGER); 
 
-                // Set IN parameters
-                stmt.setString(2, tk.getTenTaiKhoan());           // p_TenTaiKhoan
-                stmt.setString(3, tk.getMatKhauMaHoa());        // p_MatKhauMaHoa
+                stmt.setString(2, tk.getTenTaiKhoan());           
+                stmt.setString(3, tk.getMatKhauMaHoa());       
 
-                // Gọi hàm
                 stmt.execute();
 
-                int idTaiKhoan = stmt.getInt(1); // Lấy kết quả trả về
+                int idTaiKhoan = stmt.getInt(1);
                 System.out.println("Tạo tài khoản thành công với ID: " + idTaiKhoan);
             }
 
         } catch (SQLException e) {
-            // Xử lý lỗi chi tiết
             if (e.getErrorCode() == 20011) {
                 System.err.println("Tên tài khoản đã tồn tại.");
             } else {

@@ -4,7 +4,6 @@ import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
 import appgiaovan.Entity.NhanVienKho;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -163,7 +162,7 @@ public class DonHangDAO {
 
     public List<DonHang> LayDSDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 ORDER BY ID_DonHang");
+        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 ");
         List<Object> params = new ArrayList<>();
 
         if (null == donHang.getIdDonHang()) {
@@ -181,6 +180,11 @@ public class DonHangDAO {
         if (donHang.getTenNguoiGui() != null && !donHang.getTenNguoiGui().isEmpty()) {
             sql.append(" AND TenNguoiGui LIKE ?");
             params.add("%" + donHang.getTenNguoiGui() + "%");
+        }
+        
+        if (donHang.getIdKhoTiepNhan() != null) {
+            sql.append(" AND ID_KhoTiepNhan = ?");
+            params.add(donHang.getIdKhoTiepNhan());
         }
 
         sql.append(" ORDER BY ID_DonHang");

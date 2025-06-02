@@ -27,37 +27,25 @@ public class MenuBar extends JPanel {
         setBackground(DEFAULT_BG);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(180, 700));  // Đặt kích thước panel menu theo yêu cầu
+        setPreferredSize(new Dimension(180, 700));  
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(DEFAULT_BG);
-
-        // Thêm logo vào đầu
         mainPanel.add(createLogoSection());
         mainPanel.add(createSeparator());
-        //
-        // Thêm profile
         mainPanel.add(setupProfileSection(idtk));
-        //
-        // Separator giữa profile và menu
         mainPanel.add(createSeparator());
 
-        // Thêm menu item
         for (int i = 0; i < itemNames.size(); i++) {
             JLabel label = createMenuItem(itemNames.get(i), iconNames.get(i));
             labels.add(label);
             mainPanel.add(label);
         }
 
-        // Tùy chọn separator sau cùng nếu cần
-        mainPanel.add(Box.createVerticalGlue()); // Đẩy menu lên trên
+        mainPanel.add(Box.createVerticalGlue()); 
         add(mainPanel, BorderLayout.CENTER);
 
-        // Mục mặc định là mục đầu tiên
-        /*if (!labels.isEmpty()) {
-            setActiveLabel(labels.get(0));
-        }*/
     }
 
     private JLabel createMenuItem(String text, String iconName) {
@@ -70,23 +58,20 @@ public class MenuBar extends JPanel {
             Image scaledImage = originalIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
             label.setIcon(new ImageIcon(scaledImage));
         }
-        /*else {
-            System.err.println("Không tìm thấy icon: " + iconName);
-        }*/
 
-        label.setPreferredSize(new Dimension(180, 40));  // Đặt kích thước cho từng mục menu
+        label.setPreferredSize(new Dimension(180, 40)); 
         label.setMaximumSize(new Dimension(180, 40));
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         label.setOpaque(true);
         label.setBackground(DEFAULT_BG);
         label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0)); // top, left, bottom, right
+        label.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 0));
 
         label.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 setActiveLabel(label);
                 if (listener != null) {
-                    listener.onMenuClick(text); // Gửi tên mục được chọn
+                    listener.onMenuClick(text); 
                 }
             }
 
@@ -108,7 +93,7 @@ public class MenuBar extends JPanel {
 
     private void animateBackground(JLabel label, Color start, Color end) {
         final int steps = 15;
-        final int delay = 20; // milliseconds
+        final int delay = 20; 
         Timer timer = new Timer(delay, null);
         final int[] count = {0};
 
@@ -123,7 +108,7 @@ public class MenuBar extends JPanel {
             count[0]++;
 
             if (count[0] > steps) {
-                label.setBackground(end); // Đảm bảo kết quả chính xác ở cuối
+                label.setBackground(end); 
                 ((Timer) e.getSource()).stop();
             }
         });
@@ -142,7 +127,7 @@ public class MenuBar extends JPanel {
         activeLabel.setFont(label.getFont().deriveFont(Font.BOLD));
         activeLabel.setForeground(Color.WHITE);
 
-        Color targetColor = new Color(255, 140, 0); // Cam đậm
+        Color targetColor = new Color(255, 140, 0); 
         animateBackground(activeLabel, activeLabel.getBackground(), targetColor);
     }
 
@@ -222,9 +207,9 @@ public class MenuBar extends JPanel {
 
     private Component createSeparator() {
         JSeparator separator = new JSeparator();
-        separator.setMaximumSize(new Dimension(185, 1));  // Đủ rộng để khớp sidebar
+        separator.setMaximumSize(new Dimension(185, 1));  
         separator.setAlignmentX(Component.LEFT_ALIGNMENT);
-        separator.setForeground(new Color(200, 200, 200));  // Màu xám nhẹ hơn
+        separator.setForeground(new Color(200, 200, 200));  
         return separator;
     }
 

@@ -50,7 +50,6 @@ public class EmployeeMainPanel extends JPanel {
         chartPanel.setPreferredSize(new Dimension(800, 300));
         mainPanel.add(chartPanel, BorderLayout.CENTER);
 
-        // Thêm mainPanel vào JPanel gốc
         add(mainPanel, BorderLayout.CENTER);
     }
     
