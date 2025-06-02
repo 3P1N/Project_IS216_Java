@@ -485,7 +485,7 @@ public class DonHangDAO {
             params.add("%" + donHang.getTenNguoiGui() + "%");
         }
 
-        sql.append(" ORDER BY ID_DonHang");
+        sql.append(" ORDER BY ID_DonHang DESC");
 
         
                 PreparedStatement stmt = conn.prepareStatement(sql.toString()); 
