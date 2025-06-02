@@ -1,7 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLGHController;
-import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.GoiHang;
 import appgiaovan.Entity.NhanVienKho;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -134,7 +133,6 @@ public class QuanLyGoiHangPanel extends JPanel {
         }
     }
     
-    // Dùng để test panel trong một JFrame
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());

@@ -1,6 +1,5 @@
 package appgiaovan.GUI.Components;
 
-import appgiaovan.CustomerGUI.*;
 import javax.swing.*;
 import java.awt.*;
 

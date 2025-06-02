@@ -9,7 +9,6 @@ package appgiaovan.Entity;
  * @author ASUS
  */
 import java.security.Timestamp;
-import java.util.*;
 public class TaiKhoan_Token {
     private Integer idToken;
     private Integer idTaiKhoan;

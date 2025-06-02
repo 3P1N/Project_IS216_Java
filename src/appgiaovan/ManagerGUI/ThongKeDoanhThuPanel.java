@@ -59,7 +59,6 @@ public class ThongKeDoanhThuPanel extends JPanel {
             Logger.getLogger(ThongKePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // ======= PHẦN THÔNG TIN Ở TRÊN =========
         JPanel infoPanel = new JPanel(new GridLayout(2, 3, 10, 5));
         infoPanel.setBorder(BorderFactory.createTitledBorder("Thông tin báo cáo"));
 
@@ -77,7 +76,6 @@ public class ThongKeDoanhThuPanel extends JPanel {
         infoPanel.add(txtNam);
         infoPanel.add(txtTongDoanhThu);
 
-        // Tính tổng giá trị
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
         SimpleDateFormat thangFormat = new SimpleDateFormat("MM/yyyy");
 
@@ -105,7 +103,6 @@ public class ThongKeDoanhThuPanel extends JPanel {
                 PlotOrientation.VERTICAL, true, true, false
         );
 
-        // Tùy chỉnh biểu đồ
         CategoryPlot plot = lineChart.getCategoryPlot();
         plot.setBackgroundPaint(new GradientPaint(0, 0, new Color(245, 245, 245), 0, 600, Color.WHITE));
         plot.setOutlineVisible(false);
@@ -155,7 +152,7 @@ public class ThongKeDoanhThuPanel extends JPanel {
         btnSendMail.setBackground(new Color(33, 150, 243));
         btnSendMail.setFocusPainted(false);
         btnSendMail.addActionListener(e -> {
-            EmailSender.sendFileByEmail(); // Gọi hàm trong lớp SendMail
+            EmailSender.sendFileByEmail(); 
         });
         
         buttonPanel.add(btnSendMail);
@@ -173,7 +170,7 @@ public class ThongKeDoanhThuPanel extends JPanel {
             JFrame frame = new JFrame("Quản Lý Khách Hàng");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1300, 600);
-            frame.setLocationRelativeTo(null); // Center the frame
+            frame.setLocationRelativeTo(null); 
             ThongKeDoanhThuPanel panel = new ThongKeDoanhThuPanel();
             frame.setContentPane(panel);
             frame.setVisible(true);

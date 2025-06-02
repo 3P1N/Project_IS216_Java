@@ -5,16 +5,12 @@
 package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
-import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
 import appgiaovan.Entity.TaiKhoan;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.sql.*;
-import java.time.LocalDate;
-import java.text.ParseException;
 
 
 

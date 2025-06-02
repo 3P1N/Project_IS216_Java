@@ -108,19 +108,17 @@ public class QuanLyDonHangPanel extends JPanel {
             }
         });
 
-        // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach();
     }
 
     public void XuLyHuyDonHang() throws SQLException, ClassNotFoundException {
         for (int i = 0; i < listOrder.getRowCount(); i++) {
-            Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
+            Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); 
             if (Boolean.TRUE.equals(isChecked)) {
                 // Lấy thông tin dòng được chọn
-                Integer maDonHang = (Integer) listOrder.getValueAt(i, 1); // cột 1: mã ĐH
+                Integer maDonHang = (Integer) listOrder.getValueAt(i, 1); 
                 System.out.println(maDonHang);
 
-                // Gọi hàm xử lý
                 controller.HuyDonHang(maDonHang);
                 JOptionPane.showMessageDialog(this, "Hủy đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 HienThiDanhSach();
@@ -148,7 +146,6 @@ public class QuanLyDonHangPanel extends JPanel {
                 Integer maDonHang = (Integer) listOrder.getValueAt(i, 1); // cột 1: mã ĐH
                 System.out.println(maDonHang);
 
-                // Gọi hàm xử lý
                 SuaDonHang(maDonHang);
 
             }
@@ -174,7 +171,6 @@ public class QuanLyDonHangPanel extends JPanel {
             }
         }, nhanVienKho.getID_Kho());
 
-//        themDH.setVisible(true);
     }
 
     public final void HienThiDanhSach() throws SQLException, ClassNotFoundException {

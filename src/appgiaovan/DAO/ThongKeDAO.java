@@ -2,7 +2,6 @@ package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.TK_DanhGia;
-import appgiaovan.Entity.TK_DoanhThu;
 import appgiaovan.Entity.TK_DonHang;
 import java.sql.*;
 import java.util.*;

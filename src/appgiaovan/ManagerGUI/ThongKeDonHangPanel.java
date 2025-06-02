@@ -53,7 +53,7 @@ public class ThongKeDonHangPanel extends JPanel {
             Logger.getLogger(ThongKeDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            list = controller.getListTKDonHang(); // Lấy dữ liệu
+            list = controller.getListTKDonHang(); 
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ThongKePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -63,12 +63,11 @@ public class ThongKeDonHangPanel extends JPanel {
             return;
         }
 
-        // --- Tạo bảng dữ liệu ở trên ---
         String[] columns = {"Ngày", "Tổng đơn hàng", "Đã giao", "Thất bại", "Đã huỷ"};
         DefaultTableModel tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Không cho chỉnh sửa bảng
+                return false; 
             }
         };
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -112,15 +111,15 @@ public class ThongKeDonHangPanel extends JPanel {
         CategoryPlot plot = (CategoryPlot) barChart.getPlot();
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
 
-        renderer.setSeriesPaint(0, new Color(76, 175, 80));  // Đã giao - xanh lá
-        renderer.setSeriesPaint(1, new Color(244, 67, 54));  // Thất bại - đỏ
-        renderer.setSeriesPaint(2, new Color(255, 152, 0));  // Đã huỷ - cam
+        renderer.setSeriesPaint(0, new Color(76, 175, 80));  
+        renderer.setSeriesPaint(1, new Color(244, 67, 54));  
+        renderer.setSeriesPaint(2, new Color(255, 152, 0));  
 
         plot.setBackgroundPaint(Color.white);
         plot.setDomainGridlinePaint(Color.LIGHT_GRAY);
         plot.setRangeGridlinePaint(Color.LIGHT_GRAY);
 
-        // Panel chứa biểu đồx
+        // Panel chứa biểu đồ
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new Dimension(600, 400));
         chartPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -146,7 +145,7 @@ public class ThongKeDonHangPanel extends JPanel {
         btnSendMail.setBackground(new Color(33, 150, 243));
         btnSendMail.setFocusPainted(false);
         btnSendMail.addActionListener(e -> {
-            EmailSender.sendFileByEmail(); // Gọi hàm trong lớp SendMail
+            EmailSender.sendFileByEmail(); 
         });
         bottomPanel.add(btnSendMail);
         add(bottomPanel, BorderLayout.SOUTH);
@@ -163,7 +162,7 @@ public class ThongKeDonHangPanel extends JPanel {
             JFrame frame = new JFrame("Quản Lý Khách Hàng");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1300, 600);
-            frame.setLocationRelativeTo(null); // Center the frame
+            frame.setLocationRelativeTo(null); 
             ThongKeDonHangPanel panel = new ThongKeDonHangPanel();
             frame.setContentPane(panel);
             frame.setVisible(true);

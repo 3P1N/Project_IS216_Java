@@ -9,7 +9,6 @@ import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.Entity.TaiKhoan;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.List;
 import static appgiaovan.PasswordHashing.hashPassword;
 import java.time.LocalDate;
@@ -106,7 +105,6 @@ public class FormThemNVKho extends JDialog {
             for (Integer id : dsKho) {
                 cboIDKho.addItem(id);
             }
-            // set lần đầu manager của kho đầu tiên
             if (!dsKho.isEmpty()) {
                 Integer firstKho = dsKho.get(0);
                 Integer mg = controller.layIDQuanLyTheoKho(firstKho);
@@ -117,7 +115,6 @@ public class FormThemNVKho extends JDialog {
             ex.printStackTrace();
         }
 
-    // thêm listener để cập nhật manager mỗi khi chọn kho:
     cboIDKho.addActionListener(e -> {
         Integer selectedKho = (Integer) cboIDKho.getSelectedItem();
         try {
@@ -158,7 +155,6 @@ public class FormThemNVKho extends JDialog {
             return false;
         }
 
-        // Kiểm tra định dạng ngày sinh (YYYY-MM-DD)
         String ngaySinh = txtNgaySinh.getText().trim();
         if (!ngaySinh.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
             JOptionPane.showMessageDialog(null, "Ngày sinh phải theo định dạng YYYY-MM-DD.");

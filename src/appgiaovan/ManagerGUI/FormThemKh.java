@@ -9,7 +9,6 @@ import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import static appgiaovan.PasswordHashing.hashPassword;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -112,7 +111,6 @@ public class FormThemKh extends JDialog {
             return false;
         }
 
-        // Kiểm tra định dạng ngày sinh (YYYY-MM-DD)
         String ngaySinh = txtNgaySinh.getText().trim();
         if (!ngaySinh.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
             JOptionPane.showMessageDialog(null, "Ngày sinh phải theo định dạng YYYY-MM-DD.");
@@ -162,7 +160,6 @@ public class FormThemKh extends JDialog {
 
     public static void main(String[] args) {
         try {
-            // Khởi chạy giao diện trên luồng EDT (Event Dispatch Thread)
             javax.swing.SwingUtilities.invokeLater(() -> {
                 try {
                     FormThemKh dialog = new FormThemKh();

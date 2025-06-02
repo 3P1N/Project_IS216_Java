@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.lang.model.util.Types;
 import java.sql.*;
 
 /**
@@ -43,7 +42,6 @@ public class TokenDAO {
                         return idToken;
                     }
 
-                    //conn.commit();
                 } else {
                     throw new SQLException("Không tìm thấy tài khoản: " + username);
                 }
@@ -62,7 +60,6 @@ public class TokenDAO {
             conn.setAutoCommit(false);
             st.setInt(1, idToken);
             st.executeQuery();
-            //conn.commit();
             
         }
     }

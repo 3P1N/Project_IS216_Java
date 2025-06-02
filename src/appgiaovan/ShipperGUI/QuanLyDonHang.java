@@ -3,15 +3,9 @@ package appgiaovan.ShipperGUI;
 import appgiaovan.Controller.CapNhatController;
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.EmployeeGUI.QuanLyDonHangPanel;
-import appgiaovan.EmployeeGUI.SuaDonHangFrame;
 import appgiaovan.EmployeeGUI.TableDonHang;
 import appgiaovan.Entity.DonHang;
-import appgiaovan.GUI.Components.TableList;
-import appgiaovan.GUI.Components.MenuBar;
-import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.TimeWeather;
-import com.formdev.flatlaf.FlatLightLaf;
-import static com.sun.tools.attach.VirtualMachine.list;
 import javax.swing.*;
 import java.awt.*;
 import static java.nio.file.Files.list;
@@ -27,55 +21,33 @@ public class QuanLyDonHang extends JPanel {
 
     private int idtk;
     private NVGHLoc filter = new NVGHLoc();
-    private TableDonHang listOrder ;
+    private TableDonHang listOrder;
     private final QLDonHangController controller = new QLDonHangController();
+
     public QuanLyDonHang(int idtk) throws SQLException, ClassNotFoundException {
-        /*setTitle("Quản Lý Đơn Hàng");
-        setSize(1300, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);*/
 
-        // Panel Menu
-        //NVGHMenu menu = new NVGHMenu();
-        //add(menu, BorderLayout.WEST);
         setLayout(new BorderLayout());
-
-        // MAIN PANEL: dùng BorderLayout
         JPanel mainPanel = new JPanel(new BorderLayout());
-
-        // 1) Header (thời gian + thời tiết)
         mainPanel.add(new TimeWeather("Hồ Chí Minh 30°C"), BorderLayout.NORTH);
-
-        // 2) Trung tâm gồm filter + bảng, xếp dọc
         JPanel centerPanel = new JPanel(new BorderLayout());
-
-        // 2.1) Thanh lọc lên trên
-        
-        filter.setPreferredSize(new Dimension(0, 60));  // để layout manager tự co giãn chiều ngang
+        filter.setPreferredSize(new Dimension(0, 60));
         centerPanel.add(filter, BorderLayout.NORTH);
-
-        // 2.2) Bảng danh sách xuống dưới
-        // Chuẩn bị header
         String[] columns = {
             "", "Mã đơn hàng", "Tên người nhận", "Địa chỉ", "SĐT nhận",
             "Trạng thái", "Tiền COD", "Thời gian tạo", "SĐT gửi", "Tên người gửi"
         };
 
-        // Chuyển List<DonHang> thành Object[][]
         QLDonHangController dsdh = new QLDonHangController();
         List<DonHang> ds = dsdh.HienThiDSDHChoNVGH(idtk);
 
-        // Tạo bảng ngay cả khi không có dữ liệu
         Object[][] data;
         if (ds == null || ds.isEmpty()) {
-            // Không hiển thị gì nếu rỗng
             data = new Object[0][columns.length];
-            //JOptionPane.showMessageDialog(this, "Không có đơn hàng nào!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
             data = new Object[ds.size()][columns.length];
             for (int i = 0; i < ds.size(); i++) {
                 DonHang dh = ds.get(i);
-                data[i][0] = false;                                    // checkbox
+                data[i][0] = false;
                 data[i][1] = dh.getIdDonHang();
                 data[i][2] = dh.getTenNguoiNhan();
                 data[i][3] = dh.getDiaChiNhan();
@@ -84,20 +56,13 @@ public class QuanLyDonHang extends JPanel {
                 data[i][6] = dh.getTienCOD();
                 data[i][7] = dh.getThoiGianTao();
                 data[i][8] = dh.getSdtNguoiGui();
-                data[i][9] = dh.getTenNguoiGui();  
+                data[i][9] = dh.getTenNguoiGui();
             }
         }
         listOrder = new TableDonHang(columns, data);
         centerPanel.add(listOrder, BorderLayout.CENTER);
-
-        
-        // 3) Gắn centerPanel vào mainPanel
         mainPanel.add(centerPanel, BorderLayout.CENTER);
-
-        // Thêm mainPanel vào JFrame
         add(mainPanel, BorderLayout.CENTER);
-        
-        //Gán sự kiện tìm kiếm đơn hàng
         filter.getfilterButton().addActionListener(e -> {
             try {
                 DonHang dh = filter.getDonHang();
@@ -107,22 +72,26 @@ public class QuanLyDonHang extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
-        //Gan su kien cap nhat "da giao"
-        filter.getDGButton().addActionListener(e ->{
+        filter.getDGButton().addActionListener(e -> {
             try {
-                System.out.print(123);
+                
                 XuLyCapNhatDonHang("Đã giao");
+                HienThiDanhSach(idtk);
+
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        filter.getTBButton().addActionListener(e ->{
+        filter.getTBButton().addActionListener(e -> {
             try {
                 System.out.print(234);
                 XuLyCapNhatDonHang("Giao thất bại");
+                HienThiDanhSach(idtk);
+
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
@@ -130,21 +99,9 @@ public class QuanLyDonHang extends JPanel {
             }
         });
 
-//        topPanel.getupdateButton().addActionListener(e -> {
-//            try {
-//                XuLySuaDonHang();
-//            } catch (SQLException ex) {
-//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (Exception ex) {
-//                Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
-
-        // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSach(idtk);
     }
+
     public final void HienThiDanhSach(int idtk) throws SQLException, ClassNotFoundException {
         List<DonHang> dsDonHang = controller.LayDSDonHangSP(idtk);
         String[] columns = DonHang.getTableHeaders1();
@@ -161,57 +118,33 @@ public class QuanLyDonHang extends JPanel {
         List<DonHang> dsDonHang = controller.LayDSDonHangSP(dh, idtk);
         String[] columns = DonHang.getTableHeaders1();
 
-        // Kiểm tra xem danh sách có trống không
         if (dsDonHang.isEmpty()) {
-            //JOptionPane.showMessageDialog(this, "Không tìm thấy đơn hàng phù hợp!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
-            // Đặt dữ liệu trống cho bảng
             Object[][] data = new Object[0][columns.length];
-            listOrder.setTableData(data);  // Cập nhật bảng với dữ liệu rỗng
+            listOrder.setTableData(data);
             return;
         }
 
-        // Chuyển List<DonHang> thành Object[][] cho bảng
         Object[][] data = new Object[dsDonHang.size()][columns.length];
         for (int i = 0; i < dsDonHang.size(); i++) {
             data[i] = dsDonHang.get(i).toTableRow1();
         }
 
-        // Cập nhật bảng với dữ liệu mới
         listOrder.setTableData(data);
     }
-    public void XuLyCapNhatDonHang(String trangThai) throws SQLException, ClassNotFoundException, Exception  {
+
+    public void XuLyCapNhatDonHang(String trangThai) throws SQLException, ClassNotFoundException, Exception {
         for (int i = 0; i < listOrder.getRowCount(); i++) {
-            Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); // Cột 0 là checkbox
+            Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0);
             if (Boolean.TRUE.equals(isChecked)) {
-                // Lấy thông tin dòng được chọn
-                Integer maDonHang = (Integer) listOrder.getValueAt(i, 1); // cột 1: mã ĐH
-                System.out.println(maDonHang);
-
-                // Gọi hàm xử lý
+                Integer maDonHang = (Integer) listOrder.getValueAt(i, 1);
                 new CapNhatController().CapNhatDHDaGiao(maDonHang, trangThai);
-                HienThiDanhSach(idtk);
-
             }
         }
+
+//        DonHang dh = filter.getDonHang();
+
+
     }
 
-
-
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            try {
-//                UIManager.setLookAndFeel(new FlatLightLaf());
-//            } catch (Exception ex) {
-//                System.err.println("Không thể cài đặt FlatLaf");
-//            }
-//            try {
-//                new QuanLyDonHang().setVisible(true);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
-//    }
 }

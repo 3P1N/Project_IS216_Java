@@ -48,23 +48,19 @@ public class TraCuuDonHangPanel extends JPanel {
             }
         });
 
-        // Hiển thị danh sách ngay khi mở panel
         HienThiDanhSachCuaKH(ID_KhachHang);
         listOrder.getTable().addMouseListener(new MouseAdapter() {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && listOrder.getTable().getSelectedRow() != -1) {
                 int selectedRow = listOrder.getTable().getSelectedRow();
 
-                // Lấy dữ liệu từ dòng được chọn
                 int rowData = 0;
                 
                 rowData = (int) listOrder.getTable().getValueAt(selectedRow, 1);
-                // Chuyển dữ liệu sang đối tượng DonHang (giả sử bạn có hàm khởi tạo phù hợp)
                 System.out.println(rowData);
                 
 
                 try {
-                    // Mở JFrame chi tiết
                     new ThongTinDonHang(rowData).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,15 +1,12 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.DiaChiPanel;
 import appgiaovan.GUI.Components.RoundedButton;
-import appgiaovan.GUI.Components.RoundedComboBox;
 
-import appgiaovan.GUI.Components.RoundedTextField;
 import appgiaovan.GUI.Components.TimeWeather;
 import java.awt.*;
 import java.sql.SQLException;
@@ -106,7 +103,6 @@ public class SuaDonHangFrame extends JFrame {
         diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
         mainPanel.add(this.diaChiPanel);
 
-//        
         String[] dsDichVu = donHangDAO.DSDichVu();
         cbLoaiDichVu = new JComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
@@ -124,17 +120,10 @@ public class SuaDonHangFrame extends JFrame {
         btnSuaDonHang.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar
         btnSuaDonHang.setBackground(new Color(0x007BFF)); // Flat Blue
         mainPanel.add(btnSuaDonHang);
-        //Thêm hình thức thanh toán
 
-//        cbHinhThucThanhToan = new JComboBox(new String[]{
-//            "Chọn hình thức thanh toán", "Tiền mặt", "Thanh toán online", "Thanh toán COD"
-//        });
-//        cbHinhThucThanhToan.setBorder(BorderFactory.createTitledBorder("Hình Thức Thanh Toán *"));
-//        cbHinhThucThanhToan.setBounds(20, 370, 300, 50);
-//        mainPanel.add(cbHinhThucThanhToan);
         add(mainPanel, BorderLayout.CENTER);
         setVisible(true);
-        //Thanh Weather
+        
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
 

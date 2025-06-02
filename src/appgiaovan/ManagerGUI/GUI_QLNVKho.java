@@ -9,9 +9,7 @@ import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.Entity.TaiKhoan;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import javax.swing.*;
-import java.awt.event.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,11 +47,9 @@ public class GUI_QLNVKho extends JPanel {
         pnlTop.add(btnSearch);
         add(pnlTop, BorderLayout.NORTH);
 
-        // table panel
         tblNhanVienKho = new JTable();
         add(new JScrollPane(tblNhanVienKho), BorderLayout.CENTER);
 
-        // sidebar actions
         JButton btnAdd = new JButton("Thêm");
         btnAdd.addActionListener(e -> {
             FormThemNVKho form = null;
@@ -95,13 +91,11 @@ public class GUI_QLNVKho extends JPanel {
         pnlButtons.add(btnDelete);
         add(pnlButtons, BorderLayout.SOUTH);
 
-        // initial load
         hienThiDanhSachNhanVienKho();
     }
 
     public void hienThiDanhSachNhanVienKho() throws ClassNotFoundException {
         List<NhanVienKho> list = controller.layTatCaNhanVienKho();
-        // convert to table model and set
         tblNhanVienKho.setModel(new NhanVienKhoTableModel(list));
     }
 
@@ -129,7 +123,6 @@ public class GUI_QLNVKho extends JPanel {
         }
         int idNhanVien = (int) tblNhanVienKho.getValueAt(row, 0);
 
-    // Bổ sung method trong controller:
         int idTaiKhoan = controller.getIdTaiKhoanByNhanVienKho(idNhanVien);
 
         int choice = JOptionPane.showConfirmDialog(this, "Xóa nhân viên kho?", "Xác nhận", JOptionPane.YES_NO_OPTION);

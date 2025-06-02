@@ -12,7 +12,6 @@ import java.util.List;
 
 public class XemBaoCaoDAO {
 
-    /** Lấy danh sách báo cáo kho, có thể lọc theo keyword (ký báo cáo hoặc ngày tạo) */
     public List<BaoCaoKho> getBaoCaoKho(String keyword) throws SQLException, ClassNotFoundException {
         List<BaoCaoKho> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
@@ -38,7 +37,6 @@ public class XemBaoCaoDAO {
                     BaoCaoKho bc = new BaoCaoKho();
                     bc.setIdBaoCao(rs.getInt("ID_BaoCaoKho"));
                     bc.setIdNhanVien(rs.getInt("ID_NhanVien"));
-                    // ánh xạ NgayTaoBaoCao vào thuộc tính ngayKhoiTao
                     bc.setNgayKhoiTao(rs.getDate("NgayTaoBaoCao"));
                     bc.setKyBaoCao(rs.getDate("KyBaoCao"));
                     bc.setSoGoiHangNhap(rs.getInt("SoGoiHangNhap"));
@@ -51,7 +49,6 @@ public class XemBaoCaoDAO {
         return list;
     }
 
-    /** Lấy danh sách báo cáo giao hàng, có thể lọc theo keyword (ngày tạo) */
     public List<BaoCaoGiaoHang> getBaoCaoGiaoHang(String keyword) throws SQLException, ClassNotFoundException {
         List<BaoCaoGiaoHang> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder(
@@ -74,7 +71,6 @@ public class XemBaoCaoDAO {
                 while (rs.next()) {
                     BaoCaoGiaoHang bc = new BaoCaoGiaoHang();
                     bc.setIdBaoCao(rs.getInt("ID_BaoCaoGiaoHang"));
-                    // ánh xạ ID_NVGiaoHang vào thuộc tính idNhanVien
                     bc.setIdNhanVien(rs.getInt("ID_NVGiaoHang"));
                     bc.setNgayKhoiTao(rs.getDate("NgayKhoiTao"));
                     bc.setTongDonHangDaGiao(rs.getInt("TongDonHangDaGiao"));

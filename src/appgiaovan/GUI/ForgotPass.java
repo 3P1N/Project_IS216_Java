@@ -33,7 +33,7 @@ public class ForgotPass extends JFrame {
         JButton sendBtn = new JButton("Gửi yêu cầu");
         sendBtn.addActionListener(ev -> {
             String input = emailField.getText().trim();
-            // TODO: Gọi backend gửi mail/OTP
+            //  Gọi backend gửi mail/OTP
             String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
             EmailSender.sendEmail(input, generatedCode);
             new VerificationForm(generatedCode,input).setVisible(true);

@@ -24,7 +24,6 @@ public class TaiKhoanDAO {
 
                     String passH = rs.getString("MatKhauMaHoa");
 
-                    // So sánh mật khẩu sau khi mã hóa
                     if (passH.equals(hashPassword(pass))) {
                         int id = rs.getInt("ID_TAIKHOAN");
                         String vaiTro = rs.getString("VaiTro");
@@ -34,7 +33,6 @@ public class TaiKhoanDAO {
             }
         }
 
-        // Trả về null nếu sai tên đăng nhập hoặc mật khẩu
         return null;
     }
 
@@ -54,13 +52,12 @@ public class TaiKhoanDAO {
 
                     tk.setVaiTro(rs.getString("VaiTro"));
                 } else {
-                    return null; // Không tìm thấy tài khoản
+                    return null; 
                 }
             }
 
             System.out.println("Đây là " + tk.getVaiTro());
 
-            // Nếu tìm thấy, tiếp tục lấy thông tin từ bảng tương ứng
             String vaiTro = tk.getVaiTro();
             String hoTen = null;
 
@@ -200,7 +197,7 @@ public class TaiKhoanDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // hoặc log lỗi nếu cần
+            e.printStackTrace(); 
         }
     }
 
