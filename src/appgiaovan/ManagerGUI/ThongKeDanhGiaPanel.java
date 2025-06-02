@@ -87,6 +87,7 @@ public class ThongKeDanhGiaPanel extends JPanel {
         chartPanel.setPreferredSize(new Dimension(500, 300));
         chartPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        
         JPanel infoPanel = new JPanel(new GridLayout(2, 2, 10, 5));
         infoPanel.setBorder(BorderFactory.createTitledBorder("Thông tin tổng quan"));
 
@@ -104,11 +105,11 @@ public class ThongKeDanhGiaPanel extends JPanel {
         infoPanel.add(lblNgay);
         infoPanel.add(txtNgay);
 
-        // Thêm vào panel chính
+        
         add(infoPanel, BorderLayout.NORTH);
         add(chartPanel, BorderLayout.CENTER);
 
-        // Tạo nút Export PDF
+        
         JButton btnExportPDF = new JButton("Xuất PDF");
         btnExportPDF.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btnExportPDF.setBackground(new Color(0, 123, 255));
@@ -130,7 +131,7 @@ public class ThongKeDanhGiaPanel extends JPanel {
         btnSendMail.setBackground(new Color(33, 150, 243));
         btnSendMail.setFocusPainted(false);
         btnSendMail.addActionListener(e -> {
-            EmailSender.sendFileByEmail(); // Gọi hàm trong lớp SendMail
+            EmailSender.sendFileByEmail(); 
         });
 
         buttonPanel.add(btnSendMail);
@@ -148,7 +149,7 @@ public class ThongKeDanhGiaPanel extends JPanel {
             JFrame frame = new JFrame("Quản Lý Khách Hàng");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1300, 600);
-            frame.setLocationRelativeTo(null); // Center the frame
+            frame.setLocationRelativeTo(null); 
             ThongKeDanhGiaPanel panel = new ThongKeDanhGiaPanel();
             frame.setContentPane(panel);
             frame.setVisible(true);

@@ -4,21 +4,10 @@
  */
 package appgiaovan.ShipperGUI;
 
-import appgiaovan.EmployeeGUI.EmployeeSidebar;
-import appgiaovan.GUI.Components.RoundedPanel;
-import appgiaovan.GUI.Components.MenuBar;
 import appgiaovan.GUI.Components.ThongTinCaNhan;
-import appgiaovan.GUI.Components.TimeWeather;
 import appgiaovan.GUI.LOGIN;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
-import java.awt.event.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import appgiaovan.ShipperGUI.NVGHMenu;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

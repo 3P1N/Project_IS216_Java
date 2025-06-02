@@ -24,9 +24,8 @@ public class DiaChiPanel extends JPanel {
     public DiaChiPanel() {
         setOpaque(true);
         setBackground(Color.WHITE);
-        setLayout(null); // Layout tự do
+        setLayout(null); 
 
-        // Khởi tạo combobox
         cbTinh = new JComboBox<>();
         cbTinh.setBorder(BorderFactory.createTitledBorder("Tỉnh/Thành *"));
         
@@ -36,19 +35,16 @@ public class DiaChiPanel extends JPanel {
         cbXa = new JComboBox<>();
         cbXa.setBorder(BorderFactory.createTitledBorder("Xã/Phường *"));
 
-        // Đặt vị trí và kích thước cố định
         cbTinh.setBounds(0, 0, 150, 50);
         cbHuyen.setBounds(160, 0, 150, 50);
         cbXa.setBounds(320, 0, 150, 50);
 
-        // Thêm trực tiếp vào panel chính
         add(cbTinh);
         add(cbHuyen);
         add(cbXa);
 
         setPreferredSize(new Dimension(480, 40));
 
-        // Load dữ liệu & setup event
         loadData();
         setupEvents();
     }
@@ -78,7 +74,6 @@ public class DiaChiPanel extends JPanel {
             quanByTinh = huyenList.stream().collect(Collectors.groupingBy(q -> q.parent_code));
             xaByQuan = xaList.stream().collect(Collectors.groupingBy(x -> x.parent_code));
 
-            // Đổ tỉnh vào combobox sau khi load xong
             for (TinhThanh t : tinhList) {
                 cbTinh.addItem(t);
             }
@@ -113,7 +108,6 @@ public class DiaChiPanel extends JPanel {
         });
     }
 
-    // Các phương thức lấy dữ liệu đã chọn
     public String getSelectedTinh() {
         TinhThanh tinh = (TinhThanh) cbTinh.getSelectedItem();
         return tinh != null ? tinh.name : null;

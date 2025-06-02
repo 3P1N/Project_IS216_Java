@@ -15,12 +15,11 @@ public class TableList extends JPanel {
         model = new DefaultTableModel(data, columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 0; // chỉ cho phép chỉnh sửa cột đầu (checkbox)
+                return column == 0; 
             }
 
             @Override
             public Class<?> getColumnClass(int column) {
-                // Cột 0 là checkbox (Boolean), các cột khác String
                 return column == 0 ? Boolean.class : String.class;
             }
         };
@@ -57,7 +56,7 @@ public class TableList extends JPanel {
         }
 
         if (columnNames.length > 0) {
-            table.getColumnModel().getColumn(0).setMaxWidth(30); // cột checkbox nhỏ gọn
+            table.getColumnModel().getColumn(0).setMaxWidth(30); 
         }
 
         add(new JScrollPane(table), BorderLayout.CENTER);
@@ -65,7 +64,7 @@ public class TableList extends JPanel {
 
    
     public void setTableData(Object[][] newData) {
-        model.setRowCount(0); // Xóa dữ liệu cũ
+        model.setRowCount(0); 
 
         for (Object[] row : newData) {
             if (row.length > 0) {
@@ -76,7 +75,7 @@ public class TableList extends JPanel {
                     } else if (val instanceof String strVal) {
                         row[0] = strVal.equalsIgnoreCase("true") || strVal.equals("1");
                     } else {
-                        row[0] = false; // mặc định false nếu không phải kiểu trên
+                        row[0] = false; 
                     }
                 }
             }
@@ -107,7 +106,6 @@ public class TableList extends JPanel {
             frame.add(tableList);
             frame.setVisible(true);
 
-            // Test cập nhật dữ liệu sau 3 giây
             new Timer(3000, e -> {
                 Object[][] newData = {
                     {"true", "004", "Sản phẩm D", "300.000"},

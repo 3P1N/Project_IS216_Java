@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
-/**
- * JPanel với nền bo góc.
- */
 public class RoundedPanel extends JPanel {
 
     private final int cornerRadius;
@@ -22,17 +19,13 @@ public class RoundedPanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Vẽ nền bo góc
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
 
         g2.dispose();
-        super.paintComponent(g); // Gọi sau để không ghi đè lên nền
+        super.paintComponent(g); 
     }
 
-    /**
-     * Tạo một panel thống kê đẹp với bo góc.
-     */
     public static JPanel createStatBox(String title, String value, String subtitle, Color bgColor) {
         RoundedPanel panel = new RoundedPanel(20);
         panel.setBackground(bgColor);
@@ -59,7 +52,6 @@ public class RoundedPanel extends JPanel {
         return panel;
     }
 
-    // ===================== CUSTOM ROUNDED LABEL =====================
     public static class RoundedLabel extends JLabel {
 
         private final int radius;

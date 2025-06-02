@@ -10,11 +10,7 @@ package appgiaovan.ManagerGUI;
  */
 import appgiaovan.DAO.DoanhThuLoiNhuanDAO;
 import appgiaovan.Entity.DoanhThuLoiNhuan;
-import appgiaovan.ManagerGUI.ManagerSidebar;
-
 import appgiaovan.GUI.Components.RoundedPanel;
-
-import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -22,7 +18,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import org.jfree.chart.*;
 import org.jfree.chart.axis.*;
 import org.jfree.chart.plot.*;
@@ -37,11 +32,8 @@ public class ManagerMainScreen extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // Sidebar trái
-        // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        // Các ô thống kê
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
         statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
@@ -67,7 +59,6 @@ public class ManagerMainScreen extends JPanel {
                 PlotOrientation.VERTICAL, true, true, false
         );
 
-        // Tùy chỉnh plot
         CategoryPlot plot = lineChart.getCategoryPlot();
         plot.setBackgroundPaint(new GradientPaint(0, 0, new Color(245, 245, 245), 0, 600, Color.WHITE));
         plot.setOutlineVisible(false);
@@ -75,7 +66,6 @@ public class ManagerMainScreen extends JPanel {
         plot.setRangeGridlinePaint(new Color(200, 200, 200));
         plot.setDomainGridlinesVisible(false);
 
-        // Tùy chỉnh renderer
         LineAndShapeRenderer renderer = new LineAndShapeRenderer();
         renderer.setSeriesPaint(0, new Color(33, 150, 243));
         renderer.setSeriesStroke(0, new BasicStroke(3f));
@@ -83,7 +73,6 @@ public class ManagerMainScreen extends JPanel {
         renderer.setSeriesShape(0, new java.awt.geom.Ellipse2D.Double(-4, -4, 8, 8));
         plot.setRenderer(renderer);
 
-        // Tùy chỉnh trục
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         domainAxis.setTickLabelFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -94,16 +83,14 @@ public class ManagerMainScreen extends JPanel {
         rangeAxis.setTickLabelFont(new Font("Segoe UI", Font.PLAIN, 12));
         rangeAxis.setAxisLineVisible(false);
 
-        // Thêm chart vào panel
         ChartPanel chartPanel = new ChartPanel(lineChart);
         chartPanel.setPreferredSize(new Dimension(900, 350));
         chartPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.add(chartPanel, BorderLayout.CENTER);
 
-        // Thêm vào JFrame
         add(mainPanel, BorderLayout.CENTER);
 
-        int delay = 600; // 60000 ms = 1 phút
+        int delay = 600; 
         new javax.swing.Timer(delay, e -> loadChartData()).start();
 
     }
@@ -112,7 +99,7 @@ public class ManagerMainScreen extends JPanel {
         try {
             List<DoanhThuLoiNhuan> list = new DoanhThuLoiNhuanDAO().getListDoanhThuLoiNhuan();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
-            dataset.clear();  // Xóa dữ liệu cũ trước khi thêm mới
+            dataset.clear();
 
             for (DoanhThuLoiNhuan dtln : list) {
                 String ngay = sdf.format(dtln.getThang());
@@ -135,7 +122,7 @@ public class ManagerMainScreen extends JPanel {
                 JFrame frame = new JFrame("Quản Lý Khách Hàng");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setSize(1300, 600);
-                frame.setLocationRelativeTo(null); // Center the frame
+                frame.setLocationRelativeTo(null); 
 
                 ManagerMainScreen panel = new ManagerMainScreen();
                 frame.setContentPane(panel);

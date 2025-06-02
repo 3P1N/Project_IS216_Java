@@ -284,7 +284,7 @@ public class DonHangDAO {
 
     public List<DonHang> LayDSDonHangCuaKH(DonHang donHang, int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 AND ID_KhachHang=? ORDER BY ID_DonHang");
+        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 AND ID_KhachHang=? ");
 
         List<Object> params = new ArrayList<>();
         params.add(ID_KhachHang);
@@ -295,7 +295,7 @@ public class DonHangDAO {
         }
 
         if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
-            System.out.println(donHang.getTrangThai());
+          
 
             sql.append(" AND TrangThai LIKE ?");
             params.add("%" + donHang.getTrangThai() + "%");
@@ -306,7 +306,7 @@ public class DonHangDAO {
             params.add("%" + donHang.getTenNguoiGui() + "%");
         }
 
-        sql.append(" ORDER BY ID_DonHang");
+        sql.append(" ORDER BY ID_DonHang DESC");
 
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
@@ -344,7 +344,7 @@ public class DonHangDAO {
     public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang=" + Integer.toString(ID_KhachHang)+" ORDER BY ID_DonHang";
+        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang=" + Integer.toString(ID_KhachHang)+" ORDER BY ID_DonHang DESC";
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -485,7 +485,7 @@ public class DonHangDAO {
             params.add("%" + donHang.getTenNguoiGui() + "%");
         }
 
-        sql.append(" ORDER BY ID_DonHang");
+        sql.append(" ORDER BY ID_DonHang DESC");
 
         
                 PreparedStatement stmt = conn.prepareStatement(sql.toString()); 

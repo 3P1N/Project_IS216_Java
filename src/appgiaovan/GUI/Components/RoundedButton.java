@@ -9,7 +9,7 @@ public class RoundedButton extends JButton {
     private final int radius;
 
     public RoundedButton(String text) {
-        this(text, 30); // default radius
+        this(text, 30);
     }
 
     public RoundedButton(String text, int radius) {
@@ -20,17 +20,15 @@ public class RoundedButton extends JButton {
         setBorderPainted(false);
         setOpaque(false);
 
-        // Optional: set style consistent with FlatLaf
         setFont(new Font("Segoe UI", Font.PLAIN, 14));
         setForeground(Color.WHITE);
-        setBackground(new Color(45, 140, 240)); // FlatLaf primary blue
+        setBackground(new Color(45, 140, 240)); 
         setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
-    // Constructor mới: tạo RoundedButton từ một JButton sẵn có
     public RoundedButton(JButton button, int radius) {
         super(button.getText());
-        this.radius = radius; // hoặc lấy từ clientProperty nếu muốn linh hoạt
+        this.radius = radius;
         copyButtonProperties(button);
         initDefaultStyle();
     }
@@ -78,7 +76,6 @@ public class RoundedButton extends JButton {
 
     @Override
     protected void paintBorder(Graphics g) {
-        // No border to keep the look clean
     }
 
     @Override
