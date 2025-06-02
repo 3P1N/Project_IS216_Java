@@ -31,7 +31,7 @@ public class NVGHMenu extends JPanel {
     }
 
     public void addMenuClickListener(MenuClickListener listener) {
-        menu.addMenuClickListener(listener); // Gọi tới MenuBar để gán listener
+        menu.addMenuClickListener(listener); 
     }
 
     public static void main(String[] args) {
