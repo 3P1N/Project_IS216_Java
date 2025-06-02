@@ -180,7 +180,7 @@ public class QuanLyDonHangPanel extends JPanel {
     }
 
     public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
-        List<DonHang> dsDonHang = controller.LayDSDonHangCuaNVK(dh, nhanVienKho);
+        List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
 

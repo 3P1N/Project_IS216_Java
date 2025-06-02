@@ -26,7 +26,7 @@ public class ForgotPass extends JFrame {
 
         // Nhập email hoặc username
         JTextField emailField = new JTextField();
-        panel.add(new JLabel("Nhập email hoặc tên đăng nhập:"));
+        panel.add(new JLabel("Nhập email:"));
         panel.add(emailField);
 
         // Nút gửi
