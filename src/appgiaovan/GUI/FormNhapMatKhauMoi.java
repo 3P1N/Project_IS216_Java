@@ -5,15 +5,9 @@
 package appgiaovan.GUI;
 
 import appgiaovan.Controller.DangKyController;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingUtilities;
 import static appgiaovan.PasswordHashing.hashPassword;
@@ -35,7 +29,7 @@ public class FormNhapMatKhauMoi extends JFrame {
         setSize(400, 220);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(null); // ✅ Dùng layout tuyệt đối
+        setLayout(null);
 
         JLabel lblMatKhauMoi = new JLabel("Mật khẩu mới:");
         JLabel lblXacNhanMatKhau = new JLabel("Xác nhận mật khẩu:");
@@ -44,7 +38,6 @@ public class FormNhapMatKhauMoi extends JFrame {
         txtXacNhanMatKhau = new JPasswordField();
         btnXacNhan = new JButton("Xác nhận");
 
-        // Đặt vị trí và kích thước các thành phần
         lblMatKhauMoi.setBounds(50, 30, 120, 25);
         txtMatKhauMoi.setBounds(180, 30, 150, 25);
 
@@ -53,7 +46,6 @@ public class FormNhapMatKhauMoi extends JFrame {
 
         btnXacNhan.setBounds(140, 120, 100, 30);
 
-        // Thêm các thành phần vào frame
         add(lblMatKhauMoi);
         add(txtMatKhauMoi);
         add(lblXacNhanMatKhau);

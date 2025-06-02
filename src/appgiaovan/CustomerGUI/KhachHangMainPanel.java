@@ -6,14 +6,11 @@ package appgiaovan.CustomerGUI;
 
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.GUI.Components.RoundedPanel;
-import appgiaovan.GUI.Components.MenuBar;
-import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.*;
 import org.jfree.data.category.*;
-import appgiaovan.GUI.Components.TimeWeather;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,11 +18,9 @@ import java.util.logging.Logger;
      QLDonHangController qlDonHangController=new QLDonHangController();
     public KhachHangMainPanel(int ID_KhachHang) throws SQLException, ClassNotFoundException{
         setLayout(new BorderLayout());
-        //Khu vuc trung tâm
         JPanel mainPanel = new JPanel(new BorderLayout());
-        // Thêm vào JFrame
         add(mainPanel, BorderLayout.CENTER);
-        //Thanh Weather
+        
         JPanel statPanel = new JPanel(new GridLayout(1, 4, 10, 10));
         statPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         int TongSoDon=qlDonHangController.LayTongSoDon(ID_KhachHang);

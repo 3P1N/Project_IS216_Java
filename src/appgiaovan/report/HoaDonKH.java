@@ -8,22 +8,11 @@ package appgiaovan.report;
  *
  * @author ASUS
  */
-import appgiaovan.ConnectDB.ConnectionUtils;
-import appgiaovan.CustomerGUI.KHTaoDonHangPanel;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.NumberFormat; 
-import java.util.Locale; 
-import javax.swing.JOptionPane;
 import java.awt.Desktop; // Để mở file PDF sau khi tạo [cite: 95]
-
-import java.util.HashMap;
-import java.util.Map;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -35,10 +24,6 @@ import appgiaovan.ConnectDB.ConnectionUtils;
 
 public class HoaDonKH {
 
-//    public void main(String[] args) {
-//        int idDonHang = 87; // ID đơn hàng truyền vào
-//        XuatHD(idDonHang);
-//    }
     private String filePath;
 
     public String getFilePath() {
@@ -51,7 +36,6 @@ public class HoaDonKH {
         ResultSet rs = null;
 
         try {
-            // Kết nối CSDL
             conn = ConnectionUtils.getMyConnection();
 
             // Truy vấn đơn hàng
@@ -61,7 +45,6 @@ public class HoaDonKH {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                // Lấy dữ liệu
                 String tenNguoiGui = rs.getString("TenNguoiGui");
                 String sdtNguoiGui = rs.getString("TenNguoiNhan");
                 String tenNguoiNhan = rs.getString("TenNguoiNhan");
@@ -73,21 +56,18 @@ public class HoaDonKH {
                 String loaiHang = rs.getString("LoaiHangHoa");
                 String dichVu = rs.getString("DichVu");
 
-                // Tạo PDF
                 Document document = new Document(PageSize.A6, 20, 20, 20, 20);
                 filePath = "exportpdf" + "/hoadon_" + idDonHang + ".pdf";
                 PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
                 document.open();
 
-                // Font unicode
                 BaseFont bf = BaseFont.createFont("src/VietFontsWeb1_ttf/vuTimes.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
                 Font font = new Font(bf, 12);
                 Font titleFont = new Font(bf, 16, Font.BOLD);
                 Font normalFont = new Font(bf, 11, Font.NORMAL);
                 Font boldFont = new Font(bf, 11, Font.BOLD);
 
-                // Tiêu đề
                 Paragraph title = new Paragraph("HÓA ĐƠN", titleFont);
                 title.setAlignment(Element.ALIGN_CENTER);
                 document.add(title);
@@ -109,7 +89,6 @@ public class HoaDonKH {
                 document.add(orderCode);
                 document.add(Chunk.NEWLINE);
 
-                // Bảng người gửi và nhận
                 PdfPTable table = new PdfPTable(2);
                 table.setWidthPercentage(100);
                 table.setWidths(new float[]{1, 1});
@@ -128,9 +107,7 @@ public class HoaDonKH {
                 table.addCell(cellReceiver);
 
                 document.add(table);
-               // document.add(Chunk.NEWLINE);
 
-                // Bảng thông tin chi tiết
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 PdfPTable infoTable = new PdfPTable(2);
                 infoTable.setWidthPercentage(100);
@@ -148,8 +125,7 @@ public class HoaDonKH {
                 infoTable.addCell(new Phrase(String.format("%,.0f đ", tienCod), normalFont));
                 
                 
-                document.add(infoTable); 
-// Mã QR ở góc dưới bên phải
+                document.add(infoTable);
                 BarcodeQRCode qrcode = new BarcodeQRCode("ID: " + idDonHang, 80, 80, null);
                 Image qrImage = qrcode.getImage();
                 qrImage.setAbsolutePosition(document.right() - 70, document.top() - 90);
@@ -158,7 +134,6 @@ public class HoaDonKH {
                
 
                 System.out.println("Đã xuất hoadon_" + idDonHang + ".pdf");
-                // Mở file PDF sau khi tạo
                 File pdfFile = new File(filePath);
                 if (pdfFile.exists()) {
                     if (Desktop.isDesktopSupported()) {
@@ -180,30 +155,4 @@ public class HoaDonKH {
 }
     
 
-   /* try {
-        // Lấy ID đơn hàng mới tạo (giả sử bạn có hàm lấy ID mới nhất của khách hàng)
-        int idDonHangMoi = donHangDAO.layIDDHCuoiCungCuaKhach(ID_KhachHang); // bạn cần triển khai hàm này
-
-        // Nạp file JRXML và biên dịch
-        JasperReport jasperReport = JasperCompileManager.compileReport("src\\appgiaovan\\report\\HoaDonKH.jrxml");
-
-        // Truyền tham số
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("id_donhang", idDonHangMoi);
-
-        // Kết nối CSDL
-        java.sql.Connection conn = DriverManager.getConnection(
-                "jdbc:oracle:thin:@localhost:1521:orcl", "DoAnGiaoVan",
-    "Admin123");
-
-        // Điền dữ liệu vào report
-        JasperPrint print;
-        print = JasperFillManager.fillReport(jasperReport, parameters, conn);
-
-        // Hiển thị hoặc xuất PDF
-        JasperViewer.viewReport(print, false); // Hiển thị report
-        // JasperExportManager.exportReportToPdfFile(print, "HoaDon_" + idDonHangMoi + ".pdf"); // Xuất PDF file
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(KHTaoDonHangPanel.this, "Lỗi khi tạo báo cáo PDF: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-    }*/
+   

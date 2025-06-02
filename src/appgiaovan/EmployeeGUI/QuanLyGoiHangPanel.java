@@ -1,7 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLGHController;
-import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.GoiHang;
 import appgiaovan.Entity.NhanVienKho;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -78,11 +77,11 @@ public class QuanLyGoiHangPanel extends JPanel {
             }
         });
 
-        HienThiDSGoiHang();
+        HienThiDSGoiHangTheoKho();
     }
 
-    void HienThiDSGoiHang() throws SQLException, ClassNotFoundException {
-        java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHang();
+    void HienThiDSGoiHangTheoKho() throws SQLException, ClassNotFoundException {
+        java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHangTheoKho(nhanVienKho.getID_Kho());
         String[] columns = GoiHang.getTableHeaders();
         Object[][] data = new Object[dsGoiHang.size()][columns.length];
 
@@ -94,7 +93,7 @@ public class QuanLyGoiHangPanel extends JPanel {
     }
 
     void HienThiDSGoiHang(GoiHang goiHang) throws SQLException, ClassNotFoundException {
-        java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHang(goiHang);
+        java.util.List<GoiHang> dsGoiHang = controller.LayDSGoiHangTheoKho(goiHang, nhanVienKho.getID_Kho());
         String[] columns = GoiHang.getTableHeaders();
         Object[][] data = new Object[dsGoiHang.size()][columns.length];
 
@@ -108,7 +107,7 @@ public class QuanLyGoiHangPanel extends JPanel {
     public void ThemGoiHang() throws SQLException, ClassNotFoundException {
         ThemGoiHangFrame themGoiHang = new ThemGoiHangFrame(() -> {
             try {
-                HienThiDSGoiHang();
+                HienThiDSGoiHangTheoKho();
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyGoiHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -129,12 +128,11 @@ public class QuanLyGoiHangPanel extends JPanel {
                 // Gọi hàm xử lý
                 controller.HoanThanhGoiHang(maGoiHang);
                 JOptionPane.showMessageDialog(this, "Xác nhận gói hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-                HienThiDSGoiHang();
+                HienThiDSGoiHangTheoKho();
             }
         }
     }
     
-    // Dùng để test panel trong một JFrame
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());

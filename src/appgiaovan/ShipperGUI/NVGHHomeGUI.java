@@ -19,48 +19,20 @@ public class NVGHHomeGUI extends JPanel {
 
     private DonHangDAO dh = new DonHangDAO();
     public NVGHHomeGUI(int idtk) throws SQLException, ClassNotFoundException {
-       /* setTitle("Shipper - 3P1N đơn vị giao vận");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1200, 700);
-        setLocationRelativeTo(null);
-        setLayout(new BorderLayout());*/
-
-           //tao menu
-        //NVGHMenu menu = new NVGHMenu();
+      
         setLayout(new BorderLayout());
-        // Khu vực trung tâm (dashboard)
         JPanel mainPanel = new JPanel(new BorderLayout());
 
         mainPanel.add(new TimeWeather("Hồ Chí Minh 30°C"), BorderLayout.NORTH );
-        // Các ô thống kê - dùng lưới 2x2
         JPanel statPanel = new JPanel(new GridLayout(2, 2, 40, 40));
         statPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
-        statPanel.setPreferredSize(new Dimension(500, 500)); // tăng kích thước các ô thống kê
+        statPanel.setPreferredSize(new Dimension(500, 500)); 
         
-//        int danggiao = dh.laysldh(idtk, "Đang giao");
-//        int dagiao = dh.laysldh(idtk, "Đã giao");
-//        int giaotb = dh.laysldh(idtk, "Giao thất bại");
-        
-//        statPanel.add(RoundedPanel.createStatBox("ĐANG GIAO", String.valueOf(danggiao), "",new Color(76, 175, 80)));
-//        statPanel.add(RoundedPanel.createStatBox("GIAO THÀNH CÔNG", String.valueOf(dagiao), "",new Color(33, 150, 243)));
-//        statPanel.add(RoundedPanel.createStatBox("GIAO THẤT BẠI", String.valueOf(giaotb), "", new Color(255, 152, 0)));
-//        statPanel.add(RoundedPanel.createStatBox("DOANH THU", String.valueOf(danggiao), "", new Color(121, 85, 72)));
-
-        // Wrapper để căn giữa statPanel
         JPanel centerWrapper = new JPanel(new GridBagLayout());
         centerWrapper.add(statPanel);
 
-        // Đưa wrapper vào giữa mainPanel
         mainPanel.add(centerWrapper, BorderLayout.CENTER);
-
-        // Thêm vào JFrame
-        //add(menu, BorderLayout.WEST);
         add(mainPanel, BorderLayout.CENTER);
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            new NVGHHomeGUI().setVisible(true);
-//        });
-//    }
 }

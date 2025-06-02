@@ -52,6 +52,7 @@ public class ThongKeDanhGiaPanel extends JPanel {
         }
         try {
             list = controller.getListTKDanhGia(); // Giả sử DAO tồn tại
+            System.out.println(list.size());
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ThongKePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,10 +62,8 @@ public class ThongKeDanhGiaPanel extends JPanel {
             return;
         }
 
-        // Dùng dữ liệu gần nhất (cuối danh sách)
         TK_DanhGia latest = list.get(list.size() - 1);
 
-        // Tạo PieDataset
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("1 sao", latest.getSoLuong1Sao());
         dataset.setValue("2 sao", latest.getSoLuong2Sao());
@@ -72,7 +71,6 @@ public class ThongKeDanhGiaPanel extends JPanel {
         dataset.setValue("4 sao", latest.getSoLuong4Sao());
         dataset.setValue("5 sao", latest.getSoLuong5Sao());
 
-        // Tạo PieChart
         JFreeChart pieChart = ChartFactory.createPieChart(
                 "Tỷ lệ đánh giá sao", dataset, true, true, false);
 
@@ -86,12 +84,11 @@ public class ThongKeDanhGiaPanel extends JPanel {
         plot.setSimpleLabels(true);
         plot.setCircular(true);
 
-        // Panel biểu đồ
         ChartPanel chartPanel = new ChartPanel(pieChart);
         chartPanel.setPreferredSize(new Dimension(500, 300));
         chartPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Panel phía trên biểu đồ: Tổng lượt đánh giá + Ngày báo cáo
+        
         JPanel infoPanel = new JPanel(new GridLayout(2, 2, 10, 5));
         infoPanel.setBorder(BorderFactory.createTitledBorder("Thông tin tổng quan"));
 
@@ -109,11 +106,11 @@ public class ThongKeDanhGiaPanel extends JPanel {
         infoPanel.add(lblNgay);
         infoPanel.add(txtNgay);
 
-        // Thêm vào panel chính
+        
         add(infoPanel, BorderLayout.NORTH);
         add(chartPanel, BorderLayout.CENTER);
 
-        // Tạo nút Export PDF
+        
         JButton btnExportPDF = new JButton("Xuất PDF");
         btnExportPDF.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btnExportPDF.setBackground(new Color(0, 123, 255));
@@ -135,7 +132,7 @@ public class ThongKeDanhGiaPanel extends JPanel {
         btnSendMail.setBackground(new Color(33, 150, 243));
         btnSendMail.setFocusPainted(false);
         btnSendMail.addActionListener(e -> {
-            EmailSender.sendFileByEmail(); // Gọi hàm trong lớp SendMail
+            EmailSender.sendFileByEmail(); 
         });
 
         buttonPanel.add(btnSendMail);
@@ -153,7 +150,7 @@ public class ThongKeDanhGiaPanel extends JPanel {
             JFrame frame = new JFrame("Quản Lý Khách Hàng");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1300, 600);
-            frame.setLocationRelativeTo(null); // Center the frame
+            frame.setLocationRelativeTo(null); 
             ThongKeDanhGiaPanel panel = new ThongKeDanhGiaPanel();
             frame.setContentPane(panel);
             frame.setVisible(true);

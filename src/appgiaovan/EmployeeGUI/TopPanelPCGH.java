@@ -4,13 +4,10 @@
  */
 package appgiaovan.EmployeeGUI;
 
-import appgiaovan.DAO.KhoHangDAO;
 import appgiaovan.DAO.NhanVienGiaoHangDAO;
-import appgiaovan.Entity.KhoHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedComboBox;
-
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
@@ -28,10 +25,6 @@ public class TopPanelPCGH extends JPanel {
         setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         setBackground(Color.WHITE);
 
-        // TextField - ID
-        
-
-        
         List<NhanVienGiaoHang> dsShipper = nhanVienGiaoHangDAO.LayDSNhanVienGiaoHangTheoKho(idKho);
         cbSelectShipper = new RoundedComboBox();
         for(NhanVienGiaoHang nv : dsShipper){

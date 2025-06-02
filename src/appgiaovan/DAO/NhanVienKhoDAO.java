@@ -11,11 +11,8 @@ package appgiaovan.DAO;
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.NhanVienKho;
 import appgiaovan.Entity.TaiKhoan;
-
 import java.sql.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,7 +138,7 @@ public class NhanVienKhoDAO {
     }
     
     public List<NhanVienKho> layTatCaNhanVienKho() throws SQLException, ClassNotFoundException {
-    String sql = "SELECT * FROM NhanVienKho n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0";
+    String sql = "SELECT * FROM NhanVienKho n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0 ORDER BY ID_NhanVien";
     try (Connection conn = ConnectionUtils.getMyConnection(); 
             PreparedStatement ps = conn.prepareStatement(sql); 
             ResultSet rs = ps.executeQuery()) {
@@ -205,11 +202,10 @@ public class NhanVienKhoDAO {
               
                 stmt.registerOutParameter(1, Types.INTEGER); 
 
-                // Set IN parameters
-                stmt.setString(2, tk.getTenTaiKhoan());           // p_TenTaiKhoan
-                stmt.setString(3, tk.getMatKhauMaHoa());        // p_MatKhauMaHoa
+                
+                stmt.setString(2, tk.getTenTaiKhoan());          
+                stmt.setString(3, tk.getMatKhauMaHoa());        
 
-                // Gọi hàm
                 stmt.execute();
 
                 int idTaiKhoan = stmt.getInt(1); // Lấy kết quả trả về
@@ -217,7 +213,6 @@ public class NhanVienKhoDAO {
             }
 
         } catch (SQLException e) {
-            // Xử lý lỗi chi tiết
             if (e.getErrorCode() == 20011) {
                 System.err.println("Tên tài khoản đã tồn tại.");
             } else {

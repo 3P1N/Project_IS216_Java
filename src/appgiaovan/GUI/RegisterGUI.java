@@ -4,7 +4,6 @@
  */
 package appgiaovan.GUI;
 import appgiaovan.Controller.DangKyController;
-import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.EmailSender;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
@@ -34,27 +33,21 @@ public class RegisterGUI extends JFrame{
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // Tạo một JPanel chính để chứa background và LoginPanel
         JPanel mainPanel = new JPanel(null);
         mainPanel.setLayout(null);
-        mainPanel.setBounds(0, 0, 900, 600); // Kích thước của toàn bộ frame
+        mainPanel.setBounds(0, 0, 900, 600); 
         add(mainPanel);
 
-        // Load hình nền
         JLabel background = new JLabel(new javax.swing.ImageIcon(getClass().getResource("/images/warehouse_11zon.jpg")));// Thay bằng hình bạn muốn
         URL imageUrl = getClass().getResource("/images/warehouse_11zon.jpg");
         System.out.println("Image URL: " + imageUrl);
 
         background.setBounds(0, 0, 900, 600);
-       // mainPanel.add(background);
-
-        // Panel chính để nhập register
         JPanel registerPanel = new JPanel();
         registerPanel.setBounds(275, 10, 350, 540);
         registerPanel.setBackground(Color.WHITE);
         registerPanel.setLayout(null);
         registerPanel.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
-       // mainPanel.add(registerPanel);
 
         JLabel logo = new JLabel("Đăng ký tài khoản mới");
         logo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -126,12 +119,10 @@ public class RegisterGUI extends JFrame{
         registerPanel.add(dkyButton);
         
         
-        // Label "Bạn chưa có tài khoản?" 
         JLabel infoLabel = new JLabel("Bạn đã có tài khoản?");
         infoLabel.setBounds(70, 515, 150, 20);
         registerPanel.add(infoLabel);
 
-        // Label "Đăng nhap ngay" - có thể click chuyển giao diện
         JLabel loginLabel = new JLabel("Đăng nhập ngay");
         loginLabel.setBounds(190, 515, 100, 20);
         loginLabel.setForeground(Color.BLUE);
@@ -153,7 +144,6 @@ public class RegisterGUI extends JFrame{
 
             try {
 
-                // Lấy dữ liệu từ các trường
                 String hoTen = txthoTen.getText().trim();
                 String tenDangNhap = txttenDangNhap.getText().trim();
                 char[] matKhauKiHieu = txtmatKhau.getPassword();
@@ -164,7 +154,6 @@ public class RegisterGUI extends JFrame{
                 String email=txtemail.getText().trim();
                 String SDT=txtSDT.getText().trim();
                 Date ngaySinh = csdate.getDate();
-                // Lấy giới tính được chọn từ ComboBox
                 String gioiTinh = (String) cbgioiTinh.getSelectedItem();
     
                 // Tạo đối tượng KHACHHANG
@@ -185,7 +174,7 @@ public class RegisterGUI extends JFrame{
                     JOptionPane.showMessageDialog(this,
                             "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
                             "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return; // Dừng lại, không thực hiện thêm
+                    return;
                 }
                 String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
                 EmailSender.sendEmail(email, generatedCode);

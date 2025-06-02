@@ -1,9 +1,6 @@
 package appgiaovan.CustomerGUI;
 
 import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.EmployeeGUI.*;
-import appgiaovan.Controller.TaoDonHangController;
-import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.DAO.KhachHangDAO;
 import appgiaovan.EmailSender;
@@ -13,11 +10,8 @@ import appgiaovan.Entity.KhoHang;
 import appgiaovan.GUI.Components.DiaChiPanel;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedComboBox;
-
 import appgiaovan.GUI.Components.RoundedTextField;
-import appgiaovan.GUI.Components.TimeWeather;
 import appgiaovan.report.HoaDonKH;
-import appgiaovan.report.*;
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
@@ -45,7 +39,6 @@ public class KHTaoDonHangPanel extends JPanel {
         lblBenGui.setFont(new Font("Arial", Font.BOLD, 14));
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
-        
         //SDT
         RoundedTextField txtSDTNguoiGui = new RoundedTextField(kh.getSDT());
         txtSDTNguoiGui.setBorder(BorderFactory.createTitledBorder("SĐT Người Gửi *"));
@@ -103,10 +96,6 @@ public class KHTaoDonHangPanel extends JPanel {
         diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
         mainPanel.add(this.diaChiPanel);
 
-//        RoundedTextField txtThoiGianNhan = new RoundedTextField("VD: 12/05/2025 14:30");
-//        txtThoiGianNhan.setBorder(BorderFactory.createTitledBorder("Thời Gian Nhận *"));
-//        txtThoiGianNhan.setBounds(460, 230, 200, 50);
-//        mainPanel.add(txtThoiGianNhan);
         String[] dsDichVu = donHangDAO.DSDichVu();
         RoundedComboBox cbLoaiDichVu = new RoundedComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
@@ -122,8 +111,8 @@ public class KHTaoDonHangPanel extends JPanel {
         
         // Nút Tạo đơn hàng
         RoundedButton btnTaoDon = new RoundedButton("Tạo đơn hàng");
-        btnTaoDon.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar
-        btnTaoDon.setBackground(new Color(0x007BFF)); // Flat Blue
+        btnTaoDon.setBounds((880 - 200 - 150) / 2, 440, 150, 45); 
+        btnTaoDon.setBackground(new Color(0x007BFF)); 
         mainPanel.add(btnTaoDon);
         //Thêm hình thức thanh toán
         RoundedComboBox cbHinhThucThanhToan = new RoundedComboBox(new String[]{
@@ -156,7 +145,6 @@ public class KHTaoDonHangPanel extends JPanel {
                 String hinhThucThanhToan = (String) cbHinhThucThanhToan.getSelectedItem();
                 double tienCOD=0;
                 
-                // Gộp địa chỉ chi tiết
                 String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen + ", " + tinhThanh;
                 if(hinhThucThanhToan.equals("Thanh toán COD")){
                     String input = JOptionPane.showInputDialog(null, "Nhập số tiền COD:", "Thông tin COD", JOptionPane.PLAIN_MESSAGE);
@@ -164,7 +152,6 @@ public class KHTaoDonHangPanel extends JPanel {
                     if (input != null && !input.trim().isEmpty()) {
                         try {
                             tienCOD = Double.parseDouble(input.trim());
-                            // Gán vào đơn hàng hoặc xử lý tiếp
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng định dạng số!", "Lỗi", JOptionPane.ERROR_MESSAGE);
                         }
@@ -247,12 +234,9 @@ public class KHTaoDonHangPanel extends JPanel {
                     // Thêm nút OK
                     JButton okButton = new JButton("Đã chuyển khoản");
                     okButton.addActionListener(ex -> {
-                        // Đóng dialog
                         qrDialog.dispose();
 
-                        // Thực hiện tiếp hành động sau khi thanh toán
                         JOptionPane.showMessageDialog(null, "Xác nhận đã chuyển khoản thành công!");
-                        // Tiếp tục logic xử lý...
                     });
 
                     JPanel bottomPanel = new JPanel();
@@ -260,12 +244,11 @@ public class KHTaoDonHangPanel extends JPanel {
                     qrDialog.add(bottomPanel, BorderLayout.SOUTH);
 
                     qrDialog.setSize(300, 350);
-                    qrDialog.setLocationRelativeTo(null); // Hiển thị giữa màn hình
+                    qrDialog.setLocationRelativeTo(null); 
                     qrDialog.setVisible(true);
                 }
                 // Tạo đối tượng DonHang
                 DonHang dh = new DonHang();
-//                dh.setIdDonHang(idDonHang);
                 dh.setIdKhachHang(ID_KhachHang);
                 dh.setSdtNguoiGui(kh.getSDT());
                 dh.setSdtNguoiNhan(sdtNguoiNhan);
@@ -282,12 +265,9 @@ public class KHTaoDonHangPanel extends JPanel {
                     return; // Dừng lại, không thực hiện thêm
                 }
             try {
-                // Gọi controller để thêm đơn hàng
                  int id_dh = qLDonHangController.ThemDonHang(dh);
-                // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-//                = new DonHangDAO().layIDDHMoiNhat(ID_KhachHang);
-//                System.out.print(id_dh);
+
                 HoaDonKH hd = new HoaDonKH();
                 hd.XuatHD(id_dh);
                 try {

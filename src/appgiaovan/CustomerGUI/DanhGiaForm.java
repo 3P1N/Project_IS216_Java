@@ -65,10 +65,8 @@ public class DanhGiaForm extends JFrame {
 
             if (noiDung.isEmpty() || soSao == -1) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập nội dung và chọn số sao!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Đánh giá đã được gửi:\nSao: " + soSao + "\nNội dung: " + noiDung);
-                dispose(); // Đóng form sau khi gửi
-            }
+                return;
+            } 
             
             //Tao doi tuong DanhGia
             DanhGia danhGia=new DanhGia();
@@ -77,6 +75,8 @@ public class DanhGiaForm extends JFrame {
             danhGia.setIdDonHang(ID_DonHang);
             try { 
                 qLDonHangController.ThemDanhGia(danhGia);
+                JOptionPane.showMessageDialog(this, "Đánh giá đã được gửi:\nSao: " + soSao + "\nNội dung: " + noiDung);
+                dispose(); 
             } catch (SQLException ex) {
                 Logger.getLogger(DanhGiaForm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Đơn hàng đã được đánh giá", "Thông báo", JOptionPane.WARNING_MESSAGE);

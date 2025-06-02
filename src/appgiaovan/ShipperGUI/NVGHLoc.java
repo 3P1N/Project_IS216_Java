@@ -30,29 +30,22 @@ public class NVGHLoc extends JPanel {
         setLayout(null);
         setBackground(Color.WHITE);
 
-        // TextField - ID
-        
         idField.setPreferredSize(new Dimension(80, 50));
         idField.setBounds(10, 10, 100, 40);
         idField.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
         add(idField);
 
-        // ComboBox - Trạng thái
-        String[] trangThai = { "Đang giao", "Đã giao", "Giao thất bại" };
+        String[] trangThai = { "Tất cả","Đang giao", "Đã giao", "Giao thất bại" };
         statusComboBox = new JComboBox<>(trangThai);
         statusComboBox.setPreferredSize(new Dimension(120, 50));
         statusComboBox.setBounds(130, 10, 120, 45);
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
         add(statusComboBox);
-
-        // TextField - Khách hàng
         
         customerField.setPreferredSize(new Dimension(100, 50));
         customerField.setBounds(270, 10, 130, 40);
         customerField.setBorder(BorderFactory.createTitledBorder("Họ tên"));
         add(customerField);
-
-        // Button - Lọc (màu xanh đậm)
         
         filterButton.setPreferredSize(new Dimension(60, 30));
         filterButton.setBackground(new Color(0, 136, 153));
@@ -60,8 +53,6 @@ public class NVGHLoc extends JPanel {
         filterButton = new RoundedButton(filterButton, 20);
         filterButton.setBounds(420, 10, 70, 30);
         add(filterButton);
-
-        // Button - Trạng thái đã giao (màu xanh lá)
         
         dgButton.setPreferredSize(new Dimension(200, 30));
         dgButton.setBackground(new Color(0, 123, 255));
@@ -69,8 +60,6 @@ public class NVGHLoc extends JPanel {
         dgButton = new RoundedButton(dgButton, 20);
         dgButton.setBounds(800, 10, 90, 30);
         add(dgButton);
-
-        // JButton - Trạng thái giao thất bại (màu xanh dương)
         
         tbButton.setPreferredSize(new Dimension(240, 30));
         tbButton.setBackground(new Color(204, 0, 0));
@@ -107,22 +96,14 @@ public class NVGHLoc extends JPanel {
     public DonHang getDonHang() {
         DonHang dh = new DonHang();
 
-        // Xử lý ID: Nếu trống thì không set hoặc gán null (nếu bạn dùng Integer thay vì int)
-        String idText = idField.getText().trim();
-        if (!idText.isEmpty()) {
-            dh.setIdDonHang(Integer.parseInt(idText));
+        String trangThai = (String) statusComboBox.getSelectedItem();
+        if (!"Tất cả".equals(trangThai)) {
+            dh.setTrangThai(trangThai);
         } else {
-            dh.setIdDonHang(null); // Cần đổi kiểu idDonHang sang Integer
+            dh.setTrangThai(null);  
         }
 
-        // Xử lý combobox: nếu không chọn gì thì là null
-        Object selected = statusComboBox.getSelectedItem();
-        dh.setTrangThai(selected != null ? selected.toString() : null);
-
-        // Xử lý tên người gửi: nếu để trống thì là chuỗi rỗng hoặc null tùy bạn
-        String name = customerField.getText().trim();
-        dh.setTenNguoiGui(name.isEmpty() ? null : name);
-       System.out.println(dh.getTrangThai());
         return dh;
     }
+
 }

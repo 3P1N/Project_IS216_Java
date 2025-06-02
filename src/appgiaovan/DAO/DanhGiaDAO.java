@@ -8,12 +8,7 @@ import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.DanhGia;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author nhant
@@ -24,13 +19,7 @@ public class DanhGiaDAO {
         String sql = "{call SP_ThemDanhGia(?, ?, ?)}";
 
         try (Connection conn = ConnectionUtils.getMyConnection();CallableStatement cs = conn.prepareCall(sql)) {
-//            if (donHang.getIdDonHang() != null) {
-//                cs.setInt(1, donHang.getIdDonHang());
-//            } else {
-//                cs.setNull(1, Types.INTEGER);
-//            }
 
-            //doneroi
             cs.setInt(1, dg.getIdDonHang());
             cs.setString(2, dg.getNoiDungDanhGia());
             cs.setInt(3,dg.getDiemDanhGia());

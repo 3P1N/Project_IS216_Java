@@ -7,7 +7,6 @@ public class ConnectionUtils {
     
    public static Connection getMyConnection() throws SQLException,
           ClassNotFoundException {
-      // Sử dụng Oracle.
       return ConnectionOracle.getConnection();
   }
  
@@ -16,7 +15,6 @@ public class ConnectionUtils {
  
       System.out.println("Đang kết nối ... ");
  
-      // Lấy ra đối tượng Connection kết nối vào database.
       Connection conn = ConnectionUtils.getMyConnection();
  
 

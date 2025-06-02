@@ -1,5 +1,4 @@
 package appgiaovan.DAO;
-
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.KhoHang;
 import java.sql.*;
@@ -33,7 +32,33 @@ public class KhoHangDAO {
 
         return khoList;
     }
+    
+    public static KhoHang LayThongTinKho(int idKho) throws SQLException, ClassNotFoundException {
+        
+        KhoHang kho = null;
+        String sql = "SELECT * FROM KhoHang where ID_Kho = " + idKho;
+        try (Connection conn = ConnectionUtils.getMyConnection(); 
+                PreparedStatement stmt = conn.prepareStatement(sql); 
+                ResultSet rs = stmt.executeQuery()) {
 
+            while (rs.next()) {
+                kho = new KhoHang(
+                        rs.getInt("ID_Kho"),
+                        rs.getString("TenKho"),
+                        rs.getInt("SLHangToiDa"),
+                        rs.getInt("SLHangTon"),
+                        rs.getString("DiaChi")
+                );
+                
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return kho;
+    }
+    
     public String LayTenKho(int idKho) throws SQLException, ClassNotFoundException {
         String tenKho = "";
         String sql = "SELECT TenKho FROM KhoHang WHERE ID_Kho = ?";
@@ -52,7 +77,6 @@ public class KhoHangDAO {
         try {
             KhoHangDAO khoHangDAO = new KhoHangDAO();
 
-            // Test lấy toàn bộ KhoHang
             List<KhoHang> khoList = khoHangDAO.LayThongTinKho();
             System.out.println("DANH SÁCH KHO:");
             for (KhoHang kho : khoList) {
@@ -64,7 +88,6 @@ public class KhoHangDAO {
                         + " | Địa chỉ: " + kho.getDiaChi());
             }
 
-            // Test lấy danh sách tên kho
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,7 +23,6 @@ public class KhoHang {
         this.diaChi = diaChi;
     }
 
-    // Getters & Setters
     public int getIdKho() { return idKho; }
     public void setIdKho(int idKho) { this.idKho = idKho; }
 
@@ -44,7 +43,7 @@ public class KhoHang {
     
     @Override
     public String toString() {
-        return tenKho; // Hiển thị tên kho trong combo box
+        return tenKho; 
     }
 
 }

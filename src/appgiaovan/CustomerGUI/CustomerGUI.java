@@ -5,24 +5,9 @@
 package appgiaovan.CustomerGUI;
 import appgiaovan.Controller.DangKyController;
 import appgiaovan.Controller.TokenController;
-import appgiaovan.CustomerGUI.KHTaoDonHangPanel;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.GUI.LOGIN;
-import appgiaovan.ManagerGUI.ManagerGUI;
-import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
-import java.util.List;
-
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -97,27 +82,8 @@ public class CustomerGUI extends JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex, "Lỗi hệ thống", WARNING_MESSAGE);
-        }
+        }   
         return -1;
     }
-//   public static void main(String[] args) {
-//        try {
-//            UIManager.setLookAndFeel(new FlatLightLaf());
-//        } catch (Exception e) {
-//            System.err.println("Không thể cài đặt FlatLaf");
-//        }
-//
-//        SwingUtilities.invokeLater(() -> {
-//            try {
-//                new CustomerGUI(11).setVisible(true);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (Exception ex) {
-//                Logger.getLogger(CustomerGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
-//    }
     
 }

@@ -1,7 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
 import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.CustomerGUI.CustomerSidebar;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
@@ -26,9 +25,8 @@ public class ThemDonHangFrame extends JFrame {
     private QLDonHangController controller = new QLDonHangController();
     private DiaChiPanel diaChiPanel;
 
-    public ThemDonHangFrame(Runnable onSucces) throws SQLException, ClassNotFoundException, Exception {
+    public ThemDonHangFrame(Runnable onSucces, int idKho) throws SQLException, ClassNotFoundException, Exception {
         donHangDAO = new DonHangDAO();
-       
 
         setTitle("Tạo Đơn Hàng");
         setSize(920, 600);
@@ -44,7 +42,6 @@ public class ThemDonHangFrame extends JFrame {
         lblBenGui.setFont(new Font("Arial", Font.BOLD, 14));
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
-        
 
         //SDT
         RoundedTextField txtSDTNguoiGui = new RoundedTextField("Nhập số điện thoại người gửi");
@@ -58,15 +55,21 @@ public class ThemDonHangFrame extends JFrame {
         mainPanel.add(txtTenNguoiGui);
 
         List<KhoHang> listKho = controller.LayThongTinKho();
-        JComboBox cbKhoTiepNhan = new RoundedComboBox();
+        JTextField txtKhoTiepNhan = new JTextField();
+        String tenKho = null;
 
-        for (KhoHang kho : listKho) {
-            cbKhoTiepNhan.addItem(kho);
+        for(KhoHang kho : listKho){
+            if(kho.getIdKho() == idKho){
+                tenKho = kho.getTenKho();
+                break;
+            }
         }
 
-        cbKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
-        cbKhoTiepNhan.setBounds(460, 50, 200, 50);
-        mainPanel.add(cbKhoTiepNhan);
+        txtKhoTiepNhan.setText(tenKho);
+        txtKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
+        txtKhoTiepNhan.setBounds(460, 50, 200, 50);
+        txtKhoTiepNhan.setFocusable(false);
+        mainPanel.add(txtKhoTiepNhan);
 
         JSeparator separator = new JSeparator();
         separator.setBounds(20, 120, 820, 10);
@@ -94,9 +97,9 @@ public class ThemDonHangFrame extends JFrame {
         mainPanel.add(txtDiaChiNhan);
 
          diaChiPanel = new DiaChiPanel();
-        diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
+        diaChiPanel.setBounds(20, 230, 500, 50);
+
         mainPanel.add(this.diaChiPanel);
-//        
         String[] dsDichVu = donHangDAO.DSDichVu();
         JComboBox cbLoaiDichVu = new JComboBox(dsDichVu);
         cbLoaiDichVu.setBorder(BorderFactory.createTitledBorder("Loại Dịch Vụ *"));
@@ -129,19 +132,12 @@ public class ThemDonHangFrame extends JFrame {
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
 
-//        HienThiMaDonHang();
         btnTaoDon.addActionListener(e -> {
 
             try {
 
-                // Lấy dữ liệu từ các trường
-//                System.out.println(txtMaDon.getText().trim());
-//                int idDonHang = Integer.parseInt(txtMaDon.getText().trim());
                 String sdtNguoiGui = txtSDTNguoiGui.getText().trim();
                 String tenNguoiGui = txtTenNguoiGui.getText().trim();
-
-                KhoHang selectedKho = (KhoHang) cbKhoTiepNhan.getSelectedItem();
-                int idKho = selectedKho.getIdKho();
 
                 String sdtNguoiNhan = txtSDTNguoiNhan.getText().trim();
                 String tenNguoiNhan = txtTenNguoiNhan.getText().trim();
@@ -149,18 +145,15 @@ public class ThemDonHangFrame extends JFrame {
                 String tinhThanh = (String) diaChiPanel.getSelectedTinh();
                 String quanHuyen = (String) diaChiPanel.getSelectedHuyen();
                 String phuongXa = (String) diaChiPanel.getSelectedXa();
-                
 
                 String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
                 String loaiHang = (String) cbLoaiHang.getSelectedItem();
                 String hinhThucThanhToan = (String) cbHinhThucThanhToan.getSelectedItem();
 
-                // Gộp địa chỉ chi tiết
                 String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen + ", " + tinhThanh;
 
                 // Tạo đối tượng DonHang
                 DonHang dh = new DonHang();
-//                dh.setIdDonHang(idDonHang);
                 dh.setSdtNguoiGui(sdtNguoiGui);
                 dh.setSdtNguoiNhan(sdtNguoiNhan);
                 dh.setTenNguoiGui(tenNguoiGui);
@@ -171,12 +164,10 @@ public class ThemDonHangFrame extends JFrame {
                 dh.setIdKhoTiepNhan(idKho);
                 if (!controller.KiemTraDinhDang(dh)) {
                     JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-                    return; // Dừng lại, không thực hiện thêm
+                    return; 
                 }
-                // Gọi controller để thêm đơn hàng
                 int id_dh = controller.ThemDonHang(dh);
                 HoaDonKH hd = new HoaDonKH();
-                // Gọi callback
                 JOptionPane.showMessageDialog(this, "Tạo đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 onSucces.run();
                 hd.XuatHD(id_dh);
@@ -199,7 +190,7 @@ public class ThemDonHangFrame extends JFrame {
     public void HienThiMaDonHang() throws SQLException, ClassNotFoundException {
         DonHangDAO donHangDAO = new DonHangDAO();
         int maDon = donHangDAO.LayMaDon();
-        this.txtMaDon.setText(String.valueOf(maDon)); // chuyển int sang String
+        this.txtMaDon.setText(String.valueOf(maDon)); 
         System.out.println(maDon);
     }
 
@@ -213,7 +204,7 @@ public class ThemDonHangFrame extends JFrame {
         SwingUtilities.invokeLater(() -> {
             ThemDonHangFrame frame = null;
             try {
-                frame = new ThemDonHangFrame(() -> System.out.println("Cập nhật danh sách!"));
+                frame = new ThemDonHangFrame(() -> System.out.println("Cập nhật danh sách!"), 1);
             } catch (SQLException ex) {
                 Logger.getLogger(ThemDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -221,7 +212,6 @@ public class ThemDonHangFrame extends JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(ThemDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-//            frame.setVisible(true);
         });
     }
 }
