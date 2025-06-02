@@ -5,6 +5,7 @@
 package appgiaovan.GUI;
 import appgiaovan.Controller.DangKyController;
 import appgiaovan.DAO.KhachHangDAO;
+import appgiaovan.EmailSender;
 import appgiaovan.Entity.KhachHang;
 import appgiaovan.Entity.TaiKhoan;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -17,6 +18,8 @@ import com.toedter.calendar.JDateChooser;
 import java.util.Date;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import static appgiaovan.PasswordHashing.hashPassword;
+import appgiaovan.VerificationForm;
+import java.util.Random;
 /**
  *
  * @author ASUS
@@ -61,31 +64,31 @@ public class RegisterGUI extends JFrame{
         
         //nhập họ tên
         JTextField txthoTen = new JTextField();
-        txthoTen.setBounds(30, 50, 290, 35);
+        txthoTen.setBounds(30, 50, 290, 40);
         txthoTen.setBorder(BorderFactory.createTitledBorder("Họ Tên"));
         registerPanel.add(txthoTen);
 
         // nhập tên đăng nhập
         JTextField txttenDangNhap = new JTextField();
-        txttenDangNhap.setBounds(30, 95, 290, 35);
+        txttenDangNhap.setBounds(30, 95, 290, 40);
         txttenDangNhap.setBorder(BorderFactory.createTitledBorder("Tên đăng nhập"));
         registerPanel.add(txttenDangNhap);
         
         //nhập pass
         JPasswordField txtmatKhau = new JPasswordField();
-        txtmatKhau.setBounds(30, 145, 290, 35);
+        txtmatKhau.setBounds(30, 145, 290, 40);
         txtmatKhau.setBorder(BorderFactory.createTitledBorder("Mật khẩu"));
         registerPanel.add(txtmatKhau);
 
         // nhập lại pass
         JPasswordField txtmatKhauNL = new JPasswordField();
-        txtmatKhauNL.setBounds(30, 195, 290, 35);
+        txtmatKhauNL.setBounds(30, 195, 290, 40);
         txtmatKhauNL.setBorder(BorderFactory.createTitledBorder("Nhập lại mật khẩu"));
         registerPanel.add(txtmatKhauNL);
         
         //nhập CCCD
         JTextField txtCCCD = new JTextField();
-        txtCCCD.setBounds(30, 245, 290, 35);
+        txtCCCD.setBounds(30, 245, 290, 40);
         txtCCCD.setBorder(BorderFactory.createTitledBorder("CCCD"));
         registerPanel.add(txtCCCD);
         
@@ -184,12 +187,11 @@ public class RegisterGUI extends JFrame{
                             "Lỗi", JOptionPane.ERROR_MESSAGE);
                     return; // Dừng lại, không thực hiện thêm
                 }
-                // Gọi controller để thêm khách hàng,tài khoản
-                controller.themKhachHang(kh,tk);
-                // Gọi callback
-                JOptionPane.showMessageDialog(this, "Đăng ký tài khoản thành công!", 
-                        "Thành công", JOptionPane.INFORMATION_MESSAGE);
-
+                String generatedCode = String.valueOf(new Random().nextInt(900000) + 100000);
+                EmailSender.sendEmail(email, generatedCode);
+                new VerificationForm(generatedCode,email,kh,tk).setVisible(true);
+                
+               
 
             } catch (Exception ex) {
                 ex.printStackTrace();

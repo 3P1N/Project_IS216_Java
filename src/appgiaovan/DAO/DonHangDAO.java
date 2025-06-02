@@ -250,7 +250,7 @@ public class DonHangDAO {
             params.add("%" + donHang.getTenNguoiGui() + "%");
         }
 
-        sql.append(" ORDER BY D.ID_DonHang");
+        sql.append(" ORDER BY D.ID_DonHang DESC");
 
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {

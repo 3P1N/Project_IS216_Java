@@ -20,7 +20,7 @@ public class TopPanelQLGH extends JPanel {
 
     private JButton addButton = new JButton("Thêm mới");
     private JButton filterButton = new JButton("Lọc");
-    private JButton updateButton = new JButton("Sửa");
+    private JButton updateButton = new JButton("Hoàn thành");
     private final JTextField idField = new JTextField("");
     private final JComboBox<String> statusComboBox ;
     private final JTextField customerField = new JTextField("");
@@ -75,7 +75,7 @@ public class TopPanelQLGH extends JPanel {
         return this.addButton;
     }
     
-    public JButton getupdateButton(){
+    public JButton getUpdateButton(){
         return this.updateButton;
     }
 

@@ -129,7 +129,7 @@ public class TraCuuDonHangPanel extends JPanel {
             frame.setLayout(new BorderLayout());
 
             try {
-                frame.add(new TraCuuDonHangPanel(1), BorderLayout.CENTER);
+                frame.add(new TraCuuDonHangPanel(21), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 Logger.getLogger(TraCuuDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
