@@ -3,8 +3,6 @@ package appgiaovan.EmployeeGUI;
 import appgiaovan.GUI.Components.MenuBar;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.sql.SQLException;
 
 

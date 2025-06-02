@@ -14,7 +14,6 @@ import java.util.List;
 public class QLNVKhoController {
     private NhanVienKhoDAO dao;
     public QLNVKhoController() throws ClassNotFoundException {
-        // Khởi tạo DAO, các kết nối sẽ được thực hiện trong DAO khi cần
         dao = new NhanVienKhoDAO();
     }
 
@@ -83,11 +82,11 @@ public class QLNVKhoController {
     
   
     public List<Integer> layTatCaIDKho() throws Exception {
-        return dao.layTatCaIDKho();                // trả về danh sách ID_Kho
+        return dao.layTatCaIDKho();                
     }
 
     public Integer layIDQuanLyTheoKho(int idKho) throws Exception {
-        return dao.layIDQuanLyTheoKho(idKho);      // trả về ID_QuanLy tương ứng
+        return dao.layIDQuanLyTheoKho(idKho);      
     }
 
     public int getIdTaiKhoanByNhanVienKho(int idNhanVien) throws Exception {

@@ -8,7 +8,7 @@ import java.util.Date;
 public class DonHang {
 
     private Integer idDonHang;
-    private Integer idKhachHang;        // dùng Integer để có thể null
+    private Integer idKhachHang;        
     private Integer idNVGiaoHang;
     private String sdtNguoiGui;
     private String sdtNguoiNhan;
@@ -25,7 +25,6 @@ public class DonHang {
     private String dichVu;
     private String loaiHangHoa;
 
-    // Constructor đầy đủ
     public DonHang(int idDonHang, Integer idKhachHang, Integer idNVGiaoHang, String sdtNguoiGui,
             String sdtNguoiNhan, Integer idKhoTiepNhan, String tenNguoiGui, String tenNguoiNhan,
             String diaChiNhan, Double tienCOD, Double phi, Date thoiGianNhan, Date thoiGianTao,
@@ -91,7 +90,7 @@ public class DonHang {
 
     public Object[] toTableRow1() {
         return new Object[] {
-            false,              // checkbox
+            false,              
             idDonHang,
             tenNguoiNhan,
             diaChiNhan,
@@ -106,11 +105,9 @@ public class DonHang {
     }
     
 
-    // Constructor rỗng
     public DonHang() {
     }
 
-    // Getter & Setter
 
     public Integer getIdDonHang() {
         return idDonHang;

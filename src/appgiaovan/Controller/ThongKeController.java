@@ -1,20 +1,10 @@
 package appgiaovan.Controller;
-
-import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.DAO.ThongKeDAO;
-import appgiaovan.Entity.DoanhThuLoiNhuan;
 import appgiaovan.Entity.TK_DanhGia;
-import appgiaovan.Entity.TK_DoanhThu;
 import appgiaovan.Entity.TK_DonHang;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import java.util.List;
-import java.util.Map;
+
 
 public class ThongKeController {
 

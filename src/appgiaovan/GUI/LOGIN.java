@@ -10,17 +10,12 @@ import appgiaovan.CustomerGUI.CustomerGUI;
 import appgiaovan.EmployeeGUI.EmployeeGUI;
 import appgiaovan.Entity.TaiKhoan;
 import appgiaovan.ManagerGUI.ManagerGUI;
-import appgiaovan.ManagerGUI.ManagerMainScreen;
-import appgiaovan.ShipperGUI.NVGHHomeGUI;
 import appgiaovan.ShipperGUI.NVGHMainGUI;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import static java.lang.System.exit;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -47,27 +42,22 @@ public class LOGIN extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // Tạo một JPanel chính để chứa background và LoginPanel
         JPanel mainPanel = new JPanel(null);
         mainPanel.setLayout(null);
-        mainPanel.setBounds(0, 0, 900, 600); // Kích thước của toàn bộ frame
+        mainPanel.setBounds(0, 0, 900, 600);
         add(mainPanel);
 
-        // Load hình nền
         JLabel background = new JLabel(new javax.swing.ImageIcon(getClass().getResource("/images/warehouse_11zon.jpg")));// Thay bằng hình bạn muốn
         URL imageUrl = getClass().getResource("/images/warehouse_11zon.jpg");
         System.out.println("Image URL: " + imageUrl);
 
         background.setBounds(0, 0, 900, 600);
-        // mainPanel.add(background);
-
-        // Panel chính để nhập login
+        
         JPanel loginPanel = new JPanel();
         loginPanel.setBounds(275, 100, 350, 350);
         loginPanel.setBackground(Color.WHITE);
         loginPanel.setLayout(null);
         loginPanel.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
-        // mainPanel.add(loginPanel);
 
         JLabel logo = new JLabel("3P1N - Đăng nhập");
         logo.setFont(new Font("Arial", Font.BOLD, 20));
@@ -91,7 +81,6 @@ public class LOGIN extends JFrame {
         forgot.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Hiển thị form Quên mật khẩu
                 SwingUtilities.invokeLater(() -> {
                     ForgotPass fp = new ForgotPass();
                     fp.setVisible(true);
@@ -106,10 +95,8 @@ public class LOGIN extends JFrame {
         loginButton.setFocusPainted(false);
         loginPanel.add(loginButton);
 
-        // Đặt loginButton là nút mặc định
         getRootPane().setDefaultButton(loginButton);
 
-        // Gắn ActionListener như bạn đã làm
         loginButton.addActionListener(e -> {
             try {
                 yeuCauXacThuc();
@@ -120,12 +107,10 @@ public class LOGIN extends JFrame {
             }
         });
 
-        // Label "Bạn chưa có tài khoản?" 
         JLabel infoLabel = new JLabel("Bạn chưa có tài khoản?");
         infoLabel.setBounds(70, 290, 150, 20);
         loginPanel.add(infoLabel);
 
-        // Label "Đăng ký ngay" - có thể click chuyển giao diện
         JLabel registerLabel = new JLabel("Đăng ký ngay");
         registerLabel.setBounds(210, 290, 100, 20);
         registerLabel.setForeground(Color.BLUE);
@@ -135,7 +120,6 @@ public class LOGIN extends JFrame {
         registerLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Hiển thị form Đăng ký
                 SwingUtilities.invokeLater(() -> {
                     RegisterGUI fp = new RegisterGUI();
                     fp.setVisible(true);
@@ -153,7 +137,6 @@ public class LOGIN extends JFrame {
         String username = userField.getText().trim();
         String pass = new String(passField.getPassword());
 
-        //String vaiTro = log.yeuCauXacThuc(username, pass);
         tk = log.yeuCauXacThuc(username, pass);
 
         if (tk == null) {
@@ -162,23 +145,19 @@ public class LOGIN extends JFrame {
 
         } else {
             if ("KH".equals(tk.getVaiTro())) {
-                // Chuyển tới giao diện khách hàng
                 idToken = controller.TaoToken(username);
                 new CustomerGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("QL".equals(tk.getVaiTro())) {
-                // Chuyển tới giao diện quản lý
                 idToken = controller.TaoToken(username);
                 new ManagerGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("NVK".equals(tk.getVaiTro())) {
-                // Chuyển tới giao diện nhân viên kho
                 idToken = controller.TaoToken(username);
                 
                 new EmployeeGUI(tk,idToken).setVisible(true);
                 setVisible(false);
             } else if ("NVGH".equals(tk.getVaiTro())) {
-                // Chuyển tới giao diện nhân viên giao hang
                 idToken = controller.TaoToken(username);
                 new NVGHMainGUI(tk.getIdTaiKhoan(), idToken).setVisible(true);
                 setVisible(false);

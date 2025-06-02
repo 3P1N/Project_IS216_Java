@@ -10,7 +10,14 @@
 <project name="AppGiaoVan" default="default" basedir=".">
     <description>Builds, tests, and runs the project AppGiaoVan.</description>
     <import file="nbproject/build-impl.xml"/>
+    <target name="-pre-jar">
+        <mkdir dir="dist/lib"/>
+        <copy todir="dist/lib" flatten="true">
+            <fileset dir="lib" includes="*.jar"/>
+        </copy>
+    </target>
     <!--
+    
 
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 

@@ -5,11 +5,9 @@
 package appgiaovan.CustomerGUI;
 
 import appgiaovan.GUI.Components.MenuBar;
-import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JPanel;
 
 public class CustomerSidebar extends MenuBar {
 

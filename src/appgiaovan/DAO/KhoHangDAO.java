@@ -1,5 +1,4 @@
 package appgiaovan.DAO;
-
 import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Entity.KhoHang;
 import java.sql.*;
@@ -52,7 +51,6 @@ public class KhoHangDAO {
         try {
             KhoHangDAO khoHangDAO = new KhoHangDAO();
 
-            // Test lấy toàn bộ KhoHang
             List<KhoHang> khoList = khoHangDAO.LayThongTinKho();
             System.out.println("DANH SÁCH KHO:");
             for (KhoHang kho : khoList) {
@@ -64,7 +62,6 @@ public class KhoHangDAO {
                         + " | Địa chỉ: " + kho.getDiaChi());
             }
 
-            // Test lấy danh sách tên kho
         } catch (Exception e) {
             e.printStackTrace();
         }

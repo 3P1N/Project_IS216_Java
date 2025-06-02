@@ -50,7 +50,7 @@ public class NhanVienGiaoHang extends NguoiDung {
     }
      @Override
     public String toString() {
-        return HoTen; // Hiển thị tên kho trong combo box
+        return HoTen; 
     }
 }
 

@@ -6,7 +6,6 @@ package appgiaovan.Entity;
 
 
 
-import java.util.Date;
 
 public class DoanhThuLoiNhuan {
     private int thang;

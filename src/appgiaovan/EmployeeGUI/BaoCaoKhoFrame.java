@@ -118,17 +118,14 @@ public class BaoCaoKhoFrame extends JPanel {
         txtNgayBaoCao.setFocusable(false);
         txtNgayBaoCao.setBackground(Color.LIGHT_GRAY);
 
-        // Gán giá trị được chọn của kỳ báo cáo (nếu cần dùng sau)
         kyBaoCaoChooser.addPropertyChangeListener("date", evt -> {
             selectedKyBaoCao = kyBaoCaoChooser.getDate();
-            // Bạn có thể xử lý thêm nếu muốn mỗi khi người dùng chọn ngày
             System.out.println("Kỳ báo cáo được chọn: " + selectedKyBaoCao);
         });
     }
 
     public void XuLyGuiBaoCao() {
         try {
-            // Lấy dữ liệu từ form
             String soNhapStr = txtSoGoiHangNhap.getText().trim();
             String soXuatStr = txtSoGoiHangXuat.getText().trim();
 
@@ -145,7 +142,7 @@ public class BaoCaoKhoFrame extends JPanel {
             baoCaoKho.setIdNhanVien(nhanVienKho.getID_NguoiDung());
             baoCaoKho.setSoGoiHangNhap(soNhap);
             baoCaoKho.setSoGoiHangXuat(soXuat);
-            baoCaoKho.setNgayKhoiTao(new Date()); // ngày hiện tại
+            baoCaoKho.setNgayKhoiTao(new Date()); 
             baoCaoKho.setKyBaoCao(kyBaoCaoChooser.getDate());
 
             controller.GuiBaoCao(baoCaoKho, nhanVienKho.getID_NguoiDung());

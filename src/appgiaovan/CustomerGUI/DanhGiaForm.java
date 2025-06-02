@@ -67,7 +67,7 @@ public class DanhGiaForm extends JFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập nội dung và chọn số sao!");
             } else {
                 JOptionPane.showMessageDialog(this, "Đánh giá đã được gửi:\nSao: " + soSao + "\nNội dung: " + noiDung);
-                dispose(); // Đóng form sau khi gửi
+                dispose(); 
             }
             
             //Tao doi tuong DanhGia
