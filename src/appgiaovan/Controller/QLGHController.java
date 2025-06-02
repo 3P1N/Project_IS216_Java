@@ -15,12 +15,12 @@ import java.util.List;
 public class QLGHController {
     private GoiHangDAO goiHangDAO = new GoiHangDAO();
     private DonHangDAO donHangDAO = new DonHangDAO();
-    public List<GoiHang> LayDSGoiHang() throws SQLException, ClassNotFoundException{
-        return goiHangDAO.LayDSGoiHang();
+    public List<GoiHang> LayDSGoiHangTheoKho(int idKho) throws SQLException, ClassNotFoundException{
+        return goiHangDAO.LayDSGoiHangTheoKho(idKho);
     }
     
-    public List<GoiHang> LayDSGoiHang(GoiHang goiHang) throws SQLException, ClassNotFoundException{
-        return goiHangDAO.LayDSGoiHang(goiHang);
+    public List<GoiHang> LayDSGoiHangTheoKho(GoiHang goiHang, int idKho) throws SQLException, ClassNotFoundException{
+        return goiHangDAO.LayDSGoiHangTheoKho(goiHang, idKho);
     }
     
     public List<DonHang> LayDSDonHang(DonHang donHang) throws SQLException, ClassNotFoundException{

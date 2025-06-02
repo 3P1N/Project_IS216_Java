@@ -21,10 +21,10 @@ import oracle.sql.ArrayDescriptor;
  */
 public class GoiHangDAO {
 
-    public List<GoiHang> LayDSGoiHang() throws SQLException, ClassNotFoundException {
+    public List<GoiHang> LayDSGoiHangTheoKho(int idKho) throws SQLException, ClassNotFoundException {
         List<GoiHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM GoiHang ORDER BY ID_GOIHANG desc";
+        String sql = "SELECT * FROM GoiHang WHERE ID_KhoHangDen = " + idKho + " OR ID_KhoHangGui = " + idKho + " ORDER BY ID_GoiHang DESC";
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -46,7 +46,7 @@ public class GoiHangDAO {
         return list;
     }
 
-    public List<GoiHang> LayDSGoiHang(GoiHang goiHang) throws SQLException, ClassNotFoundException {
+    public List<GoiHang> LayDSGoiHangTheoKho(GoiHang goiHang, int idKho) throws SQLException, ClassNotFoundException {
         List<GoiHang> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM GoiHang WHERE 1=1");
         List<Object> params = new ArrayList<>();
@@ -63,7 +63,10 @@ public class GoiHangDAO {
             params.add("%" + goiHang.getTrangThai() + "%");
         }
 
-        sql.append(" ORDER BY ID_GoiHang");
+        sql.append(" AND (ID_KhoHangGui = ? OR ID_KhoHangDen = ?) ORDER BY ID_GoiHang");
+        params.add(idKho);
+        params.add(idKho);
+
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
             for (int i = 0; i < params.size(); i++) {
                 stmt.setObject(i + 1, params.get(i));

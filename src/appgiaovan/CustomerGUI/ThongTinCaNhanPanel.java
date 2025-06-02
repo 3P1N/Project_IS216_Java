@@ -4,25 +4,30 @@
  */
 package appgiaovan.CustomerGUI;
 
-import appgiaovan.Controller.DangKyController;
-import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.Controller.QLKHController;
-import appgiaovan.DAO.TaiKhoanDAO;
-import appgiaovan.Entity.KhachHang;
-import appgiaovan.Entity.NguoiDung;
-import appgiaovan.Entity.TaiKhoan;
-import appgiaovan.GUI.Components.TimeWeather;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import appgiaovan.Controller.DangKyController;
+import appgiaovan.Controller.QLKHController;
+import appgiaovan.DAO.TaiKhoanDAO;
+import appgiaovan.Entity.NguoiDung;
+import appgiaovan.Entity.TaiKhoan;
 
 /**
  *
@@ -99,8 +104,10 @@ public class ThongTinCaNhanPanel extends JPanel {
         lblNgaySinh.setBounds(20, 270, 100, 25);
         infoPanel.add(lblNgaySinh);
 
+
         SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy");
         JTextField txtNgaySinh = new JTextField(String.valueOf(sdf2.format(nd.getNgaySinh())));
+
 
         txtNgaySinh.setBounds(130, 270, 400, 30);
         infoPanel.add(txtNgaySinh);
@@ -124,7 +131,7 @@ public class ThongTinCaNhanPanel extends JPanel {
             nd.setEmail(txtEmail.getText());
             nd.setCCCD(txtCCCD.getText());
             String ngaySinhStr = txtNgaySinh.getText(); // ví dụ chuỗi ngày sinh
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date ngaySinhDate = sdf.parse(ngaySinhStr);
                 nd.setNgaySinh(ngaySinhDate);
