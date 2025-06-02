@@ -29,7 +29,7 @@ public class NhanVienGiaoHangDAO {
     public List<NhanVienGiaoHang> LayDSNhanVienGiaoHang() throws SQLException, ClassNotFoundException {
         List<NhanVienGiaoHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM NhanVienGiaoHang n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0";
+        String sql = "SELECT * FROM NhanVienGiaoHang n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0 ORDER BY ID_NVGiaoHang";
         try (Connection conn = ConnectionUtils.getMyConnection(); 
                 PreparedStatement ps = conn.prepareStatement(sql); 
                 ResultSet rs = ps.executeQuery()) 

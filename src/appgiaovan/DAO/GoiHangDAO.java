@@ -5,9 +5,7 @@
 package appgiaovan.DAO;
 
 import appgiaovan.ConnectDB.ConnectionUtils;
-import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.GoiHang;
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

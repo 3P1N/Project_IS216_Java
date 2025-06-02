@@ -5,16 +5,12 @@
 package appgiaovan.CustomerGUI;
 
 import appgiaovan.Controller.QLDonHangController;
-import appgiaovan.DAO.KhachHangDAO;
-import appgiaovan.Entity.KhachHang;
 import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.RoundedTextField;
-import appgiaovan.GUI.Components.RoundedPanel;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
-import appgiaovan.CustomerGUI.DanhGiaForm;
 import appgiaovan.Entity.DonHang;
 import java.util.logging.Level;
 import java.util.logging.Logger;

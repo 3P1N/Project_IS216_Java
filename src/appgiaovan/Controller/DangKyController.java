@@ -48,11 +48,10 @@ public class DangKyController {
             return false;
         }
         //7. Số điện thoại khách hàng phải bắt đầu bằng '0' và đủ 10 chữ số
-        if (khachHang.getSDT() == null) {
+        if (khachHang.getSDT() == null || !khachHang.getSDT().matches("0\\d{9}")) {
             return false;
         }
-        // Có thể thêm nhiều kiểm tra hơn nếu cần
-        return true; // Nếu qua tất cả kiểm tra
+        return true; 
     }
 
     public boolean KiemTraDinhDangCapNhat(KhachHang khachHang) {
@@ -73,8 +72,7 @@ public class DangKyController {
         if (khachHang.getSDT() == null || !khachHang.getSDT().matches("0\\d{9}")) {
             return false;
         }
-        // Có thể thêm nhiều kiểm tra hơn nếu cần
-        return true; // Nếu qua tất cả kiểm tra
+        return true; 
     }
 
     public boolean KiemTraDinhDangCapNhat(NguoiDung nguoiDung) {
@@ -95,8 +93,7 @@ public class DangKyController {
         if (nguoiDung.getSDT() == null || !nguoiDung.getSDT().matches("0\\d{9}")) {
             return false;
         }
-        // Có thể thêm nhiều kiểm tra hơn nếu cần
-        return true; // Nếu qua tất cả kiểm tra
+        return true; 
     }
 
     public boolean themKhachHang(KhachHang kh, TaiKhoan tk) {

@@ -141,7 +141,7 @@ public class NhanVienKhoDAO {
     }
     
     public List<NhanVienKho> layTatCaNhanVienKho() throws SQLException, ClassNotFoundException {
-    String sql = "SELECT * FROM NhanVienKho n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0";
+    String sql = "SELECT * FROM NhanVienKho n JOIN TaiKhoan t ON n.ID_TaiKhoan = t.ID_TaiKhoan WHERE TrangThaiXoa = 0 ORDER BY ID_NhanVien";
     try (Connection conn = ConnectionUtils.getMyConnection(); 
             PreparedStatement ps = conn.prepareStatement(sql); 
             ResultSet rs = ps.executeQuery()) {

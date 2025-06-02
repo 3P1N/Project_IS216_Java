@@ -6,13 +6,11 @@ import appgiaovan.DAO.KhoHangDAO;
 
 import appgiaovan.Entity.DanhGia;
 
-import appgiaovan.DAO.TaiKhoanDAO;
 
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
 import appgiaovan.Entity.NhanVienKho;
-import appgiaovan.GUI.LOGIN;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -65,10 +63,7 @@ public class QLDonHangController {
         if (!(dichVu.equals("Tiết kiệm") || dichVu.equals("Nhanh") || dichVu.equals("Hỏa tốc"))) {
             return false;
         }
-        // 5. Loại hàng hóa không được null hoặc rỗng
-        // Có thể thêm nhiều kiểm tra hơn nếu cần
-        // Nếu qua tất cả kiểm tra
-
+        
         return !(donHang.getLoaiHangHoa() == null || donHang.getLoaiHangHoa().trim().isEmpty()); 
     }
     public List<DonHang> LayDSDonHang() throws SQLException, ClassNotFoundException{
@@ -100,11 +95,8 @@ public class QLDonHangController {
     public void ThemDanhGia(DanhGia danhGia) throws SQLException, ClassNotFoundException {
         danhGiaDAO.ThemDanhGia(danhGia);
     }
-   // String ab = new LOGIN().getuser();
-    //int idTaiKhoan;
     public List<DonHang> HienThiDSDHChoNVGH(int idtk) throws SQLException, ClassNotFoundException{
-        //int idTaiKhoan = new LoginController().layIDTaiKhoan() ;
-        //String us = new LOGIN().getuser();
+        
         return new DonHangDAO().layDSDonHangCuaNVGH(idtk);
     }
 

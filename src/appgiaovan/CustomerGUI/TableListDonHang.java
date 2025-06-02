@@ -53,7 +53,6 @@ public class TableListDonHang extends JPanel {
             table.getColumnModel().getColumn(i).setCellRenderer(cellRenderer);
         }
 
-        // Gợi ý: Bạn có thể điều chỉnh độ rộng cột tùy nhu cầu
         if (columnNames.length > 0) {
             table.getColumnModel().getColumn(0).setMaxWidth(30); // Checkbox
         }
@@ -61,7 +60,6 @@ public class TableListDonHang extends JPanel {
         add(new JScrollPane(table), BorderLayout.CENTER);
     }
 
-    // Test - chỉ là ví dụ sử dụng
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             String[] columns = {"", "ID", "Khách hàng", "Sản phẩm", "ĐVT", "Giá", "SL"};

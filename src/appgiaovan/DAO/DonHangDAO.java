@@ -12,9 +12,7 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 import javax.swing.JOptionPane;
-import oracle.jdbc.OracleTypes;
 
 public class DonHangDAO {
 
@@ -23,11 +21,6 @@ public class DonHangDAO {
 
         try (Connection conn = ConnectionUtils.getMyConnection(); CallableStatement cs = conn.prepareCall(sql)) {
 
-//            if (donHang.getIdDonHang() != null) {
-//                cs.setInt(1, donHang.getIdDonHang());
-//            } else {
-//                cs.setNull(1, Types.INTEGER);
-//            }
             if (donHang.getIdKhachHang() != null) {
                 cs.setInt(1, donHang.getIdKhachHang());
             } else {
@@ -170,7 +163,7 @@ public class DonHangDAO {
 
     public List<DonHang> LayDSDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1");
+        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 ORDER BY ID_DonHang");
         List<Object> params = new ArrayList<>();
 
         if (null == donHang.getIdDonHang()) {
@@ -287,7 +280,7 @@ public class DonHangDAO {
 
     public List<DonHang> LayDSDonHangCuaKH(DonHang donHang, int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
-        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 AND ID_KhachHang=?");
+        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 AND ID_KhachHang=? ORDER BY ID_DonHang");
 
         List<Object> params = new ArrayList<>();
         params.add(ID_KhachHang);
@@ -347,7 +340,7 @@ public class DonHangDAO {
     public List<DonHang> LayDSDonHangCuaKH(int ID_KhachHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
 
-        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang=" + Integer.toString(ID_KhachHang);
+        String sql = "SELECT * FROM DonHang WHERE ID_KhachHang=" + Integer.toString(ID_KhachHang)+" ORDER BY ID_DonHang";
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {

@@ -137,7 +137,7 @@ public class ThongTinCaNhanPanel extends JPanel {
                 JOptionPane.showMessageDialog(this,
                         "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.",
                         "Lỗi", JOptionPane.ERROR_MESSAGE);
-                return; // Dừng lại, không thực hiện thêm
+                return; 
             }
             try {
                 if (TaiKhoanDAO.suaNguoiDung(nd, taiKhoan)) {

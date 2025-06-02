@@ -14,7 +14,6 @@ import java.util.List;
 public class QLShipperController {
     private NhanVienGiaoHangDAO dao;
     public QLShipperController() throws ClassNotFoundException {
-        // Khởi tạo DAO, các kết nối sẽ được thực hiện trong DAO khi cần
         dao = new NhanVienGiaoHangDAO();
     }
 
@@ -86,10 +85,10 @@ public class QLShipperController {
     }
     
     public List<Integer> layTatCaIDKho() throws Exception {
-        return dao.layTatCaIDKho();                // trả về danh sách ID_Kho
+        return dao.layTatCaIDKho();                
     }
 
     public Integer layIDQuanLyTheoKho(int idKho) throws Exception {
-        return dao.layIDQuanLyTheoKho(idKho);      // trả về ID_QuanLy tương ứng
+        return dao.layIDQuanLyTheoKho(idKho);      
     }
 }
