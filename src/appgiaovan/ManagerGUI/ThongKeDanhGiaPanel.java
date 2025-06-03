@@ -52,6 +52,7 @@ public class ThongKeDanhGiaPanel extends JPanel {
         }
         try {
             list = controller.getListTKDanhGia(); // Giả sử DAO tồn tại
+            System.out.println(list.size());
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(ThongKePanel.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -69,6 +69,9 @@ public class FormNhapMatKhauMoi extends JFrame {
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(FormNhapMatKhauMoi.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Không trùng khớp", 
+                        "THẤT BẠI", JOptionPane.WARNING_MESSAGE);
         }
         });
     }
