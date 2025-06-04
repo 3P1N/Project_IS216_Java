@@ -1,5 +1,4 @@
-// File: GUI_XemBaoCao.java
-// Package: appgiaovan.ManagerGUI
+
 
 package appgiaovan.ManagerGUI;
 
@@ -9,7 +8,6 @@ import appgiaovan.Entity.BaoCaoKho;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,7 +23,6 @@ public class GUI_XemBaoCao extends JPanel {
         setLayout(new BorderLayout());
         tabbedPane = new JTabbedPane();
 
-        // Tab Báo Cáo Kho
         JPanel pnlKho = new JPanel(new BorderLayout());
         JPanel topKho = new JPanel();
         txtSearchKho = new JTextField(20);
@@ -41,7 +38,6 @@ public class GUI_XemBaoCao extends JPanel {
         tableKho = new JTable(modelKho);
         pnlKho.add(new JScrollPane(tableKho), BorderLayout.CENTER);
 
-        // Tab Báo Cáo Giao Hàng
         JPanel pnlGiao = new JPanel(new BorderLayout());
         JPanel topGiao = new JPanel();
         txtSearchGiao = new JTextField(20);
@@ -57,16 +53,13 @@ public class GUI_XemBaoCao extends JPanel {
         tableGiao = new JTable(modelGiao);
         pnlGiao.add(new JScrollPane(tableGiao), BorderLayout.CENTER);
 
-        // Thêm tab
         tabbedPane.addTab("Báo Cáo Kho", pnlKho);
         tabbedPane.addTab("Báo Cáo Giao Hàng", pnlGiao);
         add(tabbedPane, BorderLayout.CENTER);
 
-        // Action listeners
         btnSearchKho.addActionListener(e -> loadBaoCaoKho());
         btnSearchGiao.addActionListener(e -> loadBaoCaoGiaoHang());
 
-        // Load mặc định
         loadBaoCaoKho();
         loadBaoCaoGiaoHang();
     }

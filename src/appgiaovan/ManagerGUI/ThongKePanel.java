@@ -27,7 +27,6 @@ public class ThongKePanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        // TabbedPane
         JTabbedPane tabbedPane = new JTabbedPane();
 
         tabbedPane.addTab("Đơn Hàng", new ThongKeDonHangPanel());

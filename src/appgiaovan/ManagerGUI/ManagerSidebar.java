@@ -6,7 +6,6 @@ package appgiaovan.ManagerGUI;
 import appgiaovan.GUI.Components.MenuBar;
 import java.util.Arrays;
 import java.util.List;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import javax.swing.JFrame;
@@ -31,11 +30,10 @@ public class ManagerSidebar extends MenuBar {
             JFrame frame = new JFrame("Giao diện Quản Lý");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(1300, 600);
-            frame.setLocationRelativeTo(null); // căn giữa màn hình
+            frame.setLocationRelativeTo(null);
 
-            // Thêm sidebar vào frame
             ManagerSidebar sidebar = new ManagerSidebar(6);
-            frame.add(sidebar, BorderLayout.WEST); // hoặc CENTER tùy theo layout bạn muốn
+            frame.add(sidebar, BorderLayout.WEST); 
             frame.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();

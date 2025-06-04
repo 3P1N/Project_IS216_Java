@@ -9,7 +9,6 @@ import appgiaovan.Controller.QLNVKhoController;
 import appgiaovan.Entity.NhanVienKho;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -24,7 +23,7 @@ public class FormSuaNVKho extends JDialog {
         JFrame frame = new JFrame("Quản Lý Nhân Viên Kho");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1300, 600);
-        frame.setLocationRelativeTo(null); // Center the frame
+        frame.setLocationRelativeTo(null);
         super(frame, "Sửa Khách Hàng", true);
         this.controller = new QLNVKhoController();
         this.nv = nv;
@@ -100,7 +99,6 @@ public class FormSuaNVKho extends JDialog {
             for (Integer id : dsKho) {
                 cboIDKho.addItem(id);
             }
-            // set lần đầu manager của kho đầu tiên
             if (!dsKho.isEmpty()) {
                 Integer firstKho = dsKho.get(0);
                 Integer mg = controller.layIDQuanLyTheoKho(firstKho);
@@ -149,7 +147,6 @@ public class FormSuaNVKho extends JDialog {
             return false;
         }
 
-        // Kiểm tra định dạng ngày sinh (YYYY-MM-DD)
         String ngaySinh = txtNgaySinh.getText().trim();
         if (!ngaySinh.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
             JOptionPane.showMessageDialog(null, "Ngày sinh phải theo định dạng YYYY-MM-DD.");

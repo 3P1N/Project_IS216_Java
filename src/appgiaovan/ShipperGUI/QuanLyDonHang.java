@@ -3,15 +3,9 @@ package appgiaovan.ShipperGUI;
 import appgiaovan.Controller.CapNhatController;
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.EmployeeGUI.QuanLyDonHangPanel;
-import appgiaovan.EmployeeGUI.SuaDonHangFrame;
 import appgiaovan.EmployeeGUI.TableDonHang;
 import appgiaovan.Entity.DonHang;
-import appgiaovan.GUI.Components.TableList;
-import appgiaovan.GUI.Components.MenuBar;
-import appgiaovan.GUI.Components.RoundedButton;
 import appgiaovan.GUI.Components.TimeWeather;
-import com.formdev.flatlaf.FlatLightLaf;
-import static com.sun.tools.attach.VirtualMachine.list;
 import javax.swing.*;
 import java.awt.*;
 import static java.nio.file.Files.list;
@@ -27,10 +21,11 @@ public class QuanLyDonHang extends JPanel {
 
     private int idtk;
     private NVGHLoc filter = new NVGHLoc();
-    private TableDonHang listOrder ;
+    private TableDonHang listOrder;
     private final QLDonHangController controller = new QLDonHangController();
+
     public QuanLyDonHang(int idtk) throws SQLException, ClassNotFoundException {
-        
+
         setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.add(new TimeWeather("Hồ Chí Minh 30°C"), BorderLayout.NORTH);
@@ -52,7 +47,7 @@ public class QuanLyDonHang extends JPanel {
             data = new Object[ds.size()][columns.length];
             for (int i = 0; i < ds.size(); i++) {
                 DonHang dh = ds.get(i);
-                data[i][0] = false;                                
+                data[i][0] = false;
                 data[i][1] = dh.getIdDonHang();
                 data[i][2] = dh.getTenNguoiNhan();
                 data[i][3] = dh.getDiaChiNhan();
@@ -61,7 +56,7 @@ public class QuanLyDonHang extends JPanel {
                 data[i][6] = dh.getTienCOD();
                 data[i][7] = dh.getThoiGianTao();
                 data[i][8] = dh.getSdtNguoiGui();
-                data[i][9] = dh.getTenNguoiGui();  
+                data[i][9] = dh.getTenNguoiGui();
             }
         }
         listOrder = new TableDonHang(columns, data);
@@ -77,22 +72,26 @@ public class QuanLyDonHang extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        filter.getDGButton().addActionListener(e ->{
+        filter.getDGButton().addActionListener(e -> {
             try {
-                System.out.print(123);
+                
                 XuLyCapNhatDonHang("Đã giao");
                 HienThiDanhSach(idtk);
+
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        filter.getTBButton().addActionListener(e ->{
+        filter.getTBButton().addActionListener(e -> {
             try {
                 System.out.print(234);
                 XuLyCapNhatDonHang("Giao thất bại");
                 HienThiDanhSach(idtk);
+
+
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHang.class.getName()).log(Level.SEVERE, null, ex);
             } catch (Exception ex) {
@@ -102,6 +101,7 @@ public class QuanLyDonHang extends JPanel {
 
         HienThiDanhSach(idtk);
     }
+
     public final void HienThiDanhSach(int idtk) throws SQLException, ClassNotFoundException {
         List<DonHang> dsDonHang = controller.LayDSDonHangSP(idtk);
         String[] columns = DonHang.getTableHeaders1();
@@ -119,9 +119,9 @@ public class QuanLyDonHang extends JPanel {
         String[] columns = DonHang.getTableHeaders1();
 
         if (dsDonHang.isEmpty()) {
-            
+
             Object[][] data = new Object[0][columns.length];
-            listOrder.setTableData(data);  
+            listOrder.setTableData(data);
             return;
         }
 
@@ -132,7 +132,8 @@ public class QuanLyDonHang extends JPanel {
 
         listOrder.setTableData(data);
     }
-    public void XuLyCapNhatDonHang(String trangThai) throws SQLException, ClassNotFoundException, Exception  {
+
+    public void XuLyCapNhatDonHang(String trangThai) throws SQLException, ClassNotFoundException, Exception {
         for (int i = 0; i < listOrder.getRowCount(); i++) {
             Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0);
             if (Boolean.TRUE.equals(isChecked)) {
@@ -142,7 +143,7 @@ public class QuanLyDonHang extends JPanel {
         }
 
 //        DonHang dh = filter.getDonHang();
-//        HienThiDanhSach( idtk);
+
 
     }
 

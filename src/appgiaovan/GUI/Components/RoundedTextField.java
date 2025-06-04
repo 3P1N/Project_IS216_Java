@@ -19,7 +19,7 @@ public class RoundedTextField extends JTextField {
     static {
         try {
             UIManager.setLookAndFeel(new FlatLightLaf());
-            UIManager.put("Component.arc", 20); // Áp dụng bo tròn
+            UIManager.put("Component.arc", 20); 
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
@@ -31,7 +31,6 @@ public class RoundedTextField extends JTextField {
         setForeground(Color.GRAY);
         setPreferredSize(new Dimension(200, 40));
 
-        // Mất placeholder khi focus
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {

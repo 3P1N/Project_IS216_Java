@@ -8,7 +8,6 @@ import appgiaovan.Controller.QLKHController;
 import appgiaovan.Entity.KhachHang;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -102,7 +101,6 @@ public class FormSuaKH extends JDialog {
             return false;
         }
 
-        // Kiểm tra định dạng ngày sinh (YYYY-MM-DD)
         String ngaySinh = txtNgaySinh.getText().trim();
         if (!ngaySinh.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
             JOptionPane.showMessageDialog(null, "Ngày sinh phải theo định dạng YYYY-MM-DD.");

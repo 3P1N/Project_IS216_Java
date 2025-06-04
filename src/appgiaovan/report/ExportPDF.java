@@ -12,9 +12,7 @@ import java.io.FileOutputStream;
 import javax.swing.JFileChooser;
 import org.jfree.chart.JFreeChart;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -57,7 +55,7 @@ public class ExportPDF {
                 // ========== MỤC 1 ==========
                 Paragraph title1 = new Paragraph("1. Tổng quan doanh thu:", titleFont);
                 document.add(title1);
-                Date ngayBaoCao = new Date(); // hoặc new Date() nếu bạn muốn ngày hiện tại
+                Date ngayBaoCao = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String formattedDate = formatNgay(ngayBaoCao);
 
@@ -139,8 +137,7 @@ public class ExportPDF {
 
             document.add(table);
             document.add(Chunk.NEWLINE);
-
-            // 👉 Vẽ biểu đồ ra ảnh
+            
             int width = 500, height = 300;
             BufferedImage chartImage = pieChart.createBufferedImage(width, height);
             ByteArrayOutputStream chartOut = new ByteArrayOutputStream();
@@ -148,7 +145,7 @@ public class ExportPDF {
             Image chartImg = Image.getInstance(chartOut.toByteArray());
 
             chartImg.setAlignment(Image.ALIGN_CENTER);
-            chartImg.scaleToFit(500, 300); // resize cho vừa trang
+            chartImg.scaleToFit(500, 300); 
             document.add(chartImg);
 
             document.close();
