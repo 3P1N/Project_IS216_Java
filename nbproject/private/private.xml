@@ -38,7 +38,6 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/CustomerGUI/CustomerGUI.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/KhoHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/GoiHangDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ThongKeDoanhThuPanel.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/XaPhuong.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/images/LOGO3P1N.png</file>
@@ -100,7 +99,6 @@
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/XemBaoCaoController.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Entity/DonHang.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/ThongKeDAO.java</file>
-            <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/TaoDonHangController.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/QLGHController.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/DAO/KhachHangDAO.java</file>
             <file>file:/D:/github/Project_IS216_Java/src/appgiaovan/Controller/DangKyController.java</file>
