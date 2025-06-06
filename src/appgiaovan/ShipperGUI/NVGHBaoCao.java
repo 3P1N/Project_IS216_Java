@@ -84,18 +84,44 @@ public class NVGHBaoCao extends JPanel {
 
         sendBtn.addActionListener(e -> {
         try {
-            int dagiao = Integer.parseInt(deliveredField.getText().trim());
-            int thatbai = Integer.parseInt(failedField.getText().trim());
-            int cod = Integer.parseInt(revenueField.getText().trim());
+            String dagiaoStr = deliveredField.getText().trim();
+            String thatbaiStr = failedField.getText().trim();
+            String codStr = revenueField.getText().trim();
 
+            // Kiểm tra rỗng
+            if (dagiaoStr.isEmpty() || thatbaiStr.isEmpty() || codStr.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng không để trống các trường!", "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Kiểm tra định dạng và số âm
+            int dagiao = Integer.parseInt(dagiaoStr);
+            int thatbai = Integer.parseInt(thatbaiStr);
+            int cod = Integer.parseInt(codStr);
+
+            if (dagiao < 0 || thatbai < 0 || cod < 0) {
+                JOptionPane.showMessageDialog(this, "Giá trị không được là số âm!", "Lỗi nhập liệu",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Gọi Controller để lưu báo cáo
             new LapBaoCaoController().ThemBaoCao(id, dagiao, thatbai, cod);
             JOptionPane.showMessageDialog(this, "Đã gửi báo cáo!", "Thông báo",
                     JOptionPane.INFORMATION_MESSAGE);
+
+            // Xoá dữ liệu sau khi gửi thành công
+            deliveredField.setText("");
+            failedField.setText("");
+            revenueField.setText("");
+
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số ở các trường!", "Lỗi nhập liệu",
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số nguyên!", "Lỗi nhập liệu",
                     JOptionPane.ERROR_MESSAGE);
         }
     });
+
 
     }
 
