@@ -18,8 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-
-
 public class SuaDonHangFrame extends JFrame {
 
     // --- Fields ---
@@ -62,8 +60,8 @@ public class SuaDonHangFrame extends JFrame {
             try {
                 // Nếu conn chưa mở, thì mở 1 lần duy nhất
                 if (conn == null || conn.isClosed()) {
-                    System.out.println("here");
-                    conn = (Connection) ConnectionUtils.getMyConnection(); // bạn có thể ép kiểu hoặc sửa import
+
+                    conn = ConnectionUtils.getMyConnection(); // bạn có thể ép kiểu hoặc sửa import
                     conn.setAutoCommit(false); // rất quan trọng!
                     conn.setTransactionIsolation(java.sql.Connection.TRANSACTION_SERIALIZABLE); // để mô phỏng lỗi
                 }
@@ -233,9 +231,10 @@ public class SuaDonHangFrame extends JFrame {
             return; // Dừng lại, không thực hiện thêm
         }
         // Gọi controller để thêm đơn hàng
+        
 
         controller.SuaDonHang(dh, conn);
-        // Gọi callback
+        // Gọi callback 
 //        JOptionPane.showMessageDialog(this, "Sửa đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 //        onSuccess.run();
 //

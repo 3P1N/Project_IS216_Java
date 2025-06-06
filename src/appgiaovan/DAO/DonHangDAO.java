@@ -165,7 +165,7 @@ public class DonHangDAO {
             throw new SQLException("Connection is null. DAO cần một kết nối mở từ GUI.");
         }
 
-        conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+        conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
         conn.setAutoCommit(false);
 
         String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
