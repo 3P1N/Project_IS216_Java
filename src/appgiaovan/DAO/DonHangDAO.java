@@ -264,8 +264,9 @@ public class DonHangDAO {
         } else {
             stmt.setNull(14, Types.VARCHAR);
         }
-
+        System.out.println("here1");
         stmt.execute();
+        System.out.println("here2");
 
     }
 
@@ -280,7 +281,10 @@ public class DonHangDAO {
             params.add(donHang.getIdDonHang());
         }
 
-        if (donHang.getTrangThai() != null && !donHang.getTrangThai().isEmpty()) {
+        if (donHang.getTrangThai() != null
+                && !donHang.getTrangThai().isEmpty()
+                && !donHang.getTrangThai().equals("Tất cả")) {
+
             System.out.println(donHang.getTrangThai());
             sql.append(" AND TrangThai LIKE ?");
             params.add("%" + donHang.getTrangThai() + "%");
@@ -302,6 +306,71 @@ public class DonHangDAO {
             for (int i = 0; i < params.size(); i++) {
                 stmt.setObject(i + 1, params.get(i));
             }
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                DonHang dh = new DonHang();
+                dh.setIdDonHang(rs.getInt("ID_DonHang"));
+                dh.setIdKhachHang(rs.getInt("ID_KhachHang"));
+                dh.setIdNVGiaoHang(rs.getInt("ID_NVGiaoHang"));
+                dh.setSdtNguoiGui(rs.getString("SDTNguoiGui"));
+                dh.setSdtNguoiNhan(rs.getString("SDTNguoiNhan"));
+                dh.setIdKhoTiepNhan(rs.getInt("ID_KhoTiepNhan"));
+                dh.setTenNguoiGui(rs.getString("TenNguoiGui"));
+                dh.setTenNguoiNhan(rs.getString("TenNguoiNhan"));
+                dh.setDiaChiNhan(rs.getString("DiaChiNhan"));
+                dh.setTienCOD(rs.getDouble("TienCOD"));
+                dh.setPhi(rs.getDouble("Phi"));
+                dh.setThoiGianNhan(rs.getTimestamp("ThoiGianNhan"));
+                dh.setThoiGianTao(rs.getTimestamp("ThoiGianTao"));
+                dh.setThoiGianDuKien(rs.getTimestamp("ThoiGianDuKien"));
+                dh.setTrangThai(rs.getString("TrangThai"));
+                dh.setDichVu(rs.getString("DichVu"));
+                dh.setLoaiHangHoa(rs.getString("LoaiHangHoa"));
+
+                list.add(dh);
+            }
+        }
+
+        return list;
+    }
+
+    public List<DonHang> LayDSDonHang(DonHang donHang, Connection conn) throws SQLException, ClassNotFoundException {
+        List<DonHang> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 ");
+        List<Object> params = new ArrayList<>();
+
+        if (null == donHang.getIdDonHang()) {
+        } else {
+            sql.append(" AND ID_DonHang = ?");
+            params.add(donHang.getIdDonHang());
+        }
+
+        if (donHang.getTrangThai() != null
+                && !donHang.getTrangThai().isEmpty()
+                && !donHang.getTrangThai().equals("Tất cả")) {
+
+            System.out.println(donHang.getTrangThai());
+            sql.append(" AND TrangThai LIKE ?");
+            params.add("%" + donHang.getTrangThai() + "%");
+        }
+
+        if (donHang.getTenNguoiGui() != null && !donHang.getTenNguoiGui().isEmpty()) {
+            sql.append(" AND TenNguoiGui LIKE ?");
+            params.add("%" + donHang.getTenNguoiGui() + "%");
+        }
+
+        if (donHang.getIdKhoTiepNhan() != null) {
+            sql.append(" AND ID_KhoTiepNhan = ?");
+            params.add(donHang.getIdKhoTiepNhan());
+        }
+
+        sql.append(" ORDER BY ID_DonHang DESC");
+
+        PreparedStatement stmt = conn.prepareStatement(sql.toString());
+        
+            for (int i = 0; i < params.size(); i++) {
+            stmt.setObject(i + 1, params.get(i));
 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

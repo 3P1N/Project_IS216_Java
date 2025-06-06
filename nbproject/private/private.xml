@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/SuaDonHangFrame.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/EmployeeSidebar.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/Controller/QLDonHangController.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/AppGiaoVan.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/QuanLyDonHangPanel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ManagerGUI/ThongKeDanhGiaPanel.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/ConnectDB/ConnectionOracle.java</file>
+            <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/DAO/DonHangDAO.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/EmployeeGUI/TableDonHang.java</file>
             <file>file:/D:/Github/Project_IS216_Java/src/appgiaovan/report/ExportPDF.java</file>
         </group>

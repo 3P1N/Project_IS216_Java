@@ -39,7 +39,11 @@ public class TopPanelQLDH extends JPanel {
         add(idField);
 
         // ComboBox - Trạng thái
-        String[] dsTrangThai = donHangDAO.DSTrangThai();
+        String[] dsTrangThaiGoc = donHangDAO.DSTrangThai();
+        String[] dsTrangThai = new String[dsTrangThaiGoc.length + 1];
+        dsTrangThai[0] = "Tất cả"; // Thêm "Tất cả" vào đầu
+        System.arraycopy(dsTrangThaiGoc, 0, dsTrangThai, 1, dsTrangThaiGoc.length);
+
         statusComboBox = new JComboBox<>(dsTrangThai);
         statusComboBox.setPreferredSize(new Dimension(130, 40));
         statusComboBox.setBorder(BorderFactory.createTitledBorder("Trạng thái"));
@@ -63,7 +67,7 @@ public class TopPanelQLDH extends JPanel {
         addButton.setForeground(Color.WHITE);
         addButton = new RoundedButton(addButton, 20);
         add(addButton);
-        
+
         deleteButton.setPreferredSize(new Dimension(120, 30));
         deleteButton.setBackground(new Color(200, 0, 0));
         deleteButton.setForeground(Color.white);
@@ -81,7 +85,7 @@ public class TopPanelQLDH extends JPanel {
         phanCongButton.setForeground(Color.WHITE);
         phanCongButton = new RoundedButton(phanCongButton, 20);
         add(phanCongButton);
-        
+
         refreshButton.setPreferredSize(new Dimension(150, 30));
         refreshButton.setBackground(new Color(0, 136, 153));
         refreshButton.setForeground(Color.WHITE);
@@ -89,8 +93,8 @@ public class TopPanelQLDH extends JPanel {
         add(refreshButton);
 
     }
-    
-    public JButton getRefreshButton(){
+
+    public JButton getRefreshButton() {
         return this.refreshButton;
     }
 
@@ -109,8 +113,8 @@ public class TopPanelQLDH extends JPanel {
     public JButton getPhanCongButton() {
         return this.phanCongButton;
     }
-    
-    public JButton getDeleteButton(){
+
+    public JButton getDeleteButton() {
         return this.deleteButton;
     }
 
@@ -121,7 +125,7 @@ public class TopPanelQLDH extends JPanel {
         if (!idText.isEmpty()) {
             dh.setIdDonHang(Integer.parseInt(idText));
         } else {
-            dh.setIdDonHang(null); 
+            dh.setIdDonHang(null);
         }
 
         Object selected = statusComboBox.getSelectedItem();

@@ -1,10 +1,11 @@
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.NhanVienKho;
 import com.formdev.flatlaf.FlatLightLaf;
-
+import java.sql.Connection;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -18,9 +19,10 @@ public class QuanLyDonHangPanel extends JPanel {
     private TableDonHang listOrder;
     private TopPanelQLDH topPanel;
     private NhanVienKho nhanVienKho;
+    private Connection conn = null;
 
     public QuanLyDonHangPanel(NhanVienKho nvKho) throws SQLException, ClassNotFoundException {
-
+        
         this.nhanVienKho = nvKho;
 
         setLayout(new BorderLayout());
@@ -97,9 +99,12 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         topPanel.getRefreshButton().addActionListener(e -> {
             try {
+                conn.commit();
+                conn.close();
+                Connect();
                 HienThiDanhSach();
             } catch (SQLException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -107,16 +112,25 @@ public class QuanLyDonHangPanel extends JPanel {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-
+        Connect();
         HienThiDanhSach();
+
     }
 
+    public void Connect() throws SQLException, ClassNotFoundException{
+        if (conn == null || conn.isClosed()) {
+            conn = ConnectionUtils.getMyConnection();
+            conn.setAutoCommit(false);
+            conn.setTransactionIsolation(java.sql.Connection.TRANSACTION_READ_COMMITTED); // để mô phỏng lỗi
+        }
+    }
+    
     public void XuLyHuyDonHang() throws SQLException, ClassNotFoundException {
         for (int i = 0; i < listOrder.getRowCount(); i++) {
-            Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0); 
+            Boolean isChecked = (Boolean) listOrder.getValueAt(i, 0);
             if (Boolean.TRUE.equals(isChecked)) {
                 // Lấy thông tin dòng được chọn
-                Integer maDonHang = (Integer) listOrder.getValueAt(i, 1); 
+                Integer maDonHang = (Integer) listOrder.getValueAt(i, 1);
                 System.out.println(maDonHang);
 
                 controller.HuyDonHang(maDonHang);
@@ -127,7 +141,7 @@ public class QuanLyDonHangPanel extends JPanel {
     }
 
     public void PhanCongGiaoHang() throws SQLException, ClassNotFoundException {
-        new PhanCongGiaoHangFrame(nhanVienKho.getID_Kho(), ()-> {
+        new PhanCongGiaoHangFrame(nhanVienKho.getID_Kho(), () -> {
             try {
                 HienThiDanhSach();
             } catch (SQLException ex) {
@@ -165,6 +179,7 @@ public class QuanLyDonHangPanel extends JPanel {
     public void ThemDonHang() throws SQLException, ClassNotFoundException, Exception {
         ThemDonHangFrame themDH = new ThemDonHangFrame(() -> {
             try {
+                
                 HienThiDanhSach();
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(QuanLyDonHangPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,7 +195,7 @@ public class QuanLyDonHangPanel extends JPanel {
     }
 
     public final void HienThiDanhSach(DonHang dh) throws SQLException, ClassNotFoundException {
-        List<DonHang> dsDonHang = controller.LayDSDonHang(dh);
+        List<DonHang> dsDonHang = controller.LayDSDonHang(dh, this.conn);
         String[] columns = DonHang.getTableHeaders();
         Object[][] data = new Object[dsDonHang.size()][columns.length];
 
@@ -206,7 +221,7 @@ public class QuanLyDonHangPanel extends JPanel {
 
             try {
                 NhanVienKho nvkho = new NhanVienKho();
-               
+
                 frame.add(new QuanLyDonHangPanel(new NhanVienKho()), BorderLayout.CENTER);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Không thể kết nối cơ sở dữ liệu!");

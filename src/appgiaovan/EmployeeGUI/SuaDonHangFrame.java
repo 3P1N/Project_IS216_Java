@@ -18,8 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-
-
 public class SuaDonHangFrame extends JFrame {
 
     // --- Fields ---
@@ -60,10 +58,11 @@ public class SuaDonHangFrame extends JFrame {
 
         btnSuaDonHang.addActionListener(e -> {
             try {
+                if (conn == null || conn.isClosed()) {
                     conn = (Connection) ConnectionUtils.getMyConnection();
-                    conn.setAutoCommit(false); 
+                    conn.setAutoCommit(false);
                     conn.setTransactionIsolation(java.sql.Connection.TRANSACTION_SERIALIZABLE); // để mô phỏng lỗi
-              
+                }
                 SuaDonHang(idDonHang, onSuccess);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -76,7 +75,6 @@ public class SuaDonHangFrame extends JFrame {
         setVisible(true);
     }
 
-    
     private void initComponents() throws SQLException, ClassNotFoundException, Exception {
         JPanel mainPanel = new JPanel(null);
         mainPanel.setBackground(Color.WHITE);
@@ -272,7 +270,7 @@ public class SuaDonHangFrame extends JFrame {
         SwingUtilities.invokeLater(() -> {
             SuaDonHangFrame frame = null;
             try {
-                frame = new SuaDonHangFrame(63, () -> System.out.println("Cập nhật danh sách!"));
+                frame = new SuaDonHangFrame(2, () -> System.out.println("Cập nhật danh sách!"));
             } catch (SQLException ex) {
                 Logger.getLogger(SuaDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
