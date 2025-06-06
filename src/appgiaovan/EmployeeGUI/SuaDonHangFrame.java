@@ -1,5 +1,6 @@
 package appgiaovan.EmployeeGUI;
 
+import appgiaovan.ConnectDB.ConnectionUtils;
 import appgiaovan.Controller.QLDonHangController;
 import appgiaovan.DAO.DonHangDAO;
 import appgiaovan.Entity.DonHang;
@@ -8,6 +9,8 @@ import appgiaovan.GUI.Components.DiaChiPanel;
 import appgiaovan.GUI.Components.RoundedButton;
 
 import appgiaovan.GUI.Components.TimeWeather;
+import java.sql.Connection;
+
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,63 +18,93 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
+
+
 public class SuaDonHangFrame extends JFrame {
 
-    private QLDonHangController controller = new QLDonHangController();
-    private DonHangDAO donHangDAO = new DonHangDAO();
+    // --- Fields ---
+    private final QLDonHangController controller = new QLDonHangController();
+    private final DonHangDAO donHangDAO = new DonHangDAO();
+
     private JTextField txtMaDon = new JTextField("");
     private JTextField txtSDTNguoiGui = new JTextField("");
     private JTextField txtTenNguoiGui = new JTextField("");
     private JTextField txtKhoTiepNhan;
     private JTextField txtSDTNguoiNhan = new JTextField("");
     private JTextField txtTenNguoiNhan = new JTextField("");
-    private JComboBox cbLoaiDichVu;
-    private JComboBox cbLoaiHang;
-    private JComboBox cbHinhThucThanhToan;
-
     private JTextField txtDiaChiNhan = new JTextField("");
 
+    private JComboBox cbLoaiDichVu;
+    private JComboBox cbLoaiHang;
+
     private RoundedButton btnSuaDonHang = new RoundedButton("Sửa đơn hàng");
+    private RoundedButton btnCommit = new RoundedButton("Commit");
     private DiaChiPanel diaChiPanel;
 
+    private int idDonHang;
+    private Connection conn = null;
+    private Runnable onSuccess;
+
     public SuaDonHangFrame(int idDonHang, Runnable onSuccess) throws SQLException, ClassNotFoundException, Exception {
+        this.idDonHang = idDonHang;
+        this.onSuccess = onSuccess;
+
         setTitle("Sửa Đơn Hàng");
         setSize(920, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null); // Center on screen
-        diaChiPanel = new DiaChiPanel();
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(null);
+
+        initComponents(); // ✅ GỌN GÀNG HƠN
+
+        HienThiDonHang(idDonHang);
+
+        btnSuaDonHang.addActionListener(e -> {
+            try {
+                // Nếu conn chưa mở, thì mở 1 lần duy nhất
+                if (conn == null || conn.isClosed()) {
+                    System.out.println("here");
+                    conn = (Connection) ConnectionUtils.getMyConnection(); // bạn có thể ép kiểu hoặc sửa import
+                    conn.setAutoCommit(false); // rất quan trọng!
+                    conn.setTransactionIsolation(java.sql.Connection.TRANSACTION_SERIALIZABLE); // để mô phỏng lỗi
+                }
+
+                SuaDonHang(idDonHang, onSuccess);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        btnCommit.addActionListener(e -> Commit());
+
+        setVisible(true);
+    }
+
+    // --------------------- ✅ INIT UI ----------------------
+    private void initComponents() throws SQLException, ClassNotFoundException, Exception {
+        JPanel mainPanel = new JPanel(null);
         mainPanel.setBackground(Color.WHITE);
 
-        // Bên gửi
         JLabel lblBenGui = new JLabel("Bên gửi");
         lblBenGui.setFont(new Font("Arial", Font.BOLD, 14));
         lblBenGui.setBounds(20, 20, 100, 25);
         mainPanel.add(lblBenGui);
-        //MaDon
-        txtMaDon.setFocusable(false);
 
+        txtMaDon.setFocusable(false);
         txtMaDon.setBorder(BorderFactory.createTitledBorder("Mã đơn hàng"));
         txtMaDon.setBounds(20, 50, 200, 50);
         txtMaDon.setFont(new Font("Arial", Font.BOLD, 16));
         mainPanel.add(txtMaDon);
-        //SDT
+
         txtSDTNguoiGui.setBorder(BorderFactory.createTitledBorder("SĐT Người Gửi *"));
         txtSDTNguoiGui.setBounds(240, 50, 200, 50);
         mainPanel.add(txtSDTNguoiGui);
-        //Ho ten
+
         txtTenNguoiGui.setBorder(BorderFactory.createTitledBorder("Tên Người Gửi *"));
         txtTenNguoiGui.setBounds(460, 50, 200, 50);
         mainPanel.add(txtTenNguoiGui);
 
         txtKhoTiepNhan = new JTextField();
-        String tenKho = null;
-
-       
-        
-
-        txtKhoTiepNhan.setText(tenKho);
         txtKhoTiepNhan.setBorder(BorderFactory.createTitledBorder("Kho tiếp nhận"));
         txtKhoTiepNhan.setBounds(680, 50, 200, 50);
         txtKhoTiepNhan.setFocusable(false);
@@ -81,7 +114,6 @@ public class SuaDonHangFrame extends JFrame {
         separator.setBounds(20, 120, 820, 10);
         mainPanel.add(separator);
 
-        // Bên nhận
         JLabel lblBenNhan = new JLabel("Bên nhận");
         lblBenNhan.setFont(new Font("Arial", Font.BOLD, 14));
         lblBenNhan.setBounds(20, 130, 100, 25);
@@ -100,8 +132,8 @@ public class SuaDonHangFrame extends JFrame {
         mainPanel.add(txtDiaChiNhan);
 
         diaChiPanel = new DiaChiPanel();
-        diaChiPanel.setBounds(20, 230, 500, 50); // Điều chỉnh lại vị trí và kích thước phù hợp
-        mainPanel.add(this.diaChiPanel);
+        diaChiPanel.setBounds(20, 230, 500, 50);
+        mainPanel.add(diaChiPanel);
 
         String[] dsDichVu = donHangDAO.DSDichVu();
         cbLoaiDichVu = new JComboBox(dsDichVu);
@@ -109,37 +141,23 @@ public class SuaDonHangFrame extends JFrame {
         cbLoaiDichVu.setBounds(20, 300, 150, 50);
         mainPanel.add(cbLoaiDichVu);
 
-        //Loai Hang
         String[] dsLoaiHang = donHangDAO.DSLoaiHang();
         cbLoaiHang = new JComboBox(dsLoaiHang);
         cbLoaiHang.setBorder(BorderFactory.createTitledBorder("Loại Hàng Hóa *"));
         cbLoaiHang.setBounds(200, 300, 300, 50);
         mainPanel.add(cbLoaiHang);
 
-        // Nút Xác nhận
-        btnSuaDonHang.setBounds((880 - 200 - 150) / 2, 440, 150, 45); // Trừ chiều rộng của menubar
-        btnSuaDonHang.setBackground(new Color(0x007BFF)); // Flat Blue
+        btnSuaDonHang.setBounds((880 - 200 - 150) / 2, 440, 150, 45);
+        btnSuaDonHang.setBackground(new Color(0x007BFF));
         mainPanel.add(btnSuaDonHang);
+        btnCommit.setBounds(500, 440, 150, 45);
+        btnCommit.setBackground(new Color(0x28A745));
+        mainPanel.add(btnCommit);
 
-        add(mainPanel, BorderLayout.CENTER);
-        setVisible(true);
-        
         TimeWeather CustomerTimeWeather = new TimeWeather("Ho Chi Minh 30 độ");
         mainPanel.add(CustomerTimeWeather, BorderLayout.NORTH);
 
-        HienThiDonHang(idDonHang);
-        btnSuaDonHang.addActionListener(e -> {
-
-            try {
-                SuaDonHang(idDonHang, onSuccess);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-            }
-
-        });
-
+        add(mainPanel, BorderLayout.CENTER);
     }
 
     public void HienThiDonHang(int idDonHang) throws SQLException, ClassNotFoundException {
@@ -196,7 +214,6 @@ public class SuaDonHangFrame extends JFrame {
 
         String loaiDichVu = (String) cbLoaiDichVu.getSelectedItem();
         String loaiHang = (String) cbLoaiHang.getSelectedItem();
-  
 
         // Gộp địa chỉ chi tiết
 //        String diaChiDayDu = diaChiNhan + ", " + phuongXa + ", " + quanHuyen;
@@ -216,12 +233,36 @@ public class SuaDonHangFrame extends JFrame {
             return; // Dừng lại, không thực hiện thêm
         }
         // Gọi controller để thêm đơn hàng
-        controller.SuaDonHang(dh);
-        // Gọi callback
-        JOptionPane.showMessageDialog(this, "Sửa đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
-        onSuccess.run();
 
-        dispose();
+        controller.SuaDonHang(dh, conn);
+        // Gọi callback
+//        JOptionPane.showMessageDialog(this, "Sửa đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
+//        onSuccess.run();
+//
+//        dispose();
+    }
+
+    public void Commit() {
+        try {
+            conn.commit();
+            conn.close();
+            JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+
+            onSuccess.run();
+            dispose();
+        } catch (SQLException ex) {
+            if (ex.getErrorCode() == 8177) { // ORA-08177: can't serialize access
+                JOptionPane.showMessageDialog(this, "Xung đột dữ liệu (Serializable)! Vui lòng tải lại đơn hàng.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Lỗi khi commit: " + ex.getMessage());
+            }
+            try {
+                if (conn != null) {
+                    conn.rollback();
+                }
+            } catch (SQLException ignored) {
+            }
+        }
     }
 
     public static void main(String[] args) {

@@ -11,6 +11,8 @@ import appgiaovan.Entity.DonHang;
 import appgiaovan.Entity.KhoHang;
 import appgiaovan.Entity.NhanVienGiaoHang;
 import appgiaovan.Entity.NhanVienKho;
+import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -32,6 +34,10 @@ public class QLDonHangController {
     
     public void SuaDonHang(DonHang donHang) throws SQLException, ClassNotFoundException{
         donHangDAO.SuaDonHang(donHang);
+    }
+    
+    public void SuaDonHang(DonHang donHang, Connection conn) throws SQLException, ClassNotFoundException{
+        donHangDAO.SuaDonHang(donHang, (java.sql.Connection) conn);
     }
 
     public boolean KiemTraDinhDang(DonHang donHang) {

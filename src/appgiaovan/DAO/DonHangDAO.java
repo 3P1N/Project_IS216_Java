@@ -160,6 +160,115 @@ public class DonHangDAO {
         }
     }
 
+    public void SuaDonHang(DonHang donHang, Connection conn) throws SQLException, ClassNotFoundException {
+        if (conn == null) {
+            throw new SQLException("Connection is null. DAO cần một kết nối mở từ GUI.");
+        }
+
+        conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+        conn.setAutoCommit(false);
+
+        String sql = "{call CapNhatDonHang(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+        CallableStatement stmt = conn.prepareCall(sql);
+
+        // 1. ID đơn hàng (bắt buộc)
+        stmt.setInt(1, donHang.getIdDonHang());
+
+        // 2. ID Khách hàng
+        if (donHang.getIdKhachHang() != null) {
+            stmt.setInt(2, donHang.getIdKhachHang());
+        } else {
+            stmt.setNull(2, Types.INTEGER);
+        }
+
+        // 3. ID Nhân viên giao hàng
+        if (donHang.getIdNVGiaoHang() != null) {
+            stmt.setInt(3, donHang.getIdNVGiaoHang());
+        } else {
+            stmt.setNull(3, Types.INTEGER);
+        }
+
+        // 4. SĐT người gửi
+        if (donHang.getSdtNguoiGui() != null) {
+            stmt.setString(4, donHang.getSdtNguoiGui());
+        } else {
+            stmt.setNull(4, Types.VARCHAR);
+        }
+
+        // 5. SĐT người nhận
+        if (donHang.getSdtNguoiNhan() != null) {
+            stmt.setString(5, donHang.getSdtNguoiNhan());
+        } else {
+            stmt.setNull(5, Types.VARCHAR);
+        }
+
+        // 6. ID kho tiếp nhận
+        if (donHang.getIdKhoTiepNhan() != null) {
+            stmt.setInt(6, donHang.getIdKhoTiepNhan());
+        } else {
+            stmt.setNull(6, Types.INTEGER);
+        }
+
+        // 7. Tên người gửi
+        if (donHang.getTenNguoiGui() != null) {
+            stmt.setString(7, donHang.getTenNguoiGui());
+        } else {
+            stmt.setNull(7, Types.VARCHAR);
+        }
+
+        // 8. Tên người nhận
+        if (donHang.getTenNguoiNhan() != null) {
+            stmt.setString(8, donHang.getTenNguoiNhan());
+        } else {
+            stmt.setNull(8, Types.VARCHAR);
+        }
+
+        // 9. Địa chỉ nhận
+        if (donHang.getDiaChiNhan() != null) {
+            stmt.setString(9, donHang.getDiaChiNhan());
+        } else {
+            stmt.setNull(9, Types.VARCHAR);
+        }
+
+        // 10. Tiền COD
+        if (donHang.getTienCOD() != null) {
+            stmt.setDouble(10, donHang.getTienCOD());
+        } else {
+            stmt.setNull(10, Types.DOUBLE);
+        }
+
+        // 11. Thời gian nhận
+        if (donHang.getThoiGianNhan() != null) {
+            stmt.setTimestamp(11, (Timestamp) donHang.getThoiGianNhan());
+        } else {
+            stmt.setNull(11, Types.TIMESTAMP);
+        }
+
+        // 12. Thời gian dự kiến
+        if (donHang.getThoiGianDuKien() != null) {
+            stmt.setTimestamp(12, (Timestamp) donHang.getThoiGianDuKien());
+        } else {
+            stmt.setNull(12, Types.TIMESTAMP);
+        }
+
+        // 13. Dịch vụ
+        if (donHang.getDichVu() != null) {
+            stmt.setString(13, donHang.getDichVu());
+        } else {
+            stmt.setNull(13, Types.VARCHAR);
+        }
+
+        // 14. Loại hàng hóa
+        if (donHang.getLoaiHangHoa() != null) {
+            stmt.setString(14, donHang.getLoaiHangHoa());
+        } else {
+            stmt.setNull(14, Types.VARCHAR);
+        }
+
+        stmt.execute();
+
+    }
+
     public List<DonHang> LayDSDonHang(DonHang donHang) throws SQLException, ClassNotFoundException {
         List<DonHang> list = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM DonHang WHERE 1=1 ");
@@ -856,7 +965,6 @@ public class DonHangDAO {
         String sql = "SELECT COUNT(ID_DONHANG) FROM DONHANG";
         try (Connection conn = ConnectionUtils.getMyConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1); // ✅ Lấy giá trị từ cột đầu tiên
@@ -865,7 +973,7 @@ public class DonHangDAO {
                 }
             }
         }
-        
+
     }
 
 }
