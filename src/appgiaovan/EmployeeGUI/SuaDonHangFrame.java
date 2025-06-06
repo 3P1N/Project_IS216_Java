@@ -18,6 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
+
+
 public class SuaDonHangFrame extends JFrame {
 
     // --- Fields ---
@@ -58,14 +60,10 @@ public class SuaDonHangFrame extends JFrame {
 
         btnSuaDonHang.addActionListener(e -> {
             try {
-                // Nếu conn chưa mở, thì mở 1 lần duy nhất
-                if (conn == null || conn.isClosed()) {
-
-                    conn = ConnectionUtils.getMyConnection(); // bạn có thể ép kiểu hoặc sửa import
-                    conn.setAutoCommit(false); // rất quan trọng!
+                    conn = (Connection) ConnectionUtils.getMyConnection();
+                    conn.setAutoCommit(false); 
                     conn.setTransactionIsolation(java.sql.Connection.TRANSACTION_SERIALIZABLE); // để mô phỏng lỗi
-                }
-
+              
                 SuaDonHang(idDonHang, onSuccess);
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -78,7 +76,7 @@ public class SuaDonHangFrame extends JFrame {
         setVisible(true);
     }
 
-    // --------------------- ✅ INIT UI ----------------------
+    
     private void initComponents() throws SQLException, ClassNotFoundException, Exception {
         JPanel mainPanel = new JPanel(null);
         mainPanel.setBackground(Color.WHITE);
@@ -227,14 +225,14 @@ public class SuaDonHangFrame extends JFrame {
         dh.setLoaiHangHoa(loaiHang);
         dh.setIdKhoTiepNhan(idKho);
         if (!controller.KiemTraDinhDang(dh)) {
-            JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Định dạng đơn hàng không hợp lệ."
+                    + " Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return; // Dừng lại, không thực hiện thêm
         }
         // Gọi controller để thêm đơn hàng
-        
 
         controller.SuaDonHang(dh, conn);
-        // Gọi callback 
+        // Gọi callback
 //        JOptionPane.showMessageDialog(this, "Sửa đơn hàng thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
 //        onSuccess.run();
 //
@@ -274,7 +272,7 @@ public class SuaDonHangFrame extends JFrame {
         SwingUtilities.invokeLater(() -> {
             SuaDonHangFrame frame = null;
             try {
-                frame = new SuaDonHangFrame(2, () -> System.out.println("Cập nhật danh sách!"));
+                frame = new SuaDonHangFrame(63, () -> System.out.println("Cập nhật danh sách!"));
             } catch (SQLException ex) {
                 Logger.getLogger(SuaDonHangFrame.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
